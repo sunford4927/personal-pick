@@ -178,7 +178,7 @@ const Detailinfo = () => {
                         {/* 화장품 브랜드 이미지, 이름 */}
                         <div className='brandmain my-24'>
                         <div className='brand flex items-center px-20'>
-                            <img src = {item.brand_img_src} className='brandimg'/><span id='brandname'>{item.brand_name}</span>
+                        <span id='brandname'>{item.brand_name}</span>
                         </div>
 
                         {/* 화장품 정보 */}
@@ -193,13 +193,13 @@ const Detailinfo = () => {
 
                         <div className='priceinfo px-20 mt-24'>
                         <div className='price'>
-                        정가 :<span className='pricetext'>{item.price}원 / {item.vol}ml</span>
+                        <span className='price1'>정가 :</span><span className='pricetext'>{item.price}원 / {item.vol}ml</span>
                         </div>
                         </div>
 
                         <div className='rankinginfo' onClick={(e)=>showmodal1(e)}>
                         <div className='ranking px-20 mt-24'>
-                        랭킹 :<span className='rankingtext'>{item.ranking}</span>
+                        <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                         </div>
                         <img src = {detailright} width={23} height={23}/>
                         </div>
