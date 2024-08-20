@@ -17,6 +17,7 @@ import Footer from './components/footerPage/FooterPage';
 import './App.css'
 import './index.scss'
 import TotalRanking from './page/totalitem/TotalRanking';
+import Loading from './page/loading/Loading';
 const store = createStore(personalReducer)
 
 
@@ -27,6 +28,7 @@ function App() {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <div className="App">
                     <Routes>
+                        {/*<Route path='/' element={<Loading/>}></Route>*/}
                         <Route path='/' element={<Home />}></Route>
                         <Route path='/join' element={<Join />}></Route>
                         <Route path='/login' element={<Login />}></Route>
