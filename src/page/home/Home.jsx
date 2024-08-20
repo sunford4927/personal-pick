@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
 import { useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
@@ -160,6 +160,7 @@ const Home = () => {
         <div id='wrapper' className="inner" >
             {/* // <div id='wrapper' >     */}
 
+            
             {/* Main */}
             <img src={Logo} className="logoimg" alt="팀로고" />
             <div className='flex_col width' >
@@ -177,6 +178,17 @@ const Home = () => {
                 <CustomSwiper list={data} />
             </div>
 
+            {/* 스크롤 내릴시 생기는 애니메이션 div */}
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                ease: 'easeInOut',
+                duration: 0.5,
+                x: { duration: 1 },
+                }}
+                >
             <div className="basic-text cursor" onClick={() => nextTotalPage(2)}>
                 화해 고객들이 직접
                 <span> 선택한 랭킹🎁 </span>
@@ -190,10 +202,21 @@ const Home = () => {
                 카테고리 전체보기
                 <img className="homeright" src={Right} alt="" />
             </div>
+            </motion.div>
 
             {/* sendGet으로 필요한 데이터 세 가지 받아오고 그 데이터 이름을 data라는 키 값으로 보내주면 됨! */}
 
-
+            {/* 스크롤 내릴시 생기는 애니메이션 div */}
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                ease: 'easeInOut',
+                duration: 0.5,
+                x: { duration: 1 },
+                }}
+                >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
                 내 피부에 꼭 맞는 제품 랭킹
                 <img className="category_arrow" src={Right} alt="" /> 
@@ -206,11 +229,24 @@ const Home = () => {
                 {userItemRank + ' 전체보기'}
                 <img className="homeright" src={Right} alt="" />
             </div>
+            </motion.div>
 
+            {/* 스크롤 내릴시 생기는 애니메이션 div */}
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                ease: 'easeInOut',
+                duration: 0.5,
+                x: { duration: 1 },
+                }}
+                >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
                 나이대별 추천
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
+            
             
             <Category dic={userAgePick} setDic={setUserAgePick} categoryData={userAgeList} />
             <Itemview data={itemDic} />
@@ -218,8 +254,11 @@ const Home = () => {
                 {userAgePick + " 전체보기"}
                 <img className="homeright" src={Right} alt="" />
             </div>
+            </motion.div>
             <div className="home_page_btn cursor" onClick={() =>nav('/login')}>로그인</div>
+            
         </div>
+        
 
     );
 };
