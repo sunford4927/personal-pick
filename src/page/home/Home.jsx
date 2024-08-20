@@ -163,7 +163,7 @@ const Home = () => {
 
             
             {/* Main */}
-            <img src={MainLogo} className="logoimg" alt="팀로고" />
+            <img src={MainLogo} className="logoimg" alt="팀로고"/>
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>

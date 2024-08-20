@@ -16,7 +16,7 @@
 .basic-text{
     span{
         font-weight: bold;
-        color: rgb(14, 128, 23);
+        color: #0099FC
     }
 }
 
@@ -44,7 +44,9 @@
 
 // 로고 이미지 사이즈 안 맞는 거 수정 필요
 .logoimg{
-    width: 100%;
+    width: 34%;
+    display: flex;
+    margin: auto;
 }
 
 .homeright {
