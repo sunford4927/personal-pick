@@ -8,8 +8,9 @@ import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
 import Right from '../../img/오른쪽.png'
-import Logo from '../../img/로고.png'
+// import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
+import MainLogo from '../../img/메인로고.png'
 
 
 // 데이터 6개만 받아올 예정!
@@ -162,7 +163,7 @@ const Home = () => {
 
             
             {/* Main */}
-            <img src={Logo} className="logoimg" alt="팀로고" />
+            <img src={MainLogo} className="logoimg" alt="팀로고" />
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>
