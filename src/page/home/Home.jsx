@@ -11,7 +11,8 @@ import Right from '../../img/오른쪽.png'
 // import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import MainLogo from '../../img/메인로고.png'
-
+import MenuImg from "../../img/햄버거메뉴.png"
+import Menu from "../../components/menu/Menu";
 
 // 데이터 6개만 받아올 예정!
 let itemDic = [
@@ -140,6 +141,7 @@ const Home = () => {
     // 나이대별 추천
     const [userAgePick, setUserAgePick] = useState("10대");
 
+    const [isMenu, setIsMenu] = useState(false);
     // [] -> 첫 렌더링에만 실행
     useEffect(() => {
         sendGet(URL + '/MainPage', setData);
@@ -164,10 +166,11 @@ const Home = () => {
             
             {/* Main */}
             <img src={MainLogo} className="logoimg" alt="팀로고"/>
+            <img src={MenuImg} className="home_menu float_r" alt="" onClick={()=>setIsMenu(!isMenu)}/>
+            <Menu isView={isMenu}/>
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>
-
             <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
                 {(today.getMonth()+1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
                 <span> 조회수🎁 </span> 급상승
