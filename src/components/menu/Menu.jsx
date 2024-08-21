@@ -40,7 +40,7 @@ const Menu = ({ isView }) => {
                         <p className='menu_sub_title cursor' onClick={() => nav("/subscription")}>정기배송/구독</p>
                         <hr />
                         <p className='menu_sub_title cursor'>리뷰</p>
-                        {name !== null && <p className='menu_sub_title cursor'>마이페이지</p>}
+                        {name !== null && <p className='menu_sub_title cursor' onClick={()=>nav("/mypage")}>마이페이지</p>}
                     </div>
                 </div>
 

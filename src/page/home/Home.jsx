@@ -10,11 +10,8 @@ import './Home.scss'
 import Right from '../../img/오른쪽.png'
 // import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
-import MainLogo from '../../img/메인로고.png'
-import MenuImg from "../../img/햄버거메뉴.png"
-import Menu from "../../components/menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import { setMenuView } from "../../redux/type/typefunc";
+
 
 
 // 데이터 6개만 받아올 예정!
@@ -144,32 +141,11 @@ const Home = () => {
     // 나이대별 추천
     const [userAgePick, setUserAgePick] = useState("10대");
 
-    const [isMenu, setIsMenu] = useState({
-        x : 0,
-        y : 0,
-    });
 
-    const isMenuView = useSelector(state => state.isMenu)
+
+    
     // [] -> 첫 렌더링에만 실행
 
-    function setView(e)
-    {
-        // e.stopPropagation()
-        console.log(isMenu.isView)
-        // if(isMenu.isView)
-        // {
-        // }
-        if(isMenu.isView)
-        {
-            console.log(1)
-            setIsMenu({
-                isView : false,
-                x : 0,
-                y : 0
-            })
-        }
-        
-    }
     useEffect(() => {
         sendGet(URL + '/MainPage', setData);
         // let App = document.getElementsByClassName("App")
@@ -196,14 +172,7 @@ const Home = () => {
         nav('/totalitem/' + pageidx);
     }
 
-    function showMenu(e){
-        e.stopPropagation();
-        dispatch(setMenuView(!isMenuView))
-        setIsMenu({
-            x : e.target.offsetLeft-280,
-            y : e.target.offsetTop+40
-        })        
-    }
+
 
     return (
         <div id='wrapper' className="inner"  >
@@ -211,11 +180,7 @@ const Home = () => {
 
             
             {/* Main */}
-            <div className="flex_col home_header">
-                <img src={MainLogo} className="logoimg" alt="팀로고"/>
-                <img src={MenuImg} className="home_menu" alt="" onClick={(e)=> showMenu(e)}/>
-            </div>
-            <Menu isView={isMenu}/>
+
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>
