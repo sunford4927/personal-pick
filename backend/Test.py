@@ -46,3 +46,17 @@ class testOrderData(Resource):
 
         result = setQuery(sql)
         return jsonify(result)
+    
+
+class testCategory(Resource):
+    def get(self):
+        user_name = request.args.get('user_name')
+        print('user_name : ',user_name)
+        
+        sql =f'''SELECT t.order_id, t.user_id, t.order_date, t.order_status
+                FROM test_orders t
+                INNER JOIN users u ON t.user_id = u.user_id
+                WHERE u.user_name = "{user_name}"'''
+
+        result = setQuery(sql)
+        return jsonify(result)
