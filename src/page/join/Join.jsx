@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom';
-import './Login.scss'
+import '../login/Login.scss'
 import { useSelector, useDispatch } from 'react-redux'
 
 const Join = () => {

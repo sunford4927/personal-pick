@@ -1,3 +1,25 @@
-// .writing_box {
-//     display: flex;
-// }
+.writing_box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 */
+    gap: 10px; /* 항목 간의 간격 */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.writing_itembox {
+    border: 2px solid #000;
+    padding: 10px;
+    box-sizing: border-box; /* 테두리와 패딩을 박스 크기에 포함 */
+    background-color: white;
+    border-radius: 8px;
+}
+
+.writing_itembox strong {
+    display: block; /* strong 요소를 블록으로 설정 */
+    font-weight: bold; /* 글자 두껍게 */
+}
+
+.writing_itembox div {
+    margin-top: 8px; /* strong과 div 간의 간격 */
+}

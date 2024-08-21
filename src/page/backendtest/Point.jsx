@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '../../util/util'
 import axios from 'axios';
-import './Mypage.scss'
+import '../mypage/Mypage.scss'
 import { getLoginSession } from '../../util/session'
 
 

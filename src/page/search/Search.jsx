@@ -198,8 +198,8 @@ const Search = () => {
                                         </div>
                                         <div className='searchprice'>
                                             <span className='jungga'>정가 </span>
-                                            <span className='won'>{item.price}원</span>
-                                            <span className='gray'>/{item.vol}ml</span>
+                                            <span className='won'>{item.price}</span>
+                                            <span className='gray'>/{item.vol}</span>
                                         </div>
                                         <br />
                                     </div>
