@@ -203,20 +203,9 @@ const Home = () => {
             y : e.target.offsetTop+40
         })        
     }
-    function test(){
-        console.log('test')
-        if(isMenu.isView)
-            {
-                console.log(1)
-                setIsMenu({
-                    isView : false,
-                    x : 0,
-                    y : 0
-                })
-            }
-    }
+
     return (
-        <div id='wrapper' className="inner"  onClick={test}>
+        <div id='wrapper' className="inner"  >
             {/* // <div id='wrapper' >     */}
 
             

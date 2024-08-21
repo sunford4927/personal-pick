@@ -8,7 +8,6 @@ const initialState = {
 const personalReducer = (state = initialState, action) => {
     switch(action.type){
         case types.SETMENUVIEW:
-            console.log(action.view)
             return {
                 ...state,
                 isMenu : action.view
