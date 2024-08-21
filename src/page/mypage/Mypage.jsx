@@ -149,7 +149,7 @@ const Join = () => {
 
                 <div className='text'>
                     <h1>구독</h1>
-                    <p>구독관리</p>
+                    <p className="cursor" onClick={()=> navigate("/subscriptionmanagement")}>구독관리</p>
                 </div>
                 <div className='ad2'>
                     <p>출석체크, 친구초대 등 다양한 이벤트는</p>

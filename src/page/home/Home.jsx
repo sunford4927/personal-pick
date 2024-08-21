@@ -3,7 +3,7 @@ import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
 import { useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
-import { sendGet, showPayMent, URL } from "../../util/util";
+import { sendGet, sendPost, showPayMent, URL } from "../../util/util";
 import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
@@ -11,6 +11,7 @@ import Right from '../../img/오른쪽.png'
 // import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 
 
@@ -171,8 +172,36 @@ const Home = () => {
     function nextTotalPage(pageidx) {
         nav('/totalitem/' + pageidx);
     }
+    const secretKey = "test_sk_ex6BJGQOVDJ2beaYow4Q8W4w2zNb";
+    const [payment, setPayment] =useState({});
+    useEffect(()=>{
+        
+        // console.log(payment)
+        // sendPost(URL+"/payment",null, payment);
+        // const url = 'https://api.tosspayments.com/v1/payments/confirm';
+        // const encodedKey = secretKey.toString('base64');
 
+        // const options = {
+        //   method: 'POST',
+        //   headers: {
+        //     Authorization: `Basic ${encodedKey}`,
+        //     'Content-Type': 'application/json'
+        //   },
+        //     data: {
+        //         paymentKey: payment.paymentKey,
+        //         orderId: payment.orderId,
+        //         amount: payment.amount
+        //     }
+        // };
 
+        // axios(url, options)
+        //     .then(response => {
+        //         console.log(response.data);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
+    },[payment])
 
     return (
         <div id='wrapper' className="inner"  >
@@ -272,7 +301,7 @@ const Home = () => {
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
-            <div className="home_page_btn cursor" onClick={() =>showPayMent("상현", 4598, "색조구독")}>로그인</div>
+            <div className="home_page_btn cursor" onClick={() =>showPayMent("상현", 1000, "색조구독")}>로그인</div>
             
         </div>
         
