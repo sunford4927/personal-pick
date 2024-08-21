@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Subscription.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,11 +6,41 @@ import { useNavigate } from 'react-router-dom';
 const Subscription = () => {
 
     const nav = useNavigate();
+    // 사용자가 로그인했는지 여부(로그인되어있는지 안되어있는지 모르겠지만 일단 안되어있다고(false) 설정해놓겠다는 말)
+    const [ isLogin, setIsLogin ] = useState();
 
-    const [ basicMakeup, setBasicMakeup ] = useState();
-    const [ colorMakeup, setColorMakeup ] = useState();
+    // 로그인 여부 관리(사용자가 로그인했는지를 확인)
+    useEffect(() => {
+        let Id = sessionStorage.getItem("username");
+        if (Id) {  // 근데 만약 사용자가 로그인했다면
+            setIsLogin(true);            
+        } else {
+            setIsLogin(false);
+        }
+    }, []);
+ 
 
     // "기초/색조 화장품 구독하러 가기" 버튼 클릭 시 "기초/색조 화장품"라는 글자를 beforepayment에 보내줄 거야~~
+    // "기초 화장품 구독하러 가기" 버튼 클릭 시
+    const basicMakeup = () => {
+        if (isLogin) {  // 로그인되어 있을 시
+            // "productType"이라는 키에 "기초 화장품"이라는 값을 저장하여 BeforePayment 페이지로 전달
+            nav('/BeforePayment', { state: { productType: '기초 화장품' } });
+        } else {  // 로그인되어 있지 않을 시
+            nav('/login');
+        }
+        
+    };
+
+    // "색조 화장품 구독하러 가기" 버튼 클릭 시
+    const colorMakeup = () => {
+        if(isLogin) {
+            nav('/BeforePayment', { state: { productType: '색조 화장품' } });
+        } else {
+            nav('/login');
+        }
+    };
+
 
     return (
 
@@ -92,7 +122,7 @@ const Subscription = () => {
                                     피부 특성 분석 후 사용자 맞춤형 기초 화장품 샘플 4개를 보내드립니다.<br />
                                     <b>배송비 무료</b>
                                 </div>
-                                <button onClick={() => nav('/BeforePayment')}>기초 화장품 구독하러 가기</button>
+                                <button onClick={basicMakeup}>기초 화장품 구독하러 가기</button>
                                 <img src="" alt="" />
                             </div>
                             <div>
@@ -104,7 +134,7 @@ const Subscription = () => {
                                     피부 특성 분석 후 사용자 맞춤형 색조 화장품 샘플 4개를 보내드립니다.<br />
                                     <b>배송비 무료</b>
                                 </div>
-                                <button onClick={() => nav('/BeforePayment')}>색초 화장품 구독하러 가기</button>
+                                <button onClick={colorMakeup}>색초 화장품 구독하러 가기</button>
                                 <img src="" alt="" />
                             </div>
                         </div>
