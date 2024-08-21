@@ -15,10 +15,12 @@ import personalReducer from './redux/reducer/reducer';
 import { Provider } from 'react-redux';
 import Footer from './components/footerPage/FooterPage';
 
+
 import './App.css'
 import './index.scss'
 import TotalRanking from './page/totalitem/TotalRanking';
 import Loading from './page/loading/Loading';
+import Subscription from './page/subscription/Subscription';
 const store = createStore(personalReducer)
 
 
@@ -41,6 +43,7 @@ function App() {
                         <Route path='/totalitem/:category' element={<TotalRanking />}></Route>
                         <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
                         <Route path='/beforepayment' element={<BeforePayment />}></Route>
+                        <Route path='/subscription' element={<Subscription />}></Route>
                     </Routes>
                     <Footer></Footer>
                 </div>
