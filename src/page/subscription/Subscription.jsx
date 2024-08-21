@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Subscription.scss';
+import { useNavigate } from 'react-router-dom';
 
+// 메뉴창에서 정기배송 클릭 시 나타나는 화면
 const Subscription = () => {
-    // 메뉴창에서 정기배송 클릭 시 나타나는 화면
 
-    // const nav = useNavigate();
+    const nav = useNavigate();
 
+    const [ basicMakeup, setBasicMakeup ] = useState();
+    const [ colorMakeup, setColorMakeup ] = useState();
 
-    // // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-    // const subscripeClick = () => {
-    //     nav(`/BeforePayment/`);
-    // };
+    // "기초/색조 화장품 구독하러 가기" 버튼 클릭 시 "기초/색조 화장품"라는 글자를 beforepayment에 보내줄 거야~~
 
     return (
 
@@ -92,7 +92,7 @@ const Subscription = () => {
                                     피부 특성 분석 후 사용자 맞춤형 기초 화장품 샘플 4개를 보내드립니다.<br />
                                     <b>배송비 무료</b>
                                 </div>
-                                <button>기초 화장품 구독하러 가기</button>
+                                <button onClick={() => nav('/BeforePayment')}>기초 화장품 구독하러 가기</button>
                                 <img src="" alt="" />
                             </div>
                             <div>
@@ -104,7 +104,7 @@ const Subscription = () => {
                                     피부 특성 분석 후 사용자 맞춤형 색조 화장품 샘플 4개를 보내드립니다.<br />
                                     <b>배송비 무료</b>
                                 </div>
-                                <button>색초 화장품 구독하러 가기</button>
+                                <button onClick={() => nav('/BeforePayment')}>색초 화장품 구독하러 가기</button>
                                 <img src="" alt="" />
                             </div>
                         </div>
