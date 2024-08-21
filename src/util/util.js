@@ -157,6 +157,7 @@ export function setScore(idx){
 const clientKey = "test_ck_5OWRapdA8dQPoyvBWWDP3o1zEqZK";
 
 export function showPayMent(userId, price, ItemName){
+    let id = crypto.randomUUID();
     loadTossPayments(clientKey).then((tossPayments) => {
         // ------ 결제창 띄우기 ------
         tossPayments
@@ -166,7 +167,7 @@ export function showPayMent(userId, price, ItemName){
             // 더 많은 결제 정보 파라미터는 결제창 Javascript SDK에서 확인하세요.
             // https://docs.tosspayments.com/sdk/payment-js
             amount: price, // 결제 금액
-            orderId: crypto.randomUUID(), // 주문번호
+            orderId: id, // 주문번호
             orderName: ItemName, // 구매상품
             customerName: userId, // 구매자 이름
             successUrl: "https://docs.tosspayments.com/guides/payment/test-success", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
