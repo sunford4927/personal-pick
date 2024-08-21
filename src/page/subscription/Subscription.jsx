@@ -7,15 +7,13 @@ const Subscription = () => {
 
     const nav = useNavigate();
     // 사용자가 로그인했는지 여부(로그인되어있는지 안되어있는지 모르겠지만 일단 안되어있다고(false) 설정해놓겠다는 말)
-    const [ isLogin, setIsLogin ] = useState();
+    const [ isLogin, setIsLogin ] = useState(false);
 
     // 로그인 여부 관리(사용자가 로그인했는지를 확인)
     useEffect(() => {
         let Id = sessionStorage.getItem("username");
         if (Id) {  // 근데 만약 사용자가 로그인했다면
             setIsLogin(true);            
-        } else {
-            setIsLogin(false);
         }
     }, []);
  
@@ -53,9 +51,9 @@ const Subscription = () => {
                     </h2>
 
                     <div>
-                        <ul className='writing_box'>
+                        <ul className='flex_row writing_box'>
                             <br />
-                            <li>
+                            <li className='writing_itembox'>
                                 <div>
                                 <strong>
                                     다양한 샘플들을 구독제로
@@ -66,6 +64,7 @@ const Subscription = () => {
                                 </div>
                                 </div>
                             </li>
+                            <br />
                             <li>
                                 <strong>
                                     고민할 필요 없이 맞춤형
@@ -76,6 +75,7 @@ const Subscription = () => {
                                     개인에게 맞는 화장품 정기 배송
                                 </div>
                             </li>
+                            <br />
                             <li>
                                 <strong>
                                     언제든지 해지 가능한 구독
@@ -84,6 +84,7 @@ const Subscription = () => {
                                     나에게 맞는 화장품을 찾았다면 바로 구독 해지
                                 </div>
                             </li>
+                            <br />
                             <li>
                                 <strong>
                                     구독 제품은 배송비 무료
@@ -92,6 +93,7 @@ const Subscription = () => {
                                     정기 배송 상품은 무료 배송!
                                 </div>
                             </li>
+                            <br />
                             <li>
                                 <strong>
                                     편리한 자동결제/자동배송
@@ -100,6 +102,7 @@ const Subscription = () => {
                                     정해진 날에 자동으로 결제하고 알아서 집까지! 
                                 </div>
                             </li>
+                            <br />
                             <li>
                                 <strong>
                                     구독 후 설문 작성으로 포인트까지!
