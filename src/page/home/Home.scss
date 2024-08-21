@@ -45,7 +45,6 @@
 // 로고 이미지 사이즈 안 맞는 거 수정 필요
 .logoimg{
     width: 34%;
-    display: flex;
     margin: auto;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -54,4 +53,9 @@
 .homeright {
     height: 13px;
     padding-left: 3px;
+}
+
+.home_header{
+    align-items: center;
+    
 }

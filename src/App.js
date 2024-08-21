@@ -10,48 +10,45 @@ import Join from './page/backendtest/Join';
 import Order from './page/backendtest/Order'
 import Point from './page/backendtest/Point'
 import BeforePayment from './page/beforepayment/BeforePayment';
-import { createStore } from 'redux';
-import personalReducer from './redux/reducer/reducer';
-import { Provider } from 'react-redux';
+
+import { useDispatch } from 'react-redux';
 import Footer from './components/footerPage/FooterPage';
 
 
 import './App.css'
 import './index.scss'
 import TotalRanking from './page/totalitem/TotalRanking';
-import Loading from './page/loading/Loading';
 import Subscription from './page/subscription/Subscription';
-const store = createStore(personalReducer)
+import { setMenuView } from './redux/type/typefunc';
+
 
 
 function App() {
-    console.log(window.location)
+    const dispatch = useDispatch();
+    function funcList(){
+        dispatch(setMenuView(false))
+    }
     return (
-        <Provider store={store}>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <div className="App">
-                    <Routes>
-                        {/*<Route path='/' element={<Loading/>}></Route>*/}
-                        <Route path='/' element={<Home />}></Route>
-                        <Route path='/join' element={<Join />}></Route>
-                        <Route path='/login' element={<Login />}></Route>
-                        <Route path='/mypage' element={<Mypage />}></Route>
-                        <Route path='/order' element={<Order />}></Route>
-                        <Route path='/point' element={<Point />}></Route>
-                        <Route path='/search/:value' element={<Search />}></Route>
-                        <Route path='/search' element={<Search />}></Route>
-                        <Route path='/totalitem/:category' element={<TotalRanking />}></Route>
-                        <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
-                        <Route path='/beforepayment' element={<BeforePayment />}></Route>
-                        <Route path='/subscription' element={<Subscription />}></Route>
-                    </Routes>
-                    <Footer></Footer>
-                </div>
-
-
-
-            </BrowserRouter>
-        </Provider>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <div className="App" onClick={()=>funcList()}>
+                <Routes>
+                    {/*<Route path='/' element={<Loading/>}></Route>*/}
+                    <Route path='/' element={<Home />}></Route>
+                    <Route path='/join' element={<Join />}></Route>
+                    <Route path='/login' element={<Login />}></Route>
+                    <Route path='/mypage' element={<Mypage />}></Route>
+                    <Route path='/order' element={<Order />}></Route>
+                    <Route path='/point' element={<Point />}></Route>
+                    <Route path='/search/:value' element={<Search />}></Route>
+                    <Route path='/search' element={<Search />}></Route>
+                    <Route path='/totalitem/:category' element={<TotalRanking />}></Route>
+                    <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
+                    <Route path='/beforepayment' element={<BeforePayment />}></Route>
+                    <Route path='/subscription' element={<Subscription />}></Route>
+                </Routes>
+                <Footer></Footer>
+            </div>
+        </BrowserRouter>
     );
 }
 

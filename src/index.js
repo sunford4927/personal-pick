@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom/client';
 // import '../public/index.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+import personalReducer from './redux/reducer/reducer';
+import { Provider } from 'react-redux';
 
 // 설치 완료 리스트
 // npm i react-router-dom 
@@ -13,10 +16,13 @@ import reportWebVitals from './reportWebVitals';
 // npm i swiper
 // npm i sweetalert2 sweetalert2-react-content
 // npm install animate.css
+const store = createStore(personalReducer)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
+  <Provider store={store}>
     <App />
+  </Provider>
   // </React.StrictMode>
 );
 
