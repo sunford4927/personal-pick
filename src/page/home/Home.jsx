@@ -3,7 +3,7 @@ import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
 import { useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
-import { sendGet, URL } from "../../util/util";
+import { sendGet, showPayMent, URL } from "../../util/util";
 import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
@@ -15,6 +15,7 @@ import MenuImg from "../../img/햄버거메뉴.png"
 import Menu from "../../components/menu/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuView } from "../../redux/type/typefunc";
+
 
 // 데이터 6개만 받아올 예정!
 let itemDic = [
@@ -306,7 +307,7 @@ const Home = () => {
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
-            <div className="home_page_btn cursor" onClick={() =>nav('/login')}>로그인</div>
+            <div className="home_page_btn cursor" onClick={() =>showPayMent("상현", 4598, "색조구독")}>로그인</div>
             
         </div>
         
