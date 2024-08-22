@@ -22,6 +22,7 @@ import Subscription from './page/subscription/Subscription';
 import { setMenuView } from './redux/type/typefunc';
 import HeaderView from './components/header/HeaderView';
 import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
+import ShoppingCart from './page/shoppingcart/ShoppingCart';
 
 
 
@@ -49,7 +50,7 @@ function App() {
                     <Route path='/beforepayment' element={<BeforePayment />}></Route>
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
-
+                    <Route path='/cartlist' element={<ShoppingCart />}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

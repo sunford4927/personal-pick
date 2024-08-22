@@ -136,7 +136,7 @@ const SubscriptionManagement = () => {
                     return (
                         <div className='flex_col '>
                             <img src={item.cos_img_src} style={{ width: 80, height: 80 }} alt="" />
-                            <div style={{alignContent: "center"}}>
+                            <div style={{alignContent: "center", lineHeight: "25px"}}>
                                 <span>{item.brand_name}</span><br/>
                                 <span>{item.cos_name}</span>&nbsp;&nbsp; <span></span>
                                 <div style={{display:"inline-block"}}>
@@ -148,10 +148,10 @@ const SubscriptionManagement = () => {
                                 <div style={{display:"inline-block"}} >
                                     <span className='rank_text'>정가&nbsp;</span>
                                     <span className='rank_cos_price'>{item.price + "원"}</span>
-                                    <span className='rank_vol'>{"/" + item.vol + "ml"}</span>
+                                    <span className='rank_vol'>{"/" + item.vol}</span>
                                 </div>
                             </div>
-                            <div style={{alignContent: "center", marginLeft : "auto"}}>
+                            <div style={{alignContent: "center", marginLeft : "auto", lineHeight: "25px"}}>
                                 <p className='rank_cos_price'>주문날짜</p>
                                 <p className='rankrank_cos_price_vol'>2024/10/12</p>
                             </div>
