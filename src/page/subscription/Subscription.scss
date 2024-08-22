@@ -1,25 +1,393 @@
-.writing_box {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3열 */
-    gap: 10px; /* 항목 간의 간격 */
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+// 제목 
+.subscriptiontext {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    font-size: 21px;
+    margin-top: 100px;
+    font-weight: 600;
 }
 
-.writing_itembox {
-    border: 2px solid #000;
-    padding: 10px;
-    box-sizing: border-box; /* 테두리와 패딩을 박스 크기에 포함 */
-    background-color: white;
+.subscriptiontext2 {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    font-size: 21px;
+    margin-top: 17px;
+    font-weight: 600;
+    margin-bottom: 100px;
+}
+
+
+// 텍스트 박스 1
+.maintextbox {
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.firstbox {
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 8px;
+    background-color: #ffffff;
+    margin: 4px;
+    padding: 33px;
+    width: 185px;
 }
 
-.writing_itembox strong {
-    display: block; /* strong 요소를 블록으로 설정 */
-    font-weight: bold; /* 글자 두껍게 */
+.firstboxtext {
+    display: flex;
+    margin-left: -28px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: -14px;
 }
 
-.writing_itembox div {
-    margin-top: 8px; /* strong과 div 간의 간격 */
+.firstboxtext2 {
+    margin: auto;
+    display: flex;
+    margin-left: -28px;
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+}
+
+.firstboxtext2_1 {
+    margin: auto;
+    display: flex;
+    margin-left: -28px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+}
+
+.firstboxtext2_2 {
+    margin: auto;
+    display: flex;
+    margin-left: -28px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+}
+
+.secondbox {
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin: 4px;
+    padding: 66px;
+    width: 113px;
+    height: 0px;
+}
+
+.secondboxtext {
+    display: flex;
+    margin-left: -59px;
+    margin-top: -47px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 204px;
+}
+
+.secondboxtext2 {
+    display: flex;
+    margin-left: -58px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 233px;
+    margin-top: 23px;
+}
+
+.secondboxtext2_1 {
+    display: flex;
+    margin-left: -58px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+}
+
+.secondboxtext2_2 {
+    display: flex;
+    margin-left: -58px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+}
+
+
+// 텍스트 박스 2
+
+.maintextbox2 {
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.thirdbox {
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin: 4px;
+    padding: 66px;
+    width: 134px;
+    height: 0px;
+    margin-top: 44px;
+}
+
+.thirdboxtext {
+    display: flex;
+    margin-left: -60px;
+    margin-top: -43px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 213px;
+}
+
+.thirdboxtext2 {
+    display: flex;
+    margin-left: -60px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 255px;
+    margin-top: 24px;
+}
+
+.thirdboxtext2_1 {
+    display: flex;
+    margin-left: -60px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+}
+
+.fourthbox {
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin: 4px;
+    padding: 66px;
+    width: 120px;
+    height: 0px;
+    margin-top: 45px;
+}
+
+.fourthboxtext {
+    display: flex;
+    margin-left: -61px;
+    margin-top: -46px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.fourthboxtext2 {
+    display: flex;
+    margin-left: -60px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+    margin-top: 8px;
+}
+
+.fourthboxtext2_1 {
+    display: flex;
+    margin-left: -60px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+}
+
+.fourthboxtext2_2 {
+    display: flex;
+    margin-left: -60px;
+    font-size: 12px;
+    line-height: 16px;
+    color: gray;
+    width: 213px;
+}
+
+// 기초 구독 화면 쪽
+
+.image1 {
+    display: flex;
+    float: right;
+    margin-bottom: 0px;
+    margin-top: -33px;
+    margin-right: 15px;
+}
+
+.basictitlemainbox{
+    margin-top: 190px;
+}
+
+.basictitle {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.basictitle2 {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.basictextbox{
+    margin-top: 20px;
+}
+
+.basictext {
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.basictext2{
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.basicbutton {
+    flex: 1 1 auto;
+    padding: 11px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration-line: none;
+    cursor: pointer;
+    margin-top: 17px;
+    font-size: 11px;
+    margin-left: -6px;
+}
+  
+.btn-5:hover {
+    background-position: right center; /* change the direction of the change here */
+}
+
+.btn-5 {
+    background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
+}
+
+
+// 색조 구독 화면 쪽
+
+.image2 {
+    display: flex;
+    float: right;
+    margin-bottom: 0px;
+    margin-top: -88px;
+    margin-right: 26px;
+}
+
+.huetitlemainbox{
+    margin-top: 190px;
+}
+
+.huetitle {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.huetitle2 {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.huetextbox{
+    margin-top: 20px;
+}
+
+.huetext {
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.huetext2{
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.huebutton {
+    flex: 1 1 auto;
+    padding: 11px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration-line: none;
+    cursor: pointer;
+    margin-top: 17px;
+    font-size: 11px;
+    margin-left: -6px;
+}
+
+// 기초+색조 화면
+
+.basichuetitlemainbox{
+    margin-top: 190px;
+}
+
+.basichuetitle {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.basichuetitle2 {
+    display: flex;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.basichuetextbox{
+    margin-top: 20px;
+}
+
+.basichuetext {
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.basichuetext2{
+    display: flex;
+    font-size: 13px;
+    color: gray;
+}
+
+.basichuebutton {
+    flex: 1 1 auto;
+    padding: 11px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration-line: none;
+    cursor: pointer;
+    margin-top: 17px;
+    font-size: 11px;
+    margin-left: -6px;
 }
