@@ -139,22 +139,37 @@ const Home = () => {
     const [userChoiceRank, setUserChoiceRank] = useState([])
     // 내피부에 꼭 맞는 제품 랭킹
     const [userItemRank, setUserItemRank] = useState("건성");
+    const [useItemRankData, setUserItemRankData] = useState([]);
     // 나이대별 추천
     const [userAgePick, setUserAgePick] = useState("10대");
-
+    const [userAgePickData, setUserAgePickData] = useState([]);
 
 
     
     // [] -> 첫 렌더링에만 실행
 
     useEffect(() => {
+        let age = userAgePick.substr(0, 2);
+        console.log(age)
         sendGet(URL + '/MainPage', setData);
+        sendGet(URL + "/suggestSkinType?skintype="+ userItemRank,setUserItemRankData);
+        sendGet(URL + "/suggestAge?age="+ age, setUserAgePickData)
     }, [])
     // useEffect(()=>{
 
       
     //     console.log(isMenu.isView)
     // },[isMenu])
+
+
+    useEffect(()=>{
+        let age = userAgePick.substr(0, 2);
+        sendGet(URL + "/suggestAge?age="+ age, setUserAgePickData)
+    },[userAgePick])
+
+    useEffect(()=>{
+        sendGet(URL + "/suggestSkinType?skintype="+ userItemRank,setUserItemRankData);
+    },[userItemRank])
 
     useEffect(() => {
         sendGet(URL + '/CategorySel?category=' + categoryDic.subtitle, setUserChoiceRank)
@@ -251,7 +266,7 @@ const Home = () => {
             </div>
             
             <Category dic={userItemRank} setDic={setUserItemRank} categoryData={userTypeList} />
-            <Itemview data={itemDic} />
+            <Itemview data={useItemRankData} />
 
             <div className="home_page_btn cursor" onClick={() => nextTotalPage(3)}>
                 {userItemRank + ' 전체보기'}
@@ -277,7 +292,7 @@ const Home = () => {
             
             
             <Category dic={userAgePick} setDic={setUserAgePick} categoryData={userAgeList} />
-            <Itemview data={itemDic} />
+            <Itemview data={userAgePickData} />
             <div className="home_page_btn cursor" onClick={() => nextTotalPage(4)}>
                 {userAgePick + " 전체보기"}
                 <img className="homeright" src={Right} alt="" />

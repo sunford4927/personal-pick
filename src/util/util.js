@@ -134,7 +134,7 @@ function changeStar(list, idx) {
 
 export function setScore(idx) {
     let stars = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i <5; i++) {
         if (i < idx) {
             stars.push(<img key={i} className='star' src={star} alt='별' />)
         }
