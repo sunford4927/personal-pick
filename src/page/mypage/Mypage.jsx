@@ -147,6 +147,10 @@ const Join = () => {
                     <p>이벤트 배송지 수정</p>
                 </div>
 
+                <div className='text'>
+                    <h1>구독</h1>
+                    <p className="cursor" onClick={()=> navigate("/subscriptionmanagement")}>구독관리</p>
+                </div>
                 <div className='ad2'>
                     <p>출석체크, 친구초대 등 다양한 이벤트는</p>
                     <p>혜택 앱을 통해 참여할 수 있어요</p>
@@ -162,28 +166,7 @@ const Join = () => {
                 </div>
 
             </div>
-            <div id='foot'>
-                <span className='icon'>
-                    <img
-                    src="https://cdn-icons-png.flaticon.com/512/8304/8304806.png"
-                    alt="" 
-                    title='Home'
-                    onClick={home}/>
-                    <p>Home</p>
-                </span>
-                <span className='icon'>
-                    <img src="https://cdn-icons-png.flaticon.com/512/636/636600.png" alt="" />
-                </span>
-                <span className='icon'>
-                    <img src="https://cdn-icons-png.flaticon.com/512/5058/5058903.png" alt="" />
-                </span>
-                <span className='icon'>
-                    <img src="https://cdn-icons-png.flaticon.com/512/5264/5264565.png" alt="" />
-                </span>
-                <span className='icon'>
-                    <img src="https://cdn-icons-png.flaticon.com/512/2824/2824318.png" alt="" />
-                </span>
-            </div>
+            
         </div>
         </div>
     );

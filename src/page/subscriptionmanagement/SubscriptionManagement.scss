@@ -1,0 +1,31 @@
+.management_title{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom :20px;
+    font-size : 30px;
+    font-weight: bold;
+}
+
+.management_subtitle{
+    justify-content: space-around;
+    padding : 20px 0;
+    font-size : 20px;
+}
+
+.management_content_box{
+    justify-content: space-around;
+}
+
+.management_content_label{
+    width :100%;
+    text-align: center;
+    border : 1px solid black;
+    padding : 20px 0;
+    background-color: rgb(192, 188, 188);
+}
+
+.management_contents{
+    width : 90%;
+    margin : auto;
+    margin-top : 20px;
+}

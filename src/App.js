@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './page/home/Home';
 import Search from './page/search/Search';
-import Mypage from './page/backendtest/Mypage';
+import Mypage from './page/mypage/Mypage';
 import Detailinfo from './page/detailinfo/Detailinfo';
-import Login from './page/backendtest/Login';
-import Join from './page/backendtest/Join';
-import Order from './page/backendtest/Order'
+import Login from './page/login/Login';
+import Join from './page/join/Join';
+import Order from './page/order/Order'
 import Point from './page/backendtest/Point'
 import BeforePayment from './page/beforepayment/BeforePayment';
 
@@ -20,6 +20,8 @@ import './index.scss'
 import TotalRanking from './page/totalitem/TotalRanking';
 import Subscription from './page/subscription/Subscription';
 import { setMenuView } from './redux/type/typefunc';
+import HeaderView from './components/header/HeaderView';
+import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
 
 
 
@@ -31,6 +33,7 @@ function App() {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="App" onClick={()=>funcList()}>
+                <HeaderView/>
                 <Routes>
                     {/*<Route path='/' element={<Loading/>}></Route>*/}
                     <Route path='/' element={<Home />}></Route>
@@ -45,6 +48,8 @@ function App() {
                     <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
                     <Route path='/beforepayment' element={<BeforePayment />}></Route>
                     <Route path='/subscription' element={<Subscription />}></Route>
+                    <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
+
                 </Routes>
                 <Footer></Footer>
             </div>
