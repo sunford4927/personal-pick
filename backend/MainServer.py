@@ -8,7 +8,7 @@ from join import ppJoin
 from ppLogin import ppLogin
 from ppSearch import ppSearch, ppSearchList
 from Test import testJoin, testLogin, testUserData, testOrderData, testCategory
-from payment import payment
+from payment import payment, Clearpayment
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False
@@ -35,6 +35,8 @@ api.add_resource(testOrderData, '/TestOrderData')
 api.add_resource(testCategory, '/TestCategory')
 
 api.add_resource(payment , "/payment")
+api.add_resource(Clearpayment , "/clearpayment")
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)

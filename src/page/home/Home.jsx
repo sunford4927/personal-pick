@@ -149,9 +149,6 @@ const Home = () => {
 
     useEffect(() => {
         sendGet(URL + '/MainPage', setData);
-        // let App = document.getElementsByClassName("App")
-        // App[0].removeEventListener('click',(e)=> setView(e))
-        // App[0].addEventListener('click', (e)=> setView(e))
     }, [])
     // useEffect(()=>{
 
@@ -172,36 +169,7 @@ const Home = () => {
     function nextTotalPage(pageidx) {
         nav('/totalitem/' + pageidx);
     }
-    const secretKey = "test_sk_ex6BJGQOVDJ2beaYow4Q8W4w2zNb";
-    const [payment, setPayment] =useState({});
-    useEffect(()=>{
-        
-        // console.log(payment)
-        // sendPost(URL+"/payment",null, payment);
-        // const url = 'https://api.tosspayments.com/v1/payments/confirm';
-        // const encodedKey = secretKey.toString('base64');
 
-        // const options = {
-        //   method: 'POST',
-        //   headers: {
-        //     Authorization: `Basic ${encodedKey}`,
-        //     'Content-Type': 'application/json'
-        //   },
-        //     data: {
-        //         paymentKey: payment.paymentKey,
-        //         orderId: payment.orderId,
-        //         amount: payment.amount
-        //     }
-        // };
-
-        // axios(url, options)
-        //     .then(response => {
-        //         console.log(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
-    },[payment])
 
     return (
         <div id='wrapper' className="inner"  >
