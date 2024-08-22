@@ -2,22 +2,25 @@ from flask_restx import Resource
 from flask import jsonify,request
 from db_utils import setQuery
 
+# 리뷰 페이지 정보 반환 클래스
 class ppDetailPage(Resource):
 
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        print("idx : ",idx)
+        # print("idx : ",idx)
         data = setQuery("select * from result_product where idx = %s", idx)
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)
     
+
+# 리뷰 가져오는 클래스
 class ppGetReveiw(Resource):
 
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        print("idx : ",idx)
+        # print("idx : ",idx)
         data = setQuery("""SELECT 
                                 ru.user_id, 
                                 ru.user_nm, 
@@ -44,15 +47,17 @@ class ppGetReveiw(Resource):
         # print("dataquery: ", data)
         
         return jsonify(data)
+    
 
 
-class ppScoreAvg(Resource):
+# 평점 평균 구하는 클래스
+class ppRatingAvg(Resource):
 
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        print("idx : ",idx)
-        data = setQuery("""SELECT ROUND(AVG(rr.rating), 2) AS average_rating
+        # print("idx : ",idx)
+        data = setQuery("""SELECT ROUND(AVG(rr.rating), 2) AS rating_avg
                             FROM result_review rr
                             JOIN result_product p ON rr.cos_name = p.cos_name
                             WHERE p.idx = %s
@@ -60,12 +65,14 @@ class ppScoreAvg(Resource):
         return jsonify(data)
     
 
-class ppScoreCnt(Resource):
+    
+# 평점 개수 구하는 클래스
+class ppRatingCnt(Resource):
 
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        print("idx : ",idx)
+        # print("idx : ",idx)
         data = setQuery("""SELECT 
                                 rating,
                                 COUNT(*) AS count
@@ -84,12 +91,13 @@ class ppScoreCnt(Resource):
         return jsonify(data)
     
 
+# 리뷰 개수 구하는 클래스
 class ppReviewCnt(Resource):
 
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        print("idx : ",idx)
+        # print("idx : ",idx)
         data = setQuery("""SELECT COUNT(*) AS review_count
                             FROM result_review rr
                             JOIN result_product p ON rr.cos_name = p.cos_name

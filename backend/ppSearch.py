@@ -6,13 +6,20 @@ from db_connection import db_connection
 class ppSearch(Resource):
     def get(self):
         value = request.args.to_dict()
-        data = str(value['value'])
+        data = str(value.get('value', ''))
+        # print("searDATA : ", data)
 
-        sql = "SELECT * FROM cos_data WHERE cos_name LIKE %s"
+        sql = """
+                SELECT * 
+                FROM result_product 
+                WHERE cos_name LIKE %s 
+                OR brand_name LIKE %s 
+                OR category LIKE %s
+                """
         text = f"%{data}%"
         
-        result = setQuery(sql, text)
-        print(value)
+        result = setQuery(sql, (text, text, text))
+        # print("sql: ", sql)
 
         return jsonify(result)
     
@@ -22,7 +29,7 @@ class ppSearchList(Resource):
 
     def post(self):
         value = request.get_json()
-        print("val", value)
+        # print("val", value)
 
      # MySQL 데이터베이스 연결
         db = db_connection()
@@ -57,8 +64,8 @@ class ppSearchList(Resource):
         data = setQuery("select * from searchlist")
         for value in data:
             list.append(value['product'])
-        print("select data:", data)
-        print("list : " ,list)
+        # print("select data:", data)
+        # print("list : " ,list)
         return list
     
 
