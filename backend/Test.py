@@ -60,3 +60,21 @@ class testCategory(Resource):
 
         result = setQuery(sql)
         return jsonify(result)
+    
+class testSearch(Resource):
+    def get(self):
+        user_nm = request.args.get('user_nm')
+        print('user_name : ',user_nm)
+        
+        sql ='SELECT * FROM users WHERE user_nm = %s'
+        text = user_nm
+        result = setQuery(sql, text)
+
+        # data = setQuery("SELECT * FROM users WHERE user_nm = %s")
+
+
+        print('1234 : ',result)
+        print('5678 : ',jsonify(result))
+
+        # result = setQuery(sql)
+        return jsonify(result)
