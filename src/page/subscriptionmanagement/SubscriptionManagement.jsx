@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LeftArrow from "../../img/왼쪽.png"
 import './SubscriptionManagement.scss'
 import { useNavigate } from 'react-router-dom';
-import Itemveiw from '../../components/itemview/Itemview';
 
+import { sendGet, sendPost, showClearPayMent, URL } from '../../util/util';
+import ItemAll from '../../components/totalrank/TotalRankItem';
+import Star from '../../img/별.png'
 let itemDic = [
     {
         idx: 1,
@@ -109,9 +111,13 @@ let itemDic = [
 
 const SubscriptionManagement = () => {
     const [subTitle, setSubTitle] = useState("기초케어 제품");
+    const [mainTitle, setMainTitle] = useState("구독상품 내역")
     const nav = useNavigate();
     const isSubscript = true;
-
+    const [data, setData] = useState([])
+    useEffect(() => {
+        sendGet(URL + '/MainPage', setData);
+    }, [])
     const tag = 
     <>
         <div className='flex_col management_content_box'>
@@ -126,10 +132,53 @@ const SubscriptionManagement = () => {
         <div className='management_contents'>
             <div>{subTitle}</div>  
             <div >
-                <Itemveiw data={itemDic}/>
+                {data.map((item)=>{
+                    return (
+                        <div className='flex_col '>
+                            <img src={item.cos_img_src} style={{ width: 80, height: 80 }} alt="" />
+                            <div style={{alignContent: "center"}}>
+                                <span>{item.brand_name}</span><br/>
+                                <span>{item.cos_name}</span>&nbsp;&nbsp; <span></span>
+                                <div style={{display:"inline-block"}}>
+                                    <img className='star' src={Star} alt="" />
+                                    <span className='rank_cos_grade'>&nbsp;{item.grade}</span>
+                                    <span className='rank_cos_grade_cnt'> {"(" + item.grade_count + ")"}</span>
+                                </div>
+                                &nbsp;&nbsp;
+                                <div style={{display:"inline-block"}} >
+                                    <span className='rank_text'>정가&nbsp;</span>
+                                    <span className='rank_cos_price'>{item.price + "원"}</span>
+                                    <span className='rank_vol'>{"/" + item.vol + "ml"}</span>
+                                </div>
+                            </div>
+                            <div style={{alignContent: "center", marginLeft : "auto"}}>
+                                <p className='rank_cos_price'>주문날짜</p>
+                                <p className='rankrank_cos_price_vol'>2024/10/12</p>
+                            </div>
+                        </div>
+                    )
+                })}
+                
             </div>  
         </div>   
-    </>;
+    </>; 
+
+    const clearTag = 
+    <>
+        <div className='management_inlinetext'>
+            구독을 해지하시면, 더 이상 맞춤형 샘플을 정기적으로 받아보실 수 없습니다. 해지를 원하실 경우, 아래 버튼을 눌러 주세요.
+
+        </div>
+        <div className='flex_col management_btn_container'>
+            <div className='allreviewbtn btn-5 management_btn' onClick={() =>sendPost(URL+"/clearpayment",null, "tviva20240822101135DSLH3")}>
+                구독 해제
+            </div>
+            <div className='allreviewbtn btn-5 management_btn' onClick={() => nav(-1)}>
+                취소하기
+            </div>
+        </div>
+    </>
+    ;
     return (
         <div id='wrapper'>
             <div className='management_title'>
@@ -137,12 +186,11 @@ const SubscriptionManagement = () => {
                 <p>구독관리</p>
             </div>
             <div className='flex_col management_subtitle'>
-                <p className='cursor'>구독상품 내역</p>
-                <p className='cursor'>결제정보 변경</p>
-                <p className='cursor'>구독 해지</p>
+                <p className='cursor' onClick={()=> setMainTitle("구독상품 내역")}>구독상품 내역</p>
+                <p className='cursor' onClick={()=> setMainTitle("구독 해지")}>구독 해지</p>
             </div>
             <div >
-                {isSubscript ? tag : "구독이 필요합니다!"}
+                {isSubscript ? mainTitle=== "구독상품 내역"? tag  : clearTag: "구독이 필요합니다!"}
             </div>
         </div>
     );

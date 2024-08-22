@@ -29,3 +29,25 @@
     margin : auto;
     margin-top : 20px;
 }
+
+.management_btn{
+    flex : none;
+}
+
+.management_btn_container{
+    justify-content: space-around;
+}
+
+.management_inlinetext{
+    width : 60%;
+    margin :auto;
+    // background: rgb(233, 229, 229);
+    font-size : 20px;
+    font-weight: 600;
+    color : rgb(155, 149, 231);
+    
+}
+
+.management_item_container{
+    justify-content: space-between;
+}

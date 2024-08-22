@@ -151,7 +151,6 @@ export function showPayMent(userId, price, ItemName) {
     let id = crypto.randomUUID();
     loadTossPayments(clientKey).then((tossPayments) => {
         // ------ 결제창 띄우기 ------
-        console.log(tossPayments)
         tossPayments
             .requestPayment("CARD", {
                 // 결제수단 파라미터
@@ -174,7 +173,7 @@ export function showPayMent(userId, price, ItemName) {
             })
             .then(res => {
                 sendPost(URL+"/payment",null, res);
-
+                console.log(res)
             })
             // ------ 결제창을 띄울 수 없는 에러 처리 ------
             // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
