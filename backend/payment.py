@@ -9,7 +9,7 @@ class payment(Resource):
         print("value : ",value['data']['paymentKey'])
         conn = http.client.HTTPSConnection("api.tosspayments.com")
 
-        payload = ("{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"amount\":%d}" %(value['data']['paymentKey'], value['data']['orderId'], value['data']['amount']))
+        payload = ("{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"totalAmount\":%d}" %(value['data']['paymentKey'], value['data']['orderId'], value['data']['totalAmount']))
 
         headers = {
             'Authorization': "Basic dGVzdF9za19leDZCSkdRT1ZESjJiZWFZb3c0UThXNHcyek5iOg==",
@@ -20,8 +20,39 @@ class payment(Resource):
 
         res = conn.getresponse()
         data = res.read()
+        
 
-        print(data.decode("utf-8"))
+        # data2 = value
+        # print('data1 : ',value['data']['paymentKey'])
+
+        data2 = request.get_json()
+        print("data2 : ",data2['data']['paymentKey'])
+
+        sql = '''INSERT INTO result_order (
+        user_id, order_name, payment_key,
+        address, order_date, price, delivery_state)
+        VALUES(%s, %s, %s, %s, %s, %s, %s)'''
+        # user_id 받아오기
+        value2 = (value['data']['user_id'],
+        # order_name
+        data2['data']['orderName'],
+        # payment_key
+        data2['data']['paymentKey'],
+        # address
+        data2['data']['address'],
+        # order_date
+        '2024-08-22',
+        # price
+        data2['data']['totalAmount'],
+        # delivery_state
+        '배송 준비')
+        # print('sql : ',sql)
+        print('value2 : ',value2)
+
+        print('12345 : ',PostQuery(sql, value2))
+        return PostQuery(sql, value2)
+
+       
 
 
 class Clearpayment(Resource):

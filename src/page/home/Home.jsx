@@ -136,7 +136,7 @@ const Home = () => {
 
     });
     const [data, setData] = useState([]);
-    const [userChoiceRank, setUserChoiceRank] = useState([...itemDic])
+    const [userChoiceRank, setUserChoiceRank] = useState([])
     // 내피부에 꼭 맞는 제품 랭킹
     const [userItemRank, setUserItemRank] = useState("건성");
     // 나이대별 추천
@@ -158,10 +158,24 @@ const Home = () => {
 
     useEffect(() => {
         sendGet(URL + '/CategorySel?category=' + categoryDic.subtitle, setUserChoiceRank)
-
     }, [categoryDic])
+    function temp(data){
+        console.log(data)
+        setUserId(data)
+    }
+    const [userId, setUserId] =useState({});
+    useEffect(()=>{
+        let nick =sessionStorage.getItem("username");
+        if(nick!=="")
+        {
+            sendGet(URL+'/TestSearch?user_nm='+ nick, temp)
+        }
+        console.log(nick)
+    },[])
 
-
+    useEffect(()=>{
+        console.log(userId)
+    },[userId])
 
     // 오늘날짜
     let today = new Date()
@@ -269,7 +283,7 @@ const Home = () => {
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
-            <div className="home_page_btn cursor" onClick={() =>showPayMent("상현", 1000, "색조구독")}>로그인</div>
+            <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div>
             
         </div>
         
