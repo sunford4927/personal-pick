@@ -148,7 +148,7 @@ const Subscription = () => {
                 </div>
 
                 <div class="basicbutton">
-                    <a class="basicbutton btn-5">기초 화장품 구독하러 가기</a>
+                    <a class="basicbutton btn-5" onClick={basicMakeup}>기초 화장품 구독하러 가기</a>
                 </div>
                 </motion.div>
 
@@ -184,7 +184,7 @@ const Subscription = () => {
                 </div>
 
                 <div class="huebutton">
-                    <a class="huebutton btn-5">색조 화장품 구독하러 가기</a>
+                    <a class="huebutton btn-5" onClick={colorMakeup}>색조 화장품 구독하러 가기</a>
                 </div>
                 </motion.div>
 
