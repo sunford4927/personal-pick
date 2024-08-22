@@ -8,7 +8,7 @@ from ppDetail import ppDetailPage, ppGetReveiw
 from join import ppJoin
 from ppLogin import ppLogin
 from ppSearch import ppSearch, ppSearchList
-from Test import testJoin, testLogin, testUserData, testOrderData, testCategory
+from Test import testJoin, testLogin, testUserData, testOrderData, testCategory, testSearch
 from payment import payment, Clearpayment
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
@@ -36,6 +36,7 @@ api.add_resource(testUserData, '/TestUserData')
 api.add_resource(testOrderData, '/TestOrderData')
 
 api.add_resource(testCategory, '/TestCategory')
+api.add_resource(testSearch, '/TestSearch')
 
 api.add_resource(payment , "/payment")
 api.add_resource(Clearpayment , "/clearpayment")
