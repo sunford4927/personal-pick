@@ -30,6 +30,7 @@ const Join = () => {
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
     const [sex, setSex] = useState('');
+    const [address, setAddress] = useState('');
 
     const [skinType, setSkinType] = useState('');
     // 회원가입 실패 시 출력할 메세지 저장 변수
@@ -39,8 +40,10 @@ const Join = () => {
         // 아래 체크박스에서 선택한 피부 타입으로 ageGroup을 변경하는 함수
         const { id } = event.target;
         const temp = id === 'box1' ? 'dry' :
-                     id === 'box2' ? 'oil' :
-                     id === 'box3' ? 'comb' : '';
+                     id === 'box2' ? 'neut' :
+                     id === 'box3' ? 'oil' :
+                     id === 'box4' ? 'sens' :
+                     id === 'box5' ? 'comb' : '';
         setSkinType(temp);
     };
     useEffect(() => {
@@ -70,7 +73,9 @@ const Join = () => {
             user_nm: nm,
             user_email : email,
             user_age : age,
-            user_sex : sex
+            user_sex : sex,
+            skin_type : skinType,
+            user_address : address
         });
         
         event.preventDefault();
@@ -85,7 +90,9 @@ const Join = () => {
                 user_nm: nm,
                 user_email : email,
                 user_age : age,
-                user_sex : sex
+                user_sex : sex,
+                skin_type : skinType,
+                user_address : address
             });
             // 응답받은 데이터 출력 : 201(성공) or 500(실패)
             console.log('response.data : ',response.data);
@@ -197,7 +204,8 @@ const Join = () => {
                         <div className='textbox'>
                             <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>                            <input
+                            </div>
+                            <input
                                 placeholder='나이'
                                 className='inputbox'
                                 type="text"
@@ -205,6 +213,21 @@ const Join = () => {
                                 onChange={(e) => setAge(e.target.value)}
                                 required
                                 title="숫자를 입력하세요"
+                            />
+                        </div>
+
+                        <div className='textbox'>
+                            <div className='imgbox'>
+                                <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
+                            </div>
+                            <input
+                                placeholder='주소'
+                                className='inputbox'
+                                type="text"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                required
+                                title="주소를 입력하세요"
                             />
                         </div>
 
@@ -247,17 +270,31 @@ const Join = () => {
                                     <input
                                         type="checkbox"
                                         id="box2"
+                                        checked={skinType === 'neut'}
+                                        onChange={handleSTChange}
+                                    />
+                                    <label htmlFor="box2">중성</label>
+                                    <input
+                                        type="checkbox"
+                                        id="box3"
                                         checked={skinType === 'oil'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box2">지성</label>
-                                        <input
-                                            type="checkbox"
-                                            id="box3"
-                                            checked={skinType === 'comb'}
-                                            onChange={handleSTChange}
-                                        />
-                                    <label htmlFor="box3">복합성</label>
+                                    <label htmlFor="box3">지성</label>
+                                    <input
+                                        type="checkbox"
+                                        id="box4"
+                                        checked={skinType === 'sens'}
+                                        onChange={handleSTChange}
+                                    />
+                                    <label htmlFor="box4">민감성</label>
+                                    <input
+                                        type="checkbox"
+                                        id="box5"
+                                        checked={skinType === 'comb'}
+                                        onChange={handleSTChange}
+                                    />
+                                    <label htmlFor="box5">복합성</label>
                                 </td>
                             </tr>
                             <tr>

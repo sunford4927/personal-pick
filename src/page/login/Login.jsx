@@ -45,6 +45,7 @@ const Login = () => {
                 setIsLogin(true);
                 console.log('로그인 유저 : ',getLoginSession().username);
                 setError('');
+                alert('로그인 성공!')
             } else {
                 setError('ID, PW가 일치하지 않습니다');
             }
@@ -84,9 +85,8 @@ const Login = () => {
                     <form className='join_form' onSubmit={handleLogin}>
                         {getLoginSession().username?
                         <>
-                        <h2> 로그인</h2>
                         <div>
-                            <button onClick={home}>메인 페이지</button>
+                            {/* <button onClick={home}>메인 페이지</button> */}
                             <button onClick={mypage}>마이 페이지</button>
                         </div>
                         </>:

@@ -17,6 +17,7 @@ import { setScore } from '../../util/util'
 import TempSkin from '../../components/tempskin/TempSkin'
 import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
+import CartCount from '../../components/cartcount/CartCount'
 
 
 const Detailinfo = () => {
@@ -33,15 +34,17 @@ const Detailinfo = () => {
     // const [starscore , setStarScore] = useState(0);
     
 
+    const [quantity , setQuantity] = useState(1);
+
 
     const {idx} = useParams()
 
     useEffect(()=>{
-         sendGet(URL + "/DetailPage?idx="+idx , setData);
-         sendGet(URL + "/ReviewPage?idx="+idx , setReview);
-         sendGet(URL + "/ScoreAvg?idx="+idx ,setScoreAvg);
-         sendGet(URL + "/ScoreCnt?idx="+idx ,setScoreCnt);
-         sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt);
+         sendGet(URL + "/DetailPage?idx="+idx , setData); // 화장품 정보
+         sendGet(URL + "/ReviewPage?idx="+idx , setReview); // 리뷰데이터 쪽
+         sendGet(URL + "/RatingAvg?idx="+idx ,setScoreAvg); // 평점 평균
+         sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
+         sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
     },[]);
     
 
@@ -134,6 +137,7 @@ const Detailinfo = () => {
         }
     ]
 
+    
     let cntList = [
         {
             count : 5,
@@ -208,6 +212,52 @@ const Detailinfo = () => {
 
                         <hr className='bar'/>
 
+
+                        {/* 배송비 화면 영역 */}
+
+                        <div className='deliveryprice'>
+                            <span className='deliverytitle mt-8 px-20'>배송비</span><span className='deliverytitle2 mt-8 px-20'>3000원</span>
+                            </div>
+                        <div className='iffivetitle'>
+                            <span className='iffive mt-8 px-20'>
+                                50,000원 이상 구매시 무료배송
+                            </span>
+                        </div>
+                            
+                        <hr className='deliverybar'/>
+
+                        {/* 수량 변경 부분 */}
+
+                        <div className='itemtitlebox'>
+                            <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
+                            <div className='flex_col itemtitlecontentbox'>
+                                    <div className='itemtitlebtn'>-</div>
+                                    <div>0</div>
+                                    <div className='itemtitlebtn'>+</div>
+                                </div>
+                            </div>
+
+
+                        {/* 상품금액 합계 부분 */}  
+                        <div className='amountallpricebox flex'>
+                            <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span><span className='amountallprice mt-8 px-20'>원</span>
+                            </div>
+
+                            <hr className='amountpricebar'/>
+
+                        {/* 구매하기 및 장바구니 버튼 */}
+
+                        <div className='buybasketmain'>
+                        <div class="buyitembutton">
+                            <a class="buyitembutton btn first flex">구매하기</a>
+                        </div>
+
+                        <div class="basketbutton">
+                            <a class="basketbutton btn flex">장바구니</a>
+                        </div>
+                        </div>
+                    
+
                         {/*ai 리뷰 */}
                         <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
 
@@ -240,21 +290,25 @@ const Detailinfo = () => {
 
                         <hr className='bar2'/> 
 
-                        <div className='detailreview mt-8 px-20'>
+                        {reviewcnt.map((item)=> (
+                            <div className='detailreview mt-8 px-20'>
                             리뷰
                         <div className='reviewcount'>
-                            1432
+                            {item.review_count}
                             </div>
                             </div>
+                        ))}
+                        
+                        
 
                         {/*평점 전체 div  */}
                         <div className='reviewall flex justify-between px-20 my-24'>
                         {/*평점 구간 */}
                         {scoreavg.map((item) => (
                         <div className='reviewratemain'>
-                            <span className='reviewtext'>{item.score_avg}</span>
+                            <span className='reviewtext'>{item.rating_avg}</span>
                             <div className='reviewstar'>
-                            {setScore(`${item.score_avg}`)}
+                            {setScore(`${item.rating_avg}`)}
                             </div>
                             </div>
                         ))}
@@ -275,22 +329,16 @@ const Detailinfo = () => {
                         <img src = {account} width={50} className='w-40 h-40 rounded-full object-cover object-center'/>
                         <div className='textonly'>
                         <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_id}</span>
-                        <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.type}/{item.matter1}/{item.matter2}</span><br/>
+                        <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br/>
                         </div>
                         <div className='accountstar'>
-                        {setScore(`${item.score}`)}
+                        {setScore(`${item.rating}`)}
                             </div>
-                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_date}</span>
+                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_up_dt}</span>
                         </div>
                         
-                        <div className='goodcommentmain flex items-start gap-x-8 mt-24'>
-                            <img src = {smile} width={32} height={31}></img>
-                            <span className='goodcomment'>{item.good_review}</span>
-                            </div>
-
-                        <div className='sosocommentmain flex items-start gap-x-8 mt-24'>
-                            <img src = {notsmile} width={28} height={25}></img>
-                            <span className='sosocomment'>{item.bad_review}</span>
+                        <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
+                            <span className='reviewcomment'>{item.review}</span>
                             </div>
                             </div>
                         ))}
@@ -443,14 +491,14 @@ const Detailinfo = () => {
 
                         <ScrollToTop/>
 
-
-                        <div className='fixed bottom-[0] left-[0] w-full z-10 pointer-events-none z-10'>
+                        {/* 앱으로 보기 버튼 */}
+                        {/* <div className='fixed bottom-[0] left-[0] w-full z-10 pointer-events-none z-10'>
                             <div className='max-w-[600px] mx-auto bg-white'>
                             <div className="allreviewbtncontainer1">
                             <a className="allreviewbtn1 btn-6" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>앱으로 보기</a>
                             </div>
                             </div>
-                            </div>
+                            </div> */}
                         
 
                         </div>

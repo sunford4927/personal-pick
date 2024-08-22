@@ -76,11 +76,11 @@ export const titleList = [
 ]
 
 export const userTypeList = [
-    '건성', '지성', '복합성', '민감성', '여드름', '아토피'
+    '건성', '지성', '복합성', '민감성', '중성'
 ]
 
 export const userAgeList = [
-    '10대', '20대', '30대', '40대',
+    '10대', '20대', '30대', '40대', "50대~"
 ]
 
 export const isStrCheck = (str) => {
