@@ -7,14 +7,14 @@ import { setIcon } from '../../util/util';
 const ItemAll = ({ data }) => {
 
   const nav = useNavigate();
-
+  
   return (
     <>
 
       {data.length > 0 && data.map((item, idx) => (
 
         <div className='itemBox flex_col cursor' key={item.idx} onClick={() => nav('/detailinfo/' + (idx + 1))}>
-        <div className='rank_num' key={idx}>{setIcon(idx)}</div>
+        {window.location.pathname !== "/subscriptionmanagement"? <div className='rank_num' key={idx}>{setIcon(idx)}</div> : ""}
         <img src={item.cos_img_src} alt="" style={{ width: 80, height: 80 }} className='rank_img' />
         <div>
             <div className='rank_name'>
