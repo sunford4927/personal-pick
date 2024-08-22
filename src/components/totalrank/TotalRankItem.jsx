@@ -30,7 +30,7 @@ const ItemAll = ({ data }) => {
             <div className='rank_price' >
                 <span className='rank_text'>정가&nbsp;</span>
                 <span className='rank_cos_price'>{item.price + "원"}</span>
-                <span className='rank_vol'>{"/" + item.vol + "ml"}</span>
+                <span className='rank_vol'>{"/" + item.vol }</span>
             </div>
         </div>
     </div>
