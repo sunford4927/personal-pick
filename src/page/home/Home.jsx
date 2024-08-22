@@ -136,7 +136,7 @@ const Home = () => {
 
     });
     const [data, setData] = useState([]);
-    const [userChoiceRank, setUserChoiceRank] = useState([...itemDic])
+    const [userChoiceRank, setUserChoiceRank] = useState([])
     // 내피부에 꼭 맞는 제품 랭킹
     const [userItemRank, setUserItemRank] = useState("건성");
     // 나이대별 추천
@@ -162,6 +162,11 @@ const Home = () => {
     }, [categoryDic])
 
 
+    useEffect(() => {
+        console.log(userChoiceRank);
+        
+    }, [userChoiceRank])
+    
 
     // 오늘날짜
     let today = new Date()
