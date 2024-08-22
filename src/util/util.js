@@ -147,10 +147,12 @@ export function setScore(idx) {
 
 const clientKey = "test_ck_5OWRapdA8dQPoyvBWWDP3o1zEqZK";
 const secretKey = "test_sk_ex6BJGQOVDJ2beaYow4Q8W4w2zNb";
-export function showPayMent(userId, price, ItemName) {
+export function showPayMent(userId, price, ItemName, address) {
     let id = crypto.randomUUID();
     loadTossPayments(clientKey).then((tossPayments) => {
         // ------ 결제창 띄우기 ------
+        // 필요한 데이터
+        // userId, ordername, paymentkey, address, totalAmount
         tossPayments
             .requestPayment("CARD", {
                 // 결제수단 파라미터
@@ -161,19 +163,20 @@ export function showPayMent(userId, price, ItemName) {
                 orderId: id, // 주문번호
                 orderName: ItemName, // 구매상품
                 customerName: userId, // 구매자 이름
-                escrowProducts : [{
-                    id : crypto.randomUUID(),
-                    name : "기초화장구독",
-                    code : crypto.randomUUID(),
-                    unitPrice : price,
-                    quantity : 3
-                }]
                 // successUrl: "https://localhost:3500", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
                 // failUrl: "https://docs.tosspayments.com/guides/payment/test-fail", // 결제 실패 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
             })
             .then(res => {
-                sendPost(URL+"/payment",null, res);
-                console.log(res)
+                let dic = {
+                    paymentKey : res.paymentKey, 
+                    user_id : userId, 
+                    orderName : ItemName, 
+                    address : address, 
+                    totalAmount : price,
+                    orderId : id
+                };
+                sendPost(URL+"/payment",null, dic);
+                
             })
             // ------ 결제창을 띄울 수 없는 에러 처리 ------
             // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
@@ -186,12 +189,5 @@ export function showPayMent(userId, price, ItemName) {
                     // 유효하지 않은 카드 코드에 대한 에러 처리
                 }
             });
-
-        // wkehdrufwp
-        // tossPayments.requestBillingAuth("카드", {
-        //     customerKey: '_gIJFO_8NzUmwhb3qr7Xn',
-        //     successUrl: "http://localhost:8080/success",
-        //     failUrl: "http://localhost:8080/fail",
-        //   });
     });
 }
