@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
 # from hello import test
-from ppMain import ppMainPage, ppCategorySel
+from ppMain import ppMainPage, ppCategorySel, ppSuggestAge
 from ppDetail import ppDetailPage, ppGetReveiw, ppScoreAvg, ppScoreCnt, ppReviewCnt
 from join import ppJoin
 from ppLogin import ppLogin
@@ -26,6 +26,7 @@ api.add_resource(ppGetReveiw, '/ReviewPage')
 api.add_resource(ppScoreAvg, '/ScoreAvg')
 api.add_resource(ppScoreCnt, '/ScoreCnt')
 api.add_resource(ppReviewCnt, '/ReviewCnt')
+api.add_resource(ppSuggestAge, '/suggestAge')
 
 api.add_resource(testJoin, '/TestJoin')
 api.add_resource(testLogin, '/TestLogin')
