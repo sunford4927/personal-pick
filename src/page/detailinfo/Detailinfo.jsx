@@ -193,7 +193,7 @@ const Detailinfo = () => {
 
                         <div className='priceinfo px-20 mt-24'>
                         <div className='price'>
-                        <span className='price1'>정가 :</span><span className='pricetext'>{item.price}원 / {item.vol}ml</span>
+                        <span className='price1'>정가 :</span><span className='pricetext'>{item.price}원 / {item.vol}</span>
                         </div>
                         </div>
 
