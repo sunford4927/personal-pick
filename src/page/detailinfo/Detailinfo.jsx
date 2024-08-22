@@ -230,10 +230,10 @@ const Detailinfo = () => {
 
                         <div className='itemtitlebox'>
                             <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
-                            <div className='flex_col basket_under_content_box'>
-                                    <div className='basket_sum_btn'>-</div>
+                            <div className='flex_col itemtitlecontentbox'>
+                                    <div className='itemtitlebtn'>-</div>
                                     <div>0</div>
-                                    <div className='basket_sum_btn'>+</div>
+                                    <div className='itemtitlebtn'>+</div>
                                 </div>
                             </div>
 
@@ -491,14 +491,14 @@ const Detailinfo = () => {
 
                         <ScrollToTop/>
 
-
-                        <div className='fixed bottom-[0] left-[0] w-full z-10 pointer-events-none z-10'>
+                        {/* 앱으로 보기 버튼 */}
+                        {/* <div className='fixed bottom-[0] left-[0] w-full z-10 pointer-events-none z-10'>
                             <div className='max-w-[600px] mx-auto bg-white'>
                             <div className="allreviewbtncontainer1">
                             <a className="allreviewbtn1 btn-6" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>앱으로 보기</a>
                             </div>
                             </div>
-                            </div>
+                            </div> */}
                         
 
                         </div>
