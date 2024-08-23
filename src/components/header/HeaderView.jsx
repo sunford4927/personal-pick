@@ -22,13 +22,13 @@ const HeaderView = () => {
     }
     const nav = useNavigate();
     return (
-        <div id='wrapper'>
+        <>
             <div className="flex_col home_header">
                 <img src={MainLogo} className="logoimg cursor" alt="팀로고" onClick={() => nav("/")}/>
                 <img src={MenuImg} className="home_menu cursor" alt="" onClick={(e) => showMenu(e)} />
             </div>
             <Menu isView={isMenu} />
-        </div>
+        </>
     );
 };
 

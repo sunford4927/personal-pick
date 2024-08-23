@@ -63,7 +63,7 @@ const data = [
 const ShoppingCart = () => {
     const nav = useNavigate();
     return (
-        <div id='wrapper'>
+        <>
             <div className='management_title'>
                 <img className='home_menu float_l cursor' src={LeftArrow} alt=""  onClick={()=>nav(-1)}/>
                 <p>장바구니</p>
@@ -137,7 +137,7 @@ const ShoppingCart = () => {
             <div className='basket_fix_btn'>
                 46,000원 주문하기
             </div>
-        </div>
+        </>
     );
 };
 

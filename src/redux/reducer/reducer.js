@@ -1,8 +1,23 @@
+import { GrAction } from 'react-icons/gr';
 import * as types from '../type/types';
 
 const initialState = {
+    isMenu : false, // 햄버거 메뉴 띄어짐 여부
+    homeCategory : {
+        mainTitle : "카테고리 전체",
+        choiceKey : "",
+        keyList : [],
+        data : []
+    },
+    homeSkin : {
+        choiceKey : "건성",
+        data : []
+    },
+    homeAge : {
+        choiceKey : "10대",
+        data : []
+    },
 
-    isMenu : false,
 }
 
 const personalReducer = (state = initialState, action) => {
@@ -11,6 +26,42 @@ const personalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isMenu : action.view
+            }
+        case types.SETHOMECATEGORYMENU:
+        
+            let dic = {
+                ... state.homeCategory
+            }
+            dic.mainTitle = action.title;
+            dic.keyList = action.data;
+            dic.choiceKey = action.key;
+            return {
+                ...state,
+                homeCategory : dic
+            }
+        case types.SETHOMECATEGORYDATA:
+            return {
+                ...state,
+                homeCategory : {
+                    ...state.homeCategory,
+                    data : action.data
+                }
+            }
+        case types.SETHOMESKIN:
+            return {
+                ...state,
+                homeSkin : {
+                    choiceKey : action.key,
+                    data : action.data
+                }
+            }
+        case types.SETHOMEAGE:
+            return {
+                ...state,
+                homeAge : {
+                    choiceKey : action.key,
+                    data : action.data
+                }
             }
         default:
             return state;

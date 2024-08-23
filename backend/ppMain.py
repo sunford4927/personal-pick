@@ -30,29 +30,47 @@ class ppCategorySel(Resource):
 class ppSuggestAge(Resource):
 
     def get(self):
-        # ageDic = request.args.to_dict()
-        # ageval = ageDic['age']
-        age = 10
+        ageDic = request.args.to_dict()
+        age = int(ageDic['age'])
+        # print(type(age))
         oldAge = age + 9
-        data = setQuery(""" SELECT p.*
+        # print("oldAge" , oldAge)
+
+        twoOldAge = age + 30
+        if (age == 50) :
+            data = setQuery(""" SELECT p.*
                                 FROM result_product p
                                 JOIN result_review r ON p.cos_name = r.cos_name
                                 JOIN result_users u ON r.user_nm = u.user_nm
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                 ORDER BY COUNT(*) DESC
-                                LIMIT 6; """, age, oldAge)
-        
+                                LIMIT 6; """, (age, twoOldAge))
+        elif (age < 50) :
+            data = setQuery(""" SELECT p.*
+                                FROM result_product p
+                                JOIN result_review r ON p.cos_name = r.cos_name
+                                JOIN result_users u ON r.user_nm = u.user_nm
+                                WHERE u.user_age BETWEEN %s AND %s
+                                GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
+                                ORDER BY COUNT(*) DESC
+                                LIMIT 6; """, (age, oldAge))
+
         return jsonify(data)
+            
+
+
+
+
+
     
 
 # 피부 타입 별 랭킹 쿼리문 전송 서버
 class ppSuggestSkinType(Resource):
 
     def get(self):
-        # ageDic = request.args.to_dict()
-        # ageval = ageDic['age']
-        skintype = "지성"
+        TypeDic = request.args.to_dict()
+        skintype = TypeDic['skintype']
         data = setQuery(""" SELECT p.*
                                 FROM result_product p
                                 JOIN result_review r ON p.cos_name = r.cos_name

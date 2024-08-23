@@ -180,7 +180,7 @@ const SubscriptionManagement = () => {
     </>
     ;
     return (
-        <div id='wrapper'>
+        <>
             <div className='management_title'>
                 <img className='home_menu float_l cursor' src={LeftArrow} alt=""  onClick={()=>nav(-1)}/>
                 <p>구독관리</p>
@@ -192,7 +192,7 @@ const SubscriptionManagement = () => {
             <div >
                 {isSubscript ? mainTitle=== "구독상품 내역"? tag  : clearTag: "구독이 필요합니다!"}
             </div>
-        </div>
+        </>
     );
 };
 

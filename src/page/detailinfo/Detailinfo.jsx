@@ -18,6 +18,7 @@ import TempSkin from '../../components/tempskin/TempSkin'
 import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
 import CartCount from '../../components/cartcount/CartCount'
+import StarRating from './StarRating'
 
 
 const Detailinfo = () => {
@@ -34,9 +35,6 @@ const Detailinfo = () => {
     // const [starscore , setStarScore] = useState(0);
     
 
-    const [quantity , setQuantity] = useState(1);
-
-
     const {idx} = useParams()
 
     useEffect(()=>{
@@ -45,7 +43,7 @@ const Detailinfo = () => {
          sendGet(URL + "/RatingAvg?idx="+idx ,setScoreAvg); // 평점 평균
          sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
          sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
-    },[]);
+    },[idx]);
     
 
     useEffect(()=>{
@@ -74,7 +72,7 @@ const Detailinfo = () => {
         
     }
 
-
+    
 
     const showmodal1 = (e) => {
 
@@ -157,9 +155,8 @@ const Detailinfo = () => {
         }   
 ]
 
-    
   return (
-        <div id = "wrapper">
+        <div>
             {/* Main */}
             {/* 데이터를 성공적으로 불러오면 실행 */}
             {data.length > 0 ? (
@@ -169,7 +166,7 @@ const Detailinfo = () => {
                     {/* 화장품 이름 */}
                 
                     <div className='itemname' key={index}>
-                    <button className='goback' type="button" onClick={()=> navigate('/Search')}><span className= "gobackbtn"><img src={goback} width={20} height={20}></img></span></button>
+                    <img className='goback' src={goback} onClick={()=> navigate('/Search')}></img>
                     <label>{item.cos_name}</label>
                     </div>
 
@@ -304,14 +301,15 @@ const Detailinfo = () => {
                         {/*평점 전체 div  */}
                         <div className='reviewall flex justify-between px-20 my-24'>
                         {/*평점 구간 */}
-                        {scoreavg.map((item) => (
-                        <div className='reviewratemain'>
-                            <span className='reviewtext'>{item.rating_avg}</span>
+                        {scoreavg.map((item, index) => (
+                             <div className='reviewratemain' key={index}>
+                                {/* rating_avg 값을 숫자로 변환 */}
+                            <span className='reviewtext'>{parseFloat(item.rating_avg).toFixed(2)}</span>
                             <div className='reviewstar'>
-                            {setScore(`${item.rating_avg}`)}
+                            <StarRating rating={parseFloat(item.rating_avg)} />
                             </div>
                             </div>
-                        ))}
+                            ))}
 
                         <div className='w-[1px] bg-gray-300'/>
                             
