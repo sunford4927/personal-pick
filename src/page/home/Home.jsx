@@ -11,6 +11,7 @@ import Right from '../../img/오른쪽.png'
 // import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
+import InputReview from "../../components/inputreview/InputReview";
 
 
 
@@ -64,7 +65,7 @@ const Home = () => {
 
 
     return (
-        <div id='wrapper' className="inner"  >
+        <div  className="inner"  >
             {/* // <div id='wrapper' >     */}
 
             
@@ -162,7 +163,7 @@ const Home = () => {
             </div>
             </motion.div>
             <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div>
-            
+            <InputReview />
         </div>
         
 

@@ -73,7 +73,7 @@ const TotalItem = () => {
     
 
     return (
-        <div id='wrapper'>
+        <>
             <div className="all_itemBox ">
                 <img className="leftimg float_l cursor" src={left_img} onClick={()=> nav('/')} alt=""  />
                 <div className="cos_rank_text">화해 랭킹</div>
@@ -84,7 +84,7 @@ const TotalItem = () => {
                 </div>
                 {showView(cateIdx)}
             </div>
-        </div>
+        </>
     );
 };
 
