@@ -23,6 +23,8 @@ import { setMenuView } from './redux/type/typefunc';
 import HeaderView from './components/header/HeaderView';
 import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
 import ShoppingCart from './page/shoppingcart/ShoppingCart';
+import ScrollToTop from './components/scrolltotop/ScrollToTop'
+import './components/scrolltotop/ScrollToTop.scss'
 
 
 
@@ -33,7 +35,8 @@ function App() {
     }
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <div className="App" onClick={()=>funcList()}>
+            <div className="App" id='wrapper' onClick={()=>funcList()}>
+                <ScrollToTop/>
                 <HeaderView/>
                 <Routes>
                     {/*<Route path='/' element={<Loading/>}></Route>*/}
