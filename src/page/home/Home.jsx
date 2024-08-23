@@ -11,113 +11,8 @@ import Right from '../../img/오른쪽.png'
 // import Logo from '../../img/로고.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 
 
-
-// 데이터 6개만 받아올 예정!
-let itemDic = [
-    {
-        idx: 1,
-        brand_name: '브랜드이름1',
-        cos_name: '코스네임일',
-        // cos_name: '여기이름길면줄바꿈되게해야함',
-        cos_img_src: 'https://img.hwahae.co.kr/products/2008579/2008579_20230522181131.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '1'
-    },
-    {
-        idx: 2,
-        brand_name: '브랜드이름2',
-        cos_name: '코스네임이',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1942105/1942105_20230216173808.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 3,
-        brand_name: '브랜드이름3',
-        cos_name: '코스네임삼',
-        cos_img_src: '	https://img.hwahae.co.kr/products/1914381/1914381_20230202180621.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 4,
-        brand_name: '브랜드이름4',
-        cos_name: '코스네임사',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1872716/1872716_20240227094302.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 5,
-        brand_name: '브랜드이름5',
-        cos_name: '코스네임오',
-        cos_img_src: "https://img.hwahae.co.kr/products/1858863/1858863_20220801000000.jpg?format=webp&size=600x600",
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 6,
-        brand_name: '브랜드이름6',
-        cos_name: '코스네임육',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1944992/1944992_20230602135720.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 7,
-        brand_name: '브랜드이름4',
-        cos_name: '코스네임사',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1832892/1832892_20220801000000.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 8,
-        brand_name: '브랜드이름5',
-        cos_name: '코스네임오',
-        cos_img_src: "https://img.hwahae.co.kr/products/1897092/1897092_20220801000000.jpg?format=webp&size=600x600",
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 9,
-        brand_name: '브랜드이름6',
-        cos_name: '코스네임육',
-        cos_img_src: 'https://img.hwahae.co.kr/products/2058047/2058047_20230808102719.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    }
-]
 
 function show(data) {
     console.log(data)
@@ -127,55 +22,23 @@ function show(data) {
 const Home = () => {
     // 페이지 이동 함수
     const nav = useNavigate();
-    const dispatch = useDispatch();
+    
+    const homeCateMain = useSelector(state => state.homeCategory)
+    const skinCateMain = useSelector(state => state.homeSkin)
+    const ageCateMain = useSelector(state => state.homeAge)
     // 화해 고객들이 직접 선택한 랭킹🎁
-    const [categoryDic, setCategoryDic] = useState({
-        list: [],
-        maintitle: "카테고리 전체",
-        subtitle: ""
-
-    });
     const [data, setData] = useState([]);
-    const [userChoiceRank, setUserChoiceRank] = useState([])
-    // 내피부에 꼭 맞는 제품 랭킹
-    const [userItemRank, setUserItemRank] = useState("건성");
-    const [useItemRankData, setUserItemRankData] = useState([]);
-    // 나이대별 추천
-    const [userAgePick, setUserAgePick] = useState("10대");
-    const [userAgePickData, setUserAgePickData] = useState([]);
 
 
     
     // [] -> 첫 렌더링에만 실행
 
     useEffect(() => {
-        let age = userAgePick.substr(0, 2);
-        console.log(age)
         sendGet(URL + '/MainPage', setData);
-        sendGet(URL + "/suggestSkinType?skintype="+ userItemRank,setUserItemRankData);
-        sendGet(URL + "/suggestAge?age="+ age, setUserAgePickData)
     }, [])
-    // useEffect(()=>{
 
-      
-    //     console.log(isMenu.isView)
-    // },[isMenu])
-
-
-    useEffect(()=>{
-        let age = userAgePick.substr(0, 2);
-        sendGet(URL + "/suggestAge?age="+ age, setUserAgePickData)
-    },[userAgePick])
-
-    useEffect(()=>{
-        sendGet(URL + "/suggestSkinType?skintype="+ userItemRank,setUserItemRankData);
-    },[userItemRank])
-
-    useEffect(() => {
-        sendGet(URL + '/CategorySel?category=' + categoryDic.subtitle, setUserChoiceRank)
-    }, [categoryDic])
     function temp(data){
-        console.log(data)
+        // console.log(data)
         setUserId(data)
     }
     const [userId, setUserId] =useState({});
@@ -238,8 +101,8 @@ const Home = () => {
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
 
-            <Category dic={categoryDic} setDic={setCategoryDic} categoryData={titleList} />
-            <Itemview data={userChoiceRank} />
+            <Category categoryData={titleList} />
+            <Itemview data={homeCateMain.data} />
 
             <div className="home_page_btn cursor" onClick={() => nextTotalPage(2)}>
                 카테고리 전체보기
@@ -265,11 +128,11 @@ const Home = () => {
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             
-            <Category dic={userItemRank} setDic={setUserItemRank} categoryData={userTypeList} />
-            <Itemview data={useItemRankData} />
+            <Category categoryData={userTypeList} />
+            <Itemview data={skinCateMain.data} />
 
             <div className="home_page_btn cursor" onClick={() => nextTotalPage(3)}>
-                {userItemRank + ' 전체보기'}
+                {skinCateMain.choiceKey + ' 전체보기'}
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
@@ -291,10 +154,10 @@ const Home = () => {
             </div>
             
             
-            <Category dic={userAgePick} setDic={setUserAgePick} categoryData={userAgeList} />
-            <Itemview data={userAgePickData} />
+            <Category categoryData={userAgeList} />
+            <Itemview data={ageCateMain.data} />
             <div className="home_page_btn cursor" onClick={() => nextTotalPage(4)}>
-                {userAgePick + " 전체보기"}
+                {ageCateMain.choiceKey + " 전체보기"}
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>

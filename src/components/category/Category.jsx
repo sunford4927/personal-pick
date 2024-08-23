@@ -1,17 +1,56 @@
-import React, { useState } from 'react';
-import { modalClose, showSwal } from '../../util/util';
+import React, { useEffect, useState } from 'react';
+import { modalClose, sendGet, showSwal, URL } from '../../util/util';
 import Up from '../../img/위쪽.png'
 import Down from '../../img/아래쪽.png'
 import Right from '../../img/오른쪽.png'
 import './Category.scss'
 import { choicRankingCategory, isStrCheck } from '../../util/utilStr';
+import axios from 'axios';
+import { setHomeAge, setHomeCategoryData, setHomeCategoryMenu, setHomeSkin } from '../../redux/type/typefunc';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 let categoryState = [false, false, false, false, false, false, false, false]
 
 
-const Category = ({dic, setDic, categoryData}) => {
-
+const Category = ({categoryData}) => {
+    const dispatch = useDispatch();
+    const homeCateMain = useSelector(state => state.homeCategory)
+    const skinCate = useSelector(state => state.homeSkin)
+    const ageCate = useSelector(state => state.homeAge)
+    async function getData1(key){
+        let data = await axios
+        .get(URL + '/CategorySel?category=' + key)
+        .then(res=>{
+            return res.data;
+        })
+        dispatch(setHomeCategoryData(data))
+    }
+    async function getData2(key){
+        let data = await axios
+        .get(URL + "/suggestSkinType?skintype="+ key)
+        .then(res=>{
+            return res.data;
+        })
+        dispatch(setHomeSkin(key,data));
+    }
+    async function getData3(key){
+        let age = key.substr(0, 2);
+        let data = await axios
+        .get(URL + "/suggestAge?age="+ age)
+        .then(res=>{
+            return res.data;
+        })
+        dispatch(setHomeAge(key,data));
+    }
+    useEffect(()=>{
+        getData1(homeCateMain.choiceKey);
+        
+    },[homeCateMain.choiceKey])
+    useEffect(()=>{
+        getData2(skinCate.choiceKey)
+        getData3(ageCate.choiceKey)
+    },[])
     function getChoiceRankingData(value){
         let result = null;
         switch(value)
@@ -47,16 +86,51 @@ const Category = ({dic, setDic, categoryData}) => {
         return result
     }
 
+    async function outPage(e, title){
+        e.preventDefault();
+        if(isStrCheck(e.target.innerText))
+        {
+            return;
+        }
+
+        // 이벤트 요소의 부모태그의 스트링값을 찾아서 맞는 데이터 리턴
+        let titleStr = title.split("\n")[0];
+        let list1 = getChoiceRankingData(titleStr); 
+        
+        // if(title === "검색하기" ){
+        //     title = categoryData[0]
+        // }
+
+        dispatch(setHomeCategoryMenu(titleStr,list1, e.target.innerText));
+
+        modalClose()
+
+        let itemTag = document.getElementsByClassName("category_item");
+        
+        for(let i=0; i< itemTag.length; i++)
+        {
+            itemTag[i].removeEventListener("click", (e)=>outPage(e,title))
+        }
+    }
 
     function showView(){
         
         
-        if(categoryData[0] === '건성' || categoryData[0] === '10대')
+        if(categoryData[0] === '건성')
         {
             return (
                 <>
                     {categoryData.map((item, idx)=>{
-                        return <button className={dic == item ? "category_btn" :"category_item"} key={idx} onClick={(e)=>categoryClickEvent(e)}>{item}</button>
+                        return <button className={skinCate.choiceKey == item ? "category_btn" :"category_item"} key={idx} onClick={(e)=>categoryClickEvent(e)}>{item}</button>
+                    })}
+                </>
+            )
+        }
+        else if(categoryData[0] === '10대'){
+            return (
+                <>
+                    {categoryData.map((item, idx)=>{
+                        return <button className={ageCate.choiceKey == item ? "category_btn" :"category_item"} key={idx} onClick={(e)=>categoryClickEvent(e)}>{item}</button>
                     })}
                 </>
             )
@@ -66,14 +140,14 @@ const Category = ({dic, setDic, categoryData}) => {
             return (
                 <>
                     <button className='category_btn cursor' onClick={() =>showModal()}>
-                    {dic.maintitle}
+                    {homeCateMain.mainTitle}
                     </button>
                     {
-                        dic.list === null ?
+                        homeCateMain.keyList === null ?
                         ""
                         :
-                         dic.list.map((item, idx)=>{
-                            return <button className={dic.subtitle == item ? "category_btn" :"category_item"} key={idx} onClick={(e)=>categoryClickEvent(e)}>{item}</button>
+                        homeCateMain.keyList.map((item, idx)=>{
+                            return <button className={homeCateMain.choiceKey == item ? "category_btn" :"category_item"} key={idx} onClick={(e)=>categoryClickEvent(e)}>{item}</button>
                         })
 
                     }
@@ -102,22 +176,17 @@ const Category = ({dic, setDic, categoryData}) => {
     
     function underView(e, idx)
     {
-
         let titleTag = document.getElementsByClassName("subtitle");
         if(idx === 0)
         {
-            
-            setDic({
-                ...dic,
-                maintitle:categoryData[0],
-                list : [],
-                subtitle : ""
-            }
-                )
+
+            dispatch(setHomeCategoryMenu(categoryData[0],[],""));
+
+ 
             modalClose()
             return
         }
-        // e.stopPropagation() 
+        e.stopPropagation() 
         let result = getChoiceRankingData(categoryData[idx])
         let imgTag = document.getElementsByClassName("category_arrow");
     
@@ -139,56 +208,48 @@ const Category = ({dic, setDic, categoryData}) => {
             return null;
         })
         tag += '</div>';
-        
+
         titleTag[idx].innerHTML += tag;
-    
+        let titleValue = []
+        for(let i =0; i< titleTag.length; i++)
+        {
+            titleValue.push(titleTag[idx].innerText.split("\n")[0])
+        }
     
         let itemTag = document.getElementsByClassName("category_item");
+        
         for(let i=0; i< itemTag.length; i++)
         {
-            itemTag[i].addEventListener("click", (e)=>{
-                
-                if(isStrCheck(e.target.innerText))
-                {
-                    return;
-                }
-                e.stopPropagation() // 부모요소의 이벤트 차단
-                // 이벤트 요소의 부모태그의 스트링값을 찾아서 맞는 데이터 리턴
-                let title = e.target.parentNode.parentNode.innerText.split("\n")[0];
-                
-                let list1 = getChoiceRankingData(title); 
-                
-                if(title === "검색하기"){
-                    title = categoryData[0]
-                    
-                }
-
-                setDic({
-                    ...dic,
-                    list : list1,
-                    maintitle:title,
-                    subtitle : e.target.innerText
-                });               
-
-                modalClose()
-            })
+            itemTag[i].addEventListener("click", (e)=>outPage(e,titleValue[idx]))
         }
     
     }
 
-    function categoryClickEvent(e){
+
+    async function categoryClickEvent(e){
         e.stopPropagation()
-        
-        if(categoryData[0] === '건성' || categoryData[0] === "10대")
+        if(categoryData[0] === '건성' )
         {
-            setDic(e.target.innerText)
+            let data = await axios
+            .get(URL + "/suggestSkinType?skintype="+ e.target.innerText)
+            .then(res=>{
+                return res.data;
+            })
+            dispatch(setHomeSkin(e.target.innerText,data));
+        }
+        else if(categoryData[0] === "10대")
+        {
+            let age = e.target.innerText.substr(0, 2);
+            let data = await axios
+            .get(URL + "/suggestAge?age="+ age)
+            .then(res=>{
+                return res.data;
+            })
+            dispatch(setHomeAge(e.target.innerText,data));
         }
         else if(categoryData[0] === "카테고리 전체")
         {
-            setDic({
-                ...dic,
-                subtitle : e.target.innerText
-            })
+            dispatch(setHomeCategoryMenu(homeCateMain.mainTitle, homeCateMain.keyList,  e.target.innerText));
         }
     }
 
