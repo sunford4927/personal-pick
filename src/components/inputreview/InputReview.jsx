@@ -29,7 +29,7 @@ const InputReview = () => {
             alert("로그인 해 주세요")
             return
         }
-        sendPost(URL)
+        sendPost(URL,null, {})
     }
     return (
         <div className='flex_col review_container' style={{marginTop:"40px"}}>
