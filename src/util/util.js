@@ -6,6 +6,7 @@ import { IP } from './setIp';
 import emptyStar from '../img/빈별.png'
 import star from '../img/별.png'
 import { loadTossPayments } from '@tosspayments/payment-sdk';
+import { Navigate } from 'react-router-dom';
 
 export function sendGet(url, func = null) {
     axios
@@ -81,6 +82,41 @@ export function showSwal(strTag, func) {
             }
         },
     })
+}
+
+
+// 상세페이지에서 쓰는 장바구니 모달창
+
+export function showModal(strTag, navigate) {
+    withReactContent(Swal).fire({
+        html: strTag,
+        showConfirmButton: false,
+
+        didOpen: () => {
+            // "gotoshoppingbutton" 클래스를 가진 요소들을 선택합니다.
+            const button = document.getElementsByClassName("gotoshoppingbutton");
+
+            // 각 버튼에 이벤트 리스너를 추가합니다.
+            Array.from(button).forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    navigate('/cartlist'); // '/cartlist'로 이동
+                    modalClose() // 모달 닫는 기능 (아래에 있음)
+                });
+            });
+
+            // 모달을 닫고 그대로 그 페이지 유지하는 이벤트리스너
+            const button1 = document.getElementsByClassName("godetailbutton");
+
+            Array.from(button1).forEach(button => {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    modalClose() // 모달을 닫습니다.
+                });
+            });
+
+        },
+    });
 }
 
 export function modalClose() {

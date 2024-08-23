@@ -6,7 +6,7 @@
     background: white;
     border-bottom: 1px solid rgb(255, 255, 255);
     top: 0px;
-    z-index: 10;
+    z-index: 1;
     position: sticky;
   
     /* 스크롤 시 그림자 추가 */
@@ -22,23 +22,26 @@
     height: 40px;
     border: 0;
     background-color: transparent;
+
+}
+
+.cosmeticname {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    padding-top: 9px;
+}
+
+.gobackimg {
+    cursor: pointer;
+    display: flex;
+    margin-top: 0px;
+    position: absolute;
+    padding-top: 9px;
     cursor: pointer;
 }
 
-.gobackbtn {
-    display: flex;
-}
-
-
-.itemname label {
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    transform: translate(0px, -30px);
-    
-}
 
  // 메인 부분
 
@@ -194,6 +197,12 @@
     font-weight: 600;
 }
 
+.shoppingcart {
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 // 결제 부분 영역 
 .amountallpricebox{
     margin-left: 10px;
@@ -326,6 +335,120 @@
     }
 }
 
+// 장바구니 눌렀을때 나오는 모달창 부분
+
+.addshopping {
+    color : rgb(141 141 141)
+}
+
+.shoppingcartbar {
+    --tw-bg-opacity: 1;
+    background-color: rgb(141 141 141);
+    height: 4px;
+    border-width: 0;
+    margin-bottom: 30px;
+}
+
+// 쇼핑 계속하기 버튼
+
+.godetailmain{
+    display: flex;
+}
+
+.godetailbutton{
+
+    .btn1 {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #0099FC;
+    border-radius: 0.2em;
+    color: #007bcb;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    padding: 16px;
+    width: 139px;
+    justify-content: center;
+      
+        &:hover,
+        &:focus {
+          color: #fff;
+          outline: 0;
+        }
+    
+      }
+}
+
+.first {
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover {
+      box-shadow: 0 0 40px 40px #0099FC inset;
+    }
+}
+
+// 장바구니 이동 버튼
+
+.gotoshoppingmain{
+    display: flex;
+}
+
+.gotoshoppingbutton{
+
+    .btn1 {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #0099FC;
+    border-radius: 0.2em;
+    color: #007bcb;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    padding: 16px;
+    width: 139px;
+    justify-content: center;
+      
+        &:hover,
+        &:focus {
+          color: #fff;
+          outline: 0;
+        }
+    
+      }
+}
+
+.first {
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    &:hover {
+      box-shadow: 0 0 40px 40px #0099FC inset;
+    }
+}
+
+.shoppincartmainbox {
+    display: flex;
+    justify-content: center;
+}
 
 
 
@@ -446,6 +569,14 @@
     background-color: rgb(242, 242, 242, var(--tw-bg-opacity));
     height: 6px;
     border-width: 0px;
+}
+
+.bar4 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(242, 242, 242, var(--tw-bg-opacity));
+    height: 6px;
+    border-width: 0px;
+    margin-top: 50px;
 }
 
 .margintop1 {
@@ -785,7 +916,7 @@ img, video {
 
 
 .ingredientmain{
-    margin-top: 70px;
+    margin-top: 35px;
     font-size: 21px;
     font-weight: 600;
     margin-bottom: 23px;

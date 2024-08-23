@@ -32,7 +32,7 @@ const InputReview = () => {
         sendPost(URL)
     }
     return (
-        <div className='flex_col review_container'>
+        <div className='flex_col review_container' style={{marginTop:"40px"}}>
             <input className="review_container" type="text" value={contents} onChange={(e)=>setContents(e.target.value)}/>
             <div onClick={()=>sendReview()}>등록</div>
         </div>
