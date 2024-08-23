@@ -36,7 +36,7 @@ const CustomSwiper = ({ list }) => {
                         </div>
                         
                         <div className='cos_name'><span>{item.cos_name}</span></div>
-                        <div className='cos_price'><span>{"정가 " + item.price + "원 / " + item.vol + "ml"}</span></div>
+                        <div className='cos_price'><span>{"정가 " + item.price + "원 / " + item.vol }</span></div>
                         < br/>
                         <div className='flex_col'>
                             <img className='star' src={Star} alt="" />
