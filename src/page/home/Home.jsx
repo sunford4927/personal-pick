@@ -12,6 +12,7 @@ import Right from '../../img/오른쪽.png'
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
 import AddressManagement from "../../components/addressmanagement/AddressManagement";
+import MapFind from "../../components/mapfind/MapFind";
 
 
 
@@ -111,6 +112,13 @@ const Home = () => {
             </div>
             </motion.div>
 
+            <div className="flex_row perfume">
+                <img src="https://dn5hzapyfrpio.cloudfront.net/product/533/533472c0-785a-11ee-82a0-977fcb093fe5.jpeg?w=456" alt="" />
+                <div className="basket_fix_btn">
+                    향수 매칭 하러 가기
+                </div>
+            </div>
+
             {/* sendGet으로 필요한 데이터 세 가지 받아오고 그 데이터 이름을 data라는 키 값으로 보내주면 됨! */}
 
             {/* 스크롤 내릴시 생기는 애니메이션 div */}
@@ -163,7 +171,11 @@ const Home = () => {
             </div>
             </motion.div>
             <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div>
-            <AddressManagement/>
+            <AddressManagement pageType={true}/>
+
+            <div style={{width : 400, height : 400}}>
+                <MapFind/>
+            </div>
         </div>
         
 
