@@ -103,3 +103,7 @@ class ppReviewCnt(Resource):
                             JOIN result_product p ON rr.cos_name = p.cos_name
                             WHERE p.idx = %s""", idx)
         return jsonify(data)
+    
+
+
+    
