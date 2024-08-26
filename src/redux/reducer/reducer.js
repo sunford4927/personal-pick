@@ -17,7 +17,7 @@ const initialState = {
         choiceKey : "10대",
         data : []
     },
-
+    user : {}
 }
 
 const personalReducer = (state = initialState, action) => {
@@ -62,6 +62,11 @@ const personalReducer = (state = initialState, action) => {
                     choiceKey : action.key,
                     data : action.data
                 }
+            }
+        case types.SETUSER:
+            return {
+                ...state,
+                user : action.user
             }
         default:
             return state;

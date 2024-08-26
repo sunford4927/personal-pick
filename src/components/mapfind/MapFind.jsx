@@ -5,6 +5,7 @@ import { modalClose } from '../../util/util';
 function MapFind({setAddrSearch}) {
     function setData(data){
         setAddrSearch(data)
+        console.log(data);
         modalClose();
     }
     return (

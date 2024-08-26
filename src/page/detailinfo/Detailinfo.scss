@@ -16,6 +16,13 @@
     }
   }
 
+.detail_backboard{
+    width : 100%;
+    height : 100%;
+    background-color: #fff;
+    position: absolute;
+}
+
 .goback {
     width: 60px;
     display: block;
@@ -324,6 +331,7 @@
         padding: 15px;
         justify-content: center;
         margin-bottom: 45px;
+        width: 672px;
 
         &:hover,
         &:focus {
@@ -331,7 +339,7 @@
           outline: 0;
         }
     
-    
+
     }
 }
 
@@ -638,6 +646,11 @@
 
 // 리뷰 평점
 
+.mirror_h{
+    -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+    -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
 
 .graphbarmain {
         display: ruby;

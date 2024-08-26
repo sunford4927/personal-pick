@@ -92,30 +92,30 @@ export function showModal(strTag, navigate) {
         html: strTag,
         showConfirmButton: false,
 
-        didOpen: () => {
-            // "gotoshoppingbutton" 클래스를 가진 요소들을 선택합니다.
-            const button = document.getElementsByClassName("gotoshoppingbutton");
+        // didOpen: () => {
+        //     // "gotoshoppingbutton" 클래스를 가진 요소들을 선택합니다.
+        //     const button = document.getElementsByClassName("gotoshoppingbutton");
 
-            // 각 버튼에 이벤트 리스너를 추가합니다.
-            Array.from(button).forEach(button => {
-                button.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    navigate('/cartlist'); // '/cartlist'로 이동
-                    modalClose() // 모달 닫는 기능 (아래에 있음)
-                });
-            });
+        //     // 각 버튼에 이벤트 리스너를 추가합니다.
+        //     Array.from(button).forEach(button => {
+        //         button.addEventListener("click", function (e) {
+        //             e.preventDefault();
+        //             navigate('/cartlist'); // '/cartlist'로 이동
+        //             modalClose() // 모달 닫는 기능 (아래에 있음)
+        //         });
+        //     });
 
-            // 모달을 닫고 그대로 그 페이지 유지하는 이벤트리스너
-            const button1 = document.getElementsByClassName("godetailbutton");
+        //     // 모달을 닫고 그대로 그 페이지 유지하는 이벤트리스너
+        //     const button1 = document.getElementsByClassName("godetailbutton");
 
-            Array.from(button1).forEach(button => {
-                button.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    modalClose() // 모달을 닫습니다.
-                });
-            });
+        //     Array.from(button1).forEach(button => {
+        //         button.addEventListener("click", function (e) {
+        //             e.preventDefault();
+        //             modalClose() // 모달을 닫습니다.
+        //         });
+        //     });
 
-        },
+        // },
     });
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {sendGet , showModal, showSwal, URL } from '../../util/util'
+import {modalClose, sendGet , showModal, showPayMent, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -17,10 +17,11 @@ import { setScore } from '../../util/util'
 import TempSkin from '../../components/tempskin/TempSkin'
 import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
-import CartCount from '../../components/cartcount/CartCount'
 import StarRating from './StarRating'
 import InputReview from '../../components/inputreview/InputReview'
 import PageHeader from '../../components/pageheader/PageHeader'
+import ShoppingCartBtn from './ShoppingCartBtn'
+import { useSelector } from 'react-redux'
 
 
 const Detailinfo = () => {
@@ -28,13 +29,18 @@ const Detailinfo = () => {
     const navigate = useNavigate();
     const home = () => navigate('/');
 
-    
+    const state = useSelector(state => state)
+
     const [data , setData] = useState([]);
     const [review , setReview] = useState([]);
     const [scoreavg , setScoreAvg] = useState([]);
     const [scorecnt , setScoreCnt] = useState([]);
     const [reviewcnt , setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
+
+    const [itemadd, setItemAdd] = useState(0);
+    const [isDecreasing, setIsDecreasing] = useState(false);
+
     
 
     const {idx} = useParams()
@@ -45,6 +51,7 @@ const Detailinfo = () => {
          sendGet(URL + "/RatingAvg?idx="+idx ,setScoreAvg); // 평점 평균
          sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
          sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
+         
     },[idx]);
     
 
@@ -82,37 +89,11 @@ const Detailinfo = () => {
         showSwal(str,test1)
     }
 
-    const showmodal= (e) => {
-        let str = ``
-        str += `<div class = "shoppingcart mt-8 px-20">장바구니 담기</div>
-                <hr class='shoppingcartbar'/>
-                <span class="addshopping">장바구니에 추가되었습니다.</span>
-                <div class = "shoppincartmainbox">
-                <div class='godetailmain'>
-                 <div class="godetailbutton">
-                  <a class="godetailbutton btn1 first flex">쇼핑 계속하기</a>
-                  </div>
-                  </div>
-                  <div class='gotoshoppingmain'>
-                 <div class="gotoshoppingbutton">
-                  <a class="gotoshoppingbutton btn1 first flex">장바구니 이동</a>
-                  </div>
-                </div>
-                </div>
-                
-                
-            `  
-            let tag ='<div class="recommendimg">';
-                    data.map((item)=>{
-                tag += `<div class="shoppingcartimg">${item.cos_img_src}</div>`;
-                return null;
-            })
-            tag += '</div>';
 
-        showModal(str, navigate);
+    const func = () => {
+        navigate('/cartlist')
+        modalClose();
     }
-
-    
 
 
     const test = (e) => {
@@ -188,8 +169,13 @@ const Detailinfo = () => {
         }   
 ]
 
+const calculateTotalPrice = (price, quantity) => {
+    return price * quantity;
+  };
 
   return (
+
+    
         <div>
             {/* Main */}
             {/* 데이터를 성공적으로 불러오면 실행 */}
@@ -264,17 +250,32 @@ const Detailinfo = () => {
                         <div className='itemtitlebox'>
                             <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
                             <div className='flex_col itemtitlecontentbox'>
-                                    <div className='itemtitlebtn'>-</div>
-                                    <div>0</div>
-                                    <div className='itemtitlebtn'>+</div>
-                                </div>
+                            <div className='itemtitlebtn' onClick={() => {
+                            if (itemadd > 0) {
+                                setItemAdd(itemadd - 1);
+                                setIsDecreasing(true);
+                                } else {
+                                 setIsDecreasing(false);
+                                }
+                                }}>-</div>
+                            <div>{itemadd}</div>
+                            <div className='itemtitlebtn' onClick={() => {
+                            setItemAdd(itemadd + 1);
+                            setIsDecreasing(false);
+                            }}>+</div>
+                            </div>
                             </div>
 
 
                         {/* 상품금액 합계 부분 */}  
                         <div className='amountallpricebox flex'>
-                            <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span><span className='amountallprice mt-8 px-20'>원</span>
-                            </div>
+                        <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span>
+                         {itemadd > 0 && (
+                            <span className='amountallprice mt-8 px-20'>
+                            {calculateTotalPrice(item.price, itemadd)}원
+                             </span>
+                            )}
+                        </div>
 
                             <hr className='amountpricebar'/>
 
@@ -282,11 +283,11 @@ const Detailinfo = () => {
 
                         <div className='buybasketmain'>
                         <div className="buyitembutton">
-                            <a className="buyitembutton btn first flex">구매하기</a>
+                            <a className="buyitembutton btn first flex" onClick={()=>showPayMent("상현", 2000, "크림", "영암군")}>구매하기</a>
                         </div>
 
                         <div className="basketbutton">
-                            <a className="basketbutton btn flex" onClick={(e)=>showmodal(e)} >장바구니</a>
+                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func}/>)}}>장바구니</button>
                         </div>
                         </div>
                     
@@ -342,8 +343,20 @@ const Detailinfo = () => {
                             <span className="reviewtext">{parseFloat(item.rating_avg).toFixed(2)}</span>
                             <div className="reviewstar">
                         {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
-                             <StarRating rating={parseFloat(item.rating_avg)} />
+                        <StarRating rating={parseFloat(item.rating_avg)} starColor="gold" />
+                        <div className='detail_backboard' style={{marginLeft:item.rating_avg*20}}></div>
+                             {/* <div className='mirror_h' style={ {
+                                height:'200px',
+                                width : '100px',
+                                backgroundColor : 'red',
+                                position:'absolute',
+                                transform: 'scaleX(-1)',
+                                transition: '.3s',
+                             }}>
+                             </div>  */}
+                             
                          </div>
+                         
                          </div>
                           ))}
 
