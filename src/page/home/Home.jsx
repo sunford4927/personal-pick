@@ -17,7 +17,7 @@ import MapFind from "../../components/mapfind/MapFind";
 
 
 function show(data) {
-    console.log(data)
+    // console.log(data)
 }
 
 
@@ -43,7 +43,6 @@ const Home = () => {
     }, [])
 
     function temp(data){
-        // console.log(data)
         setUserId(data)
     }
     const [userId, setUserId] =useState({});
@@ -53,11 +52,9 @@ const Home = () => {
         {
             sendGet(URL+'/TestSearch?user_nm='+ nick, temp)
         }
-        console.log(nick)
     },[])
 
     useEffect(()=>{
-        console.log(userId)
     },[userId])
 
     // 오늘날짜
@@ -173,8 +170,8 @@ const Home = () => {
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
-            <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div>
-            <AddressManagement pageType={true}/>
+            {/* <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div> */}
+            {/* <AddressManagement pageType={true}/> */}
 
 
             {/* <button onClick={()=>{showMap(<MapFind setAddrSearch={setAddrSearch}/>)}}>
