@@ -17,7 +17,7 @@ const initialState = {
         choiceKey : "10대",
         data : []
     },
-
+    
 }
 
 const personalReducer = (state = initialState, action) => {

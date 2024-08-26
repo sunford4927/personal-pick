@@ -18,6 +18,8 @@ const Category = ({categoryData}) => {
     const homeCateMain = useSelector(state => state.homeCategory)
     const skinCate = useSelector(state => state.homeSkin)
     const ageCate = useSelector(state => state.homeAge)
+    const state = useSelector(state => state)
+    
     async function getData1(key){
         let data = await axios
         .get(URL + '/CategorySel?category=' + key)

@@ -176,11 +176,9 @@ const Home = () => {
             <AddressManagement pageType={true}/>
 
 
-            <button onClick={()=>                {
-                showMap(<MapFind setAddrSearch={setAddrSearch} />)
-                }}>
+            {/* <button onClick={()=>{showMap(<MapFind setAddrSearch={setAddrSearch}/>)}}>
                 지도
-            </button>
+            </button> */}
 
 
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {modalClose, sendGet , showModal, showSwal, URL } from '../../util/util'
+import {modalClose, sendGet , showModal, showPayMent, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -281,7 +281,7 @@ const calculateTotalPrice = (price, quantity) => {
 
                         <div className='buybasketmain'>
                         <div className="buyitembutton">
-                            <a className="buyitembutton btn first flex">구매하기</a>
+                            <a className="buyitembutton btn first flex" onClick={()=>showPayMent("상현", 2000, "크림", "영암군")}>구매하기</a>
                         </div>
 
                         <div className="basketbutton">
@@ -342,6 +342,7 @@ const calculateTotalPrice = (price, quantity) => {
                             <div className="reviewstar">
                         {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
                         <StarRating rating={parseFloat(item.rating_avg)} starColor="gold" />
+                        <div className='detail_backboard' style={{marginLeft:item.rating_avg*20}}></div>
                              {/* <div className='mirror_h' style={ {
                                 height:'200px',
                                 width : '100px',
