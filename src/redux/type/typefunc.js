@@ -28,3 +28,8 @@ export const setHomeAge = (key, data) => ({
     key : key,
     data : data
 })
+
+export const setUser = (user) => ({
+    type : types.SETUSER,
+    user : user
+})

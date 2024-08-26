@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { URL } from '../../util/util'
+import { sendGet, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom';
 import './Login.scss'
 import { LoginSession, LogoutSession, getLoginSession } from '../../util/session'
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/type/typefunc';
 
 const Login = () => {
     // 페이지 이동 함수
@@ -11,7 +13,7 @@ const Login = () => {
     const home = () => navigate('/');
     const join = () => navigate('/join');
     const mypage = () => navigate('/mypage');
-
+    const dispatch = useDispatch();
     // 로그인에 필요한 변수들
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
@@ -35,8 +37,9 @@ const Login = () => {
             });
             const responseData = response.data[0]
             // 반환 데이터 확인
-            console.log('responseData : ',responseData);
-
+            console.log(responseData)
+            dispatch(setUser(responseData));
+            
             // 반환 데이터가 있으면 -> 로그인 성공하면
             if (responseData) {
                 // 세션에 로그인한 유저 이름 저장
