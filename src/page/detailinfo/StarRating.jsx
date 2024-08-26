@@ -1,16 +1,23 @@
-import React from 'react';
-import Star from './Star'
+import React from "react";
+import { BsStarFill, BsStarHalf } from "react-icons/bs";
 
-const StarRating = ({ rating }) => {
-  const maxStars = 5;
-  const stars = [];
-
-  for (let i = 0; i < maxStars; i++) {
-    const starRating = Math.min(Math.max(rating - i, 0), 1) * 100; // 해당 별의 채워진 퍼센트 계산
-    stars.push(<Star key={i} filledPercentage={starRating} />);
-  }
-
-  return <div style={{ display: 'flex' }}>{stars}</div>;
+// 별점에 따라 아이콘을 출력하는 StarRating 컴포넌트
+const StarRating = ({ rating, color = "#BB1628" }) => {
+  return (
+    <>
+      {Array(parseInt(rating))
+        .fill()
+        .map((_, i) => (
+          <BsStarFill key={i} size="13" color={color} />
+        ))}
+      {rating % 1 !== 0 && <BsStarHalf size="13" color={color} />}
+      {Array(Math.floor(5 - rating))
+        .fill()
+        .map((_, i) => (
+          <BsStarFill key={i + parseInt(rating)} size="13" color="#E3E3E3" />
+        ))}
+    </>
+  );
 };
 
 export default StarRating;

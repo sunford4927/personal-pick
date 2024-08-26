@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {sendGet , showSwal, URL } from '../../util/util'
+import {sendGet , showModal, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -19,6 +19,9 @@ import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
 import CartCount from '../../components/cartcount/CartCount'
 import StarRating from './StarRating'
+import Modal from "react-modal"
+import InputReview from '../../components/inputreview/InputReview'
+import PageHeader from '../../components/pageheader/PageHeader'
 
 
 const Detailinfo = () => {
@@ -63,7 +66,7 @@ const Detailinfo = () => {
    },[reviewcnt]);
 
 
-    const showmodal = (e) => {
+    const showSwal = (e) => {
         let str = ``
         str += `<div class = "subtitle">화장품 1</div>`
         str += `<div class = "subtitle">화장품 2</div>`
@@ -72,14 +75,45 @@ const Detailinfo = () => {
         
     }
 
-    
 
-    const showmodal1 = (e) => {
+    const showSwal1= (e) => {
 
         let str = ``
         str += `<div class = "subtitle">랭킹/수상 정보</div>`
         showSwal(str,test1)
     }
+
+    const showmodal= (e) => {
+        let str = ``
+        str += `<div class = "shoppingcart mt-8 px-20">장바구니 담기</div>
+                <hr class='shoppingcartbar'/>
+                <span class="addshopping">장바구니에 추가되었습니다.</span>
+                <div class = "shoppincartmainbox">
+                <div class='godetailmain'>
+                 <div class="godetailbutton">
+                  <a class="godetailbutton btn1 first flex">쇼핑 계속하기</a>
+                  </div>
+                  </div>
+                  <div class='gotoshoppingmain'>
+                 <div class="gotoshoppingbutton">
+                  <a class="gotoshoppingbutton btn1 first flex">장바구니 이동</a>
+                  </div>
+                </div>
+                </div>
+                
+                
+            `  
+            let tag ='<div class="recommendimg">';
+                    data.map((item)=>{
+                tag += `<div class="shoppingcartimg">${item.cos_img_src}</div>`;
+                return null;
+            })
+            tag += '</div>';
+
+        showModal(str, navigate);
+    }
+
+    
 
 
     const test = (e) => {
@@ -155,6 +189,7 @@ const Detailinfo = () => {
         }   
 ]
 
+
   return (
         <div>
             {/* Main */}
@@ -166,9 +201,11 @@ const Detailinfo = () => {
                     {/* 화장품 이름 */}
                 
                     <div className='itemname' key={index}>
-                    <img className='goback' src={goback} onClick={()=> navigate('/Search')}></img>
-                    <label>{item.cos_name}</label>
+                    <img src={goback} className = "gobackimg" onClick={()=> navigate('/Search')} width={20} height={20}></img>
+                    <span className='cosmeticname'>{item.cos_name}</span>
                     </div>
+
+
 
                         <div id = 'main1'>
 
@@ -198,7 +235,7 @@ const Detailinfo = () => {
                         </div>
                         </div>
 
-                        <div className='rankinginfo' onClick={(e)=>showmodal1(e)}>
+                        <div className='rankinginfo' onClick={(e)=>showSwal1(e)}>
                         <div className='ranking px-20 mt-24'>
                         <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                         </div>
@@ -245,12 +282,12 @@ const Detailinfo = () => {
                         {/* 구매하기 및 장바구니 버튼 */}
 
                         <div className='buybasketmain'>
-                        <div class="buyitembutton">
-                            <a class="buyitembutton btn first flex">구매하기</a>
+                        <div className="buyitembutton">
+                            <a className="buyitembutton btn first flex">구매하기</a>
                         </div>
 
-                        <div class="basketbutton">
-                            <a class="basketbutton btn flex">장바구니</a>
+                        <div className="basketbutton">
+                            <a className="basketbutton btn flex" onClick={(e)=>showmodal(e)} >장바구니</a>
                         </div>
                         </div>
                     
@@ -298,19 +335,20 @@ const Detailinfo = () => {
                         
                         
 
-                        {/*평점 전체 div  */}
-                        <div className='reviewall flex justify-between px-20 my-24'>
-                        {/*평점 구간 */}
+                        <div className="reviewall flex justify-between px-20 my-24">
+                        {/* 평점 구간 */}
                         {scoreavg.map((item, index) => (
-                             <div className='reviewratemain' key={index}>
-                                {/* rating_avg 값을 숫자로 변환 */}
-                            <span className='reviewtext'>{parseFloat(item.rating_avg).toFixed(2)}</span>
-                            <div className='reviewstar'>
-                            <StarRating rating={parseFloat(item.rating_avg)} />
-                            </div>
-                            </div>
-                            ))}
+                        <div className="reviewratemain" key={index}>
+                        {/* rating_avg 값을 숫자로 변환 */}
+                            <span className="reviewtext">{parseFloat(item.rating_avg).toFixed(2)}</span>
+                            <div className="reviewstar">
+                        {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
+                             <StarRating rating={parseFloat(item.rating_avg)} />
+                         </div>
+                         </div>
+                          ))}
 
+                          
                         <div className='w-[1px] bg-gray-300'/>
                             
                         {/* 평점 별점그래프 구간 */}   
@@ -344,12 +382,16 @@ const Detailinfo = () => {
 
                         <hr className='bar3'/>
 
+                        {/* 댓글 쓰는 창 */}
+                        <InputReview/>
+
+                        <hr className='bar4'/>
 
 
-                            {/* 리뷰 전체보기 버튼 */}
+                            {/* 리뷰 전체보기 버튼
                             <div class="allreviewbtncontainer">
                             <a class="allreviewbtn btn-5" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>리뷰 전체보기</a>
-                            </div>
+                            </div> */}
 
                         {/* 성분 */}
 
@@ -359,7 +401,7 @@ const Detailinfo = () => {
 
                         <hr className='ingredientbar'/>
 
-                        <div className='ingredientdropbox' onClick={(e)=>showmodal(e)}> 
+                        <div className='ingredientdropbox' onClick={(e)=>showSwal(e)}> 
                         <input id="dropdown" type="checkbox"/>
                         <label className="dropdownLabel" for="dropdown">
                         <div>화장품 성분보기</div>
