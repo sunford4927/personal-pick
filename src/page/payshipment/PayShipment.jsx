@@ -3,39 +3,38 @@ import './PayShipment.scss';
 import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
 import { useNavigate } from 'react-router-dom';
+import XBtn from '../../img/회색엑스.png'
 
-import img1 from '../../img/화장품 이미지1.jpg';
-import img2 from '../../img/화장품 이미지2.jpg';
 
 const data = [
     {
         idx: 5,
-        brand_name: '브랜드이름5',
-        cos_name: '코스네임오',
+        brand_name: '토리든',
+        cos_name: '밸런스풀 시카 토너 패드',
         cos_img_src: "https://img.hwahae.co.kr/products/1858863/1858863_20220801000000.jpg?format=webp&size=600x600",
         grade: 4.74,
         grade_count: 2456,
-        price: 4000,
-        vol: 40,
+        price: '23,000원',
+        vol: '60ea',
         ranking: '34'
     },
     {
         idx: 6,
-        brand_name: '브랜드이름6',
-        cos_name: '코스네임육',
+        brand_name: '라운드어라운드',
+        cos_name: '그린티 시카 선로션[SPF50+/PA++++]',
         cos_img_src: 'https://img.hwahae.co.kr/products/1944992/1944992_20230602135720.jpg?format=webp&size=600x600',
         grade: 4.74,
         grade_count: 2456,
-        price: 4000,
-        vol: 40,
+        price: '20,000원',
+        vol: '100ml',
         ranking: '34'
     }
 ]
 
 const deliveryAddress = {
-    name : '오세원',
+    name: '오세원',
     address: '광주광역시 서구 상무공원로 94 (치평동) 대주아파트 000동 000호',
-    phone : '010-0000-0000'
+    phone: '010-0000-0000'
 };
 
 
@@ -71,104 +70,152 @@ const PayShipment = () => {
         setDropdownOpenClose(false);   // 드롭다운 닫기
     };
 
-        // 배송지 수정/추가 페이지로 이동하는 함수
-        const 배송지수정추가 = () => {
-            nav('배송지 수정/추가');
-        };
+    // 배송지 or 배송지 목록 중 배송지를 기본값으로 잡아둠(삼항연산자 사용해 true or false 구분)
+    const [check, setCheck] = useState(true);
+
+
 
 
     return (
         <div>
-            <div>
-                <img className='back' src={Back} alt="" onClick={() => nav('/cartlist')} />
-                <p>주문/결제</p>
+            <div className='backORtext'>
+                <img className='cart_back_btn' src={Back} alt="" onClick={() => nav('/cartlist')} />
+                <p className='orderpay_text'>주문/결제</p>
             </div>
 
             <div>
-                <div>
-                    <ul>
-                    <li className='delivery_btn active' onClick={배송지수정추가}>배송지</li>
-                    <li className='delivery_btn' onClick={배송지수정추가}>배송지 목록</li>
+                <div className='delivery_boxes'>
+                    <ul className='delivery_btn'>
+                        <li className='delivery_text active' onClick={() => setCheck(true)}>배송지</li>
+                    </ul>
+                    <ul className='delivery_btn'>
+                        <li className='delivery_text' onClick={() => setCheck(false)}>배송지 목록</li>
                     </ul>
                 </div>
-                    
 
-                    <div>
-                    <div>
-                    <br />
-                        <span>[기본]</span>
-                        <span>{deliveryAddress.name}</span>
-                    </div>
-                    <div>{deliveryAddress.address}</div>
-                    <div>{deliveryAddress.phone}</div>
-                </div>
-
-
-                <hr className='thin_grayline' />
-
-                {/* 배송지 드롭다운 */}
-                <div className='delivery_dropdown'>
-                    <button className='dropdown_toggle' onClick={dropdownToggle}>
-                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
-                        <img className='dropdown_triangle' src={Triangle} />
-                        </button>
-                    {dropdownOpenClose && (<ul className='dropdown_menu'>
-                        {options.map((option, idx) => (
-                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
-                        ))}
-                    </ul>
-                    )}
-                </div>
-                <hr className='thick_grayline' />
-                <div>
-                    <div className='white_text_box'>
-                        주문상품
-                    </div>
-                    {/* <hr className='thin_grayline' /> */}
-                    <div>
-                        <br />
+                {check ?
+                    <>
                         <div>
-                            <img src={img1} style={{ width: '80px', height: '80px' }} alt={img1} className='productimg'></img>
-                            <img src={img2} style={{ width: '80px', height: '80px' }} alt={img2} className='productimg'></img>
-                        </div>
-                        <div className='items'>
-                            <div className='searchfont'>
-                                <span className='searchbrand'>토리든</span>
-                            </div>
                             <div>
-                                <span>밸런스풀 시카 토너 패드</span>
+                                <br />
+                                <span>[기본]</span>
+                                <span>{deliveryAddress.name}</span>
                             </div>
-                            <div className='searchprice'>
-                                <span className='won'>23,000원</span>
-                                <span className='gray'>1개</span>
-                            </div>
-                            <br />
+                            <div>{deliveryAddress.address}</div>
+                            <div>{deliveryAddress.phone}</div>
                         </div>
-                    </div>
-                </div>
-                <hr className='thick_grayline' />
-                <div>
-                    <div className='white_text_box'>
-                        결제정보
-                    </div>
-                    {/* <hr className='thin_grayline' /> */}
-                    <div className='gray_text'>
-                        <span>총 상품금액</span>
-                        <span>43,000원</span>
-                        <span>배송비</span>
-                        <span>3,000원</span>
-                    </div>
-                    <div className='pay_fix_box'>
+
+
                         {/* <hr className='thin_grayline' /> */}
-                        <span className='pay_fix_amount'>최종 결제 금액</span>
-                        <span className='pay_fix_num'>46,000원</span>
-                        {/* <hr className='thin_grayline' /> */}
-                    </div>
-                </div>
-                <div className='pay_fix_btn'>
-                    46,000원 결제하기
-                </div>
-                {/* {check ? <div>1</div> : <div>2</div>} */}
+
+                        {/* 배송지 드롭다운 */}
+                        <div className='delivery_dropdown'>
+                            <button className='dropdown_toggle' onClick={dropdownToggle}>
+                                {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
+                                <img className='dropdown_triangle' src={Triangle} />
+                            </button>
+                            {dropdownOpenClose && (<ul className='dropdown_menu'>
+                                {options.map((option, idx) => (
+                                    <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
+                                ))}
+                            </ul>
+                            )}
+                        </div>
+                        {/* <hr className='thick_grayline' /> */}
+                        <div>
+                            <div className='white_text_box'>
+                                주문상품
+                            </div>
+                            {/* <hr className='thin_grayline' /> */}
+                            <div>
+                                {data.map((item, i) => {
+                                    return (
+                                        <>
+                                            <div key={i} className='order_product'>
+                                                <input className='order_check' type="checkbox" />
+                                                <img className='order_img' style={{ width: '80px', height: '80px' }} src={item.cos_img_src} alt="" />
+                                                <div className='order_content_text'>
+                                                    <div>
+                                                        <span className='order_product_brand'>
+                                                            {item.brand_name}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span className='order_product_name'>
+                                                            {item.cos_name}
+                                                        </span>
+                                                        <span className='order_product_text'>
+                                                            {item.vol}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span>{item.price}</span>
+                                                        <span className='order_price'>1개</span>
+                                                    </div>
+                                                </div>
+                                                <img className='order_x_btn ' src={XBtn} alt="" style={{ marginLeft: "58%", width: '10px', height: '10px' }} />
+                                            </div>
+
+                                        </>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className='white_text_box'>
+                                결제정보
+                            </div>
+
+                            <div className='gray_text'>
+                                <div>
+                                    <span>총 상품금액</span>
+                                    <span>43,000원</span>
+                                </div>
+                                <div>
+                                    <span>배송비</span>
+                                    <span>3,000원</span>
+                                </div>
+                            </div>
+                            <div className='pay_fix_box'>
+
+                                <span className='pay_fix_amount'>최종 결제 금액</span>
+                                <span className='pay_fix_num'>46,000원</span>
+
+                            </div>
+                        </div>
+                        <div className='pay_fix_btn'>
+                            46,000원 결제하기
+                        </div> </>
+                    : <>
+                    <div>
+                        <div className='delivery_list_box'>
+                        <div>
+                            <div>
+                                <br />
+                                <span>{deliveryAddress.name}</span>
+                                <span>[기본배송지]</span>
+                            </div>
+                            <div>{deliveryAddress.address}</div>
+                            <div>{deliveryAddress.phone}</div>
+                            <div>{dropdownOptionSelect}</div>
+                        </div>
+                                <div>
+                                    <button>삭제</button>
+                                    <button onClick={() => nav('/addressadd?수정')}>수정</button>
+                                    <button>선택</button>
+                                </div>
+                                </div>
+                                
+                                <div className='delivery_plus'>
+                                    <button onClick={() => nav('/addressadd?추가')}>배송지추가</button>
+                                </div>
+                        </div>
+                    </>
+                }
+
+
+
             </div>
 
         </div>

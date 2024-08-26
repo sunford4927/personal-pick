@@ -1,16 +1,35 @@
-ul {
-    margin-bottom: 20px;
-    border-top: 1px solid #d7d5d5;
-    padding: 15px 10px 14px;
+.backORtext {
+    display: flex;
+    align-items: center;
+}
+
+.cart_back_btn {
+    width: 24px;
+    height: 24px;
+}
+
+.orderpay_text {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.delivery_boxes {
+    display: flex;
+    justify-content: space-around;
 }
 
 .delivery_btn {
+    margin-left: 0;
+}
+
+.delivery_text {
     font-weight: 500;
     color: #000;
     background: #fff;
+    padding: 15px 10px 14px;
 }
 
-.delivery_btn.active {
+.delivery_text.active {
     font-weight: 600;
 }
 
@@ -18,7 +37,9 @@ ul {
     position: relative;
     display: inline-block;
     width: 100%;
-    padding: 0 20px 0 15px;
+    padding: 10px 20px 10px 15px;
+    border-top: 1px solid #d7d5d5;
+
 }
 
 .dropdown_toggle {
@@ -50,7 +71,7 @@ ul {
 .dropdown_triangle {
     width: 10px;
     height: 10px;
-    padding-left: 20px;
+    padding-left: 200px;
 }
 
 .pay_fix_btn{
@@ -65,5 +86,28 @@ ul {
     border-radius: 10px;
     line-height: 50px;
     bottom: 10px;
+    margin-top: 10px;
 }
 
+.pay_fix_box {
+    border-top: 1px solid #d7d5d5;
+    border-bottom: 1px solid #d7d5d5;
+    padding: 10px;
+}
+
+.white_text_box {
+    border-top: 1px solid #d7d5d5;
+    border-bottom: 1px solid #d7d5d5;
+    padding: 10px;
+}
+
+
+
+.delivery_list_box {
+    border-bottom: 1px solid #d7d5d5;
+    padding-bottom: 10px;
+}
+
+.delivery_plus {
+    padding: 10px;
+}
