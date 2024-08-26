@@ -70,125 +70,151 @@ const PayShipment = () => {
         setDropdownOpenClose(false);   // 드롭다운 닫기
     };
 
-    // 배송지 or 배송지 목록 중 배송지를 기본값으로 잡아둠
+    // 배송지 or 배송지 목록 중 배송지를 기본값으로 잡아둠(삼항연산자 사용해 true or false 구분)
     const [check, setCheck] = useState(true);
+
+
 
 
     return (
         <div>
-            <div>
-                <img className='back' src={Back} alt="" onClick={() => nav('/cartlist')} />
-                <p>주문/결제</p>
+            <div className='backORtext'>
+                <img className='cart_back_btn' src={Back} alt="" onClick={() => nav('/cartlist')} />
+                <p className='orderpay_text'>주문/결제</p>
             </div>
 
             <div>
-                <div>
-                    <ul>
-                        <li className='delivery_btn active' onClick={() => setCheck(true)}>배송지</li>
-                        <li className='delivery_btn' onClick={() => setCheck(false)}>배송지 목록</li>
+                <div className='delivery_boxes'>
+                    <ul className='delivery_btn'>
+                        <li className='delivery_text active' onClick={() => setCheck(true)}>배송지</li>
+                    </ul>
+                    <ul className='delivery_btn'>
+                        <li className='delivery_text' onClick={() => setCheck(false)}>배송지 목록</li>
                     </ul>
                 </div>
 
-                {check ? 
-                <>
-                <div>
-                    <div>
-                        <br />
-                        <span>[기본]</span>
-                        <span>{deliveryAddress.name}</span>
-                    </div>
-                    <div>{deliveryAddress.address}</div>
-                    <div>{deliveryAddress.phone}</div>
-                </div>
-
-
-                {/* <hr className='thin_grayline' /> */}
-
-                {/* 배송지 드롭다운 */}
-                <div className='delivery_dropdown'>
-                    <button className='dropdown_toggle' onClick={dropdownToggle}>
-                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
-                        <img className='dropdown_triangle' src={Triangle} />
-                    </button>
-                    {dropdownOpenClose && (<ul className='dropdown_menu'>
-                        {options.map((option, idx) => (
-                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
-                        ))}
-                    </ul>
-                    )}
-                </div>
-                {/* <hr className='thick_grayline' /> */}
-                <div>
-                    <div className='white_text_box'>
-                        주문상품
-                    </div>
-                    {/* <hr className='thin_grayline' /> */}
-                    <div>
-                        {data.map((item, i) => {
-                            return (
-                                <>
-                                    <div key={i} className='order_product'>
-                                        <input className='order_check' type="checkbox" />
-                                        <img className='order_img' style={{ width: '80px', height: '80px'}} src={item.cos_img_src} alt="" />
-                                        <div className='order_content_text'>
-                                            <div>
-                                            <span className='order_product_brand'>
-                                                {item.brand_name}
-                                            </span>
-                                            </div>
-                                            <div>
-                                            <span className='order_product_name'>
-                                                {item.cos_name}
-                                            </span>
-                                            <span className='order_product_text'>
-                                                {item.vol}
-                                            </span>
-                                            </div>
-                                            <div>
-                                            <span>{item.price}</span>
-                                            <span className='order_price'>1개</span>
-                                            </div>
-                                        </div>
-                                        <img className='order_x_btn ' src={XBtn} alt="" style={{ marginLeft: "58%" , width: '10px', height: '10px' }} />
-                                    </div>
-                                    
-                                </>
-                            )
-                        })}
-                    </div>
-                </div>
-
-                <div>
-                    <div className='white_text_box'>
-                        결제정보
-                    </div>
-
-                    <div className='gray_text'>
+                {check ?
+                    <>
                         <div>
-                        <span>총 상품금액</span>
-                        <span>43,000원</span>
+                            <div>
+                                <br />
+                                <span>[기본]</span>
+                                <span>{deliveryAddress.name}</span>
+                            </div>
+                            <div>{deliveryAddress.address}</div>
+                            <div>{deliveryAddress.phone}</div>
                         </div>
+
+
+                        {/* <hr className='thin_grayline' /> */}
+
+                        {/* 배송지 드롭다운 */}
+                        <div className='delivery_dropdown'>
+                            <button className='dropdown_toggle' onClick={dropdownToggle}>
+                                {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
+                                <img className='dropdown_triangle' src={Triangle} />
+                            </button>
+                            {dropdownOpenClose && (<ul className='dropdown_menu'>
+                                {options.map((option, idx) => (
+                                    <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
+                                ))}
+                            </ul>
+                            )}
+                        </div>
+                        {/* <hr className='thick_grayline' /> */}
                         <div>
-                        <span>배송비</span>
-                        <span>3,000원</span>
+                            <div className='white_text_box'>
+                                주문상품
+                            </div>
+                            {/* <hr className='thin_grayline' /> */}
+                            <div>
+                                {data.map((item, i) => {
+                                    return (
+                                        <>
+                                            <div key={i} className='order_product'>
+                                                <input className='order_check' type="checkbox" />
+                                                <img className='order_img' style={{ width: '80px', height: '80px' }} src={item.cos_img_src} alt="" />
+                                                <div className='order_content_text'>
+                                                    <div>
+                                                        <span className='order_product_brand'>
+                                                            {item.brand_name}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span className='order_product_name'>
+                                                            {item.cos_name}
+                                                        </span>
+                                                        <span className='order_product_text'>
+                                                            {item.vol}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span>{item.price}</span>
+                                                        <span className='order_price'>1개</span>
+                                                    </div>
+                                                </div>
+                                                <img className='order_x_btn ' src={XBtn} alt="" style={{ marginLeft: "58%", width: '10px', height: '10px' }} />
+                                            </div>
+
+                                        </>
+                                    )
+                                })}
+                            </div>
                         </div>
-                    </div>
-                    <div className='pay_fix_box'>
 
-                        <span className='pay_fix_amount'>최종 결제 금액</span>
-                        <span className='pay_fix_num'>46,000원</span>
+                        <div>
+                            <div className='white_text_box'>
+                                결제정보
+                            </div>
 
-                    </div>
-                </div>
-                <div className='pay_fix_btn'>
-                    46,000원 결제하기
-                </div> </>
-                : <>
-                <div>2</div> 
-                </>
+                            <div className='gray_text'>
+                                <div>
+                                    <span>총 상품금액</span>
+                                    <span>43,000원</span>
+                                </div>
+                                <div>
+                                    <span>배송비</span>
+                                    <span>3,000원</span>
+                                </div>
+                            </div>
+                            <div className='pay_fix_box'>
+
+                                <span className='pay_fix_amount'>최종 결제 금액</span>
+                                <span className='pay_fix_num'>46,000원</span>
+
+                            </div>
+                        </div>
+                        <div className='pay_fix_btn'>
+                            46,000원 결제하기
+                        </div> </>
+                    : <>
+                    <div>
+                        <div className='delivery_list_box'>
+                        <div>
+                            <div>
+                                <br />
+                                <span>{deliveryAddress.name}</span>
+                                <span>[기본배송지]</span>
+                            </div>
+                            <div>{deliveryAddress.address}</div>
+                            <div>{deliveryAddress.phone}</div>
+                            <div>{dropdownOptionSelect}</div>
+                        </div>
+                                <div>
+                                    <button>삭제</button>
+                                    <button onClick={() => nav('/addressadd/?pagetype="수정"')}>수정</button>
+                                    <button>선택</button>
+                                </div>
+                                </div>
+                                
+                                <div className='delivery_plus'>
+                                    <button onClick={() => nav('/addressadd/?pagetype="추가"')}>배송지추가</button>
+                                </div>
+                        </div>
+                    </>
                 }
 
-                
+
 
             </div>
 
