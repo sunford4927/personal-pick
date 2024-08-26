@@ -119,6 +119,17 @@ export function showModal(strTag, navigate) {
     });
 }
 
+export function showMap(strTag, func) {
+    withReactContent(Swal).fire({
+        html: strTag,
+        showConfirmButton: false,
+        width : "100%",
+        didOpen: () => {
+
+        },
+    });
+}
+
 export function modalClose() {
     withReactContent(Swal).close();
 }

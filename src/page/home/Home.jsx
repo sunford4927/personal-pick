@@ -3,7 +3,7 @@ import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
 import { useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
-import { sendGet, sendPost, showPayMent, URL } from "../../util/util";
+import { sendGet, sendPost, showMap, showPayMent, URL } from "../../util/util";
 import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
@@ -31,7 +31,9 @@ const Home = () => {
     // 화해 고객들이 직접 선택한 랭킹🎁
     const [data, setData] = useState([]);
 
-
+    // 주소찾기 모달
+    const [addrSearch, setAddrSearch] = useState("");
+    let value = "";
     
     // [] -> 첫 렌더링에만 실행
 
@@ -173,9 +175,14 @@ const Home = () => {
             <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div>
             <AddressManagement pageType={true}/>
 
-            <div style={{width : 400, height : 400}}>
-                <MapFind/>
-            </div>
+
+            <button onClick={()=>                {
+                showMap(<MapFind setAddrSearch={setAddrSearch} />)
+                }}>
+                지도
+            </button>
+
+
         </div>
         
 

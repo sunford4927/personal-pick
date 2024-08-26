@@ -26,6 +26,7 @@ import ShoppingCart from './page/shoppingcart/ShoppingCart';
 import PayShipment from './page/payshipment/PayShipment';
 import ScrollToTop from './components/scrolltotop/ScrollToTop'
 import './components/scrolltotop/ScrollToTop.scss'
+import AddressManagement from './components/addressmanagement/AddressManagement';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
                     <Route path='/payshipment' element={<PayShipment />}></Route>
+                    <Route path='/addressadd/:pagetype' element={<AddressManagement />}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>
