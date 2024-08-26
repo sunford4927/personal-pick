@@ -15,55 +15,12 @@ const data = [
         vol: 40,
         ranking: '34'
     },
-    {
-        idx: 6,
-        brand_name: '브랜드이름6',
-        cos_name: '코스네임육',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1944992/1944992_20230602135720.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 7,
-        brand_name: '브랜드이름4',
-        cos_name: '코스네임사',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1832892/1832892_20220801000000.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 40000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 8,
-        brand_name: '브랜드이름5',
-        cos_name: '코스네임오',
-        cos_img_src: "https://img.hwahae.co.kr/products/1897092/1897092_20220801000000.jpg?format=webp&size=600x600",
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
-    {
-        idx: 9,
-        brand_name: '브랜드이름6',
-        cos_name: '코스네임육',
-        cos_img_src: 'https://img.hwahae.co.kr/products/2058047/2058047_20230808102719.jpg?format=webp&size=600x600',
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    }
+
 ]
 const ShoppingCart = () => {
     const nav = useNavigate();
     return (
-        <div id='wrapper'>
+        <>
             <div className='management_title'>
                 <img className='home_menu float_l cursor' src={LeftArrow} alt=""  onClick={()=>nav(-1)}/>
                 <p>장바구니</p>
@@ -137,7 +94,7 @@ const ShoppingCart = () => {
             <div className='basket_fix_btn'>
                 46,000원 주문하기
             </div>
-        </div>
+        </>
     );
 };
 

@@ -23,7 +23,10 @@ import { setMenuView } from './redux/type/typefunc';
 import HeaderView from './components/header/HeaderView';
 import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
 import ShoppingCart from './page/shoppingcart/ShoppingCart';
-
+import PayShipment from './page/payshipment/PayShipment';
+import ScrollToTop from './components/scrolltotop/ScrollToTop'
+import './components/scrolltotop/ScrollToTop.scss'
+import AddressManagement from './components/addressmanagement/AddressManagement';
 
 
 function App() {
@@ -33,7 +36,8 @@ function App() {
     }
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <div className="App" onClick={()=>funcList()}>
+            <div className="App" id='wrapper' onClick={()=>funcList()}>
+                <ScrollToTop/>
                 <HeaderView/>
                 <Routes>
                     {/*<Route path='/' element={<Loading/>}></Route>*/}
@@ -51,6 +55,8 @@ function App() {
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
+                    <Route path='/payshipment' element={<PayShipment />}></Route>
+                    <Route path='/addressadd/:pagetype' element={<AddressManagement />}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

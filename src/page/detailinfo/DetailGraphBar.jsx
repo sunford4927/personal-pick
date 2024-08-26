@@ -1,25 +1,34 @@
 import React from 'react'
 import './DetailGraphBar.scss'
-
-let cnt = {
-    count : 3,
-    value : "개"
-}
+import { useState , useEffect} from 'react';
+import { sendGet , URL } from '../../util/util';
+import { useParams } from 'react-router-dom';
 
 
-const DetailGraphBar = ( {list} ) => {
+
+const DetailGraphBar = () => {
+
+    const {idx} = useParams()
+
+    const [scorecnt , setScoreCnt] = useState([]);
+
+    useEffect(()=>{
+        sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
+   },[]);
+
+
     return (
         <div className='detailgraphbar_main'>
-            {list.map((cnt,idx)=>{
+            {scorecnt.map((cnt,idx)=>{
                 return (
                     <div >
                         <div className='detailgraphbar_Container' key={idx}>
                             <div>{cnt.count}</div>
                             <div className='detailgraphbarchart_back'>
-                                <div className='detailgraphbarchart' style={{height : cnt.count*5+"%", backgroundColor:"#0099FC"}}>
+                                <div className='detailgraphbarchart' style={{height : cnt.count*1+"%", backgroundColor:"#0099FC"}}>
                                 </div>
                             </div>
-                            <div className='detailgraphbar_Title'>{cnt.value}</div>
+                            <div className='detailgraphbar_Title'>★{cnt.rating}점</div>
                         </div>
                     </div>
                 )

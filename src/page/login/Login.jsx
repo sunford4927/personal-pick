@@ -62,7 +62,7 @@ const Login = () => {
     }
     useEffect(() => {
         // login 상태가 바뀔 때마다 화면 랜더링
-        console.log('Login User : ',getLoginSession().username);
+        console.log('Login User : ',getLoginSession().user_nm);
     }, [isLogin]);
     
 
