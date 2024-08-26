@@ -34,7 +34,7 @@ const AddressManagement = () => {
     const [defaultAddr, setDefaultAddr] = useState(false);
 
     function isType(type){
-        if(type === "추가")
+        if(type === "수정")
         {
             return true;
         }
