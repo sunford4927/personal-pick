@@ -23,9 +23,9 @@ import { setMenuView } from './redux/type/typefunc';
 import HeaderView from './components/header/HeaderView';
 import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
 import ShoppingCart from './page/shoppingcart/ShoppingCart';
+import PayShipment from './page/payshipment/PayShipment';
 import ScrollToTop from './components/scrolltotop/ScrollToTop'
 import './components/scrolltotop/ScrollToTop.scss'
-
 
 
 function App() {
@@ -54,6 +54,7 @@ function App() {
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
+                    <Route path='/payshipment' element={<PayShipment />}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

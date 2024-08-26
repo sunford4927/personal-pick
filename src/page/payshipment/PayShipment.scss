@@ -1,0 +1,35 @@
+.delivery_dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown_toggle {
+    //background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown_menu {
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown_menu li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown_menu li:hover {
+    background-color: #ddd;
+}
+
+.dropdown_triangle {
+    width: 10px;
+    height: 10px;
+    padding-left: 20px;
+}
