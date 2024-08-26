@@ -79,7 +79,7 @@ const PayShipment = () => {
 
     return (
         <div>
-            <div className=''>
+            <div>
                 <img className='back' src={Back} alt="" onClick={() => nav('/cartlist')} />
                 <p>주문/결제</p>
             </div>
@@ -92,11 +92,7 @@ const PayShipment = () => {
                     </ul>
                 </div>
                     
-                    {addresses.length === 0 ? {/* 사용자의 주소 데이터가 없을 경우 */}
-                    (  
-                        <div>배송지를 추가해주세요.</div>
-                    ) :
-                 (
+
                     <div>
                     <div>
                     <br />
@@ -106,7 +102,7 @@ const PayShipment = () => {
                     <div>{deliveryAddress.address}</div>
                     <div>{deliveryAddress.phone}</div>
                 </div>
-                )}
+
 
                 <hr className='thin_grayline' />
 
@@ -137,14 +133,14 @@ const PayShipment = () => {
                         </div>
                         <div className='items'>
                             <div className='searchfont'>
-                                <span className='searchbrand'>{item.brand_name}</span>
+                                <span className='searchbrand'>토리든</span>
                             </div>
                             <div>
-                                <span>{item.cos_name}</span>
+                                <span>밸런스풀 시카 토너 패드</span>
                             </div>
                             <div className='searchprice'>
-                                <span className='won'>{item.price}</span>
-                                <span className='gray'>/{item.vol}</span>
+                                <span className='won'>23,000원</span>
+                                <span className='gray'>1개</span>
                             </div>
                             <br />
                         </div>
