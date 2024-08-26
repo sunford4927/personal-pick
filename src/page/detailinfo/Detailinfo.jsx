@@ -19,7 +19,6 @@ import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
 import CartCount from '../../components/cartcount/CartCount'
 import StarRating from './StarRating'
-import Modal from "react-modal"
 import InputReview from '../../components/inputreview/InputReview'
 import PageHeader from '../../components/pageheader/PageHeader'
 
@@ -348,7 +347,7 @@ const Detailinfo = () => {
                          </div>
                           ))}
 
-                          
+
                         <div className='w-[1px] bg-gray-300'/>
                             
                         {/* 평점 별점그래프 구간 */}   
