@@ -3,9 +3,9 @@ import LeftArrow from '../../img/왼쪽.png'
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../pageheader/PageHeader';
 import "./AddressManagement.scss"
-const AddressManagement = ({pageType}) => {
+const AddressManagement = () => {
     const nav = useNavigate()
-
+    const {pagetype} = useParams()
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
     // 폰 시작번호
@@ -33,12 +33,20 @@ const AddressManagement = ({pageType}) => {
     // 기본배송지 저장 유무
     const [defaultAddr, setDefaultAddr] = useState(false);
 
-
+    function isType(type){
+        if(type === "추가")
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     let UserNm = "";
     // pageType 이 true일때는 배송지 수정화면이 출력 false일때는 배송지 등록화면
     useEffect(()=>{
         UserNm =sessionStorage.getItem("username");
-        if(pageType)
+        if(isType(pagetype))
         {
             // 주소 데이터 받아오는 로직
         }
@@ -61,10 +69,10 @@ const AddressManagement = ({pageType}) => {
 
     return (
         <>
-            <PageHeader title={pageType ? "배송지 수정" : "배송지 등록"}/>
+            <PageHeader title={isType(pagetype) ? "배송지 수정" : "배송지 등록"}/>
 
             <div style={{border : "1px solid #000" }}>
-                <p className='address_contents_title'>{pageType ? "배송지 수정" : "배송지 등록"}</p>
+                <p className='address_contents_title'>{isType(pagetype) ? "배송지 수정" : "배송지 등록"}</p>
                 <div style={{marginBottom:"20px", borderTop : "1px solid #000", borderBottom: "1px solid #000"}}>
                     <div className='flex_col address_container_row'>
                         <div>
@@ -95,8 +103,8 @@ const AddressManagement = ({pageType}) => {
                         <div>
                             휴대전화 <span>*</span>
                         </div>
-                        <select className='dropdown' name="" id="" onChange={(e)=> setFirstNum(e.target.value)}> 
-                            <option value="010" selected>010</option>
+                        <select defaultValue={"010"} className='dropdown' name="" id="" onChange={(e)=> setFirstNum(e.target.value)}> 
+                            <option value="010" >010</option>
                             <option value="011" >011</option>
                             <option value="016" >016</option>
                             <option value="017" >017 </option>
@@ -115,7 +123,7 @@ const AddressManagement = ({pageType}) => {
                         <input id='input7' type="text" style={{flex:0}} />
                         <span>@</span>
                         <input id='input8' type="text" style={{display: emailDirect ? "none" : "inline-block"}} placeholder='이메일을 입력해주세요' value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                        <select className='dropdown' name="" id="" onChange={(e)=>{
+                        <select defaultValue={"-이메일 선택-"} className='dropdown' name="" id="" onChange={(e)=>{
                             setEmail(e.target.value)
                             if(e.target.value !== "direct_email" )
                             {
@@ -125,7 +133,7 @@ const AddressManagement = ({pageType}) => {
                                 setEmailDirect(false);
                             }
                             }}>
-                            <option value="choice" selected>-이메일 선택-</option>
+                            <option value="choice">-이메일 선택-</option>
                             <option value="naver.com" >naver.com</option>
                             <option value="daum.net" >daum.net</option>
                             <option value="nate.com" >nate.com</option>
@@ -143,7 +151,7 @@ const AddressManagement = ({pageType}) => {
                         <p className='address_contents_title'>배송 요청사항</p>
                         <div style={{borderTop : "1px solid #000"}} className='flex_col address_container_row'>
                             <input id='input9' type="text" style={{display: messageDirect ? "none" : "inline-block"}} placeholder='요청사항을 입력해주세요' value={message} onChange={(e)=>setMessage(e.target.value)}/>
-                            <select className='dropdown dropflex' name="" id="" onChange={(e)=>{
+                            <select defaultValue={"-- 메시지 선택(선택사항)--"} className='dropdown dropflex' name="" id="" onChange={(e)=>{
 
                                 setMessage(e.target.value)
                                 if(e.target.value !== "direct_message")
@@ -155,7 +163,7 @@ const AddressManagement = ({pageType}) => {
                                     setMessageDirect(false);
                                 }
                             }}>
-                                <option value="choice" selected>-- 메시지 선택(선택사항)--</option>
+                                <option value="choice">-- 메시지 선택(선택사항)--</option>
                                 <option value="배송전에 미리 연락바랍니다." >배송전에 미리 연락바랍니다.</option>
                                 <option value="부재시 경비실에 맡겨주세요." >부재시 경비실에 맡겨주세요.</option>
                                 <option value="부재시 문앞에 놓아주세요." >부재시 문앞에 놓아주세요.</option>
