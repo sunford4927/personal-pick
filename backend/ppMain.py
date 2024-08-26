@@ -58,12 +58,7 @@ class ppSuggestAge(Resource):
 
         return jsonify(data)
             
-
-
-
-
-
-    
+ 
 
 # 피부 타입 별 랭킹 쿼리문 전송 서버
 class ppSuggestSkinType(Resource):
