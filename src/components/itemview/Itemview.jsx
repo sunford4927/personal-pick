@@ -18,9 +18,9 @@ const Itemveiw = ({data}) => {
                 }
                 return(
     
-                    <div className='itemBox flex_col cursor' key={item.idx} onClick={() => nav('detailinfo/' + (idx + 1))}>
+                    <div className='itemBox flex_col cursor' key={item.idx} onClick={() => nav('detailinfo/' + (item.idx))}>
                         {/* 금메달, 은메달 등 rankingDic을 itemDic map 함수 돌린 거에 맞춰 꺼내옴 */}
-                        <div className='rank_num' key={idx}>{setIcon(idx)}</div>
+                        <div className='rank_num' key={item.idx}>{setIcon(idx)}</div>
                         <img src={item.cos_img_src} alt="" style={{ width: 80, height: 80 }} className='rank_img' />
                         <div>
                             <div className='rank_name'>

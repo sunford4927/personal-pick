@@ -10,7 +10,7 @@ import Join from './page/join/Join';
 import Order from './page/order/Order'
 import Point from './page/backendtest/Point'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from './components/footerPage/FooterPage';
 
 
@@ -18,7 +18,7 @@ import './App.css'
 import './index.scss'
 import TotalRanking from './page/totalitem/TotalRanking';
 import Subscription from './page/subscription/Subscription';
-import { setMenuView } from './redux/type/typefunc';
+import { setMenuView, setUser } from './redux/type/typefunc';
 import HeaderView from './components/header/HeaderView';
 import SubscriptionManagement from './page/subscriptionmanagement/SubscriptionManagement';
 import ShoppingCart from './page/shoppingcart/ShoppingCart';
@@ -26,6 +26,8 @@ import PayShipment from './page/payshipment/PayShipment';
 import ScrollToTop from './components/scrolltotop/ScrollToTop'
 import './components/scrolltotop/ScrollToTop.scss'
 import AddressManagement from './components/addressmanagement/AddressManagement';
+import { sendGet, URL } from './util/util';
+import { useEffect, useState } from 'react';
 
 
 function App() {
@@ -33,6 +35,28 @@ function App() {
     function funcList(){
         dispatch(setMenuView(false))
     }
+    const [userData, setUserData] = useState();
+
+    const user = useSelector(state => state.user)
+    useEffect(()=>{
+        let usernm = sessionStorage.getItem("username");
+
+        if(usernm !== "")
+        {
+            if(user !== undefined)
+            {
+                sendGet(URL+'/TestSearch?user_nm='+ usernm, setUserData)
+            }
+        }
+    },[])
+
+    useEffect(()=>{
+        if(user !== undefined)
+        {
+            dispatch(setUser(userData))
+        }
+    },[userData])
+
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="App" id='wrapper' onClick={()=>funcList()}>
