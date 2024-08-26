@@ -21,6 +21,7 @@ import CartCount from '../../components/cartcount/CartCount'
 import StarRating from './StarRating'
 import Modal from "react-modal"
 import InputReview from '../../components/inputreview/InputReview'
+import PageHeader from '../../components/pageheader/PageHeader'
 
 
 const Detailinfo = () => {
@@ -204,6 +205,8 @@ const Detailinfo = () => {
                     <span className='cosmeticname'>{item.cos_name}</span>
                     </div>
 
+
+
                         <div id = 'main1'>
 
                         {/* 화장품 사진 */}
@@ -332,19 +335,20 @@ const Detailinfo = () => {
                         
                         
 
-                        {/*평점 전체 div  */}
-                        <div className='reviewall flex justify-between px-20 my-24'>
-                        {/*평점 구간 */}
+                        <div className="reviewall flex justify-between px-20 my-24">
+                        {/* 평점 구간 */}
                         {scoreavg.map((item, index) => (
-                             <div className='reviewratemain' key={index}>
-                                {/* rating_avg 값을 숫자로 변환 */}
-                            <span className='reviewtext'>{parseFloat(item.rating_avg).toFixed(2)}</span>
-                            <div className='reviewstar'>
-                            <StarRating rating={parseFloat(item.rating_avg)} />
-                            </div>
-                            </div>
-                            ))}
+                        <div className="reviewratemain" key={index}>
+                        {/* rating_avg 값을 숫자로 변환 */}
+                            <span className="reviewtext">{parseFloat(item.rating_avg).toFixed(2)}</span>
+                            <div className="reviewstar">
+                        {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
+                             <StarRating rating={parseFloat(item.rating_avg)} />
+                         </div>
+                         </div>
+                          ))}
 
+                          
                         <div className='w-[1px] bg-gray-300'/>
                             
                         {/* 평점 별점그래프 구간 */}   
