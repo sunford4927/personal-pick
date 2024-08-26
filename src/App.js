@@ -9,7 +9,6 @@ import Login from './page/login/Login';
 import Join from './page/join/Join';
 import Order from './page/order/Order'
 import Point from './page/backendtest/Point'
-import BeforePayment from './page/beforepayment/BeforePayment';
 
 import { useDispatch } from 'react-redux';
 import Footer from './components/footerPage/FooterPage';

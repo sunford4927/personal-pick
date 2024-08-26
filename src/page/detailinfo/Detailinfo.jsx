@@ -21,6 +21,7 @@ import StarRating from './StarRating'
 import InputReview from '../../components/inputreview/InputReview'
 import PageHeader from '../../components/pageheader/PageHeader'
 import ShoppingCartBtn from './ShoppingCartBtn'
+import { useSelector } from 'react-redux'
 
 
 const Detailinfo = () => {
@@ -28,7 +29,8 @@ const Detailinfo = () => {
     const navigate = useNavigate();
     const home = () => navigate('/');
 
-    
+    const state = useSelector(state => state)
+
     const [data , setData] = useState([]);
     const [review , setReview] = useState([]);
     const [scoreavg , setScoreAvg] = useState([]);
