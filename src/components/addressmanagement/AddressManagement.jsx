@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LeftArrow from '../../img/왼쪽.png'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../pageheader/PageHeader';
 import "./AddressManagement.scss"
 const AddressManagement = () => {
