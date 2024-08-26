@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import './PayShipment.scss';
 import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
+import { useNavigate } from 'react-router-dom';
+
+import img1 from '../../img/화장품 이미지1.jpg';
+import img2 from '../../img/화장품 이미지2.jpg';
 
 const data = [
     {
@@ -28,11 +32,17 @@ const data = [
     }
 ]
 
+const deliveryAddress = {
+    name : '오세원',
+    address: '광주광역시 서구 상무공원로 94 (치평동) 대주아파트 000동 000호',
+    phone : '010-0000-0000'
+};
+
 
 
 const PayShipment = () => {
 
-    // const nav = useNavigate();
+    const nav = useNavigate();
 
     // let check = false;
 
@@ -56,10 +66,15 @@ const PayShipment = () => {
     };
 
     // 드롭다운의 옵션 선택 시 호출되는 함수
-    const optionSelect =(option) => {
+    const optionSelect = (option) => {
         setDropdownOptionSelect(option);  // 선택된 옵션 상태에 저장
         setDropdownOpenClose(false);   // 드롭다운 닫기
     };
+
+        // 배송지 수정/추가 페이지로 이동하는 함수
+        const 배송지수정추가 = () => {
+            nav('배송지 수정/추가');
+        };
 
 
     return (
@@ -71,28 +86,92 @@ const PayShipment = () => {
 
             <div>
                 <div>
-                    <span className=''>배송지</span>
-                    <span className=''>배송지 목록</span>
+                    <ul>
+                    <li className='delivery_btn active' onClick={배송지수정추가}>배송지</li>
+                    <li className='delivery_btn' onClick={배송지수정추가}>배송지 목록</li>
+                    </ul>
                 </div>
-                <div>
+                    
+                    {addresses.length === 0 ? {/* 사용자의 주소 데이터가 없을 경우 */}
+                    (  
+                        <div>배송지를 추가해주세요.</div>
+                    ) :
+                 (
                     <div>
+                    <div>
+                    <br />
                         <span>[기본]</span>
-                        <span>오세원</span>
+                        <span>{deliveryAddress.name}</span>
                     </div>
-                    <div>[우편번호] 광주광역시 서구 상무공원로 94 (치평동) 대주아파트 000동 000호</div>
-                    <div>010-0000-0000</div>
+                    <div>{deliveryAddress.address}</div>
+                    <div>{deliveryAddress.phone}</div>
                 </div>
+                )}
+
                 <hr className='thin_grayline' />
+
+                {/* 배송지 드롭다운 */}
                 <div className='delivery_dropdown'>
-                    <button className='dropdown_toggle' onClick={dropdownToggle}>{dropdownOptionSelect}<img className='dropdown_triangle' src={Triangle} /></button>
+                    <button className='dropdown_toggle' onClick={dropdownToggle}>
+                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
+                        <img className='dropdown_triangle' src={Triangle} />
+                        </button>
                     {dropdownOpenClose && (<ul className='dropdown_menu'>
                         {options.map((option, idx) => (
-                        <li  onClick={() => optionSelect(option)}>{option}</li>
-                    ))}
-                        </ul>
-                        )}
+                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
+                        ))}
+                    </ul>
+                    )}
                 </div>
-
+                <hr className='thick_grayline' />
+                <div>
+                    <div className='white_text_box'>
+                        주문상품
+                    </div>
+                    {/* <hr className='thin_grayline' /> */}
+                    <div>
+                        <br />
+                        <div>
+                            <img src={img1} style={{ width: '80px', height: '80px' }} alt={img1} className='productimg'></img>
+                            <img src={img2} style={{ width: '80px', height: '80px' }} alt={img2} className='productimg'></img>
+                        </div>
+                        <div className='items'>
+                            <div className='searchfont'>
+                                <span className='searchbrand'>{item.brand_name}</span>
+                            </div>
+                            <div>
+                                <span>{item.cos_name}</span>
+                            </div>
+                            <div className='searchprice'>
+                                <span className='won'>{item.price}</span>
+                                <span className='gray'>/{item.vol}</span>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <hr className='thick_grayline' />
+                <div>
+                    <div className='white_text_box'>
+                        결제정보
+                    </div>
+                    {/* <hr className='thin_grayline' /> */}
+                    <div className='gray_text'>
+                        <span>총 상품금액</span>
+                        <span>43,000원</span>
+                        <span>배송비</span>
+                        <span>3,000원</span>
+                    </div>
+                    <div className='pay_fix_box'>
+                        {/* <hr className='thin_grayline' /> */}
+                        <span className='pay_fix_amount'>최종 결제 금액</span>
+                        <span className='pay_fix_num'>46,000원</span>
+                        {/* <hr className='thin_grayline' /> */}
+                    </div>
+                </div>
+                <div className='pay_fix_btn'>
+                    46,000원 결제하기
+                </div>
                 {/* {check ? <div>1</div> : <div>2</div>} */}
             </div>
 

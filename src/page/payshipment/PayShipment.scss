@@ -1,10 +1,29 @@
+ul {
+    margin-bottom: 20px;
+    border-top: 1px solid #d7d5d5;
+    padding: 15px 10px 14px;
+}
+
+.delivery_btn {
+    font-weight: 500;
+    color: #000;
+    background: #fff;
+}
+
+.delivery_btn.active {
+    font-weight: 600;
+}
+
 .delivery_dropdown {
     position: relative;
     display: inline-block;
+    width: 100%;
+    padding: 0 20px 0 15px;
 }
 
 .dropdown_toggle {
     //background-color: #ffffff;
+    color: #333;
     border: 1px solid #ddd;
     padding: 10px;
     cursor: pointer;
@@ -33,3 +52,18 @@
     height: 10px;
     padding-left: 20px;
 }
+
+.pay_fix_btn{
+    background: #0099FC;
+    color : #fff;
+    text-align: center;
+    position: sticky;
+    font-size : 20px;
+    font-weight: 600;
+    height : 50px;
+    width : 100%;
+    border-radius: 10px;
+    line-height: 50px;
+    bottom: 10px;
+}
+
