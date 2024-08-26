@@ -40,10 +40,10 @@ const Login = () => {
             // 반환 데이터가 있으면 -> 로그인 성공하면
             if (responseData) {
                 // 세션에 로그인한 유저 이름 저장
-                LoginSession(responseData.user_name);
+                LoginSession(responseData.user_nm);
                 // login 변수에 true 저장
                 setIsLogin(true);
-                console.log('로그인 유저 : ',getLoginSession().username);
+                console.log('로그인 유저 : ',getLoginSession().user_nm);
                 setError('');
                 alert('로그인 성공!')
             } else {
