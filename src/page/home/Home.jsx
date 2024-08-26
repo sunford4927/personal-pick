@@ -31,6 +31,8 @@ const Home = () => {
     // 화해 고객들이 직접 선택한 랭킹🎁
     const [data, setData] = useState([]);
 
+    const user = useSelector(state => state);
+    console.log(user);
     // 주소찾기 모달
     const [addrSearch, setAddrSearch] = useState("");
     let value = "";
@@ -176,11 +178,9 @@ const Home = () => {
             <AddressManagement pageType={true}/>
 
 
-            <button onClick={()=>                {
-                showMap(<MapFind setAddrSearch={setAddrSearch} />)
-                }}>
+            {/* <button onClick={()=>{showMap(<MapFind setAddrSearch={setAddrSearch}/>)}}>
                 지도
-            </button>
+            </button> */}
 
 
         </div>

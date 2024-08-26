@@ -3,10 +3,12 @@ import LeftArrow from '../../img/왼쪽.png'
 import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../pageheader/PageHeader';
 import "./AddressManagement.scss"
+import MapFind from '../mapfind/MapFind';
+import { showMap } from '../../util/util';
 const AddressManagement = () => {
     const nav = useNavigate()
     const {pagetype} = useParams()
-    console.log(pagetype)
+    
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
     // 폰 시작번호
@@ -34,6 +36,7 @@ const AddressManagement = () => {
     // 기본배송지 저장 유무
     const [defaultAddr, setDefaultAddr] = useState(false);
 
+    const [searchResult, setSearchResult] = useState();
     function isType(type){
         if(type === "수정")
         {
@@ -68,11 +71,22 @@ const AddressManagement = () => {
         }
      },[message])
 
+
+    useEffect(()=>{
+        if(searchResult!==undefined)
+        {
+            let zooncode = document.getElementById("input2");
+            let address = document.getElementById("input3");
+            zooncode.value = searchResult.zonecode
+            address.value = searchResult.address
+        }
+
+    },[searchResult])
     return (
         <>
             <PageHeader title={isType(pagetype) ? "배송지 수정" : "배송지 등록"}/>
 
-            <div style={{border : "1px solid #000" }}>
+            <div style={{borderTop : "1px solid #000" }}>
                 <p className='address_contents_title'>{isType(pagetype) ? "배송지 수정" : "배송지 등록"}</p>
                 <div style={{marginBottom:"20px", borderTop : "1px solid #000", borderBottom: "1px solid #000"}}>
                     <div className='flex_col address_container_row'>
@@ -85,14 +99,14 @@ const AddressManagement = () => {
                         <div>
                             주소<span>*</span>
                         </div> 
-                        <input id='input2' style={{flex : 0}} type="text" placeholder='우편번호' onChange={(e)=>setAddressNum(e.target.value)}/>
-                        <button>주소검색</button>
+                        <input id='input2' style={{flex : 0}} type="text" placeholder='우편번호' onChange={(e)=>setAddressNum(e.target.value)} readOnly/>
+                        <button onClick={()=>showMap(<MapFind setAddrSearch={setSearchResult}/>)}>주소검색</button>
                     </div> 
                     <div className='flex_col address_container_row' style={{padding : "0px 20px"}}>
                         <div>
                             &nbsp;
                         </div> 
-                        <input id='input3' type="text" placeholder='기본주소' onChange={(e)=>setAddress(e.target.value)}/>
+                        <input id='input3' type="text" placeholder='기본주소' onChange={(e)=>setAddress(e.target.value)} readOnly/>
                     </div> 
                     <div className='flex_col address_container_row' style={{paddingTop : "5px"}}>
                          <div>
