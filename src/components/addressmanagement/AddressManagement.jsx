@@ -6,6 +6,7 @@ import "./AddressManagement.scss"
 const AddressManagement = () => {
     const nav = useNavigate()
     const {pagetype} = useParams()
+    console.log(pagetype)
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
     // 폰 시작번호

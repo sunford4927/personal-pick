@@ -202,13 +202,13 @@ const PayShipment = () => {
                         </div>
                                 <div>
                                     <button>삭제</button>
-                                    <button onClick={() => nav('/addressadd/?pagetype="수정"')}>수정</button>
+                                    <button onClick={() => nav('/addressadd?수정')}>수정</button>
                                     <button>선택</button>
                                 </div>
                                 </div>
                                 
                                 <div className='delivery_plus'>
-                                    <button onClick={() => nav('/addressadd/?pagetype="추가"')}>배송지추가</button>
+                                    <button onClick={() => nav('/addressadd?추가')}>배송지추가</button>
                                 </div>
                         </div>
                     </>
