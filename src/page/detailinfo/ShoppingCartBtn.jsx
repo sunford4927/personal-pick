@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { modalClose } from '../../util/util'
 import { URL } from '../../util/util';
-import { useParams } from 'react-router-dom'
 import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
 
@@ -13,7 +12,7 @@ import { sampleSize } from 'lodash';
 
 
 
-const ShoppingCartBtn = ({ func }) => {
+const ShoppingCartBtn = ({ func}) => {
 
   const [data, setData] = useState([]);
 
@@ -40,13 +39,14 @@ const ShoppingCartBtn = ({ func }) => {
     }
   }, [data.length]); // data.length만 의존성에 추가
 
-  useEffect(() => {
-    if (randomIndex1 !== undefined) {
-      const randomIndex2 = sampleSize([...Array(data.length).keys()], 1)[0];
-      // randomIndex1과 다른 값으로 설정하기 위해 추가적인 로직 필요
-      setRandomIndex2(randomIndex2);
-    }
-  }, [data.length, randomIndex1]);
+  // useEffect(() => {
+  //   if (randomIndex1 !== undefined) {
+  //     const randomIndex2 = sampleSize([...Array(data.length).keys()], 1)[0];
+  //     // randomIndex1과 다른 값으로 설정하기 위해 추가적인 로직 필요
+  //     setRandomIndex2(randomIndex2);
+  //   }
+  // }, [data.length, randomIndex1]);
+  
 
   useEffect(() => {
     console.log(data)
@@ -75,7 +75,7 @@ const ShoppingCartBtn = ({ func }) => {
       </div>
 
       {/* 랜덤 추천 상품 */}
-      <div className='modalimgmain'>
+      {/* <div className='modalimgmain'> */}
         {/* 랜덤 이미지1 */}
         <div className="modalimg">
           {data[randomIndex1] && (
@@ -88,10 +88,10 @@ const ShoppingCartBtn = ({ func }) => {
           {!data[randomIndex1] && <div>데이터가 없습니다.</div>}
         </div>
 
-        <div className='w-[1px] bg-gray-300 modalimgbar' />
+        {/* <div className='w-[1px] bg-gray-300 modalimgbar' /> */}
 
         {/*  랜덤 이미지2 */}
-        <div className="modalimg">
+        {/* <div className="modalimg">
           {data[randomIndex2] && (
             <>
               <img src={data[randomIndex2]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={200} height={200} />
@@ -101,7 +101,7 @@ const ShoppingCartBtn = ({ func }) => {
           )}
           {!data[randomIndex2] && <div>데이터가 없습니다.</div>}
         </div>
-      </div>
+      </div> */}
 
     </>
   )
