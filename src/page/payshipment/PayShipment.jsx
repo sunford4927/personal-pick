@@ -4,7 +4,7 @@ import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
 import { useNavigate } from 'react-router-dom';
 import XBtn from '../../img/회색엑스.png'
-import { sendGet, showPayMent, URL } from '../../util/util';
+import { sendDel, sendGet, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
 
@@ -69,7 +69,10 @@ const PayShipment = () => {
     })
     // 데이터베이스에서 받아온 주문상품 화면에 뿌려주기 위한 함수
     const [orderProduct, setOrderProduct] = useState([]);
+
     const [deliveryAddress, setDeliveryAddress] = useState([]);
+
+
     useEffect(() => {
         sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
         sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress);
@@ -119,38 +122,42 @@ const PayShipment = () => {
                 {check ?
                     <>
 
-                    {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
-                       {/* {defaultAddress ? (
-                            <div className='delivery_container'>
-                                <div className='basic_name'>
-                                    <span className='basic'>{item.default_address}</span>
-                                    <span className='delivery_name'>{item.receive_name}</span>
+                        {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
+                        {deliveryAddress.map((item, i) => {
+                    return item.default_address ? (
+                            
+                            <div>
+                                <div key={i} className='delivery_container'>
+                                    <div className='basic_name'>
+                                        <span className='basic'>[기본배송지]</span>
+                                        <span className='delivery_name'>{item.receive_name}</span>
+                                    </div>
+                                    <div className='delivery_address'>{item.user_address.split("///")}</div>
+                                    <div className='delivery_phone'>{item.phone_num}</div>
                                 </div>
-                                <div className='delivery_address'>{[우편번호]} {defaultAddress.address.split("///")}</div>
-                                <div className='delivery_phone'>{defaultAddress.phone}</div>
+
+
+                                <hr className='thin_grayline' />
+
+                                {/* 배송지 드롭다운 */}
+                                <div className='delivery_dropdown'>
+                                    <button className='dropdown_toggle' onClick={dropdownToggle}>
+                                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
+                                        <img className='dropdown_triangle' src={Triangle} />
+                                    </button>
+                                    {dropdownOpenClose && (<ul className='dropdown_menu'>
+                                        {options.map((option, idx) => (
+                                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
+                                        ))}
+                                    </ul>
+                                    )}
+                                </div>
                             </div>
+
                         ) : (
-                            <div className='delivery_container'>
-                                <p>기본 배송지가 설정되지 않았습니다.</p>
-                            </div>
-                        )} */}
-
-                        <hr className='thin_grayline' />
-
-                        {/* 배송지 드롭다운 */}
-                        <div className='delivery_dropdown'>
-                            <button className='dropdown_toggle' onClick={dropdownToggle}>
-                                {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
-                                <img className='dropdown_triangle' src={Triangle} />
-                            </button>
-                            {dropdownOpenClose && (<ul className='dropdown_menu'>
-                                {options.map((option, idx) => (
-                                    <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
-                                ))}
-                            </ul>
-                            )}
-                        </div>
-
+                            <div />
+                        )
+                    })}
                         <hr className='thick_grayline' />
 
                         <div>
@@ -252,7 +259,7 @@ const PayShipment = () => {
                                                 <div>{item.msg}</div>
                                             </div>
                                             <div>
-                                                <button onClick={() => handleDelete(item.idx)}>삭제</button>
+                                                <button onClick={() => sendDel(URL + '/EditAddress' , null , {address_idx:item.address_idx})}>삭제</button>
                                                 <button onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
                                                 <button>선택</button>
                                             </div>
