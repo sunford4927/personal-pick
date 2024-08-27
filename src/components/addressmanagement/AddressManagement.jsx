@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../pageheader/PageHeader';
 import "./AddressManagement.scss"
 import MapFind from '../mapfind/MapFind';
-import { sendGet, showMap, URL } from '../../util/util';
+import { sendGet, sendPost, showMap, URL } from '../../util/util';
+import { useSelector } from 'react-redux';
 const msgData = [
     "-- 메시지 선택(선택사항)--", "배송전에 미리 연락바랍니다.", "부재시 경비실에 맡겨주세요.",
     "부재시 문앞에 놓아주세요.", "빠른 배송 부탁드립니다.", "택배함에 보관해 주세요"
@@ -12,13 +13,13 @@ const msgData = [
 const AddressManagement = () => {
     const nav = useNavigate()
     const {pagetype, address_idx} = useParams()
-    console.log(address_idx);
+    const user = useSelector(state=>state.user)
     
     
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
     // 폰 시작번호
-    const [firstNum , setFirstNum] = useState("");
+    const [firstNum , setFirstNum] = useState("010");
     // 폰 중간 번호
     const [middleNum, setMiddleNum] = useState("");
     // 폰 뒷 번호
@@ -61,8 +62,21 @@ const AddressManagement = () => {
         return false;
     }
     function saveData(data){
+        console.log(data)
+        let parseaddress = data[0].user_address.split("///");
+        switch(parseaddress.length)
+        {
+            case 2:
+                setAddressNum(parseaddress[0])
+                setAddress(parseaddress[1])
+                break;
+            case 3:
+                setAddressNum(parseaddress[0])
+                setAddress(parseaddress[1])
+                setLastAddress(parseaddress[2])
+                break;
+        }
         setMessage(data[0].msg)
-        setAddress(data[0].user_address)
         setReceiveUser(data[0].receive_name)
         let phone = data[0].phone_num.split("-")
         if(isDirectMsg(data[0].msg))
@@ -76,6 +90,7 @@ const AddressManagement = () => {
         setFirstNum(phone[0])
         setMiddleNum(phone[1])
         setLastNum(phone[2])
+        setDefaultAddr(data[0].default_address)
 
     }
     // pageType 이 true일때는 배송지 수정화면이 출력 false일때는 배송지 등록화면
@@ -84,12 +99,32 @@ const AddressManagement = () => {
         if(isType(pagetype))
         {
             // 주소 데이터 받아오는 로직
-            sendGet(URL+"/EditAddress?address_idx="+ "3972",saveData)
+            sendGet(URL+"/EditAddress?address_idx="+ address_idx,saveData)
         }
 
     },[])
 
+    function sendData(){
+        let dic = {
+            default_address: defaultAddr,
+            msg: messageDirect !=="direct_message" ? messageDirect : message,
+            phone_num : firstNum+"-"+middleNum+"-"+lastNum,
+            receive_name : receiveUser,
+            user_address: addressNum+"///"+address+"///"+lastAddress,
+            user_id : user.user_id,
+        }
 
+        console.log(dic);
+        if(pagetype === "추가")
+        {
+            sendPost(URL+ "/InsertAddress", null, dic);
+        }
+        else
+        {
+            dic.address_idx = address_idx
+            sendPost(URL+"/EditAddress",null,dic)
+        }
+    }
 
     useEffect(()=>{
         if(message === "direct_message")
@@ -102,10 +137,8 @@ const AddressManagement = () => {
     useEffect(()=>{
         if(searchResult!==undefined)
         {
-            let zooncode = document.getElementById("input2");
-            let address = document.getElementById("input3");
-            zooncode.value = searchResult.zonecode
-            address.value = searchResult.address
+            setAddressNum(searchResult.zonecode)
+            setAddress(searchResult.address)
         }
 
     },[searchResult])
@@ -139,7 +172,7 @@ const AddressManagement = () => {
                          <div>
                             &nbsp;
                         </div>
-                        <input id='input4' type="text" placeholder='나머지 주소(선택 입력 가능)' onChange={(e)=>setLastAddress(e.target.value)}/>
+                        <input id='input4' type="text" placeholder='나머지 주소(선택 입력 가능)' onChange={(e)=>setLastAddress(e.target.value) } value={lastAddress}/>
                     </div> 
                     <div className='flex_col address_container_row'>
                         <div>
@@ -180,13 +213,13 @@ const AddressManagement = () => {
 
                         <br />
                         <div style={{padding : "0 15px", paddingBottom : "20px", borderBottom : "1px solid #000"}}>
-                            <input id='input10' type="checkbox" name=""  onChange={(e)=>setDefaultAddr(e.target.checked)}/>
+                            <input id='input10' type="checkbox" name=""  onChange={(e)=>setDefaultAddr(e.target.checked)} checked={defaultAddr}/>
                             <span>기본 배송지로 저장</span>
                         </div>
                     </div>
             </div>
             <div style={{padding : "30px 60px"}}>
-                <button className='basket_fix_btn' style={{position:"static"}}>저장</button>
+                <button className='basket_fix_btn' style={{position:"static"}} onClick={()=>sendData()}>저장</button>
             </div>
         </>
     );
