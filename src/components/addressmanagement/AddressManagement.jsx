@@ -7,7 +7,9 @@ import MapFind from '../mapfind/MapFind';
 import { showMap } from '../../util/util';
 const AddressManagement = () => {
     const nav = useNavigate()
-    const {pagetype} = useParams()
+    const {pagetype, address_idx} = useParams()
+    console.log(address_idx);
+    
     
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
