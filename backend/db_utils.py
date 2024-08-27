@@ -57,3 +57,22 @@ def testQuery(sql = None, data = None):
     db.commit()
     db.close()
     return data
+
+
+def PostCartQuery(sql = None, data = None):
+    try:
+        db = db_connection()
+        cursor = db.cursor()
+
+        cursor.execute(sql, data)
+        
+        # 변경된 행의 수를 반환
+        row_count = cursor.rowcount
+
+        db.commit()
+        db.close()
+
+        return row_count  # 또는 True / False로 성공 여부를 반환할 수도 있음
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
