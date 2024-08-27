@@ -13,11 +13,12 @@ const ShoppingCart = () => {
     }
     const [data, setData] = useState([])
     useEffect(()=>{
-        if(user[0])
+        console.log(typeof(user))
+        if(typeof(user.user_id) !== "undefined")
         {
-            sendGet(URL+"/OrderCart?userid="+user[0].user_id,setData)
+            sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
-        
+
     },[])
 
 
@@ -40,9 +41,13 @@ const ShoppingCart = () => {
             <div>
                 {data.map((item, i)=>{
                     return (
-                        <>
-                            <div key={i} className='flex_col basket_item_box'>
-                                <input className='basket_check' type="checkbox" checked={item.is_selected} />
+                        <div  key={item.cart_id}>
+                            <div className='flex_col basket_item_box'>
+                                <input className='basket_check' type="checkbox" checked={item.is_selected} onChange={()=>{
+                                    let changeData = [...data]
+                                    changeData[i].is_selected = !changeData[i].is_selected;
+                                    setData([...changeData])
+                                }} />
                                 <img className='basket_img' src={item.cos_img_src} alt="" />
                                 <div className='basket_content_text'>
                                     <p className='sub_title'>
@@ -66,7 +71,7 @@ const ShoppingCart = () => {
                                 <p className='margin_left_pull basket_price'>{(item.price* item.buy_cnt)+"원"}</p>
                             </div>
                             <div className='grayline'></div>
-                        </>
+                        </div>
                     )
                 })}
 

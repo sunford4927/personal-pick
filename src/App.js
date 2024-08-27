@@ -48,7 +48,11 @@ function App() {
     },[])
 
     useEffect(()=>{
-        dispatch(setUser(userData))
+        if(typeof(userData)!=="undefined")
+        {{
+            dispatch(setUser(userData[0]))
+
+        }}
     },[userData])
 
     return (
