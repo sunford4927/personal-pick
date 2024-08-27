@@ -8,25 +8,6 @@ import { sendGet, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
 
-const deliveryAddress = [
-    {
-        idx: 1,
-        name: '오세원',
-        address: '광주광역시 서구 상무공원로 94 (치평동) 대주아파트 000동 000호',
-        phone: '010-0000-0000',
-        default_address: true
-    },
-    {
-        idx: 2,
-        name: '회사',
-        address: '광주광역시 동구 스마트인재개발원',
-        phone: '010-0000-0000',
-        default_address: false
-    }
-]
-
-
-
 const PayShipment = () => {
 
     const nav = useNavigate();
@@ -72,15 +53,15 @@ const PayShipment = () => {
     // }, []);
 
 
-    // 배송지 목록
-    const [addresses, setAddresses] = useState(deliveryAddress);
+    // // 배송지 목록
+    // const [addresses, setAddresses] = useState(deliveryAddress);
 
-    const handleDelete = (idx) => {
-        // 선택한 인덱스에 해당하는 주소를 제외한 새로운 배열 생성
-        const updatedAddresses = addresses.filter(address => address.idx !== idx);
-        // 상태 업데이트
-        setAddresses(updatedAddresses);
-    };
+    // const handleDelete = (idx) => {
+    //     // 선택한 인덱스에 해당하는 주소를 제외한 새로운 배열 생성
+    //     const updatedAddresses = addresses.filter(address => address.idx !== idx);
+    //     // 상태 업데이트
+    //     setAddresses(updatedAddresses);
+    // };
 
     // 리덕스로 사용자아이디(userID) 데이터베이스에 보내주기
     const state = useSelector((item) => {
@@ -88,11 +69,13 @@ const PayShipment = () => {
     })
     // 데이터베이스에서 받아온 주문상품 화면에 뿌려주기 위한 함수
     const [orderProduct, setOrderProduct] = useState([]);
-
+    const [deliveryAddress, setDeliveryAddress] = useState([]);
     useEffect(() => {
         sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress);
         console.log(state.user_id);
         console.log(orderProduct);
+        console.log(deliveryAddress);
     }, [state]);
     // 배열 안에 state를 쓰기 전 빈배열일 때 새로고침하면 데이터 날라감
     // 어떻게 해줘야하나?
@@ -116,7 +99,6 @@ const PayShipment = () => {
     }, [orderProduct])
 
 
-
     return (
         <div>
             <div className='backORtext'>
@@ -137,14 +119,14 @@ const PayShipment = () => {
                 {check ?
                     <>
 
-                        {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시 */}
-                        {/* {defaultAddress ? (
+                    {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
+                       {/* {defaultAddress ? (
                             <div className='delivery_container'>
                                 <div className='basic_name'>
-                                    <span className='basic'>[기본]</span>
-                                    <span className='delivery_name'>{defaultAddress.name}</span>
+                                    <span className='basic'>{item.default_address}</span>
+                                    <span className='delivery_name'>{item.receive_name}</span>
                                 </div>
-                                <div className='delivery_address'>[우편번호] {defaultAddress.address}</div>
+                                <div className='delivery_address'>{[우편번호]} {defaultAddress.address.split("///")}</div>
                                 <div className='delivery_phone'>{defaultAddress.phone}</div>
                             </div>
                         ) : (
@@ -261,17 +243,17 @@ const PayShipment = () => {
                                             <div key={i}>
                                                 <div>
                                                     <br />
-                                                    <span>{item.name}</span>
-                                                    {/* <span>{item.basic}</span> */}
-                                                    {item.default_address && <span>[기본]</span>}
+                                                    <span>{item.receive_name}</span>
+                                                    <span>{item.default_address}</span>
+                                                    {/* {item.default_address && <span>[기본]</span>} */}
                                                 </div>
-                                                <div>{item.address}</div>
-                                                <div>{item.phone}</div>
-                                                <div>{dropdownOptionSelect}</div>
+                                                <div>{item.user_address.split("///")}</div>
+                                                <div>{item.phone_num}</div>
+                                                <div>{item.msg}</div>
                                             </div>
                                             <div>
                                                 <button onClick={() => handleDelete(item.idx)}>삭제</button>
-                                                <button onClick={() => nav('/addressadd/수정/1')}>수정</button>
+                                                <button onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
                                                 <button>선택</button>
                                             </div>
                                         </div>
