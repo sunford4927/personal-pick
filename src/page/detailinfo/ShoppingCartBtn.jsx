@@ -8,10 +8,7 @@ import { sendGet } from '../../util/util';
 
 
 
-
-
 //  const navigate = useNavigate();
-
 
 
 
@@ -50,14 +47,11 @@ useEffect(()=>{
 
             
             {/* 랜덤 이미지 */}
-            {data.length > 2 ? (
+            {data.length > 0 ? (
             <div className="modalimg"> 
             {data.map((item) => (
-                
-        <img src={item.cos_img_src} alt="코스메틱 이미지" />
-
+            <img src={item.cos_img_src} alt="코스메틱 이미지" />
             ))}
-        
         </div>
     ) : (
   // 데이터가 없을 때 보여줄 내용

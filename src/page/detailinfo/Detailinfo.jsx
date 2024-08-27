@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {modalClose, sendGet , sendPost, showModal, showPayMent, showSwal, URL } from '../../util/util'
+import {modalClose, sendGet , sendPost, showIngredient, showModal, showPayMent, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -23,7 +23,7 @@ import PageHeader from '../../components/pageheader/PageHeader'
 import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
-import axios from 'axios'
+import Ingredient from './Ingredient'
 
 
 const Detailinfo = () => {
@@ -34,8 +34,6 @@ const Detailinfo = () => {
 
     const state = useSelector(user => user.user)
 
-
-    
 
 
     const [data , setData] = useState([]);
@@ -61,40 +59,13 @@ const Detailinfo = () => {
          
     },[]);
     
-    // // 페이지네이션 함수
+    // 페이지네이션 함수
 
-    // const [currentPage , setCurrentPage] = useState(1);
-    // const recordsPerPage = 5;
-    // const lastIndex = currentPage * recordsPerPage;
-    // const firstIndex =  lastIndex - recordsPerPage;
-    // const records = review.slice(firstIndex , lastIndex);
-    // const npage = Math.ceil(review.length / recordsPerPage);
-    // const numbers = [...Array(npage + 1).keys()].slice(1)
-
-    // function prePage() {
-    //     if(currentPage !== firstIndex) {
-    //         setCurrentPage(currentPage - 1);
-    //     }
-    // }
-
-    // function nextPage() {
-    //     if(currentPage !== lastIndex){
-    //         setCurrentPage(currentPage + 1);
-    //     }
-    // }
-
-    // function changeCPage(id) {
-    //     setCurrentPage(id)
-    // }
-
-
-    
-
-    const [total, setTotal] = useState(0); // Initialize total to 0 (if needed)
+    const [total, setTotal] = useState(0); 
     const [page, setPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(5);
     
-    // Calculate pagination indices (assuming review data is already available)
+    
     const indexOfLastPage = Math.min(page * postPerPage, review.length); // Use review length
     const indexOfFirstPage = Math.max(indexOfLastPage - postPerPage, 0); // Ensure first page is non-negative
     const currentPosts = review.slice(indexOfFirstPage, indexOfLastPage); // Use slice on review data
@@ -369,7 +340,7 @@ const calculateTotalPrice = (price, quantity) => {
                         categorynumber : idx ,  
                         cosmeticprice : item.price , 
                         cosmeticcount : itemadd , 
-                        cosmetictotal : item.price*itemadd}  )}}>장바구니</button>
+                        cosmetictotal : item.price*itemadd})}}>장바구니</button>
                         </div>
                         </div>
                     
@@ -516,53 +487,15 @@ const calculateTotalPrice = (price, quantity) => {
                             <span>성분</span>
                             </div>
 
-                        <hr className='ingredientbar'/>
 
-                        <div className='ingredientdropbox' onClick={(e)=>showSwal(e)}> 
+                        <div className='ingredientdropbox'> 
                         <input id="dropdown" type="checkbox"/>
-                        <label className="dropdownLabel" for="dropdown">
+                        <label className="dropdownLabel" for="dropdown" onClick={() => {showIngredient(<Ingredient/>)}}>
                         <div>화장품 성분보기</div>
                         <FaAngleDown className="caretIcon" />
                         </label>
                         </div>
 
-                        {/* 성분 구성 */}
-                        <div className='ingredientcomposition mt-8 px-20'>
-                            <span className='compositiontext'>성분 구성</span>
-                            </div>
-
-
-
-                        {/* 성분 구성 위험 단계 */}
-
-                        <div class="colordanger flex justify-between mt-16">
-                        <div className="flex items-center gap-x-4">
-                        <div className="w-[10px] h-[10px] rounded-full bg-mint-600"></div>
-                        <span className="hds-text-smalltext-large text-mint-600">1-2</span>
-                        <span className="hds-text-smalltext-large text-gray-tertiary">낮은 위험</span>
-                        </div>
-
-                        <div className="flex items-center gap-x-4">
-                        <div className="w-[10px] h-[10px] rounded-full bg-yellow-600"></div>
-                        <span className="hds-text-smalltext-large text-yellow-600">3-6</span>
-                        <span className="hds-text-smalltext-large text-gray-tertiary">중간 위험</span>
-                        </div>
-
-                        <div className="flex items-center gap-x-4">
-                        <div className="w-[10px] h-[10px] rounded-full bg-red-600"></div>
-                        <span className="hds-text-smalltext-large text-red-600">7-10</span>
-                        <span className="hds-text-smalltext-large text-gray-tertiary">높은 위험</span>
-                        </div>
-
-                        <div className="flex items-center gap-x-4">
-                        <div className="w-[10px] h-[10px] rounded-full bg-gray-600"></div>
-                        <span className="hds-text-smalltext-large text-gray-tertiary">등급 미정</span>
-                        </div>
-                        </div>
-
-                        {/* 성분 구성 막대 */}
-                        <div className="flex flex-row-reverse mt-16 h-12 rounded-4 bg-gray-600">
-                        </div>
 
                         <hr className='allingredientbar'/>
 

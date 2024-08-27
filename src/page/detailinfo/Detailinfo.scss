@@ -820,9 +820,11 @@ input[type="radio"] {
 }
 
 .pagination {
-    margin: auto;
+
     display: flex;
     margin-top: 40px;
+    justify-content: center;
+    
 }
 
 .object-center {
