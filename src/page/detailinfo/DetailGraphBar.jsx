@@ -21,8 +21,8 @@ const DetailGraphBar = () => {
         <div className='detailgraphbar_main'>
             {scorecnt.map((cnt,idx)=>{
                 return (
-                    <div >
-                        <div className='detailgraphbar_Container' key={idx}>
+                    <div key={idx}>
+                        <div className='detailgraphbar_Container' >
                             <div>{cnt.count}</div>
                             <div className='detailgraphbarchart_back'>
                                 <div className='detailgraphbarchart' style={{height : cnt.count*1+"%", backgroundColor:"#0099FC"}}>
