@@ -8,11 +8,11 @@ import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
 import Right from '../../img/오른쪽.png'
-// import Logo from '../../img/로고.png'
+
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
-import AddressManagement from "../../components/addressmanagement/AddressManagement";
-import MapFind from "../../components/mapfind/MapFind";
+
+
 
 
 
@@ -31,11 +31,6 @@ const Home = () => {
     // 화해 고객들이 직접 선택한 랭킹🎁
     const [data, setData] = useState([]);
 
-
-    // 주소찾기 모달
-    const [addrSearch, setAddrSearch] = useState("");
-    let value = "";
-    
     // [] -> 첫 렌더링에만 실행
 
     useEffect(() => {
@@ -170,15 +165,6 @@ const Home = () => {
                 <img className="homeright" src={Right} alt="" />
             </div>
             </motion.div>
-            {/* <div className="home_page_btn cursor" onClick={() =>showPayMent(userId[0].user_id, 1000, "기초구독", "광주광역시 서구 상무민주로 4-19")}>로그인</div> */}
-            {/* <AddressManagement pageType={true}/> */}
-
-
-            {/* <button onClick={()=>{showMap(<MapFind setAddrSearch={setAddrSearch}/>)}}>
-                지도
-            </button> */}
-
-
         </div>
         
 
