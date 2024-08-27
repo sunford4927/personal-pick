@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LeftArrow from "../../img/왼쪽.png"
 import { useNavigate } from 'react-router-dom';
-import XBtn from '../../img/회색엑스.png'
 import './ShoppingCart.scss'
-const data = [
-    {
-        idx: 5,
-        brand_name: '브랜드이름5',
-        cos_name: '코스네임오',
-        cos_img_src: "https://img.hwahae.co.kr/products/1858863/1858863_20220801000000.jpg?format=webp&size=600x600",
-        grade: 4.74,
-        grade_count: 2456,
-        price: 4000,
-        vol: 40,
-        ranking: '34'
-    },
+import { sendGet, URL } from '../../util/util';
+import { useSelector } from 'react-redux';
 
-]
 const ShoppingCart = () => {
     const nav = useNavigate();
+    const user = useSelector(state => state.user);
+    if(!user){
+        nav("/")
+    }
+    const [data, setData] = useState([])
+    useEffect(()=>{
+        console.log(typeof(user))
+        if(typeof(user.user_id) !== "undefined")
+        {
+            sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
+        }
+
+    },[])
+
+
     return (
         <>
             <div className='management_title'>
@@ -29,7 +32,7 @@ const ShoppingCart = () => {
             <p className='basket_text'>샘플로드 배송상품</p>
 
             <div className='basket_line flex_col ' style={{alignItems:"center"}}>
-                <input type="checkbox" className='basket_check' />
+                <input type="checkbox" className='basket_check'  />
                 <div className='sub_title'>전체선택</div>
                 <div className='basket_text' style={{marginRight : "30px", marginLeft : "auto"}}>품절삭제</div>
                 <div className='basket_text'>선택삭제</div>
@@ -38,9 +41,13 @@ const ShoppingCart = () => {
             <div>
                 {data.map((item, i)=>{
                     return (
-                        <>
-                            <div key={i} className='flex_col basket_item_box'>
-                                <input className='basket_check' type="checkbox" />
+                        <div  key={item.cart_id}>
+                            <div className='flex_col basket_item_box'>
+                                <input className='basket_check' type="checkbox" checked={item.is_selected} onChange={()=>{
+                                    let changeData = [...data]
+                                    changeData[i].is_selected = !changeData[i].is_selected;
+                                    setData([...changeData])
+                                }} />
                                 <img className='basket_img' src={item.cos_img_src} alt="" />
                                 <div className='basket_content_text'>
                                     <p className='sub_title'>
@@ -53,18 +60,18 @@ const ShoppingCart = () => {
                                         {item.grade_count}
                                     </p>
                                 </div>
-                                <img className='basket_x_btn ' src={XBtn} alt="" style={{marginLeft: "58%"}}/>
+                                {/* <img className='basket_x_btn ' src={XBtn} alt="" style={{marginLeft: "40%"}}/> */}
                             </div>
                             <div className='flex_col basket_under_container'>
                                 <div className='flex_col basket_under_content_box'>
                                     <div className='basket_sum_btn'>-</div>
-                                    <div className='basket_price'>0</div>
+                                    <div className='basket_price'>{item.buy_cnt}</div>
                                     <div className='basket_sum_btn'>+</div>
                                 </div>
-                                <p className='margin_left_pull basket_price'>{item.price+"원"}</p>
+                                <p className='margin_left_pull basket_price'>{(item.price* item.buy_cnt)+"원"}</p>
                             </div>
                             <div className='grayline'></div>
-                        </>
+                        </div>
                     )
                 })}
 
