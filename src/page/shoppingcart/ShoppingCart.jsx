@@ -20,9 +20,15 @@ const ShoppingCart = () => {
         }
 
     },[])
-    console.log(user)
+    
+    const PLUS = 0;
+    const MINUS = 1;
     function calcul(type){
-
+        switch(type)
+        {
+            case 0:
+            case 1:
+        }
     }
     
     function totalCheck(e){
