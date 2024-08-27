@@ -76,7 +76,7 @@ function App() {
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
                     <Route path='/payshipment' element={<PayShipment />}></Route>
-                    <Route path='/addressadd/:pagetype' element={<AddressManagement />}></Route>
+                    <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

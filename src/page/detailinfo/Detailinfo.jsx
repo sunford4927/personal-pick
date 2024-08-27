@@ -24,6 +24,7 @@ import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
+import PayShipment from '../payshipment/PayShipment'
 
 
 const Detailinfo = () => {
@@ -56,7 +57,6 @@ const Detailinfo = () => {
          sendGet(URL + "/RatingAvg?idx="+idx ,setScoreAvg); // 평점 평균
          sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
          sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
-         
     },[]);
     
     // 페이지네이션 함수
@@ -326,11 +326,11 @@ const calculateTotalPrice = (price, quantity) => {
 
                             <hr className='amountpricebar'/>
 
-                        {/* 구매하기 및 장바구니 버튼 */}
+                        {/* 구매하기 및 장바구니 버튼 */} {/* showPayMent(`${state.user_id}`, parseInt(item.price*itemadd), `${item.cos_name}`, `${state.user_adress}`)*/}
 
                         <div className='buybasketmain'>
                         <div className="buyitembutton">
-                            <a className="buyitembutton btn first flex" onClick={()=>showPayMent(`${state.user_id}`, parseInt(item.price*itemadd), `${item.cos_name}`, `${state.user_adress}`)}>구매하기</a>
+                            <a className="buyitembutton btn first flex" onClick={()=> navigate('/payshipment')}>구매하기</a> 
                         </div>
 
                         <div className="basketbutton">
