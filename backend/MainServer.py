@@ -9,7 +9,8 @@ from ppLogin import ppLogin
 from ppSearch import ppSearch, ppSearchList
 from Test import testJoin, testLogin, testUserData, testOrderData, testCategory, testSearch
 from payment import payment, Clearpayment
-from ppCartBuy import ppAddCart, ppOrderCart
+from ppCartBuy import ppAddCart, ppOrderCart, ppOrder
+from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False
@@ -31,6 +32,10 @@ api.add_resource(ppSuggestAge, '/suggestAge')
 api.add_resource(ppSuggestSkinType, '/suggestSkinType')
 api.add_resource(ppAddCart, '/AddCart')
 api.add_resource(ppOrderCart, '/OrderCart')
+api.add_resource(ppOrder, '/OrderPage')
+api.add_resource(ppAddressList, '/addressList')
+api.add_resource(ppEditAddress, '/EditAddress')
+api.add_resource(ppInsertAdd, '/InsertAddress')
 
 api.add_resource(testJoin, '/TestJoin')
 api.add_resource(testLogin, '/TestLogin')

@@ -1,563 +1,182 @@
+
 from flask_restx import Resource
 from flask import request, jsonify
-from db_utils import testQuery, setQuery
-from db_connection import db_connection
+from db_utils import setQuery, PostCartQuery
 
+# 장바구니에 상품 insert하는 서버, 이미 있는 제품이라면 수량과 총가격 업데이트
 class ppAddCart(Resource):
     def post(self):
+        # 프론트엔드에서 받은 JSON 데이터를 파싱
         value = request.get_json()
-        print("addcart : ", value)
+        # print("addcart : ", value)
 
         data = value['data']
-        print("cart data: ", data)
-        
-        # Extract data from the request
+       
+        # 데이터에서 필요한 값들을 추출
         userid = data['userid']
-        idx = int(data['categorynumber'])  # Ensure idx is an integer
-        price = int(data['cosmeticprice'])  # Ensure price is an integer
-        buy_cnt = int(data['cosmeticcount'])  # Ensure buy_cnt is an integer
-        total_price = price * buy_cnt  # Calculate total_price
+        idx = int(data['categorynumber'])
+        price = int(data['cosmeticprice'])
+        buy_cnt = int(data['cosmeticcount'])
+        total_price = price * buy_cnt
 
-        # SQL query with parameters
-        sql = """INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, 
-                                        total_price, cos_img_src, is_selected)
-                SELECT
-                %s AS user_id,                        -- 프론트에서 받은 사용자 ID
-                %s AS idx,                            -- 프론트에서 받은 상품 ID
-                p.cos_name,                           -- 상품 이름 (result_product 테이블에서 가져옴)
-                p.price,                              -- 상품 가격 (result_product 테이블에서 가져옴)
-                %s AS buy_cnt,                        -- 프론트에서 받은 수량
-                %s AS total_price,                   -- 총 금액 (상품 가격 * 수량)
-                p.cos_img_src,                        -- 상품 이미지 URL (result_product 테이블에서 가져옴)
-                TRUE AS is_selected                   -- 기본값: TRUE (상품 선택 여부)
-                FROM
-                result_product p
-                WHERE
-                p.idx = %s;                           -- 상품 ID에 대한 조건"""
-        
-        # Values to be inserted
-        values = (userid, idx, buy_cnt, total_price, idx)
+        try:
+            # 사용자가 동일한 상품을 장바구니에 이미 담았는지 확인하는 쿼리
+            check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
+            existing_item = setQuery(check_sql, (userid, idx))
 
-        # Execute the query
-        testQuery(sql, values)
+            if existing_item:
+                # 만약 동일한 상품이 이미 장바구니에 있다면, 수량과 총 금액을 업데이트
+                new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt  # 기존 수량에 새로 추가된 수량 더함
+                new_total_price = price * new_buy_cnt  # 새로운 총 금액 계산
 
-        return jsonify({"message": "Item added to cart successfully."})
+                # 업데이트 쿼리 실행
+                update_sql = """
+                    UPDATE result_cart_item
+                    SET buy_cnt = %s, total_price = %s
+                    WHERE user_id = %s AND idx = %s
+                """
+                update_values = (new_buy_cnt, new_total_price, userid, idx)
+                PostCartQuery(update_sql, update_values)
+
+            else:
+                    # 장바구니에 항목이 없으면 새로 추가
+                    insert_sql = """
+                        INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, total_price, cos_img_src, is_selected)
+                        SELECT
+                            %s AS user_id,
+                            %s AS idx,
+                            p.cos_name,
+                            p.price,
+                            %s AS buy_cnt,
+                            %s AS total_price,
+                            p.cos_img_src,
+                            TRUE AS is_selected
+                        FROM
+                            result_product p
+                        WHERE
+                            p.idx = %s
+                    """
+                    insert_values = (userid, idx, buy_cnt, total_price, idx)
+                    PostCartQuery(insert_sql, insert_values)
+
+        except Exception:
+            return jsonify({"message": "An error occurred."}), 500
+
+        return jsonify({"message": "Operation completed successfully."})
 
 
+
+# 해당 사용자가 장바구니에 담은 데이터 보내주는 서버
 class ppOrderCart(Resource):
-
     def get(self):
+        # 요청에서 사용자 ID를 파싱
         value = request.args.to_dict()
-        id = value['userid']
-        data = setQuery("select * from result_cart_item where user_id = %s", id)
+        userid = value.get('userid')
+
+        sql = """
+            SELECT
+                rci.user_id,
+                rci.idx,
+                rci.cos_name,
+                rci.price,
+                rci.buy_cnt,
+                rci.total_price,
+                rci.cos_img_src,
+                rci.is_selected,
+                rp.brand_name,
+                rp.vol
+            FROM
+                result_cart_item rci
+            JOIN
+                result_product rp
+            ON
+                rci.idx = rp.idx
+            WHERE
+                rci.user_id = %s
+        """
+        data = setQuery(sql, (userid,))
+        return jsonify(data)
+    
+
+# 사용자가 구매했다고 체크박스에 체크하고 주문하기 누르면 그때 is_seleted 데이터 업데이트하는 쿼리문
+# true 값만 주문하기 페이지에 보내면 됨
+    def post(self):
+        value = request.get_json()
+        data = value['data']
+
+        user_id = data[0]['user_id']  # 사용자 ID는 모든 항목에서 동일하다고 가정
+
+        # SQL 쿼리의 CASE 문을 사용하여 업데이트 쿼리 생성
+        case_statements = []
+        values = []
+
+        for item in data:
+            idx = item.get('idx')
+            is_selected = item.get('is_selected')
+
+            if idx is not None and is_selected is not None:
+                case_statements.append(f"WHEN %s THEN %s")
+                values.extend([idx, is_selected])
+
+ 
+        case_statements_str = ' '.join(case_statements)
+        update_sql = f"""
+            UPDATE result_cart_item
+            SET is_selected = CASE idx
+                {case_statements_str}
+                ELSE is_selected
+            END
+            WHERE user_id = %s
+        """
+        
+        # 사용자 ID 추가
+        values.append(user_id)
+
+        # 쿼리 실행
+        PostCartQuery(update_sql, values)
+
+
+
+    
+# 사용자가 주문하기 누르면 체크박스 선택한 애들 데이터만 전송
+class ppOrder(Resource):
+    def get(self):
+        # 요청에서 사용자 ID를 파싱
+        value = request.args.to_dict()
+        userid = value.get('userid')
+
+        sql = """
+            SELECT
+                rci.user_id,
+                rci.idx,
+                rci.cos_name,
+                rci.price,
+                rci.buy_cnt,
+                rci.total_price,
+                rci.cos_img_src,
+                rci.is_selected,
+                rp.brand_name,
+                rp.vol
+            FROM
+                result_cart_item rci
+            JOIN
+                result_product rp
+            ON
+                rci.idx = rp.idx
+            WHERE
+                rci.user_id = %s and is_selected = 1;
+        """
+        data = setQuery(sql, (userid,))
         return jsonify(data)
     
 
 
 
-
-
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import setQuery, PostCartQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         # 클라이언트로부터 JSON 데이터 가져오기
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         data = value.get('data', {})
-#         if not all(key in data for key in ('userid', 'categorynumber', 'cosmeticprice', 'cosmeticcount')):
-#             return jsonify({"message": "Missing required data fields"}), 400
-
-#         # 데이터 추출 및 변환
-#         userid = data['userid']
-#         idx = int(data['categorynumber'])
-#         price = int(data['cosmeticprice'])
-#         buy_cnt = int(data['cosmeticcount'])
-#         total_price = price * buy_cnt
-
-#         try:
-#             # 상품 정보 가져오기
-#             product_sql = "SELECT cos_name, cos_img_src FROM result_product WHERE idx = %s"
-#             product_info = setQuery(product_sql, (idx,))
-
-#             if not product_info:
-#                 return jsonify({"message": "Product not found"}), 404
-
-#             # 장바구니에 이미 항목이 있는지 확인
-#             check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#             existing_item = setQuery(check_sql, (userid, idx))
-
-#             if existing_item:
-#                 # 항목이 존재하면 수량과 총 금액 업데이트
-#                 new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt
-#                 new_total_price = price * new_buy_cnt
-
-#                 update_sql = """
-#                     UPDATE result_cart_item
-#                     SET buy_cnt = %s, total_price = %s
-#                     WHERE user_id = %s AND idx = %s
-#                 """
-#                 update_values = (new_buy_cnt, new_total_price, userid, idx)
-#                 update_result = PostCartQuery(update_sql, update_values)
-#                 if update_result > 0:
-#                     message = "Cart item updated successfully."
-#                 else:
-#                     message = "Failed to update cart item."
-#             else:
-#                 # 장바구니에 항목이 없으면 새로 추가
-#                 insert_sql = """
-#                     INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, total_price, cos_img_src, is_selected)
-#                     VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE)
-#                 """
-#                 insert_values = (
-#                     userid, idx, product_info[0]['cos_name'], price, buy_cnt, total_price, product_info[0]['cos_img_src']
-#                 )
-#                 insert_result = PostCartQuery(insert_sql, insert_values)
-#                 if insert_result > 0:
-#                     message = "Item added to cart successfully."
-#                 else:
-#                     message = "Failed to add item to cart."
-
-#         except Exception as e:
-#             print(f"An error occurred: {e}")
-#             return jsonify({"message": f"An error occurred while processing your request: {e}"}), 500
-
-#         return jsonify({"message": message})
-
-# class ppOrderCart(Resource):
-#     def get(self):
-#         value = request.args.to_dict()
-#         userid = value.get('userid')
-#         if not userid:
-#             return jsonify({"message": "Missing userid parameter"}), 400
-
-#         try:
-#             data = setQuery("SELECT * FROM result_cart_item WHERE user_id = %s", (userid,))
-#             return jsonify(data)
-#         except Exception as e:
-#             print(f"An error occurred while fetching cart items: {e}")
-#             return jsonify({"message": "An error occurred while fetching cart items."}), 500
-
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import setQuery, PostCartQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         # 클라이언트로부터 JSON 데이터 가져오기
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         data = value.get('data', {})
-#         if not all(key in data for key in ('userid', 'categorynumber', 'cosmeticprice', 'cosmeticcount')):
-#             return jsonify({"message": "Missing required data fields"}), 400
-
-#         # 데이터 추출 및 변환
-#         userid = data['userid']
-#         idx = int(data['categorynumber'])
-#         price = int(data['cosmeticprice'])
-#         buy_cnt = int(data['cosmeticcount'])
-#         total_price = price * buy_cnt
-
-#         try:
-#             # 상품 정보 가져오기
-#             product_sql = "SELECT cos_name, cos_img_src FROM result_product WHERE idx = %s"
-#             product_info = setQuery(product_sql, (idx,))
-
-#             if not product_info:
-#                 return jsonify({"message": "Product not found"}), 404
-
-#             # 장바구니에 이미 항목이 있는지 확인
-#             check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#             existing_item = setQuery(check_sql, (userid, idx))
-
-#             if existing_item:
-#                 # 항목이 존재하면 수량과 총 금액 업데이트
-#                 new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt
-#                 new_total_price = price * new_buy_cnt
-
-#                 update_sql = """
-#                     UPDATE result_cart_item
-#                     SET buy_cnt = %s, total_price = %s
-#                     WHERE user_id = %s AND idx = %s
-#                 """
-#                 update_values = (new_buy_cnt, new_total_price, userid, idx)
-#                 update_result = PostCartQuery(update_sql, update_values)
-#                 if update_result > 0:
-#                     message = "Cart item updated successfully."
-#                 else:
-#                     message = "Failed to update cart item."
-#             else:
-#                 # 장바구니에 항목이 없으면 새로 추가
-#                 insert_sql = """
-#                     INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, total_price, cos_img_src, is_selected)
-#                     VALUES (%s, %s, %s, %s, %s, %s, %s, TRUE)
-#                 """
-#                 insert_values = (
-#                     userid, idx, product_info[0]['cos_name'], price, buy_cnt, total_price, product_info[0]['cos_img_src']
-#                 )
-#                 insert_result = PostCartQuery(insert_sql, insert_values)
-#                 if insert_result > 0:
-#                     message = "Item added to cart successfully."
-#                 else:
-#                     message = "Failed to add item to cart."
-
-#         except Exception as e:
-#             print(f"An error occurred: {e}")
-#             return jsonify({"message": "An error occurred while processing your request."}), 500
-
-#         return jsonify({"message": message})
-
-# class ppOrderCart(Resource):
-#     def get(self):
-#         value = request.args.to_dict()
-#         userid = value.get('userid')
-#         if not userid:
-#             return jsonify({"message": "Missing userid parameter"}), 400
-
-#         data = setQuery("SELECT * FROM result_cart_item WHERE user_id = %s", (userid,))
-#         return jsonify(data)
-
-
-
-
-
-
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import setQuery, PostCartQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         data = value['data']
-#         print("cart data: ", data)
-        
-#         userid = data['userid']
-#         idx = int(data['categorynumber'])
-#         price = int(data['cosmeticprice'])
-#         buy_cnt = int(data['cosmeticcount'])
-#         total_price = price * buy_cnt
-
-#         try:
-#             # 동일한 상품이 장바구니에 있는지 확인
-#             check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#             existing_item = setQuery(check_sql, (userid, idx))
-
-#             if existing_item and existing_item[0]:
-#                 print('existing_item:', existing_item[0])
-#                 # 수량과 총 금액 업데이트
-#                 new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt
-#                 new_total_price = price * new_buy_cnt
-
-#                 update_sql = """
-#                     UPDATE result_cart_item
-#                     SET buy_cnt = %s, total_price = %s
-#                     WHERE user_id = %s AND idx = %s
-#                 """
-#                 update_values = (new_buy_cnt, new_total_price, userid, idx)
-#                 update_result = PostCartQuery(update_sql, update_values)
-#                 print('Update Result:', update_result)
-#                 message = "Cart item updated successfully." if update_result > 0 else "Failed to update cart item."
-#             else:
-#                 # 장바구니에 새 항목 추가
-#                 insert_sql = """
-#                     INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, total_price, cos_img_src, is_selected)
-#                     SELECT %s, %s, p.cos_name, p.price, %s, %s, p.cos_img_src, TRUE
-#                     FROM result_product p
-#                     WHERE p.idx = %s
-#                 """
-#                 insert_values = (userid, idx, buy_cnt, total_price, idx)
-#                 insert_result = PostCartQuery(insert_sql, insert_values)
-#                 print('Insert Result:', insert_result)
-#                 message = "Item added to cart successfully." if insert_result > 0 else "Failed to add item to cart."
-
-#         except Exception as e:
-#             print(f"An error occurred: {e}")
-#             message = "An error occurred while processing your request."
-
-#         return jsonify({"message": message})
-
-# class ppOrderCart(Resource):
-#     def get(self):
-#         value = request.args.to_dict()
-#         id = value['userid']
-
-#         # 장바구니 항목 조회
-#         data = setQuery("SELECT * FROM result_cart_item WHERE user_id = %s", (id,))
-        
-#         return jsonify(data)
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import setQuery, PostCartQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         # 프론트엔드에서 받은 JSON 데이터를 파싱
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         # 데이터에서 필요한 값들을 추출
-#         data = value['data']
-#         print("cart data: ", data)
-        
-#         userid = data['userid']  # 사용자 ID
-#         idx = int(data['categorynumber'])  # 상품 ID, 정수로 변환
-#         price = int(data['cosmeticprice'])  # 상품 가격, 정수로 변환
-#         buy_cnt = int(data['cosmeticcount'])  # 구매 수량, 정수로 변환
-#         total_price = price * buy_cnt  # 총 금액 계산 (상품 가격 * 구매 수량)
-
-#         try:
-#             # 사용자가 동일한 상품을 장바구니에 이미 담았는지 확인하는 쿼리
-#             check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#             existing_item = setQuery(check_sql, (userid, idx))
-
-#             if existing_item and existing_item[0]:  # 리스트가 비어있지 않고 첫 번째 요소가 존재하는지 확인
-#                 print('existing_item:', existing_item[0])
-#                 # 만약 동일한 상품이 이미 장바구니에 있다면, 수량과 총 금액을 업데이트
-#                 new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt  # 기존 수량에 새로 추가된 수량 더함
-#                 new_total_price = price * new_buy_cnt  # 새로운 총 금액 계산
-
-#                 # 업데이트 쿼리 실행
-#                 update_sql = """
-#                     UPDATE result_cart_item
-#                     SET buy_cnt = %s, total_price = %s
-#                     WHERE user_id = %s AND idx = %s
-#                 """
-#                 update_values = (new_buy_cnt, new_total_price, userid, idx)
-#                 update_result = PostCartQuery(update_sql, update_values)
-#                 print('Update Result:', update_result)
-#                 if update_result > 0:
-#                     message = "장바구니에 추가해서 잘 담겼슈."  # 성공 메시지
-#                 else:
-#                     message = "장바구니에 제품 담는 거 실패했슈"  # 실패 메시지
-#             else:
-#                 # 장바구니에 동일한 상품이 없을 경우 새로 추가
-#                 insert_sql = """INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, 
-#                                                                 total_price, cos_img_src, is_selected)
-#                                 SELECT
-#                                 %s AS user_id,                        -- 사용자 ID
-#                                 %s AS idx,                            -- 상품 ID
-#                                 p.cos_name,                           -- 상품 이름 (result_product 테이블에서 가져옴)
-#                                 p.price,                              -- 상품 가격 (result_product 테이블에서 가져옴)
-#                                 %s AS buy_cnt,                        -- 구매 수량
-#                                 %s AS total_price,                    -- 총 금액
-#                                 p.cos_img_src,                        -- 상품 이미지 URL (result_product 테이블에서 가져옴)
-#                                 TRUE AS is_selected                   -- 기본값: TRUE (상품 선택 여부)
-#                                 FROM
-#                                 result_product p
-#                                 WHERE
-#                                 p.idx = %s;                           -- 상품 ID에 대한 조건"""
-                
-#                 insert_values = (userid, idx, buy_cnt, total_price, idx)
-#                 insert_result = PostCartQuery(insert_sql, insert_values)
-#                 print('Insert Result:', insert_result)
-#                 if insert_result > 0:
-#                     message = "장바구니에 잘 담겼슈."  # 성공 메시지
-#                 else:
-#                     message = "장바구니에 제품 담는 거 실패했슈"  # 실패 메시지
-
-#         except Exception as e:
-#             # 오류 발생 시 오류 메시지 출력
-#             print(f"An error occurred: {e}")
-#             message = "An error occurred while processing your request."
-
-#         # 결과를 JSON 형태로 반환
-#         return jsonify({"message": message})
-
-# class ppOrderCart(Resource):
-#     def get(self):
-#         # 요청에서 사용자 ID를 파싱
-#         value = request.args.to_dict()
-#         id = value['userid']
-        
-#         # 해당 사용자의 장바구니 데이터를 조회하는 쿼리
-#         data = setQuery("select * from result_cart_item where user_id = %s", (id,))
-        
-#         # 조회한 데이터를 JSON 형태로 반환
-#         return jsonify(data)
-
-
-
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import testQuery, setQuery, PostCartQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         # 프론트엔드에서 받은 JSON 데이터를 파싱
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         # 데이터에서 필요한 값들을 추출
-#         data = value['data']
-#         print("cart data: ", data)
-        
-#         userid = data['userid']  # 사용자 ID
-#         idx = int(data['categorynumber'])  # 상품 ID, 정수로 변환
-#         price = int(data['cosmeticprice'])  # 상품 가격, 정수로 변환
-#         buy_cnt = int(data['cosmeticcount'])  # 구매 수량, 정수로 변환
-#         total_price = price * buy_cnt  # 총 금액 계산 (상품 가격 * 구매 수량)
-
-#         # 사용자가 동일한 상품을 장바구니에 이미 담았는지 확인하는 쿼리
-#         check_sql = "SELECT buy_cnt FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#         existing_item = setQuery(check_sql, (userid, idx))
-#         print('existing_item',existing_item[0])
-
-#         if existing_item:
-#             # 만약 동일한 상품이 이미 장바구니에 있다면, 수량과 총 금액을 업데이트
-#             new_buy_cnt = existing_item[0]['buy_cnt'] + buy_cnt  # 기존 수량에 새로 추가된 수량 더함
-#             new_total_price = price * new_buy_cnt  # 새로운 총 금액 계산
-
-#             # 업데이트 쿼리 실행
-#             update_sql = """
-#                 UPDATE result_cart_item
-#                 SET buy_cnt = %s, total_price = %s
-#                 WHERE user_id = %s AND idx = %s
-#             """
-#             update_values = (new_buy_cnt, new_total_price, userid, idx)
-#             testQuery(update_sql, update_values)
-#             message = "Cart item updated successfully."  # 성공 메시지
-#         else:
-#             # 장바구니에 동일한 상품이 없을 경우 새로 추가
-#             insert_sql = """INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, 
-#                                                             total_price, cos_img_src, is_selected)
-#                             SELECT
-#                             %s AS user_id,                        -- 사용자 ID
-#                             %s AS idx,                            -- 상품 ID
-#                             p.cos_name,                           -- 상품 이름 (result_product 테이블에서 가져옴)
-#                             p.price,                              -- 상품 가격 (result_product 테이블에서 가져옴)
-#                             %s AS buy_cnt,                        -- 구매 수량
-#                             %s AS total_price,                    -- 총 금액
-#                             p.cos_img_src,                        -- 상품 이미지 URL (result_product 테이블에서 가져옴)
-#                             TRUE AS is_selected                   -- 기본값: TRUE (상품 선택 여부)
-#                             FROM
-#                             result_product p
-#                             WHERE
-#                             p.idx = %s;                           -- 상품 ID에 대한 조건"""
-            
-#             insert_values = (userid, idx, buy_cnt, total_price, idx)
-#             PostCartQuery(insert_sql, insert_values)
-#             message = "Item added to cart successfully."  # 성공 메시지
-
-#         # 결과를 JSON 형태로 반환
-#         return jsonify({"message": message})
-
-
-# class ppOrderCart(Resource):
-#     def get(self):
-#         # 요청에서 사용자 ID를 파싱
-#         value = request.args.to_dict()
-#         id = value['userid']
-        
-#         # 해당 사용자의 장바구니 데이터를 조회하는 쿼리
-#         data = setQuery("select * from result_cart_item where user_id = %s", id)
-        
-#         # 조회한 데이터를 JSON 형태로 반환
-#         return jsonify(data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from flask_restx import Resource
-# from flask import request, jsonify
-# from db_utils import testQuery, setQuery
-# from db_connection import db_connection
-
-# class ppAddCart(Resource):
-#     def post(self):
-#         value = request.get_json()
-#         print("addcart : ", value)
-
-#         data = value['data']
-#         print("cart data: ", data)
-        
-#         # Extract data from the request
-#         userid = data['userid']
-#         idx = int(data['categorynumber'])  # Ensure idx is an integer
-#         price = int(data['cosmeticprice'])  # Ensure price is an integer
-#         buy_cnt = int(data['cosmeticcount'])  # Ensure buy_cnt is an integer
-#         total_price = price * buy_cnt  # Calculate total_price
-
-#         # SQL query with parameters
-#         sql = """INSERT INTO result_cart_item (user_id, idx, cos_name, price, buy_cnt, 
-#                                         total_price, cos_img_src, is_selected)
-#                 SELECT
-#                 %s AS user_id,                        -- 프론트에서 받은 사용자 ID
-#                 %s AS idx,                            -- 프론트에서 받은 상품 ID
-#                 p.cos_name,                           -- 상품 이름 (result_product 테이블에서 가져옴)
-#                 p.price,                              -- 상품 가격 (result_product 테이블에서 가져옴)
-#                 %s AS buy_cnt,                        -- 프론트에서 받은 수량
-#                 %s AS total_price,                   -- 총 금액 (상품 가격 * 수량)
-#                 p.cos_img_src,                        -- 상품 이미지 URL (result_product 테이블에서 가져옴)
-#                 TRUE AS is_selected                   -- 기본값: TRUE (상품 선택 여부)
-#                 FROM
-#                 result_product p
-#                 WHERE
-#                 p.idx = %s;                           -- 상품 ID에 대한 조건"""
-        
-#         # Values to be inserted
-#         values = (userid, idx, buy_cnt, total_price, idx)
-
-#         # Execute the query
-#         testQuery(sql, values)
-
-#         return jsonify({"message": "Item added to cart successfully."})
-
-
-# class ppOrderCart(Resource):
-
-#     def get(self):
-#         value = request.args.to_dict()
-#         id = value['userid']
-#         data = setQuery("select * from result_cart_item where user_id = %s", id)
-#         return jsonify(data)
     
+
+
+
+    
+   
+
+
