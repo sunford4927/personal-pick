@@ -22,7 +22,6 @@ function TopButton() {
             }
         }
 
-        console.log(window.scrollY)
         window.addEventListener("scroll", handleShowButton)
         return () => {
             window.removeEventListener("scroll", handleShowButton)

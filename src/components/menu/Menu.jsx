@@ -9,20 +9,10 @@ import { useSelector } from 'react-redux';
 
 const Menu = ({ isView }) => {
     const nav = useNavigate()
-    const [name, setName] = useState("")
     
     const isMenuView = useSelector(state => state.isMenu)
-
-    useEffect(()=>{
-        let Id = sessionStorage.getItem("username")
-        
-        setName(Id);
-    },[])
-
-    useEffect(()=>{
-        console.log(name)
-    },[name])
-    
+    const name = useSelector(state => state.user);
+    console.log(name)
     return (
         <>
             { 
@@ -30,7 +20,7 @@ const Menu = ({ isView }) => {
                 <div className="menucontainer" style={{position : "absolute", top : isView.y, left : isView.x}}>
                     <div className='flex_col home_header'>
                         <img className='home_menu float_l' src={UserImg} alt="" />
-                        <p className='menu_title' onClick={() => nav("/login")}>{name === null ? "로그인/회원가입" : name + "님 환영합니다"}</p>   
+                        <p className='menu_title' onClick={() => nav("/login")}>{typeof(name.user_nm) === "undefined" ? "로그인/회원가입" : name.user_nm + "님 환영합니다"}</p>   
                     </div>
                     <div className='menu_box'>
                         <hr />

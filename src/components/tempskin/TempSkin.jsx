@@ -12,7 +12,7 @@ const TempSkin = ( {list} ) => {
         <div className='temSkin_main'>
             {list.map((dic,idx)=>{
                 return (
-                    <div >
+                    <div key={idx}>
                         <div className='tempSkin_Container' key={idx}>
                             <div>{dic.count + "개"}</div>
                             <div className='skinChart_back'>

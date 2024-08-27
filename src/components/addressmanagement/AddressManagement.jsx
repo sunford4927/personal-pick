@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../pageheader/PageHeader';
 import "./AddressManagement.scss"
 import MapFind from '../mapfind/MapFind';
-import { showMap } from '../../util/util';
+import { sendGet, showMap, URL } from '../../util/util';
 const AddressManagement = () => {
     const nav = useNavigate()
     const {pagetype, address_idx} = useParams()
@@ -49,12 +49,17 @@ const AddressManagement = () => {
         }
     }
     let UserNm = "";
+
+    function saveData(data){
+        console.log(data)
+    }
     // pageType 이 true일때는 배송지 수정화면이 출력 false일때는 배송지 등록화면
     useEffect(()=>{
         UserNm =sessionStorage.getItem("username");
         if(isType(pagetype))
         {
             // 주소 데이터 받아오는 로직
+            sendGet(URL+"/EditAddress?address_idx="+ "3972",saveData)
         }
     },[])
 

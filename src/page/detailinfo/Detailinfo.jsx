@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {modalClose, sendGet , showModal, showPayMent, showSwal, URL } from '../../util/util'
+import {modalClose, sendGet , sendPost, showModal, showPayMent, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -22,14 +22,21 @@ import InputReview from '../../components/inputreview/InputReview'
 import PageHeader from '../../components/pageheader/PageHeader'
 import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
+import { Pagination } from 'antd'
+import axios from 'axios'
 
 
 const Detailinfo = () => {
     // 페이지 이동 함수
     const navigate = useNavigate();
     const home = () => navigate('/');
+    
 
-    const state = useSelector(state => state)
+    const state = useSelector(user => user.user)
+
+
+    
+
 
     const [data , setData] = useState([]);
     const [review , setReview] = useState([]);
@@ -38,7 +45,7 @@ const Detailinfo = () => {
     const [reviewcnt , setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
 
-    const [itemadd, setItemAdd] = useState(0);
+    const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
     
@@ -52,12 +59,74 @@ const Detailinfo = () => {
          sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
          sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
          
-    },[idx]);
+    },[]);
     
+    // // 페이지네이션 함수
+
+    // const [currentPage , setCurrentPage] = useState(1);
+    // const recordsPerPage = 5;
+    // const lastIndex = currentPage * recordsPerPage;
+    // const firstIndex =  lastIndex - recordsPerPage;
+    // const records = review.slice(firstIndex , lastIndex);
+    // const npage = Math.ceil(review.length / recordsPerPage);
+    // const numbers = [...Array(npage + 1).keys()].slice(1)
+
+    // function prePage() {
+    //     if(currentPage !== firstIndex) {
+    //         setCurrentPage(currentPage - 1);
+    //     }
+    // }
+
+    // function nextPage() {
+    //     if(currentPage !== lastIndex){
+    //         setCurrentPage(currentPage + 1);
+    //     }
+    // }
+
+    // function changeCPage(id) {
+    //     setCurrentPage(id)
+    // }
+
+
+    
+
+    const [total, setTotal] = useState(0); // Initialize total to 0 (if needed)
+    const [page, setPage] = useState(1);
+    const [postPerPage, setPostPerPage] = useState(5);
+    
+    // Calculate pagination indices (assuming review data is already available)
+    const indexOfLastPage = Math.min(page * postPerPage, review.length); // Use review length
+    const indexOfFirstPage = Math.max(indexOfLastPage - postPerPage, 0); // Ensure first page is non-negative
+    const currentPosts = review.slice(indexOfFirstPage, indexOfLastPage); // Use slice on review data
+    
+    const onShowSizeChange = (current, pageSize) => {
+      setPostPerPage(pageSize);
+    };
+
+    useEffect(()=> {
+            setReview(review);
+            setTotal(review.length);
+    });
+    
+    const itemRender = (current, type, originalElement) => {
+      if (type === 'prev') {
+        return <a disabled={page === 1}>이전</a>; // Disable prev button on first page
+      }
+      if (type === 'next') {
+        return <a disabled={page === Math.ceil(review.length / postPerPage)}>다음</a>; // Disable next button on last page
+      }
+    
+      return originalElement;
+    };
+  
 
     useEffect(()=>{
        console.log(review)
    },[review]);
+
+   useEffect(()=>{
+    console.log(data)
+    },[data]);
    
    useEffect(()=>{
     console.log(scoreavg)
@@ -70,6 +139,10 @@ const Detailinfo = () => {
    useEffect(()=>{
     console.log(reviewcnt)
    },[reviewcnt]);
+
+   useEffect(()=>{
+    console.log(state)
+   })
 
 
     const showSwal = (e) => {
@@ -170,8 +243,11 @@ const Detailinfo = () => {
 ]
 
 const calculateTotalPrice = (price, quantity) => {
+    console.log(price)
     return price * quantity;
   };
+
+
 
   return (
 
@@ -181,11 +257,11 @@ const calculateTotalPrice = (price, quantity) => {
             {/* 데이터를 성공적으로 불러오면 실행 */}
             {data.length > 0 ? (
                 data.map((item, index) => (
-                    <div>
+                    <div key={index}>
 
                     {/* 화장품 이름 */}
                 
-                    <div className='itemname' key={index}>
+                    <div className='itemname'>
                     <img src={goback} className = "gobackimg" onClick={()=> navigate('/Search')} width={20} height={20}></img>
                     <span className='cosmeticname'>{item.cos_name}</span>
                     </div>
@@ -270,7 +346,7 @@ const calculateTotalPrice = (price, quantity) => {
                         {/* 상품금액 합계 부분 */}  
                         <div className='amountallpricebox flex'>
                         <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span>
-                         {itemadd > 0 && (
+                         {itemadd >= 1 && (
                             <span className='amountallprice mt-8 px-20'>
                             {calculateTotalPrice(item.price, itemadd)}원
                              </span>
@@ -283,11 +359,17 @@ const calculateTotalPrice = (price, quantity) => {
 
                         <div className='buybasketmain'>
                         <div className="buyitembutton">
-                            <a className="buyitembutton btn first flex" onClick={()=>showPayMent("상현", 2000, "크림", "영암군")}>구매하기</a>
+                            <a className="buyitembutton btn first flex" onClick={()=>showPayMent(`${state.user_id}`, parseInt(item.price*itemadd), `${item.cos_name}`, `${state.user_adress}`)}>구매하기</a>
                         </div>
 
                         <div className="basketbutton">
-                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func}/>)}}>장바구니</button>
+                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func}/>) ; 
+                        sendPost(URL + '/AddCart' , null , 
+                        {userid : state.user_id , 
+                        categorynumber : idx ,  
+                        cosmeticprice : item.price , 
+                        cosmeticcount : itemadd , 
+                        cosmetictotal : item.price*itemadd}  )}}>장바구니</button>
                         </div>
                         </div>
                     
@@ -345,18 +427,7 @@ const calculateTotalPrice = (price, quantity) => {
                         {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
                         <StarRating rating={parseFloat(item.rating_avg)} starColor="gold" />
                         <div className='detail_backboard' style={{marginLeft:item.rating_avg*20}}></div>
-                             {/* <div className='mirror_h' style={ {
-                                height:'200px',
-                                width : '100px',
-                                backgroundColor : 'red',
-                                position:'absolute',
-                                transform: 'scaleX(-1)',
-                                transition: '.3s',
-                             }}>
-                             </div>  */}
-                             
                          </div>
-                         
                          </div>
                           ))}
 
@@ -371,7 +442,7 @@ const calculateTotalPrice = (price, quantity) => {
 
 
                          {/* 계정 정보 및 사용자 리뷰 */}
-                         {review.map((item) =>(
+                         {currentPosts.map((item) =>(
                          <div className='accountmain'>
                         <div className='accountinfo flex items-center'>
                         <img src = {account} width={50} className='w-40 h-40 rounded-full object-cover object-center'/>
@@ -390,6 +461,40 @@ const calculateTotalPrice = (price, quantity) => {
                             </div>
                             </div>
                         ))}
+                        <Pagination 
+                        className='pagination'
+                        onChange={(value) => setPage(value)}
+                        pageSize={postPerPage}
+                        total={total}
+                        current={page}
+                        showSizeChanger
+                        showQuickJumper
+                        onShowSizeChange={onShowSizeChange}
+                        itemRender={itemRender}
+                        />
+
+
+
+                        {/* <nav>
+                            <ul className='pagination'>
+                                <li className='page-item'>
+                                    <a href='#' className='page-link'
+                                    onClick={prePage}>Prev</a>
+                                </li>
+                                {
+                                    numbers.map((item,i) => (
+                                        <li className={`page-item ${currentPage === item ? 'active' : ''}`} key = {i}>
+                                            <a href='#' className='page-item'
+                                            onClick={() => changeCPage(item)} >{item}</a>
+                                        </li>
+                                    ))
+                                }
+                                <li className='page-item'>
+                                    <a href='#' className='page-link'
+                                    onClick={nextPage}>Next</a>
+                                </li>
+                            </ul>
+                        </nav> */}
 
 
                         <hr className='bar3'/>
@@ -562,5 +667,7 @@ const calculateTotalPrice = (price, quantity) => {
             </div>
   )
 }
+
+
 
 export default Detailinfo

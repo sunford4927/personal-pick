@@ -37,24 +37,22 @@ function App() {
     }
     const [userData, setUserData] = useState();
 
-    const user = useSelector(state => state.user)
+    
     useEffect(()=>{
         let usernm = sessionStorage.getItem("username");
 
-        if(usernm !== "")
+        if(usernm)
         {
-            if(user !== undefined)
-            {
-                sendGet(URL+'/TestSearch?user_nm='+ usernm, setUserData)
-            }
+            sendGet(URL+'/TestSearch?user_nm='+ usernm, setUserData)
         }
     },[])
 
     useEffect(()=>{
-        if(user !== undefined)
-        {
-            dispatch(setUser(userData))
-        }
+        if(typeof(userData)!=="undefined")
+        {{
+            dispatch(setUser(userData[0]))
+
+        }}
     },[userData])
 
     return (
