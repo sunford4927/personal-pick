@@ -4,28 +4,9 @@ import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
 import { useNavigate } from 'react-router-dom';
 import XBtn from '../../img/회색엑스.png'
-import { sendGet, showPayMent } from '../../util/util';
+import { sendGet, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
-
-const data = [
-    {
-        idx: 5,
-        brand_name: '토리든',
-        cos_name: '밸런스풀 시카 토너 패드',
-        cos_img_src: "https://img.hwahae.co.kr/products/1858863/1858863_20220801000000.jpg?format=webp&size=600x600",
-        price: '23,000원',
-        vol: '60ea'
-    },
-    {
-        idx: 6,
-        brand_name: '라운드어라운드',
-        cos_name: '그린티 시카 선로션[SPF50+/PA++++]',
-        cos_img_src: 'https://img.hwahae.co.kr/products/1944992/1944992_20230602135720.jpg?format=webp&size=600x600',
-        price: '20,000원',
-        vol: '100ml'
-    }
-]
 
 const deliveryAddress = [
     {
@@ -92,7 +73,7 @@ const PayShipment = () => {
 
 
     // 배송지 목록
-    const [ addresses, setAddresses ] = useState(deliveryAddress);
+    const [addresses, setAddresses] = useState(deliveryAddress);
 
     const handleDelete = (idx) => {
         // 선택한 인덱스에 해당하는 주소를 제외한 새로운 배열 생성
@@ -101,15 +82,40 @@ const PayShipment = () => {
         setAddresses(updatedAddresses);
     };
 
-    // sendGet으로 사용자아이디(userID) 데이터베이스에 보내주기(왜? )
-    // 리덕스 가져오기
-    const state = useSelector(user => user.user)
+    // 리덕스로 사용자아이디(userID) 데이터베이스에 보내주기
+    const state = useSelector((item) => {
+        return item.user
+    })
+    // 데이터베이스에서 받아온 주문상품 화면에 뿌려주기 위한 함수
+    const [orderProduct, setOrderProduct] = useState([]);
 
     useEffect(() => {
-    sendGet(URL + '/OrderPage' , null , {userid : state.user_id} )
-    console.log(state.user_id);
-    
-}, []);
+        sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        console.log(state.user_id);
+        console.log(orderProduct);
+    }, [state]);
+    // 배열 안에 state를 쓰기 전 빈배열일 때 새로고침하면 데이터 날라감
+    // 어떻게 해줘야하나?
+    // 리덕스에 있는 유저 데이터를 빈배열 안에 불러줘야함(state)
+
+    // 1. 새로고침 시 리덕스 데이터 사라짐
+    // 1-1. useEffect [state]이 빈배열로 한 번 새로고침 실행됨
+    // 2. 화면 렌더링 후 리덕스에 유저 데이터 추가
+    //3 . 유저 데이터 변화 감지 후 코드 실행
+
+
+    // 총 상품가격 
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    useEffect(() => {
+        let price = 0;
+        for (let i = 0; i < orderProduct.length; i++) {
+            price += orderProduct[i].total_price;
+        }
+        setTotalPrice(price)
+    }, [orderProduct])
+
+
 
     return (
         <div>
@@ -173,10 +179,10 @@ const PayShipment = () => {
                             <hr className='thin_grayline' />
 
 
-                            {data.map((item, i) => {
+                            {orderProduct.map((item, i) => {
                                 return (
                                     <>
-                                    
+
                                         <div key={i} className='order_product' >
                                             <img className='order_img' style={{ width: '80px', height: '80px' }} src={item.cos_img_src} alt="" />
                                             <div className='order_content_text' >
@@ -197,7 +203,7 @@ const PayShipment = () => {
                                                 </div>
                                                 <div>
                                                     <span className='order_product_price'>{item.price}</span>
-                                                    <span className='order_graytext'>1개</span>
+                                                    <span className='order_graytext'>{item.buy_cnt + "개"}</span>
                                                 </div>
                                             </div>
 
@@ -224,11 +230,11 @@ const PayShipment = () => {
                             <div className='gray_text'>
                                 <div className='gray_text_money'>
                                     <span>총 상품금액</span>
-                                    <span>43,000원</span>
+                                    <span>{totalPrice + "원"}</span>
                                 </div>
                                 <div className='gray_text_money'>
                                     <span>배송비</span>
-                                    <span className=''>3,000원</span>
+                                    <span className=''>3000원</span>
                                 </div>
                             </div>
 
@@ -236,14 +242,14 @@ const PayShipment = () => {
 
                             <div className='pay_fix_box'>
                                 <span className='pay_fix_amount'>최종 결제 금액</span>
-                                <span className='pay_fix_num'>46,000원</span>
+                                <span className='pay_fix_num'>{totalPrice + 3000 + "원"}</span>
                             </div>
 
                             <hr className='thin_grayline' />
 
                         </div>
                         <div className='pay_fix_btn' onClick={() => showPayMent}>
-                            46,000원 결제하기
+                            {totalPrice + 3000 + "원 결제하기"}
                         </div> </>
                     : <>
                         <div>
