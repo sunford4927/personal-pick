@@ -8,7 +8,7 @@ class ppDetailPage(Resource):
     def get(self):
         value = request.args.to_dict()
         idx = int(value['idx'])
-        # print("idx : ",idx)
+        print("now idx : ",idx)
         data = setQuery("select * from result_product where idx = %s", idx)
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)

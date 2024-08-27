@@ -1,6 +1,6 @@
 from flask_restx import Resource
 from flask import request, jsonify
-from db_utils import testQuery
+from db_utils import testQuery, setQuery
 from db_connection import db_connection
 
 class ppAddCart(Resource):
@@ -42,3 +42,13 @@ class ppAddCart(Resource):
         testQuery(sql, values)
 
         return jsonify({"message": "Item added to cart successfully."})
+
+
+class ppOrderCart(Resource):
+
+    def get(self):
+        value = request.args.to_dict()
+        id = value['userid']
+        data = setQuery("select * from result_cart_item where user_id = %s", id)
+        return jsonify(data)
+    
