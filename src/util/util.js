@@ -119,6 +119,36 @@ export function showModal(strTag, navigate) {
     });
 }
 
+// 성분 쪽 모달
+export function showIngredient(strTag, func) {
+    withReactContent(Swal).fire({
+        html: strTag,
+        showConfirmButton: false,
+        width : "100%",
+
+        position: 'bottom',
+        width: "100%",
+
+        showClass: {
+            popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+            popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        },
+        didOpen: () => {
+
+        },
+    });
+}
+
 export function showMap(strTag, func) {
     withReactContent(Swal).fire({
         html: strTag,
