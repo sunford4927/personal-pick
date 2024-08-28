@@ -107,11 +107,27 @@ class ppReviewCnt(Resource):
 
 class ppInsertReview(Resource):
     def post(self):
-        value = request.get_json()
 
+        # fake_data = {
+        #     "data": {
+        #         "user_nm": "John Doe",
+        #         "cos_name": "순행클렌징폼",
+        #         "rating": 5,
+        #         "review": "촉촉하네요"
+        #     }
+        # }
+
+        # value = fake_data
+        # data = value['data']
+
+        
+        value = request.get_json()
+        print("review vallllllllllllllllllll:", value)
+
+        # 데이터에서 필요한 값들을 추출
         nm = value['user_nm']
         cos_name = value['cos_name']
-        rating = value['rating']
+        rating = int(value['rating'])
         review = value['review']
 
          # INSERT 쿼리문 작성

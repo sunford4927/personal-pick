@@ -19,7 +19,8 @@ class ppAddressList(Resource):
 class ppInsertAdd(Resource):
     def post(self):
         value = request.get_json()['data']
-        print(value)
+        # print(value)
+
         user_id = value['user_id']
         user_address = value['user_address']
         phone_num = value['phone_num']
