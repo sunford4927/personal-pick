@@ -322,7 +322,7 @@ const Detailinfo = () => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/'+item.idx)}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/'+item.idx + '/' + itemadd)}>구매하기</a>
                                 </div>
 
                                 <div className="basketbutton">
