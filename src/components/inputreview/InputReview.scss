@@ -1,14 +1,37 @@
-.review_container{
-    input{
-        width : 80%;
-        height: 40px;
-        border: 1px solid #0099FC;
-    }
-
-    div{
-        width : 20%;
-        border: 1px solid #0099FC;
-        text-align: center;
-        line-height : 40px;
-    }
+.review_containerbox{
+    display: flex;
+    justify-content: center;
 }
+
+.review_container{
+    width: 80%;
+    height: 55px;
+    border: 1px solid #0099FC;
+    border-radius: 10px;
+}
+
+.reviewenterbox {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.reviewenter:hover{
+    color:#000000
+}
+
+.reviewenter{
+    width: 13%;
+    height: 40px;
+    border: 2px solid #0099FC;
+    text-align: center;
+    border-radius: 15px;
+    line-height: 40px;
+    font-weight: 600;
+    color: white;
+    margin-top: 25px;
+    margin-right: 66px;
+    cursor: pointer;
+    background-color: #0099FC;
+}
+
