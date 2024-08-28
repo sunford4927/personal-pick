@@ -27,7 +27,10 @@ export function sendPost(url, func = null, data = null) {
             data: data
         })
         .then(res => {
-            // func()
+            if(func !== null)
+            {
+                func()
+            }
         })
         .catch(error => {
             console.error("요청 실패 : ", error);
@@ -42,8 +45,10 @@ export function sendDel(url, func = null, data = null) {
             data: data
         })
         .then(res => {
-            console.log(res)
-            // func(res.data)
+            if(func !== null)
+            {
+                func()
+            }
         })
 }
 
