@@ -7,7 +7,7 @@ import MapFind from '../mapfind/MapFind';
 import { sendGet, sendPost, showMap, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 const msgData = [
-    "-- 메시지 선택(선택사항)--", "배송전에 미리 연락바랍니다.", "부재시 경비실에 맡겨주세요.",
+    "-- 메시지 선택(선택사항) --", "배송전에 미리 연락바랍니다.", "부재시 경비실에 맡겨주세요.",
     "부재시 문앞에 놓아주세요.", "빠른 배송 부탁드립니다.", "택배함에 보관해 주세요"
 ]
 const AddressManagement = () => {

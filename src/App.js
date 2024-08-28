@@ -78,7 +78,8 @@ function App() {
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
-                    <Route path='/payshipment' element={<PayShipment />}></Route>
+                    <Route path='/payshipment/' element={<PayShipment />}></Route>
+                    <Route path='/payshipment/:cos_id' element={<PayShipment />}></Route>
                     <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
                     <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
                     <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>

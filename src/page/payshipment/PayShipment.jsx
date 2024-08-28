@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './PayShipment.scss';
 import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
-import { useNavigate } from 'react-router-dom';
-import XBtn from '../../img/회색엑스.png'
+import { useNavigate, useParams } from 'react-router-dom';
 import { sendDel, sendGet, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
@@ -11,7 +10,12 @@ import { useSelector } from 'react-redux';
 const PayShipment = () => {
 
     const nav = useNavigate();
-
+    const { cos_id } = useParams();
+    console.log();
+    if(typeof(test) === "undefined")
+    {
+        console.log(true)
+    }
     // let check = false;
 
     // 드롭다운 열림/닫힘 상태 관리 함수
@@ -20,12 +24,8 @@ const PayShipment = () => {
     const [dropdownOptionSelect, setDropdownOptionSelect] = useState('-- 메시지 선택 (선택사항) --');
 
     const options = [
-        '-- 메시지 선택 (선택사항) --',
-        '배송 전에 미리 연락바랍니다.',
-        '부재 시 경비실에 맡겨주세요.',
-        '부재 시 문 앞에 놓아주세요.',
-        '빠른 배송 부탁드립니다.',
-        '택배함에 보관해 주세요.'
+        "-- 메시지 선택(선택사항) --", "배송전에 미리 연락바랍니다.", "부재시 경비실에 맡겨주세요.",
+        "부재시 문앞에 놓아주세요.", "빠른 배송 부탁드립니다.", "택배함에 보관해 주세요"
     ]
 
     // 드롭다운 열림/닫힘 상태 변경 함수
@@ -55,11 +55,14 @@ const PayShipment = () => {
 
 
     useEffect(() => {
-        sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        if(typeof(cos_id) === "undefined")
+        {
+            sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        }
+        else{
+            sendGet(URL + "/DetailPage?idx=" + cos_id, setOrderProduct); // 화장품 정보
+        }
         sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress);
-        console.log(state.user_id);
-        console.log(orderProduct);
-        console.log(deliveryAddress);
     }, [state]);
     // 배열 안에 state를 쓰기 전 빈배열일 때 새로고침하면 데이터 날라감
     // 어떻게 해줘야하나?
@@ -95,15 +98,15 @@ const PayShipment = () => {
         return parts.join(' ');
     };
 
-// 주소 삭제 함수
-const deleteAddress = (address_idx) => {
-    sendDel(URL + '/EditAddress', { address_idx: address_idx }, (response) => {
-        if (response.success) {
-            // 삭제가 성공적으로 완료되면 UI를 업데이트합니다.
-            setDeliveryAddress(deliveryAddress.filter(item => item.address_idx !== address_idx));
-        } 
-    });
-};
+    // 주소 삭제 함수
+    const deleteAddress = (address_idx) => {
+        sendDel(URL + '/EditAddress', { address_idx: address_idx }, (response) => {
+            if (response.success) {
+                // 삭제가 성공적으로 완료되면 UI를 업데이트합니다.
+                setDeliveryAddress(deliveryAddress.filter(item => item.address_idx !== address_idx));
+            }
+        });
+    };
 
 
 
@@ -129,40 +132,40 @@ const deleteAddress = (address_idx) => {
 
                         {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
                         {deliveryAddress.map((item, i) => {
-                    return item.default_address ? (
-                            
-                            <div>
-                                <div key={i} className='delivery_container'>
-                                    <div className='basic_name'>
-                                        <span className='basic'>[기본]</span>
-                                        <span className='delivery_name'>{item.receive_name}</span>
+                            return item.default_address ? (
+
+                                <div>
+                                    <div key={i} className='delivery_container'>
+                                        <div className='basic_name'>
+                                            <span className='basic'>[기본]</span>
+                                            <span className='delivery_name'>{item.receive_name}</span>
+                                        </div>
+                                        <div className='delivery_address'>{formatAddress(item.user_address)}</div>
+                                        <div className='delivery_phone'>{item.phone_num}</div>
                                     </div>
-                                    <div className='delivery_address'>{formatAddress(item.user_address)}</div>
-                                    <div className='delivery_phone'>{item.phone_num}</div>
+
+
+                                    <hr className='thin_grayline' />
+
+                                    {/* 배송지 드롭다운 */}
+                                    <div className='delivery_dropdown'>
+                                        <button className='dropdown_toggle' onClick={dropdownToggle}>
+                                            {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
+                                            <img className='dropdown_triangle' src={Triangle} />
+                                        </button>
+                                        {dropdownOpenClose && (<ul className='dropdown_menu'>
+                                            {options.map((option, idx) => (
+                                                <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
+                                            ))}
+                                        </ul>
+                                        )}
+                                    </div>
                                 </div>
 
-
-                                <hr className='thin_grayline' />
-
-                                {/* 배송지 드롭다운 */}
-                                <div className='delivery_dropdown'>
-                                    <button className='dropdown_toggle' onClick={dropdownToggle}>
-                                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
-                                        <img className='dropdown_triangle' src={Triangle} />
-                                    </button>
-                                    {dropdownOpenClose && (<ul className='dropdown_menu'>
-                                        {options.map((option, idx) => (
-                                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
-                                        ))}
-                                    </ul>
-                                    )}
-                                </div>
-                            </div>
-
-                        ) : (
-                            <div />
-                        )
-                    })}
+                            ) : (
+                                <div />
+                            )
+                        })}
                         <hr className='thick_grayline' />
 
                         <div>
@@ -251,8 +254,6 @@ const deleteAddress = (address_idx) => {
                         <div>
 
                             {deliveryAddress.map((item, i) => {
-                                console.log(item);
-                                
                                 return (
                                     <>
                                         <div className='delivery_list_box'>
@@ -269,7 +270,7 @@ const deleteAddress = (address_idx) => {
                                             </div>
                                             <div className='deliverylist_btn'>
                                                 {/* <button className='deliverylist_delete' onClick={() => deleteAddress(item.address_idx)}>삭제</button> */}
-                                                <button onClick={() => sendDel(URL + '/EditAddress' , (()=>sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)) , {address_idx:item.address_idx})}>삭제</button>
+                                                <button onClick={() => sendDel(URL + '/EditAddress', (() => sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)), { address_idx: item.address_idx })}>삭제</button>
                                                 <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
                                                 <button className='deliverylist_selete'>선택</button>
                                             </div>
