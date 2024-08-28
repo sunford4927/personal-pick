@@ -2,26 +2,57 @@ import React, { useEffect, useState } from 'react';
 import LeftArrow from "../../img/왼쪽.png"
 import { useNavigate } from 'react-router-dom';
 import './ShoppingCart.scss'
-import { sendGet, URL } from '../../util/util';
+import { sendGet, sendPost, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
 const ShoppingCart = () => {
     const nav = useNavigate();
     const user = useSelector(state => state.user);
-    if(!user){
+    if(typeof(user.user_id) === "undefined"){
         nav("/")
     }
     const [data, setData] = useState([])
+    const [totalPrice, setTotalPrice]= useState(0);
     useEffect(()=>{
-        console.log(typeof(user))
         if(typeof(user.user_id) !== "undefined")
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
 
     },[])
-
-
+    
+    const PLUS = 0;
+    const MINUS = 1;
+    function calcul(type){
+        switch(type)
+        {
+            case 0:
+            case 1:
+        }
+    }
+    
+    function totalCheck(e){
+        if(e.target.checked)
+        {
+            let changeList = [...data];
+            for(let i = 0; i<changeList.length; i++)
+            {
+                changeList[i].is_selected = true;
+            }   
+            setData([...changeList])
+        }
+    }
+    useEffect(()=>{
+        let price = 0;
+        for(let i =0; i< data.length; i++)
+        {
+            if(data[i].is_selected)
+            {
+                price+=data[i].total_price;
+            }
+        }
+        setTotalPrice(price)
+    },[data])
     return (
         <>
             <div className='management_title'>
@@ -32,14 +63,16 @@ const ShoppingCart = () => {
             <p className='basket_text'>샘플로드 배송상품</p>
 
             <div className='basket_line flex_col ' style={{alignItems:"center"}}>
-                <input type="checkbox" className='basket_check'  />
-                <div className='sub_title'>전체선택</div>
+                <input type="checkbox" className='basket_check'  onChange={(e)=> totalCheck(e)}/>
+                <div className='sub_title' >전체선택</div>
                 <div className='basket_text' style={{marginRight : "30px", marginLeft : "auto"}}>품절삭제</div>
                 <div className='basket_text'>선택삭제</div>
             </div>
             <hr />
             <div>
                 {data.map((item, i)=>{
+                    // console.log(item)
+                    
                     return (
                         <div  key={item.cart_id}>
                             <div className='flex_col basket_item_box'>
@@ -57,7 +90,7 @@ const ShoppingCart = () => {
                                         {item.cos_name}
                                     </p>
                                     <p className='basket_text'>
-                                        {item.grade_count}
+                                        {item.vol}
                                     </p>
                                 </div>
                                 {/* <img className='basket_x_btn ' src={XBtn} alt="" style={{marginLeft: "40%"}}/> */}
@@ -86,7 +119,7 @@ const ShoppingCart = () => {
             <p className='tax_title'>예상 결제금액</p>
             <div className='basket_line '>
                 <span className='sub_title'>총 상품금액</span>
-                <span className='float_r basket_price'>43000원</span>
+                <span className='float_r basket_price'>{totalPrice+"원"}</span>
             </div>
             <div className='basket_line'>
                 <span className='sub_title'>배송비</span>
@@ -96,10 +129,13 @@ const ShoppingCart = () => {
             <hr />
             <div className='basket_line'>
                 <span className='tax_title'> 총 주문금액</span>
-                <span className='float_r basket_price basket_color_text'> 46000원</span>
+                <span className='float_r basket_price basket_color_text'> {totalPrice+3000+"원"}</span>
             </div>
-            <div className='basket_fix_btn'>
-                46,000원 주문하기
+            <div className='basket_fix_btn' onClick={()=>{
+                sendPost(URL+"/OrderCart", null , data)
+                nav('/payshipment')
+                }}>
+                {totalPrice+3000+"원 주문하기"}
             </div>
         </>
     );

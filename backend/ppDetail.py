@@ -1,6 +1,6 @@
 from flask_restx import Resource
 from flask import jsonify,request
-from db_utils import setQuery
+from db_utils import setQuery, PostQuery
 
 # 리뷰 페이지 정보 반환 클래스
 class ppDetailPage(Resource):
@@ -105,4 +105,20 @@ class ppReviewCnt(Resource):
     
 
 
-    
+class ppInsertReview(Resource):
+    def post(self):
+        value = request.get_json()
+
+        nm = value['user_nm']
+        cos_name = value['cos_name']
+        rating = value['rating']
+        review = value['review']
+
+         # INSERT 쿼리문 작성
+        insert_sql = """
+            INSERT INTO result_review (cos_name, user_nm,  rating, review)
+            VALUES (%s, %s, %s, %s) """
+
+        data = (cos_name, nm, rating, review)
+
+        PostQuery(insert_sql, data)

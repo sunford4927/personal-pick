@@ -12,7 +12,6 @@ const Menu = ({ isView }) => {
     
     const isMenuView = useSelector(state => state.isMenu)
     const name = useSelector(state => state.user);
-    console.log(name)
     return (
         <>
             { 
