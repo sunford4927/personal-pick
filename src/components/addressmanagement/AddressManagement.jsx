@@ -114,7 +114,6 @@ const AddressManagement = () => {
             user_id : user.user_id,
         }
 
-        console.log(dic);
         if(pagetype === "추가")
         {
             sendPost(URL+ "/InsertAddress", null, dic);
@@ -124,6 +123,7 @@ const AddressManagement = () => {
             dic.address_idx = address_idx
             sendPost(URL+"/EditAddress",null,dic)
         }
+        nav("/payshipment")
     }
 
     useEffect(()=>{

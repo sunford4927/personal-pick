@@ -8,9 +8,7 @@ import { useSelector } from 'react-redux';
 const ShoppingCart = () => {
     const nav = useNavigate();
     const user = useSelector(state => state.user);
-    if(typeof(user.user_id) === "undefined"){
-        nav("/")
-    }
+
     const [data, setData] = useState([])
     const [totalPrice, setTotalPrice]= useState(0);
     useEffect(()=>{
@@ -19,15 +17,29 @@ const ShoppingCart = () => {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
 
+        if(typeof(user.user_id) === "undefined"){
+            nav("/")
+        }
     },[])
     
     const PLUS = 0;
     const MINUS = 1;
-    function calcul(type){
+    function calcul(type, targetNum){
+        let str = "";
         switch(type)
         {
-            case 0:
-            case 1:
+            case PLUS:
+                str = "increase"
+            case MINUS:
+                str = "decrease"
+            default:
+                break;
+        }
+        if(str !== "")
+        {
+
+            sendPost(URL + "/UpdateCartCnt", null, { user_id: user.user_id, idx : data[targetNum].idx, action : str})
+            sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
     }
     
@@ -71,10 +83,10 @@ const ShoppingCart = () => {
             <hr />
             <div>
                 {data.map((item, i)=>{
-                    // console.log(item)
+                    console.log(item)
                     
                     return (
-                        <div  key={item.cart_id}>
+                        <div  key={item.idx}>
                             <div className='flex_col basket_item_box'>
                                 <input className='basket_check' type="checkbox" checked={item.is_selected} onChange={()=>{
                                     let changeData = [...data]
@@ -97,9 +109,9 @@ const ShoppingCart = () => {
                             </div>
                             <div className='flex_col basket_under_container'>
                                 <div className='flex_col basket_under_content_box'>
-                                    <div className='basket_sum_btn'>-</div>
+                                    <div className='basket_sum_btn' onClick={()=>calcul(PLUS, i)}>-</div>
                                     <div className='basket_price'>{item.buy_cnt}</div>
-                                    <div className='basket_sum_btn'>+</div>
+                                    <div className='basket_sum_btn' onClick={()=>calcul(MINUS, i)}>+</div>
                                 </div>
                                 <p className='margin_left_pull basket_price'>{(item.price* item.buy_cnt)+"원"}</p>
                             </div>
