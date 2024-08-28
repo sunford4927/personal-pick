@@ -88,21 +88,22 @@ class ppEditAddress(Resource):
 
 # 사용자가 배송지 목록에서 삭제 버튼 누를 시 
     def delete(self):
-        # address_idx = request.get_json()['data']
-        address_idx = request.args.get('address_idx')
-        print('address_idxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ', address_idx)
+        address_idx = request.get_json()
+        # address_idx = request.args.get('address_idx')
+        # print('address_idxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ', address_idx)
 
         # address_idx = value['address_idx']
        
         # 삭제쿼리문
         del_sql = """
-                    delete from result_address 
-                    where address_idx = %s
-                    """
-        data = (address_idx)
+                    DELETE FROM result_address 
+                    WHERE address_idx = %s
+                """
+        data = (address_idx['address_idx'])
 
         # PostQuery 함수 호출
         PostQuery(del_sql, data)
+        # print(data)
 
 
 

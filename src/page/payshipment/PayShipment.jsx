@@ -251,6 +251,8 @@ const deleteAddress = (address_idx) => {
                         <div>
 
                             {deliveryAddress.map((item, i) => {
+                                console.log(item);
+                                
                                 return (
                                     <>
                                         <div className='delivery_list_box'>
@@ -266,8 +268,8 @@ const deleteAddress = (address_idx) => {
                                                 <div className='deliverylist_msg'>{item.msg}</div>
                                             </div>
                                             <div className='deliverylist_btn'>
-                                                <button className='deliverylist_delete' onClick={() => deleteAddress(item.address_idx)}>삭제</button>
-                                                {/* <button onClick={() => sendDel(URL + '/EditAddress' , null , {address_idx:item.address_idx})}>삭제</button> */}
+                                                {/* <button className='deliverylist_delete' onClick={() => deleteAddress(item.address_idx)}>삭제</button> */}
+                                                <button onClick={() => sendDel(URL + '/EditAddress' , (()=>sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)) , {address_idx:item.address_idx})}>삭제</button>
                                                 <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
                                                 <button className='deliverylist_selete'>선택</button>
                                             </div>
