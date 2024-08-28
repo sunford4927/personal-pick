@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 const PayShipment = () => {
 
     const nav = useNavigate();
-    const { cos_id } = useParams();
+    const { cos_id, cos_count } = useParams();
     console.log();
     if(typeof(test) === "undefined")
     {
@@ -53,6 +53,11 @@ const PayShipment = () => {
 
     const [deliveryAddress, setDeliveryAddress] = useState([]);
 
+    function setDirectData(data){
+        let newData = {...data}
+        console.log(data);
+        // setOrderProduct()
+    }
 
     useEffect(() => {
         if(typeof(cos_id) === "undefined")
