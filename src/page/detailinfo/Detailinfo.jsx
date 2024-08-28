@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
 import PayShipment from '../payshipment/PayShipment'
+import { setStarMenu , changeStar } from '../../util/util'
 
 
 const Detailinfo = () => {
@@ -134,7 +135,7 @@ const Detailinfo = () => {
     }
 
 
-    const func = () => {
+    const func1 = () => {
         navigate('/cartlist')
         modalClose();
     }
@@ -218,12 +219,16 @@ const calculateTotalPrice = (price, quantity) => {
     return price * quantity;
   };
 
-
+  const handleStarClick = (index) => {
+    console.log(`Star ${index} clicked`);
+    // Perform your desired actions here based on the clicked star
+  };
 
   return (
 
     
         <div>
+
             {/* Main */}
             {/* 데이터를 성공적으로 불러오면 실행 */}
             {data.length > 0 ? (
@@ -334,7 +339,7 @@ const calculateTotalPrice = (price, quantity) => {
                         </div>
 
                         <div className="basketbutton">
-                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func}/>) ; 
+                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func1}/>) ; 
                         sendPost(URL + '/AddCart' , null , 
                         {userid : state.user_id , 
                         categorynumber : idx ,  
@@ -471,7 +476,14 @@ const calculateTotalPrice = (price, quantity) => {
                         <hr className='bar3'/>
 
                         {/* 댓글 쓰는 창 */}
+                        <div className='settingstar'>
+                        <span className='settingstartext px-20'>
+                            화장품 만족도는 어떠셨나요?
+                        </span>
+                        {setStarMenu(handleStarClick)}
+                        </div>
                         <InputReview/>
+                        
 
                         <hr className='bar4'/>
 
