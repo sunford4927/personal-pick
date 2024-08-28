@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-.cart_back_btn {
+.orderpay_back_btn {
     width: 24px;
     height: 24px;
 }
@@ -13,9 +13,14 @@
     font-weight: 700;
 }
 
+.orderpay_body {
+    padding-top: 10px;
+}
+
 .delivery_boxes {
     display: flex;
     justify-content: space-around;
+    border-top: 1px solid #ddd;
 }
 
 .delivery_btn {
@@ -63,12 +68,12 @@
     font-size: 13px;
     color: #383838;
     margin-top: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .delivery_phone {
     color: #333333;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .thin_grayline {
@@ -209,7 +214,7 @@
 .white_text_box {
     // border-top: 1px solid #d7d5d5;
     // border-bottom: 1px solid #d7d5d5;
-    padding: 10px;
+    padding: 13px;
     font-weight: 600;
     font-size: 17px;
 }
@@ -221,7 +226,7 @@
     padding-bottom: 10px;
 }
 
-.delivery_plus {
+.delivery_add {
     padding: 10px;
 }
 

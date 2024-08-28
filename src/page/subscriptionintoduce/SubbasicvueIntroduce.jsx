@@ -1,12 +1,12 @@
 import React from 'react'
 import './SubscriptionIntroduce.scss'
 
-const SubscriptionIntroduce = () => {
-    return (
-        <div>
+const SubbasicvueIntroduce = () => {
+  return (
+    <div>
 
-            {/* 가격 부분 */}
-            <div className='subintropricemainbox'>
+    {/* 가격 부분 */}
+    <div className='subintropricemainbox'>
                 <div className='w-[2px] bg-gray-300 subintroducebar' />
                 <span className='subintroprice'>가격</span>
                 <div className='w-[2px] bg-gray-300 subintroduce1bar' />
@@ -15,9 +15,9 @@ const SubscriptionIntroduce = () => {
             {/* 구독 박스 */}
             <div className='subintrobox'>
 
-                <span className='basicintroboxtext'>기초 샘플 구독</span>
+                <span className='basicintroboxtext'>기초&색조 샘플 구독</span>
                 <span className='basicintroboxtext1'>20,000/월</span>
-                <span className='basicintroboxtext2'>월 정기결제, 기초 샘플 기준</span>
+                <span className='basicintroboxtext2'>월 정기결제, 기초&색조 샘플 기준</span>
 
                 <div className='w-[3px] bg-blue-300 subintroboxbar' />
 
@@ -43,8 +43,8 @@ const SubscriptionIntroduce = () => {
 
 
 
-        </div>
-    )
+    </div>
+  )
 }
 
-export default SubscriptionIntroduce
+export default SubbasicvueIntroduce
