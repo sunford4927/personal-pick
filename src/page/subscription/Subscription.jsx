@@ -36,7 +36,7 @@ const Subscription = () => {
     // "색조 화장품 구독하러 가기" 버튼 클릭 시
     const colorMakeup = () => {
         if(isLogin) {
-            nav('/SubscriptionIntroduce', { state: { productType: '색조 화장품' } });
+            nav('/SubvueIntroduce', { state: { productType: '색조 화장품' } });
         } else {
             nav('/login');
         }
@@ -45,7 +45,7 @@ const Subscription = () => {
     // "기초+색조 화장품 구독하러 가기" 버튼 클릭 시
     const basicpluscolorMakeup = () => {
         if(isLogin) {
-            nav('/SubscriptionIntroduce', { state: { productType: '기초+색조 화장품' } });
+            nav('/SubbasicvueIntroduce', { state: { productType: '기초+색조 화장품' } });
         } else {
             nav('/login');
         }
