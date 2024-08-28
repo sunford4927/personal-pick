@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {modalClose, sendGet , sendPost, showIngredient, showModal, showPayMent, showSwal, URL } from '../../util/util'
+import { modalClose, sendGet, sendPost, showIngredient, showModal, showPayMent, showSwal, URL } from '../../util/util'
 import { useNavigate } from 'react-router-dom'
 import './Detailinfo.scss'
 import star1 from '../../img/별.png'
@@ -25,113 +25,93 @@ import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
 import PayShipment from '../payshipment/PayShipment'
-import { setStarMenu , changeStar } from '../../util/util'
+import { setStarMenu, changeStar } from '../../util/util'
 
 
 const Detailinfo = () => {
     // 페이지 이동 함수
     const navigate = useNavigate();
     const home = () => navigate('/');
-    
+
 
     const state = useSelector(user => user.user)
 
 
 
-    const [data , setData] = useState([]);
-    const [review , setReview] = useState([]);
-    const [scoreavg , setScoreAvg] = useState([]);
-    const [scorecnt , setScoreCnt] = useState([]);
-    const [reviewcnt , setReviewCnt] = useState([]);
+    const [data, setData] = useState([]);
+    const [review, setReview] = useState([]);
+    const [scoreavg, setScoreAvg] = useState([]);
+    const [scorecnt, setScoreCnt] = useState([]);
+    const [reviewcnt, setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
 
     const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
-    
 
-    const {idx} = useParams()
 
-    useEffect(()=>{
-         sendGet(URL + "/DetailPage?idx="+idx , setData); // 화장품 정보
-         sendGet(URL + "/ReviewPage?idx="+idx , setReview); // 리뷰데이터 쪽
-         sendGet(URL + "/RatingAvg?idx="+idx ,setScoreAvg); // 평점 평균
-         sendGet(URL + "/RatingCnt?idx="+idx ,setScoreCnt); // 그래프 바 평점 개수
-         sendGet(URL + "/ReviewCnt?idx="+idx ,setReviewCnt); // 리뷰 개수
-    },[]);
-    
+    const { idx } = useParams()
+
+    useEffect(() => {
+        sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
+        sendGet(URL + "/ReviewPage?idx=" + idx, setReview); // 리뷰데이터 쪽
+        sendGet(URL + "/RatingAvg?idx=" + idx, setScoreAvg); // 평점 평균
+        sendGet(URL + "/RatingCnt?idx=" + idx, setScoreCnt); // 그래프 바 평점 개수
+        sendGet(URL + "/ReviewCnt?idx=" + idx, setReviewCnt); // 리뷰 개수
+    }, []);
+
     // 페이지네이션 함수
 
-    const [total, setTotal] = useState(0); 
+    const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(5);
-    
-    
+
+
     const indexOfLastPage = Math.min(page * postPerPage, review.length); // Use review length
     const indexOfFirstPage = Math.max(indexOfLastPage - postPerPage, 0); // Ensure first page is non-negative
     const currentPosts = review.slice(indexOfFirstPage, indexOfLastPage); // Use slice on review data
-    
+
     const onShowSizeChange = (current, pageSize) => {
-      setPostPerPage(pageSize);
+        setPostPerPage(pageSize);
     };
 
-    useEffect(()=> {
-            setReview(review);
-            setTotal(review.length);
+    useEffect(() => {
+        setReview(review);
+        setTotal(review.length);
     });
-    
+
     const itemRender = (current, type, originalElement) => {
-      if (type === 'prev') {
-        return <a disabled={page === 1}>이전</a>; // Disable prev button on first page
-      }
-      if (type === 'next') {
-        return <a disabled={page === Math.ceil(review.length / postPerPage)}>다음</a>; // Disable next button on last page
-      }
-    
-      return originalElement;
+        if (type === 'prev') {
+            return <a disabled={page === 1}>이전</a>; // Disable prev button on first page
+        }
+        if (type === 'next') {
+            return <a disabled={page === Math.ceil(review.length / postPerPage)}>다음</a>; // Disable next button on last page
+        }
+
+        return originalElement;
     };
-  
 
-    useEffect(()=>{
-       console.log(review)
-   },[review]);
 
-   useEffect(()=>{
-    console.log(data)
-    },[data]);
-   
-   useEffect(()=>{
-    console.log(scoreavg)
-   },[scoreavg]);
-
-   useEffect(()=>{
-    console.log(scorecnt)
-   },[scorecnt]);
-
-   useEffect(()=>{
-    console.log(reviewcnt)
-   },[reviewcnt]);
-
-   useEffect(()=>{
-    console.log(state)
-   })
+    useEffect(() => {
+        console.log(state)
+    })
 
 
     const showSwal = (e) => {
         let str = ``
         str += `<div class = "subtitle">화장품 1</div>`
         str += `<div class = "subtitle">화장품 2</div>`
-        showSwal(str,test)
+        showSwal(str, test)
 
-        
+
     }
 
 
-    const showSwal1= (e) => {
+    const showSwal1 = (e) => {
 
         let str = ``
         str += `<div class = "subtitle">랭킹/수상 정보</div>`
-        showSwal(str,test1)
+        showSwal(str, test1)
     }
 
 
@@ -151,82 +131,80 @@ const Detailinfo = () => {
 
     let skinList = [
         {
-            count : 1,
-            value : "피부 보습1"
-        },{
-            count : 2,
-            value : "피부 보습2"
-        },{
-            count : 3,
-            value : "피부 보습3"
-        },{
-            count : 4,
-            value : "피부 보습4"
-        },{
-            count : 3,
-            value : "피부 보습5"
-        },{
-            count : 3,
-            value : "피부 보습"
-        },{
-            count : 3,
-            value : "피부 보습"
-        },{
-            count : 3,
-            value : "피부 보습"
-        },{
-            count : 3,
-            value : "피부 보습"
-        },{
-            count : 3,
-            value : "피부 보습"
-        },{
-            count : 3,
-            value : "피부 보습"
+            count: 1,
+            value: "피부 보습1"
+        }, {
+            count: 2,
+            value: "피부 보습2"
+        }, {
+            count: 3,
+            value: "피부 보습3"
+        }, {
+            count: 4,
+            value: "피부 보습4"
+        }, {
+            count: 3,
+            value: "피부 보습5"
+        }, {
+            count: 3,
+            value: "피부 보습"
+        }, {
+            count: 3,
+            value: "피부 보습"
+        }, {
+            count: 3,
+            value: "피부 보습"
+        }, {
+            count: 3,
+            value: "피부 보습"
+        }, {
+            count: 3,
+            value: "피부 보습"
+        }, {
+            count: 3,
+            value: "피부 보습"
         },
         {
-            count : 3,
-            value : "피부 보습"
+            count: 3,
+            value: "피부 보습"
         },
         {
-            count : 3,
-            value : "피부 보습"
+            count: 3,
+            value: "피부 보습"
         }
     ]
 
-    
+
     let cntList = [
         {
-            count : 5,
-            value : "5점"
-        },{
-            count : 1,
-            value : "4점"
-        },{
-            count : 2,
-            value : "3점"
-        },{
-            count : 2,
-            value : "2점"
-        },{
-            count : 1,
-            value : "1점"
-        }   
-]
+            count: 5,
+            value: "5점"
+        }, {
+            count: 1,
+            value: "4점"
+        }, {
+            count: 2,
+            value: "3점"
+        }, {
+            count: 2,
+            value: "2점"
+        }, {
+            count: 1,
+            value: "1점"
+        }
+    ]
 
-const calculateTotalPrice = (price, quantity) => {
-    console.log(price)
-    return price * quantity;
-  };
+    const calculateTotalPrice = (price, quantity) => {
+        return price * quantity;
+    };
 
-  const handleStarClick = (index) => {
-    console.log(`Star ${index} clicked`);
-    // Perform your desired actions here based on the clicked star
-  };
+    const handleStarClick = (index) => {
 
-  return (
+    };
 
-    
+    return (
+
+
         <div>
 
             {/* Main */}
@@ -235,223 +213,227 @@ const calculateTotalPrice = (price, quantity) => {
                 data.map((item, index) => (
                     <div key={index}>
 
-                    {/* 화장품 이름 */}
-                
-                    <div className='itemname'>
-                    <img src={goback} className = "gobackimg" onClick={()=> navigate('/Search')} width={20} height={20}></img>
-                    <span className='cosmeticname'>{item.cos_name}</span>
-                    </div>
+                        {/* 화장품 이름 */}
 
-
-
-                        <div id = 'main1'>
-
-                        {/* 화장품 사진 */}
-                        <img className='w-full' src ={item.cos_img_src}/>
-
-
-                        {/* 화장품 브랜드 이미지, 이름 */}
-                        <div className='brandmain my-24'>
-                        <div className='brand flex items-center px-20'>
-                        <span id='brandname'>{item.brand_name}</span>
+                        <div className='itemname'>
+                            <img src={goback} className="gobackimg" onClick={() => navigate('/Search')} width={20} height={20}></img>
+                            <span className='cosmeticname'>{item.cos_name}</span>
                         </div>
 
-                        {/* 화장품 정보 */}
-                        <div className ='iteminfo'>
-                        <div className='nameinfo mt-8 px-20'>
-                        {item.cos_name}
-                        </div>
-
-                        <div className='starinfo hds-flex hds-items-center hds-space-x-2 px-20 mt-16'>
-                        <img src = {star1} className='star' width={18}/><span className='starinfotext'>{item.grade}({item.grade_count})</span>
-                        </div>
-
-                        <div className='priceinfo px-20 mt-24'>
-                        <div className='price'>
-                        <span className='price1'>정가 :</span><span className='pricetext'>{item.price}원 / {item.vol}</span>
-                        </div>
-                        </div>
-
-                        <div className='rankinginfo' onClick={(e)=>showSwal1(e)}>
-                        <div className='ranking px-20 mt-24'>
-                        <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
-                        </div>
-                        <img src = {detailright} width={23} height={23}/>
-                        </div>
-                        </div>
-                        </div>
-
-                        <hr className='bar'/>
 
 
-                        {/* 배송비 화면 영역 */}
+                        <div id='main1'>
 
-                        <div className='deliveryprice'>
-                            <span className='deliverytitle mt-8 px-20'>배송비</span><span className='deliverytitle2 mt-8 px-20'>3000원</span>
-                            </div>
-                        <div className='iffivetitle'>
-                            <span className='iffive mt-8 px-20'>
-                                50,000원 이상 구매시 무료배송
-                            </span>
-                        </div>
-                            
-                        <hr className='deliverybar'/>
+                            {/* 화장품 사진 */}
+                            <img className='w-full' src={item.cos_img_src} />
 
-                        {/* 수량 변경 부분 */}
 
-                        <div className='itemtitlebox'>
-                            <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
-                            <div className='flex_col itemtitlecontentbox'>
-                            <div className='itemtitlebtn' onClick={() => {
-                            if (itemadd > 0) {
-                                setItemAdd(itemadd - 1);
-                                setIsDecreasing(true);
-                                } else {
-                                 setIsDecreasing(false);
-                                }
-                                }}>-</div>
-                            <div>{itemadd}</div>
-                            <div className='itemtitlebtn' onClick={() => {
-                            setItemAdd(itemadd + 1);
-                            setIsDecreasing(false);
-                            }}>+</div>
-                            </div>
+                            {/* 화장품 브랜드 이미지, 이름 */}
+                            <div className='brandmain my-24'>
+                                <div className='brand flex items-center px-20'>
+                                    <span id='brandname'>{item.brand_name}</span>
+                                </div>
+
+                                {/* 화장품 정보 */}
+                                <div className='iteminfo'>
+                                    <div className='nameinfo mt-8 px-20'>
+                                        {item.cos_name}
+                                    </div>
+
+                                    <div className='starinfo hds-flex hds-items-center hds-space-x-2 px-20 mt-16'>
+                                        <img src={star1} className='star' width={18} /><span className='starinfotext'>{item.grade}({item.grade_count})</span>
+                                    </div>
+
+                                    <div className='priceinfo px-20 mt-24'>
+                                        <div className='price'>
+                                            <span className='price1'>정가 :</span><span className='pricetext'>{item.price}원 / {item.vol}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className='rankinginfo' onClick={(e) => showSwal1(e)}>
+                                        <div className='ranking px-20 mt-24'>
+                                            <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
+                                        </div>
+                                        <img src={detailright} width={23} height={23} />
+                                    </div>
+                                </div>
                             </div>
 
+                            <hr className='bar' />
 
-                        {/* 상품금액 합계 부분 */}  
-                        <div className='amountallpricebox flex'>
-                        <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span>
-                         {itemadd >= 1 && (
-                            <span className='amountallprice mt-8 px-20'>
-                            {calculateTotalPrice(item.price, itemadd)}원
-                             </span>
-                            )}
-                        </div>
 
-                            <hr className='amountpricebar'/>
+                            {/* 배송비 화면 영역 */}
 
-                        {/* 구매하기 및 장바구니 버튼 */} {/* showPayMent(`${state.user_id}`, parseInt(item.price*itemadd), `${item.cos_name}`, `${state.user_adress}`)*/}
-
-                        <div className='buybasketmain'>
-                        <div className="buyitembutton">
-                            <a className="buyitembutton btn first flex" onClick={()=> navigate('/payshipment')}>구매하기</a> 
-                        </div>
-
-                        <div className="basketbutton">
-                        <button className='basketbutton btn' onClick={() => {showModal(<ShoppingCartBtn func = {func1}/>) ; 
-                        sendPost(URL + '/AddCart' , null , 
-                        {userid : state.user_id , 
-                        categorynumber : idx ,  
-                        cosmeticprice : item.price , 
-                        cosmeticcount : itemadd , 
-                        cosmetictotal : item.price*itemadd})}}>장바구니</button>
-                        </div>
-                        </div>
-                    
-
-                        {/*ai 리뷰 */}
-                        <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
-
-                        <div className='flex justify-between px-20 my-24 reviewinfo'>
-                        <div className='likereview grow mr-24 w-1/2'>
-                        <img src ={smile}  width={26} height={26} className='smileimg'/>
-                            <span className='like'>좋아요</span>
-                            <span className='margintop1'>진정되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>쿨링되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>수분있는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>모공관리되는<span className='reviewdata1 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>자극없는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>향에 만족한<span className='reviewdata2 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop1'>보습되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
-                        </div>
-                        <div className='w-[1px] bg-gray-300 aireviewbar'/>
-
-                        <div className='dislike grow mr-24 w-1/2'>
-                        <img src ={notsmile}  width={23} height={23} className='notsmileimg'/>
-                            <span className='dontlike'>아쉬워요</span>
-                            <span className='margintop2'>가루날림이 있는<span className='reviewdata3 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>마르는<span className='reviewdata4 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>흘러내리는<span className='reviewdata5 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>잔여물이 남는<span className='reviewdata6 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>노폐물 제거 안되는<span className='reviewdata7 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>가려운<span className='reviewdata8 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                            <span className='margintop2'>내장 도구가 안좋은<span className='reviewdata7 hds-text-body-medium text-gray-tertiary'>0</span></span>
-                        </div>
-                        </div>
-
-                        <hr className='bar2'/> 
-
-                        {reviewcnt.map((item)=> (
-                            <div className='detailreview mt-8 px-20'>
-                            리뷰
-                        <div className='reviewcount'>
-                            {item.review_count}
+                            <div className='deliveryprice'>
+                                <span className='deliverytitle mt-8 px-20'>배송비</span><span className='deliverytitle2 mt-8 px-20'>3000원</span>
                             </div>
+                            <div className='iffivetitle'>
+                                <span className='iffive mt-8 px-20'>
+                                    50,000원 이상 구매시 무료배송
+                                </span>
                             </div>
-                        ))}
-                        
-                        
 
-                        <div className="reviewall flex justify-between px-20 my-24">
-                        {/* 평점 구간 */}
-                        {scoreavg.map((item, index) => (
-                        <div className="reviewratemain" key={index}>
-                        {/* rating_avg 값을 숫자로 변환 */}
-                            <span className="reviewtext">{parseFloat(item.rating_avg).toFixed(2)}</span>
-                            <div className="reviewstar">
-                        {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
-                        <StarRating rating={parseFloat(item.rating_avg)} starColor="gold" />
-                        <div className='detail_backboard' style={{marginLeft:item.rating_avg*20}}></div>
-                         </div>
-                         </div>
-                          ))}
+                            <hr className='deliverybar' />
 
+                            {/* 수량 변경 부분 */}
 
-                        <div className='w-[1px] bg-gray-300'/>
-                            
-                        {/* 평점 별점그래프 구간 */}   
-                        <div className="flex gap-x-8 h-[95px]">
-                        <DetailGraphBar list = {cntList}/>
-                        </div>
-                        </div>
-
-
-                         {/* 계정 정보 및 사용자 리뷰 */}
-                         {currentPosts.map((item) =>(
-                         <div className='accountmain'>
-                        <div className='accountinfo flex items-center'>
-                        <img src = {account} width={50} className='w-40 h-40 rounded-full object-cover object-center'/>
-                        <div className='textonly'>
-                        <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_id}</span>
-                        <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br/>
-                        </div>
-                        <div className='accountstar'>
-                        {setScore(`${item.rating}`)}
+                            <div className='itemtitlebox'>
+                                <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
+                                <div className='flex_col itemtitlecontentbox'>
+                                    <div className='itemtitlebtn' onClick={() => {
+                                        if (itemadd > 0) {
+                                            setItemAdd(itemadd - 1);
+                                            setIsDecreasing(true);
+                                        } else {
+                                            setIsDecreasing(false);
+                                        }
+                                    }}>-</div>
+                                    <div>{itemadd}</div>
+                                    <div className='itemtitlebtn' onClick={() => {
+                                        setItemAdd(itemadd + 1);
+                                        setIsDecreasing(false);
+                                    }}>+</div>
+                                </div>
                             </div>
-                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_up_dt}</span>
-                        </div>
-                        
-                        <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
-                            <span className='reviewcomment'>{item.review}</span>
+
+
+                            {/* 상품금액 합계 부분 */}
+                            <div className='amountallpricebox flex'>
+                                <span className='amountallpricetext mt-8 px-20'>상품금액 합계</span>
+                                {itemadd >= 1 && (
+                                    <span className='amountallprice mt-8 px-20'>
+                                        {calculateTotalPrice(item.price, itemadd)}원
+                                    </span>
+                                )}
                             </div>
+
+                            <hr className='amountpricebar' />
+
+                            {/* 구매하기 및 장바구니 버튼 */} {/* showPayMent(`${state.user_id}`, parseInt(item.price*itemadd), `${item.cos_name}`, `${state.user_adress}`)*/}
+
+                            <div className='buybasketmain'>
+                                <div className="buyitembutton">
+                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment')}>구매하기</a>
+                                </div>
+
+                                <div className="basketbutton">
+                                    <button className='basketbutton btn' onClick={() => {
+                                        showModal(<ShoppingCartBtn func={func1} />);
+                                        sendPost(URL + '/AddCart', null,
+                                            {
+                                                userid: state.user_id,
+                                                categorynumber: idx,
+                                                cosmeticprice: item.price,
+                                                cosmeticcount: itemadd,
+                                                cosmetictotal: item.price * itemadd
+                                            })
+                                    }}>장바구니</button>
+                                </div>
                             </div>
-                        ))}
-                        <Pagination 
-                        className='pagination'
-                        onChange={(value) => setPage(value)}
-                        pageSize={postPerPage}
-                        total={total}
-                        current={page}
-                        showSizeChanger
-                        showQuickJumper
-                        onShowSizeChange={onShowSizeChange}
-                        itemRender={itemRender}
-                        />
+
+
+                            {/*ai 리뷰 */}
+                            <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
+
+                            <div className='flex justify-between px-20 my-24 reviewinfo'>
+                                <div className='likereview grow mr-24 w-1/2'>
+                                    <img src={smile} width={26} height={26} className='smileimg' />
+                                    <span className='like'>좋아요</span>
+                                    <span className='margintop1'>진정되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>쿨링되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>수분있는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>모공관리되는<span className='reviewdata1 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>자극없는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>향에 만족한<span className='reviewdata2 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop1'>보습되는<span className='reviewdata hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                </div>
+                                <div className='w-[1px] bg-gray-300 aireviewbar' />
+
+                                <div className='dislike grow mr-24 w-1/2'>
+                                    <img src={notsmile} width={23} height={23} className='notsmileimg' />
+                                    <span className='dontlike'>아쉬워요</span>
+                                    <span className='margintop2'>가루날림이 있는<span className='reviewdata3 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>마르는<span className='reviewdata4 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>흘러내리는<span className='reviewdata5 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>잔여물이 남는<span className='reviewdata6 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>노폐물 제거 안되는<span className='reviewdata7 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>가려운<span className='reviewdata8 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                    <span className='margintop2'>내장 도구가 안좋은<span className='reviewdata7 hds-text-body-medium text-gray-tertiary'>0</span></span>
+                                </div>
+                            </div>
+
+                            <hr className='bar2' />
+
+                            {reviewcnt.map((item) => (
+                                <div className='detailreview mt-8 px-20'>
+                                    리뷰
+                                    <div className='reviewcount'>
+                                        {item.review_count}
+                                    </div>
+                                </div>
+                            ))}
 
 
 
-                        {/* <nav>
+                            <div className="reviewall flex justify-between px-20 my-24">
+                                {/* 평점 구간 */}
+                                {scoreavg.map((item, index) => (
+                                    <div className="reviewratemain" key={index}>
+                                        {/* rating_avg 값을 숫자로 변환 */}
+                                        <span className="reviewtext">{parseFloat(item.rating_avg).toFixed(2)}</span>
+                                        <div className="reviewstar">
+                                            {/* StarRating 컴포넌트를 사용하여 별점을 표시 */}
+                                            <StarRating rating={parseFloat(item.rating_avg)} starColor="gold" />
+                                            <div className='detail_backboard' style={{ marginLeft: item.rating_avg * 20 }}></div>
+                                        </div>
+                                    </div>
+                                ))}
+
+
+                                <div className='w-[1px] bg-gray-300' />
+
+                                {/* 평점 별점그래프 구간 */}
+                                <div className="flex gap-x-8 h-[95px]">
+                                    <DetailGraphBar list={cntList} />
+                                </div>
+                            </div>
+
+
+                            {/* 계정 정보 및 사용자 리뷰 */}
+                            {currentPosts.map((item) => (
+                                <div className='accountmain'>
+                                    <div className='accountinfo flex items-center'>
+                                        <img src={account} width={50} className='w-40 h-40 rounded-full object-cover object-center' />
+                                        <div className='textonly'>
+                                            <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_id}</span>
+                                            <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br />
+                                        </div>
+                                        <div className='accountstar'>
+                                            {setScore(`${item.rating}`)}
+                                        </div>
+                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_up_dt}</span>
+                                    </div>
+
+                                    <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
+                                        <span className='reviewcomment'>{item.review}</span>
+                                    </div>
+                                </div>
+                            ))}
+                            <Pagination
+                                className='pagination'
+                                onChange={(value) => setPage(value)}
+                                pageSize={postPerPage}
+                                total={total}
+                                current={page}
+                                showSizeChanger
+                                showQuickJumper
+                                onShowSizeChange={onShowSizeChange}
+                                itemRender={itemRender}
+                            />
+
+
+
+                            {/* <nav>
                             <ul className='pagination'>
                                 <li className='page-item'>
                                     <a href='#' className='page-link'
@@ -473,19 +455,19 @@ const calculateTotalPrice = (price, quantity) => {
                         </nav> */}
 
 
-                        <hr className='bar3'/>
+                            <hr className='bar3' />
 
-                        {/* 댓글 쓰는 창 */}
-                        <div className='settingstar'>
-                        <span className='settingstartext px-20'>
-                            화장품 만족도는 어떠셨나요?
-                        </span>
-                        {setStarMenu(handleStarClick)}
-                        </div>
-                        <InputReview/>
-                        
+                            {/* 댓글 쓰는 창 */}
+                            <div className='settingstar'>
+                                <span className='settingstartext px-20'>
+                                    화장품 만족도는 어떠셨나요?
+                                </span>
+                                {setStarMenu(handleStarClick)}
+                            </div>
+                            <InputReview />
 
-                        <hr className='bar4'/>
+
+                            <hr className='bar4' />
 
 
                             {/* 리뷰 전체보기 버튼
@@ -493,82 +475,82 @@ const calculateTotalPrice = (price, quantity) => {
                             <a class="allreviewbtn btn-5" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>리뷰 전체보기</a>
                             </div> */}
 
-                        {/* 성분 */}
+                            {/* 성분 */}
 
-                        <div className='ingredientmain mt-8 px-20'>
-                            <span>성분</span>
+                            <div className='ingredientmain mt-8 px-20'>
+                                <span>성분</span>
                             </div>
 
 
-                        <div className='ingredientdropbox'> 
-                        <input id="dropdown" type="checkbox"/>
-                        <label className="dropdownLabel" for="dropdown" onClick={() => {showIngredient(<Ingredient/>)}}>
-                        <div>화장품 성분보기</div>
-                        <FaAngleDown className="caretIcon" />
-                        </label>
-                        </div>
+                            <div className='ingredientdropbox'>
+                                <input id="dropdown" type="checkbox" />
+                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient />) }}>
+                                    <div>화장품 성분보기</div>
+                                    <FaAngleDown className="caretIcon" />
+                                </label>
+                            </div>
 
 
-                        <hr className='allingredientbar'/>
+                            <hr className='allingredientbar' />
 
 
-                        {/* 전체 성분 */}
-                        <div className='allingredient mt-8 px-20'>
-                            <span>전체 성분 (들어올값)개</span>
-                        </div>
+                            {/* 전체 성분 */}
+                            <div className='allingredient mt-8 px-20'>
+                                <span>전체 성분 (들어올값)개</span>
+                            </div>
 
-                        <div className= 'caution mt-8 px-20'>
-                            <div className='flex gap-x-8'>
-                            <img src={caution} alt="caution"/>
-                            <span className = 'cautiontext hds-text-body-medium text-gray-secondary'>
-                                20가지 주의성분
-                                </span>
-                                <div className='ingredientbetween'>
-                                    <span className='ingredientnumber text-gray-primary'>0</span>
-                                    <span className='hds-text-body-medium text-gray-secondary'>개</span>
+                            <div className='caution mt-8 px-20'>
+                                <div className='flex gap-x-8'>
+                                    <img src={caution} alt="caution" />
+                                    <span className='cautiontext hds-text-body-medium text-gray-secondary'>
+                                        20가지 주의성분
+                                    </span>
+                                    <div className='ingredientbetween'>
+                                        <span className='ingredientnumber text-gray-primary'>0</span>
+                                        <span className='hds-text-body-medium text-gray-secondary'>개</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className= 'allergy mt-8 px-20'>
-                            <div className='flex gap-x-8'>
-                            <img src={allergy} alt="allergy"></img>
-                            <span className = 'allergytext hds-text-body-medium text-gray-secondary'>
-                                알레르기 주의성분
-                                </span>
-                                <div className='ingredientbetween1'>
-                                    <span className='ingredientnumber text-gray-primary'>0</span>
-                                    <span className='hds-text-body-medium text-gray-secondary'>개</span>
+                            <div className='allergy mt-8 px-20'>
+                                <div className='flex gap-x-8'>
+                                    <img src={allergy} alt="allergy"></img>
+                                    <span className='allergytext hds-text-body-medium text-gray-secondary'>
+                                        알레르기 주의성분
+                                    </span>
+                                    <div className='ingredientbetween1'>
+                                        <span className='ingredientnumber text-gray-primary'>0</span>
+                                        <span className='hds-text-body-medium text-gray-secondary'>개</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
                         {/* 하단 고정 버튼 쪽*/}
 
                         {/* 댓글쓰기 쓸때 쓸 별점 */}
                         {/* {setStarMenu(setStarScore) */}
-                        <hr className='purposeingredientbar'/>
+                        <hr className='purposeingredientbar' />
 
                         {/* 목적별 성분 */}
                         <div className='purpose mt-8 px-20'>
                             <span className='purposetext'>목적별 성분</span>
-                            </div>
-                        <TempSkin list = {skinList}/>
-                        
+                        </div>
+                        <TempSkin list={skinList} />
+
                         {/* 회색 텍스트 박스1 */}
                         <div className='graybox px-20 py-16 background-gray-secondary-disabled rounded-8'>
                             <p className='hds-text-smalltext-large text-gray-tertiary'>목적별 성분 정보는 포함된 성분의 배합목적에 관한 정보로서, 완제품인 화장품의 기능성 효능ㆍ효과에 관한 정보가 아니며, 해당 성분의 포함 사실만으로 관련 기능이 보장되지 않습니다.</p>
-                            </div>
+                        </div>
 
-                        <hr className='grayboxareabar'/>
-                        
+                        <hr className='grayboxareabar' />
+
 
                         {/*피부 타입별 성분 */}
                         <div className='skintypeingredient mt-8 px-20'>
                             <span className='skintypeingredienttext'>피부 타입별 성분</span>
-                            </div>
-                        <SkinType/>
+                        </div>
+                        <SkinType />
 
                         {/* 회색 텍스트 박스2 */}
 
@@ -591,7 +573,7 @@ const calculateTotalPrice = (price, quantity) => {
 
                         {/* 페이지업 버튼 */}
 
-                        <ScrollToTop/>
+                        <ScrollToTop />
 
                         {/* 앱으로 보기 버튼 */}
                         {/* <div className='fixed bottom-[0] left-[0] w-full z-10 pointer-events-none z-10'>
@@ -601,16 +583,16 @@ const calculateTotalPrice = (price, quantity) => {
                             </div>
                             </div>
                             </div> */}
-                        
 
-                        </div>
+
+                    </div>
                 ))
             ) : (
-            // 데이터를 불러오는데 실패하면 실행
+                // 데이터를 불러오는데 실패하면 실행
                 <p>데이터 연결 실패</p>
             )}
-            </div>
-  )
+        </div>
+    )
 }
 
 
