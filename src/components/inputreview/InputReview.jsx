@@ -39,12 +39,12 @@ const InputReview = () => {
             alert("로그인 해 주세요")
             return
         }
-         sendPost(URL + '/InsertReview' , 
+         sendPost(URL + '/InsertReview' , null,
          {
             usernm:user.user_nm,
             usercosmeticname:data.cos_name,
             userrating:review.rating,
-            userreview:review
+            userreview:review.review
         })
     }
     return (
@@ -62,8 +62,8 @@ const InputReview = () => {
 </div>
 
         {/* 등록버튼 */}
-        <div className='reviewenterbox' onClick={()=>sendReview()}>
-        <div className='reviewenter'>
+        <div className='reviewenterbox'>
+        <div className='reviewenter' onClick={()=>sendReview()}>
             등록
         </div>
         </div>
