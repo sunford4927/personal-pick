@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import LeftArrow from "../../img/왼쪽.png"
 import { useNavigate } from 'react-router-dom';
 import './ShoppingCart.scss'
-import { sendGet, sendPost, URL } from '../../util/util';
+import { sendDel, sendGet, sendPost, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
 const ShoppingCart = () => {
     const nav = useNavigate();
     const user = useSelector(state => state.user);
-    if(typeof(user.user_id) === "undefined"){
-        nav("/")
-    }
+
     const [data, setData] = useState([])
     const [totalPrice, setTotalPrice]= useState(0);
     useEffect(()=>{
@@ -19,15 +17,34 @@ const ShoppingCart = () => {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
 
+        if(typeof(user.user_id) === "undefined"){
+            nav("/")
+        }
     },[])
     
     const PLUS = 0;
     const MINUS = 1;
-    function calcul(type){
+    function calcul(type, targetNum){
+        let str = "";
+        let newData = [...data]
         switch(type)
         {
-            case 0:
-            case 1:
+            case PLUS:
+                str = "increase"
+                newData[targetNum].buy_cnt++;
+                break;
+            case MINUS:
+                str = "decrease"
+                newData[targetNum].buy_cnt--;
+                break;
+            default:
+                break;
+        }
+        if(str !== "")
+        {
+            sendPost(URL + "/UpdateCartCnt", (()=>setData(newData)), { user_id: user.user_id, idx : data[targetNum].idx, action : str})
+            
+            // sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
     }
     
@@ -53,6 +70,13 @@ const ShoppingCart = () => {
         }
         setTotalPrice(price)
     },[data])
+
+    function choiceDelete()
+    {
+        
+        sendDel(URL+"/DeleteCartItems",(()=>sendGet(URL+"/OrderCart?userid="+user.user_id,setData)), data)
+        
+    }
     return (
         <>
             <div className='management_title'>
@@ -66,7 +90,7 @@ const ShoppingCart = () => {
                 <input type="checkbox" className='basket_check'  onChange={(e)=> totalCheck(e)}/>
                 <div className='sub_title' >전체선택</div>
                 <div className='basket_text' style={{marginRight : "30px", marginLeft : "auto"}}>품절삭제</div>
-                <div className='basket_text'>선택삭제</div>
+                <div className='basket_text' onClick={()=>choiceDelete()}>선택삭제</div>
             </div>
             <hr />
             <div>
@@ -74,7 +98,7 @@ const ShoppingCart = () => {
                     // console.log(item)
                     
                     return (
-                        <div  key={item.cart_id}>
+                        <div  key={item.idx}>
                             <div className='flex_col basket_item_box'>
                                 <input className='basket_check' type="checkbox" checked={item.is_selected} onChange={()=>{
                                     let changeData = [...data]
@@ -97,9 +121,9 @@ const ShoppingCart = () => {
                             </div>
                             <div className='flex_col basket_under_container'>
                                 <div className='flex_col basket_under_content_box'>
-                                    <div className='basket_sum_btn'>-</div>
+                                    <div className='basket_sum_btn' onClick={()=>calcul(MINUS, i)}>-</div>
                                     <div className='basket_price'>{item.buy_cnt}</div>
-                                    <div className='basket_sum_btn'>+</div>
+                                    <div className='basket_sum_btn' onClick={()=>calcul(PLUS, i)}>+</div>
                                 </div>
                                 <p className='margin_left_pull basket_price'>{(item.price* item.buy_cnt)+"원"}</p>
                             </div>

@@ -16,11 +16,11 @@ class ppMainPage(Resource):
 class ppCategorySel(Resource):
 
     def get(self):
-        # data = request.args.to_dict()
-        # cateValue = data['category']
+        data = request.args.to_dict()
+        cateValue = data['category']
         # print("cateValue : ",cateValue)
-        data = setQuery('select * from result_product limit 6')
-        # data = setQuery(f'select * from result_product where cos_name like "%{cateValue}%" limit 6')
+        # data = setQuery('select * from result_product limit 6')
+        data = setQuery(f'select * from result_product where category = "%{cateValue}%" limit 6')
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)
     
@@ -58,12 +58,7 @@ class ppSuggestAge(Resource):
 
         return jsonify(data)
             
-
-
-
-
-
-    
+ 
 
 # 피부 타입 별 랭킹 쿼리문 전송 서버
 class ppSuggestSkinType(Resource):

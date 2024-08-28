@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
 .swiper{
      width : 500px;
 
@@ -93,7 +95,8 @@ table {
     width: 700px;
     margin: 0 auto;
     background-color: white;
-    padding : 0 25px
+    padding : 0 25px;
+    font-family: 'Nanum Gothic'
 }
 
 #head{

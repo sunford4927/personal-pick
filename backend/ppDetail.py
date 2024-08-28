@@ -1,14 +1,14 @@
 from flask_restx import Resource
 from flask import jsonify,request
-from db_utils import setQuery
+from db_utils import setQuery, PostQuery
 
 # 리뷰 페이지 정보 반환 클래스
 class ppDetailPage(Resource):
 
     def get(self):
         value = request.args.to_dict()
-        idx = int(value['idx'])
-        # print("idx : ",idx)
+        idx = value['idx']
+        # print("now idx : ",idx)
         data = setQuery("select * from result_product where idx = %s", idx)
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)
@@ -41,7 +41,6 @@ class ppGetReveiw(Resource):
                                 result_users ru ON rr.user_nm = ru.user_nm
                             WHERE 
                                 p.idx = %s
-                            limit 2
 
                             """, idx)
         # print("dataquery: ", data)
@@ -103,3 +102,23 @@ class ppReviewCnt(Resource):
                             JOIN result_product p ON rr.cos_name = p.cos_name
                             WHERE p.idx = %s""", idx)
         return jsonify(data)
+    
+
+
+class ppInsertReview(Resource):
+    def post(self):
+        value = request.get_json()
+
+        nm = value['user_nm']
+        cos_name = value['cos_name']
+        rating = value['rating']
+        review = value['review']
+
+         # INSERT 쿼리문 작성
+        insert_sql = """
+            INSERT INTO result_review (cos_name, user_nm,  rating, review)
+            VALUES (%s, %s, %s, %s) """
+
+        data = (cos_name, nm, rating, review)
+
+        PostQuery(insert_sql, data)
