@@ -4,6 +4,7 @@ import {motion} from "framer-motion"
 import image1 from '../../img/화장품 이미지1.jpg'
 import image2 from '../../img/화장품 이미지2.jpg'
 import { useNavigate } from 'react-router-dom';
+import { useCountUp } from 'react-countup';
 
 // 메뉴창에서 정기배송 클릭 시 나타나는 화면
 const Subscription = () => {
@@ -50,6 +51,11 @@ const Subscription = () => {
             nav('/login');
         }
     };
+
+    // const SubCountUp = () => {
+    //     useCountUp({ ref: 'subsriptioncounter', end: 3000});
+    //     return <span id="subsriptioncounter" />;
+    //   };
 
 
     return (

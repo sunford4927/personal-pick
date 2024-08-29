@@ -31,6 +31,7 @@ import { useEffect, useState } from 'react';
 import SubscriptionIntroduce from './page/subscriptionintoduce/SubscriptionIntroduce';
 import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
 import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
+import AiRecommend from './page/airecommend/AiRecommend';
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
                     <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
                     <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>
                     <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
+                    <Route path='/airecommend' element={<AiRecommend/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

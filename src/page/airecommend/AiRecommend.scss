@@ -1,0 +1,60 @@
+.airecommenduser{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 25px;
+}
+
+// 비구독자 쪽
+
+.notsubscribe{
+
+}
+
+.notsubscribetext{
+    display: flex;
+    line-height: 40px;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+#counter {
+    color:#0099FC;
+    font-size: 23px;
+}
+.countup{
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+}
+.notsubscribetext1{
+    line-height: 24px;
+}
+
+// 구독자 쪽
+
+.subscribetext{
+    display: flex;
+    line-height: 40px;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+#counter1 {
+    color:#0099FC;
+    font-size: 23px;
+}
+.countup1{
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.subscribetext1{
+    line-height: 24px;
+}
