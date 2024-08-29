@@ -138,7 +138,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                내 피부에 꼭 맞는 제품 랭킹
+                내 피부에 꼭 맞는 제품 랭킹🏆
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             
@@ -163,7 +163,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                나이대별 추천
+                나이대별 추천💡
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             
