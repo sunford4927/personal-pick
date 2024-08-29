@@ -319,7 +319,7 @@ const PayShipment = () => {
                                                 <div className='deliverylist_namebasic'>
                                                     {/* <br /> */}
                                                     <span className='deliverylist_name'>{item.receive_name}</span>
-                                                    <span className='deliverylist_basic'>{item.default_address}</span>
+                                                    <span className='deliverylist_basic'>[기본배송지]</span>
                                                     {/* {item.default_address && <span>[기본]</span>} */}
                                                 </div>
                                                 <div className='deliverylist_address'>{formatAddress(item.user_address)}</div>
