@@ -263,57 +263,38 @@ class ppUpdateCartCnt(Resource):
         except Exception as e:
             print(f"Error: {e}")
             # return jsonify({"message": "An error occurred."}), 500
+
+
+
+class ppOrderHistory(Resource):
+    def get(self):
+        value = request.args.to_dict()
+
+        # print('valllllllllllll', value)
+        # payment = value.get('payment')
+        payment = value['payment']
+        idx = value['a_idx']
         
-# class ppUpdateCartCnt(Resource):
-#     def post(self):
 
-#         fake_cart = {
-#                     "user_id": "aa11",
-#                     "idx": 1,
-#                     "action": "increase" 
-#                 } 
-        
-#         # 프론트엔드에서 받은 JSON 데이터를 파싱
-#         # value = request.get_json()
-#         # print("Update Cart Data: ", value)  # 디버깅 용도로 현재 데이터 출력
+        # print('paymenttttttt:', payment)
+        # print('idxxxxxxxxxxxxxxxxxxxxxxx', idx)
 
+        data = setQuery("""
+                SELECT 
+                    ra.phone_num,
+                    ra.receive_name,
+                    ra.user_address,
+                    ro.price
+                FROM 
+                    result_order ro
+                JOIN 
+                    result_address ra
+                ON 
+                    ra.address_idx = ro.address_idx
+                WHERE 
+                    ro.payment_key = %s
+                    AND ra.address_idx = %s
+                """, (payment, idx))
 
-#         # JSON 데이터에서 사용자 ID와 상품 인덱스 및 조정 방향 추출
-#         user_id = fake_cart['user_id']
-#         idx = int(fake_cart['idx'])
-#         action = fake_cart['action']  # 'increase' 또는 'decrease'로 수량 조정 방향을 구분
-#         increment = 1 if action == 'increase' else -1
-        
-#         # try:
-#         # 현재 장바구니에서 해당 상품의 정보를 가져오는 쿼리
-#         check_sql = "SELECT buy_cnt, price FROM result_cart_item WHERE user_id = %s AND idx = %s"
-#         existing_item = setQuery(check_sql, (user_id, idx))
-        
-#         # if not existing_item:
-#         #     return jsonify({"message": "Item not found in cart."}), 404
-
-#         # 현재 수량 및 가격
-#         current_buy_cnt = existing_item[0]['buy_cnt']
-#         current_price = existing_item[0]['price']
-
-#         # 새로운 수량 및 총 가격 계산
-#         new_buy_cnt = current_buy_cnt + increment
-
-#         # if new_buy_cnt < 1:
-#         #     return jsonify({"message": "Quantity cannot be less than 1."}), 400
-        
-#         new_total_price = current_price * new_buy_cnt
-
-#         # 업데이트 쿼리 실행
-#         update_sql = """
-#             UPDATE result_cart_item
-#             SET buy_cnt = %s, total_price = %s
-#             WHERE user_id = %s AND idx = %s
-#         """
-#         update_values = (new_buy_cnt, new_total_price, user_id, idx)
-#         PostCartQuery(update_sql, update_values)
-
-#         #     return jsonify({"message": "Cart item quantity updated successfully."}), 200
-#         # except Exception as e:
-#         #     print(f"Error: {e}")
-#         #     return jsonify({"message": "An error occurred."}), 500
+        return jsonify(data)
+       
