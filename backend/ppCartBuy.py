@@ -144,10 +144,10 @@ class ppOrderCart(Resource):
 class ppDeleteCartItems(Resource):
     def delete(self):
         # 프론트엔드에서 받은 JSON 데이터를 파싱
-        value = request.get_json()
-        print(value)  # 디버깅 용도로 현재 데이터 출력
+        data = request.get_json()
+        
 
-        data = value['data']
+        # data = value['data']
         user_id = data[0]['user_id']  # 사용자 ID는 모든 항목에서 동일하다고 가정
 
         # 선택된 항목의 idx 리스트 생성
@@ -222,28 +222,25 @@ class ppUpdateCartCnt(Resource):
         # 여기에 이 데이터만 잘 들어오면 됨
         
         # 프론트엔드에서 받은 JSON 데이터를 파싱
-        value = request.get_json()
+        value = request.get_json()['data']
+        # ['data'] 키워드 붙혀서 오류해결
         # print("Update Cart Data: ", value)  # 디버깅 용도로 현재 데이터 출력
-
 
         # JSON 데이터에서 사용자 ID와 상품 인덱스 및 조정 방향 추출
         user_id = value['user_id']
         idx = int(value['idx'])
         action = value['action']  # 'increase' 또는 'decrease'로 수량 조정 방향을 구분
         increment = 1 if action == 'increase' else -1
-        
         try:
             # 현재 장바구니에서 해당 상품의 정보를 가져오는 쿼리
             check_sql = "SELECT buy_cnt, price FROM result_cart_item WHERE user_id = %s AND idx = %s"
             existing_item = setQuery(check_sql, (user_id, idx))
-            
             # if not existing_item:
             #     return jsonify({"message": "Item not found in cart."}), 404
 
             # 현재 수량 및 가격
             current_buy_cnt = existing_item[0]['buy_cnt']
             current_price = existing_item[0]['price']
-
             # 새로운 수량 및 총 가격 계산
             new_buy_cnt = current_buy_cnt + increment
 
@@ -261,10 +258,11 @@ class ppUpdateCartCnt(Resource):
             update_values = (new_buy_cnt, new_total_price, user_id, idx)
             PostCartQuery(update_sql, update_values)
 
-            return jsonify({"message": "Cart item quantity updated successfully."}), 200
+            # 오류난 이유 post요청에서 jsonify 반환이 안되나봄 리턴 주석처리하니깐 정상화 됌
+            # return jsonify({"message": "Cart item quantity updated successfully."}), 200
         except Exception as e:
             print(f"Error: {e}")
-            return jsonify({"message": "An error occurred."}), 500
+            # return jsonify({"message": "An error occurred."}), 500
         
 # class ppUpdateCartCnt(Resource):
 #     def post(self):

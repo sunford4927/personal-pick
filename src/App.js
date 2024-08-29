@@ -28,6 +28,9 @@ import './components/scrolltotop/ScrollToTop.scss'
 import AddressManagement from './components/addressmanagement/AddressManagement';
 import { sendGet, URL } from './util/util';
 import { useEffect, useState } from 'react';
+import SubscriptionIntroduce from './page/subscriptionintoduce/SubscriptionIntroduce';
+import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
+import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
 
 
 function App() {
@@ -77,6 +80,9 @@ function App() {
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
                     <Route path='/payshipment' element={<PayShipment />}></Route>
                     <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
+                    <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
+                    <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>
+                    <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

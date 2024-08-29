@@ -26,7 +26,7 @@ const Subscription = () => {
     const basicMakeup = () => {
         if (isLogin) {  // 로그인되어 있을 시
             // "productType"이라는 키에 "기초 화장품"이라는 값을 저장하여 BeforePayment 페이지로 전달
-            nav('/BeforePayment', { state: { productType: '기초 화장품' } });
+            nav('/SubscriptionIntroduce', { state: { productType: '기초 화장품' } });
         } else {  // 로그인되어 있지 않을 시
             nav('/login');
         }
@@ -36,7 +36,16 @@ const Subscription = () => {
     // "색조 화장품 구독하러 가기" 버튼 클릭 시
     const colorMakeup = () => {
         if(isLogin) {
-            nav('/BeforePayment', { state: { productType: '색조 화장품' } });
+            nav('/SubvueIntroduce', { state: { productType: '색조 화장품' } });
+        } else {
+            nav('/login');
+        }
+    };
+
+    // "기초+색조 화장품 구독하러 가기" 버튼 클릭 시
+    const basicpluscolorMakeup = () => {
+        if(isLogin) {
+            nav('/SubbasicvueIntroduce', { state: { productType: '기초+색조 화장품' } });
         } else {
             nav('/login');
         }
@@ -45,7 +54,7 @@ const Subscription = () => {
 
     return (
 
-        <div id='wrapper'>
+        <div>
             {/* 제목 */}
             <div className='subscriptiontitle'>
                 <span className='subscriptiontext'>
@@ -219,7 +228,7 @@ const Subscription = () => {
                 </div>
 
                 <div class="basichuebutton">
-                    <a class="basichuebutton btn-5">기초&색조 화장품 구독하러 가기</a>
+                    <a class="basichuebutton btn-5" onClick={basicpluscolorMakeup}>기초&색조 화장품 구독하러 가기</a>
                 </div>
                 </motion.div>
 

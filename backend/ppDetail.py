@@ -41,6 +41,7 @@ class ppGetReveiw(Resource):
                                 result_users ru ON rr.user_nm = ru.user_nm
                             WHERE 
                                 p.idx = %s
+                            order by review_up_dt desc
 
                             """, idx)
         # print("dataquery: ", data)
@@ -121,7 +122,7 @@ class ppInsertReview(Resource):
         # data = value['data']
 
         
-        value = request.get_json()
+        value = request.get_json()['data']
         print("review vallllllllllllllllllll:", value)
 
         # 데이터에서 필요한 값들을 추출
@@ -133,7 +134,8 @@ class ppInsertReview(Resource):
          # INSERT 쿼리문 작성
         insert_sql = """
             INSERT INTO result_review (cos_name, user_nm,  rating, review)
-            VALUES (%s, %s, %s, %s) """
+            VALUES (%s, %s, %s, %s) 
+            """
 
         data = (cos_name, nm, rating, review)
 

@@ -42,26 +42,7 @@ const PayShipment = () => {
     // 배송지 or 배송지 목록 중 배송지를 기본값으로 잡아둠(삼항연산자 사용해 true or false 구분)
     const [check, setCheck] = useState(true);
 
-    // 기본 배송지 관리 함수
-    // const [defaultAddress, setDefaultAddress] = useState(null);
 
-    // // 기본 배송지 설정: 컴포넌트가 마운트될 때 실행
-    // useEffect(() => {
-    //     // deliveryAddress 배열에서 default_address가 true인 주소를 찾음
-    //     const defaultAddr = deliveryAddress.find(addr => addr.default_address === true);
-    //     setDefaultAddress(defaultAddr);  // 기본 배송지 설정
-    // }, []);
-
-
-    // // 배송지 목록
-    // const [addresses, setAddresses] = useState(deliveryAddress);
-
-    // const handleDelete = (idx) => {
-    //     // 선택한 인덱스에 해당하는 주소를 제외한 새로운 배열 생성
-    //     const updatedAddresses = addresses.filter(address => address.idx !== idx);
-    //     // 상태 업데이트
-    //     setAddresses(updatedAddresses);
-    // };
 
     // 리덕스로 사용자아이디(userID) 데이터베이스에 보내주기
     const state = useSelector((item) => {
@@ -102,14 +83,38 @@ const PayShipment = () => {
     }, [orderProduct])
 
 
+    // 주소 포맷팅 함수(특정 기준으로 분리&추가)
+    const formatAddress = (address) => {
+        // 주소를 split하여 배열로 변환
+        const parts = address.split('///');
+        if (parts.length > 0) {
+            // 우편번호에 대괄호 추가
+            parts[0] = `[${parts[0]}]`;
+        }
+        // 배열을 다시 문자열로 결합
+        return parts.join(' ');
+    };
+
+// 주소 삭제 함수
+const deleteAddress = (address_idx) => {
+    sendDel(URL + '/EditAddress', { address_idx: address_idx }, (response) => {
+        if (response.success) {
+            // 삭제가 성공적으로 완료되면 UI를 업데이트합니다.
+            setDeliveryAddress(deliveryAddress.filter(item => item.address_idx !== address_idx));
+        } 
+    });
+};
+
+
+
     return (
         <div>
             <div className='backORtext'>
-                <img className='cart_back_btn' src={Back} alt="" onClick={() => nav('/cartlist')} />
+                <img className='orderpay_back_btn' src={Back} alt="" onClick={() => nav('/cartlist')} />
                 <p className='orderpay_text'>주문/결제</p>
             </div>
 
-            <div>
+            <div className='orderpay_body'>
                 <div className='delivery_boxes'>
                     <ul className='delivery_btn'>
                         <li className='delivery_text active' onClick={() => setCheck(true)}>배송지</li>
@@ -129,10 +134,10 @@ const PayShipment = () => {
                             <div>
                                 <div key={i} className='delivery_container'>
                                     <div className='basic_name'>
-                                        <span className='basic'>[기본배송지]</span>
+                                        <span className='basic'>[기본]</span>
                                         <span className='delivery_name'>{item.receive_name}</span>
                                     </div>
-                                    <div className='delivery_address'>{item.user_address.split("///")}</div>
+                                    <div className='delivery_address'>{formatAddress(item.user_address)}</div>
                                     <div className='delivery_phone'>{item.phone_num}</div>
                                 </div>
 
@@ -240,28 +245,33 @@ const PayShipment = () => {
                         <div className='pay_fix_btn' onClick={() => showPayMent}>
                             {totalPrice + 3000 + "원 결제하기"}
                         </div> </>
+
                     : <>
+
                         <div>
 
                             {deliveryAddress.map((item, i) => {
+                                console.log(item);
+                                
                                 return (
                                     <>
                                         <div className='delivery_list_box'>
-                                            <div key={i}>
-                                                <div>
-                                                    <br />
-                                                    <span>{item.receive_name}</span>
-                                                    <span>{item.default_address}</span>
+                                            <div key={i} className='deliverylist_list'>
+                                                <div className='deliverylist_namebasic'>
+                                                    {/* <br /> */}
+                                                    <span className='deliverylist_name'>{item.receive_name}</span>
+                                                    <span className='deliverylist_basic'>{item.default_address}</span>
                                                     {/* {item.default_address && <span>[기본]</span>} */}
                                                 </div>
-                                                <div>{item.user_address.split("///")}</div>
-                                                <div>{item.phone_num}</div>
-                                                <div>{item.msg}</div>
+                                                <div className='deliverylist_address'>{formatAddress(item.user_address)}</div>
+                                                <div className='deliverylist_phone'>{item.phone_num}</div>
+                                                <div className='deliverylist_msg'>{item.msg}</div>
                                             </div>
-                                            <div>
-                                                <button onClick={() => sendDel(URL + '/EditAddress' , null , {address_idx:item.address_idx})}>삭제</button>
-                                                <button onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
-                                                <button>선택</button>
+                                            <div className='deliverylist_btn'>
+                                                {/* <button className='deliverylist_delete' onClick={() => deleteAddress(item.address_idx)}>삭제</button> */}
+                                                <button onClick={() => sendDel(URL + '/EditAddress' , (()=>sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)) , {address_idx:item.address_idx})}>삭제</button>
+                                                <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
+                                                <button className='deliverylist_selete'>선택</button>
                                             </div>
                                         </div>
                                     </>
@@ -270,10 +280,11 @@ const PayShipment = () => {
 
 
 
-                            <div className='delivery_plus'>
+                            <div className='delivery_add'>
                                 <button onClick={() => nav('/addressadd/추가/-100')}>배송지추가</button>
                             </div>
                         </div>
+
                     </>
                 }
 
