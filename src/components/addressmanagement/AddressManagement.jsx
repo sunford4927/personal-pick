@@ -116,14 +116,14 @@ const AddressManagement = () => {
 
         if(pagetype === "추가")
         {
-            sendPost(URL+ "/InsertAddress", null, dic);
+            sendPost(URL+ "/InsertAddress", (()=>nav(-1)), dic);
         }
         else
         {
             dic.address_idx = address_idx
-            sendPost(URL+"/EditAddress",null,dic)
+            sendPost(URL+"/EditAddress",(()=>nav(-1)),dic)
         }
-        nav("/payshipment")
+        
     }
 
     useEffect(()=>{

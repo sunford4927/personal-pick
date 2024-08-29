@@ -31,6 +31,7 @@ import { useEffect, useState } from 'react';
 import SubscriptionIntroduce from './page/subscriptionintoduce/SubscriptionIntroduce';
 import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
 import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
+import OrderComplete from './page/ordercomplete/OrderComplete';
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
                     <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
                     <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>
                     <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
+                    <Route path='/complete' element={<OrderComplete/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

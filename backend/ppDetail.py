@@ -41,6 +41,7 @@ class ppGetReveiw(Resource):
                                 result_users ru ON rr.user_nm = ru.user_nm
                             WHERE 
                                 p.idx = %s
+                            order by review_up_dt desc
 
                             """, idx)
         # print("dataquery: ", data)
@@ -107,17 +108,34 @@ class ppReviewCnt(Resource):
 
 class ppInsertReview(Resource):
     def post(self):
-        value = request.get_json()
 
+        # fake_data = {
+        #     "data": {
+        #         "user_nm": "John Doe",
+        #         "cos_name": "순행클렌징폼",
+        #         "rating": 5,
+        #         "review": "촉촉하네요"
+        #     }
+        # }
+
+        # value = fake_data
+        # data = value['data']
+
+        
+        value = request.get_json()['data']
+        print("review vallllllllllllllllllll:", value)
+
+        # 데이터에서 필요한 값들을 추출
         nm = value['user_nm']
         cos_name = value['cos_name']
-        rating = value['rating']
+        rating = int(value['rating'])
         review = value['review']
 
          # INSERT 쿼리문 작성
         insert_sql = """
             INSERT INTO result_review (cos_name, user_nm,  rating, review)
-            VALUES (%s, %s, %s, %s) """
+            VALUES (%s, %s, %s, %s) 
+            """
 
         data = (cos_name, nm, rating, review)
 
