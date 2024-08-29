@@ -33,14 +33,14 @@ const Subscription = () => {
         
     };
 
-    // "색조 화장품 구독하러 가기" 버튼 클릭 시
-    const colorMakeup = () => {
-        if(isLogin) {
-            nav('/SubvueIntroduce', { state: { productType: '색조 화장품' } });
-        } else {
-            nav('/login');
-        }
-    };
+    // // "색조 화장품 구독하러 가기" 버튼 클릭 시
+    // const colorMakeup = () => {
+    //     if(isLogin) {
+    //         nav('/SubvueIntroduce', { state: { productType: '색조 화장품' } });
+    //     } else {
+    //         nav('/login');
+    //     }
+    // };
 
     // "기초+색조 화장품 구독하러 가기" 버튼 클릭 시
     const basicpluscolorMakeup = () => {
@@ -127,6 +127,7 @@ const Subscription = () => {
                 </div>
 
                 {/* 기초 구독 설명 영역 */}
+                <div className='basicexplainmainbox'>
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -160,9 +161,10 @@ const Subscription = () => {
                     <a class="basicbutton btn-5" onClick={basicMakeup}>기초 화장품 구독하러 가기</a>
                 </div>
                 </motion.div>
+                </div>
 
 
-                {/* 색조 구독 설명 영역 */}
+                {/* 색조 구독 설명 영역
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -195,8 +197,10 @@ const Subscription = () => {
                 <div class="huebutton">
                     <a class="huebutton btn-5" onClick={colorMakeup}>색조 화장품 구독하러 가기</a>
                 </div>
-                </motion.div>
+                </motion.div> */}
 
+
+                <div className='freeexplainmainbox'>
                 {/* 기초+색조 설명 영역 */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -209,7 +213,7 @@ const Subscription = () => {
                     }}
                 >
                 <div className='basichuetitlemainbox'>
-                    <img src ={image1} width={300} height={300} className='image1'/>
+                    <img src ={image1} width={300} height={300} className='image2'/>
                     <span className='basichuetitle'>
                     나에게 맞는 기초&색조 화장품
                     </span> 
@@ -231,6 +235,7 @@ const Subscription = () => {
                     <a class="basichuebutton btn-5" onClick={basicpluscolorMakeup}>기초&색조 화장품 구독하러 가기</a>
                 </div>
                 </motion.div>
+                </div>
 
     
                 </div>

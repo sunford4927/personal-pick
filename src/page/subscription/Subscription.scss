@@ -175,88 +175,101 @@
     border-radius: 8px;
     background-color: #ffffff;
     margin: 4px;
-    padding: 66px;
-    width: 120px;
-    height: 0px;
+    height: 135px;
     margin-top: 45px;
+    box-sizing: border-box;
 }
 
 .fourthboxtext {
     display: flex;
-    margin-left: -61px;
-    margin-top: -46px;
     font-size: 18px;
     font-weight: 600;
+    margin-top: 17px;
+    margin-left: 9px;
 }
 
 .fourthboxtext2 {
     display: flex;
-    margin-left: -60px;
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    width: 213px;
-    margin-top: 8px;
+    margin-top: 27px;
+    margin-left: 10px;
 }
 
 .fourthboxtext2_1 {
     display: flex;
-    margin-left: -60px;
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    width: 213px;
+    margin-left: 10px;
 }
 
 .fourthboxtext2_2 {
     display: flex;
-    margin-left: -60px;
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    width: 213px;
+    margin-left: 10px;
 }
 
+
+
+
+
+
+
 // 기초 구독 화면 쪽
+
+.basicexplainmainbox {
+    display: flex;
+    margin-top: 125px;
+}
+
 
 .image1 {
     display: flex;
     float: right;
-    margin-bottom: 0px;
-    margin-top: -33px;
-    margin-right: 15px;
+    margin-left: 110px;
+
 }
 
 .basictitlemainbox{
-    margin-top: 190px;
+
 }
 
 .basictitle {
     display: flex;
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 700;    
+    line-height: 40px;
 }
 
 .basictitle2 {
     display: flex;
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 700;
+    margin-top: 20px;
 }
 
 .basictextbox{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .basictext {
     display: flex;
     font-size: 13px;
     color: gray;
+    width: 353px;
 }
 
 .basictext2{
     display: flex;
     font-size: 13px;
     color: gray;
+    margin-top: 17px;
 }
 
 .basicbutton {
@@ -284,95 +297,106 @@
 }
 
 
-// 색조 구독 화면 쪽
+// // 색조 구독 화면 쪽
+
+// .huetitlemainbox{
+//     margin-top: 190px;
+// }
+
+// .huetitle {
+//     display: flex;
+//     font-size: 26px;
+//     font-weight: 700;
+// }
+
+// .huetitle2 {
+//     display: flex;
+//     font-size: 26px;
+//     font-weight: 700;
+// }
+
+// .huetextbox{
+//     margin-top: 20px;
+// }
+
+// .huetext {
+//     display: flex;
+//     font-size: 13px;
+//     color: gray;
+// }
+
+// .huetext2{
+//     display: flex;
+//     font-size: 13px;
+//     color: gray;
+// }
+
+// .huebutton {
+//     flex: 1 1 auto;
+//     padding: 11px;
+//     text-transform: uppercase;
+//     transition: 0.5s;
+//     background-size: 200% auto;
+//     color: rgb(255, 255, 255);
+//     border-radius: 10px;
+//     font-weight: 600;
+//     text-decoration-line: none;
+//     cursor: pointer;
+//     margin-top: 17px;
+//     font-size: 11px;
+//     margin-left: -6px;
+// }
+
+
+
+// 기초+색조 화면
+.freeexplainmainbox{
+    display: flex;
+    margin-top: 125px;
+}
 
 .image2 {
     display: flex;
     float: right;
-    margin-bottom: 0px;
-    margin-top: -88px;
-    margin-right: 26px;
+    margin-left: 53px;
 }
-
-.huetitlemainbox{
-    margin-top: 190px;
-}
-
-.huetitle {
-    display: flex;
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.huetitle2 {
-    display: flex;
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.huetextbox{
-    margin-top: 20px;
-}
-
-.huetext {
-    display: flex;
-    font-size: 13px;
-    color: gray;
-}
-
-.huetext2{
-    display: flex;
-    font-size: 13px;
-    color: gray;
-}
-
-.huebutton {
-    flex: 1 1 auto;
-    padding: 11px;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: rgb(255, 255, 255);
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration-line: none;
-    cursor: pointer;
-    margin-top: 17px;
-    font-size: 11px;
-    margin-left: -6px;
-}
-
-// 기초+색조 화면
 
 .basichuetitlemainbox{
-    margin-top: 190px;
+
 }
 
 .basichuetitle {
     display: flex;
     font-size: 26px;
     font-weight: 700;
+    line-height: 44px;
 }
 
 .basichuetitle2 {
     display: flex;
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 700;
+    margin-top: 20px;
 }
 
 .basichuetextbox{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .basichuetext {
     display: flex;
     font-size: 13px;
     color: gray;
+    width: 388px;
+
 }
 
 .basichuetext2{
     display: flex;
     font-size: 13px;
+    margin-top: 17px;
     color: gray;
 }
 
@@ -391,3 +415,5 @@
     font-size: 11px;
     margin-left: -6px;
 }
+
+

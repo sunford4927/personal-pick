@@ -42,6 +42,36 @@
     margin-right: 3px;
 }
 
+.adbannermain{
+    //background: rgb(255 226 184);
+    top: 0px;
+    z-index: 10;
+    height: 80px;
+    margin-top: 40px;
+    position: sticky;
+    margin-bottom: 40px;
+    cursor: pointer;
+    background-image: url('../../img/화장품\ 이미지3.jpg');
+}
+
+.adbannercontainer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.adbannertext {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 80px;
+}
+
+.adbannerbutton {
+    line-height: 80px;
+    border: 0px solid;
+    background: #00000096;
+    color: white;
+}
+
 
 
 .homeright {

@@ -5,7 +5,7 @@ import './TotalRanking.scss'
 import left_img from '../../img/왼쪽.png'
 import { useNavigate, useParams } from "react-router-dom";
 import Category from "../../components/category/Category";
-import { choicRankingCategory, titleList } from "../../util/utilStr";
+import { choicRankingCategory, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useSelector } from "react-redux";
 
 const list = ["조회수 급상승", "카테고리별", "피부별", "연령대별"]
@@ -54,15 +54,21 @@ const TotalItem = () => {
                 )
             case 3:
                 return (
-                    <div className="itemlist">
-                        <ItemAll data={skinCateMain.data}></ItemAll>
-                    </div>
+                    <>
+                        <Category categoryData={userTypeList} />
+                        <div className="itemlist">
+                            <ItemAll data={skinCateMain.data}></ItemAll>
+                        </div>
+                    </>
                 )              
             case 4:
                 return (
-                    <div className="itemlist">
-                        <ItemAll data={ageCateMain.data}></ItemAll>
-                    </div>
+                    <>
+                        <Category categoryData={userAgeList} />
+                        <div className="itemlist">
+                            <ItemAll data={ageCateMain.data}></ItemAll>
+                        </div>
+                    </>
                 )
         }
     }
