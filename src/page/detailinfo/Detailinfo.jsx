@@ -247,7 +247,7 @@ const Detailinfo = () => {
                         {/* 화장품 이름 */}
 
                         <div className='itemname'>
-                            <img src={goback} className="gobackimg" onClick={() => navigate('/Search')} width={20} height={20}></img>
+                            <img src={goback} className="gobackimg" onClick={() => navigate(-1)} width={20} height={20}></img>
                             <span className='cosmeticname'>{item.cos_name}</span>
                         </div>
 
@@ -312,7 +312,7 @@ const Detailinfo = () => {
                                 <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
                                 <div className='flex_col itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
-                                        if (itemadd > 0) {
+                                        if (itemadd > 1) {
                                             setItemAdd(itemadd - 1);
                                             setIsDecreasing(true);
                                         } else {
