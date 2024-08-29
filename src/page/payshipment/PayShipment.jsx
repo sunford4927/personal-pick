@@ -2,30 +2,26 @@ import React, { useEffect, useState } from 'react'
 import './PayShipment.scss';
 import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
-import { useNavigate } from 'react-router-dom';
-import XBtn from '../../img/회색엑스.png'
-import { sendDel, sendGet, showPayMent, URL } from '../../util/util';
+import { useNavigate, useParams } from 'react-router-dom';
+import { sendDel, sendGet, showIngredient, showModal, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 
 
 const PayShipment = () => {
 
     const nav = useNavigate();
+    const { cos_id, cos_count } = useParams();
 
     // let check = false;
-
+    const [sendData, setSendData] = useState();
     // 드롭다운 열림/닫힘 상태 관리 함수
     const [dropdownOpenClose, setDropdownOpenClose] = useState(false);
     // 선택된 옵션 저장 함수
     const [dropdownOptionSelect, setDropdownOptionSelect] = useState('-- 메시지 선택 (선택사항) --');
 
     const options = [
-        '-- 메시지 선택 (선택사항) --',
-        '배송 전에 미리 연락바랍니다.',
-        '부재 시 경비실에 맡겨주세요.',
-        '부재 시 문 앞에 놓아주세요.',
-        '빠른 배송 부탁드립니다.',
-        '택배함에 보관해 주세요.'
+        "-- 메시지 선택(선택사항) --", "배송전에 미리 연락바랍니다.", "부재시 경비실에 맡겨주세요.",
+        "부재시 문앞에 놓아주세요.", "빠른 배송 부탁드립니다.", "택배함에 보관해 주세요"
     ]
 
     // 드롭다운 열림/닫힘 상태 변경 함수
@@ -51,16 +47,42 @@ const PayShipment = () => {
     // 데이터베이스에서 받아온 주문상품 화면에 뿌려주기 위한 함수
     const [orderProduct, setOrderProduct] = useState([]);
 
-    const [deliveryAddress, setDeliveryAddress] = useState([]);
+    const [deliveryAddress, setDeliveryAddress] = useState();
+
+    function setDirectData(data) {
+        let newData = { ...data[0] }
+        newData.buy_cnt = cos_count;
+        newData.total_price = newData.price * cos_count;
+        setOrderProduct([newData])
+    }
+
+    function setDeliverData(data) {
+        
+        setDeliveryAddress(data)
+    }
+
 
 
     useEffect(() => {
-        sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
-        sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress);
-        console.log(state.user_id);
-        console.log(orderProduct);
-        console.log(deliveryAddress);
+        if (typeof (cos_id) === "undefined") {
+            sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        }
+        else {
+            sendGet(URL + "/DetailPage?idx=" + cos_id, setDirectData); // 화장품 정보
+        }
+        sendGet(URL + '/addressList?userid=' + state.user_id, setDeliverData);
     }, [state]);
+
+    useEffect(() => {
+        if (typeof (cos_id) === "undefined") {
+            sendGet(URL + '/OrderPage?userid=' + state.user_id, setOrderProduct);
+        }
+        else {
+            sendGet(URL + "/DetailPage?idx=" + cos_id, setDirectData); // 화장품 정보
+        }
+        sendGet(URL + '/addressList?userid=' + state.user_id, setDeliverData);
+    }, []);
+
     // 배열 안에 state를 쓰기 전 빈배열일 때 새로고침하면 데이터 날라감
     // 어떻게 해줘야하나?
     // 리덕스에 있는 유저 데이터를 빈배열 안에 불러줘야함(state)
@@ -73,37 +95,72 @@ const PayShipment = () => {
 
     // 총 상품가격 
     const [totalPrice, setTotalPrice] = useState(0);
-
+    // 기초구독, 색조구독, 상품결재
     useEffect(() => {
         let price = 0;
+        let itemIdList = "";
+        let itemCntList = "";
+        
         for (let i = 0; i < orderProduct.length; i++) {
             price += orderProduct[i].total_price;
+            itemIdList += orderProduct[i].idx
+            itemCntList += orderProduct[i].buy_cnt
+            if(i !== orderProduct.length-1)
+            {
+                itemIdList += ","
+                itemCntList += ","
+            }
         }
+
         setTotalPrice(price)
+        if(orderProduct.length >0)
+        {
+            setSendData({
+                orderName : orderProduct.length ===1 ? orderProduct[0].cos_name : `${orderProduct[0].cos_name} 외 ${orderProduct.length-1}건`,
+                itemIdList : itemIdList,
+                itemCntList : itemCntList,
+            })
+        }
+        
     }, [orderProduct])
 
+    const [defaultAddr, setDefaultAddr] = useState({
+        address_idx:"",
+        default_address:"",
+        msg : "",
+        user_address: ""
+        
+    });
+    useEffect(()=>{
+        if(typeof(deliveryAddress) !== "undefined")
+        {
+            let list = deliveryAddress.filter((item)=> item.default_address === 1)
+            if(list.length >0)
+            {
+                setDropdownOptionSelect(list[0].msg)
+                setDefaultAddr(list[0])
+            }
+            else{
+                setDefaultAddr({user_address: ""})
+            }
+        }
+    },[deliveryAddress])
 
     // 주소 포맷팅 함수(특정 기준으로 분리&추가)
     const formatAddress = (address) => {
         // 주소를 split하여 배열로 변환
-        const parts = address.split('///');
-        if (parts.length > 0) {
-            // 우편번호에 대괄호 추가
-            parts[0] = `[${parts[0]}]`;
-        }
-        // 배열을 다시 문자열로 결합
-        return parts.join(' ');
-    };
+        if(address !== "" || address !== undefined)
+        {
+            const parts = address.split('///');
+            if (parts.length > 0) {
+                // 우편번호에 대괄호 추가
+                parts[0] = `[${parts[0]}]`;
+            }
+            // 배열을 다시 문자열로 결합
+            return parts.join(' ');
 
-// 주소 삭제 함수
-const deleteAddress = (address_idx) => {
-    sendDel(URL + '/EditAddress', { address_idx: address_idx }, (response) => {
-        if (response.success) {
-            // 삭제가 성공적으로 완료되면 UI를 업데이트합니다.
-            setDeliveryAddress(deliveryAddress.filter(item => item.address_idx !== address_idx));
-        } 
-    });
-};
+        }
+    };
 
 
 
@@ -128,17 +185,16 @@ const deleteAddress = (address_idx) => {
                     <>
 
                         {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
-                        {deliveryAddress.map((item, i) => {
-                    return item.default_address ? (
-                            
+
+                        {defaultAddr.user_address !== "" &&
                             <div>
-                                <div key={i} className='delivery_container'>
+                                <div className='delivery_container'>
                                     <div className='basic_name'>
                                         <span className='basic'>[기본]</span>
-                                        <span className='delivery_name'>{item.receive_name}</span>
+                                        <span className='delivery_name'>{defaultAddr.receive_name}</span>
                                     </div>
-                                    <div className='delivery_address'>{formatAddress(item.user_address)}</div>
-                                    <div className='delivery_phone'>{item.phone_num}</div>
+                                    <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
+                                    <div className='delivery_phone'>{defaultAddr.phone_num}</div>
                                 </div>
 
 
@@ -158,11 +214,8 @@ const deleteAddress = (address_idx) => {
                                     )}
                                 </div>
                             </div>
+                        }
 
-                        ) : (
-                            <div />
-                        )
-                    })}
                         <hr className='thick_grayline' />
 
                         <div>
@@ -242,25 +295,31 @@ const deleteAddress = (address_idx) => {
                             <hr className='thin_grayline' />
 
                         </div>
-                        <div className='pay_fix_btn' onClick={() => showPayMent}>
+                        <div className='pay_fix_btn cursor' onClick={() => {
+                            if(defaultAddr.user_address === "")
+                            {
+                                showModal((<p>기본 배송지 설정이 안되어있는상태입니다!</p>))
+                            }
+                            else{
+                                showPayMent(state.user_id,totalPrice, sendData,defaultAddr)
+                            }
+                            }}>
                             {totalPrice + 3000 + "원 결제하기"}
                         </div> </>
 
                     : <>
 
                         <div>
+                            {deliveryAddress.map((item,idx)=>{
 
-                            {deliveryAddress.map((item, i) => {
-                                console.log(item);
-                                
-                                return (
+                                return(
                                     <>
                                         <div className='delivery_list_box'>
-                                            <div key={i} className='deliverylist_list'>
+                                            <div className='deliverylist_list'>
                                                 <div className='deliverylist_namebasic'>
                                                     {/* <br /> */}
                                                     <span className='deliverylist_name'>{item.receive_name}</span>
-                                                    <span className='deliverylist_basic'>{item.default_address}</span>
+                                                    <span className='deliverylist_basic'>[기본배송지]</span>
                                                     {/* {item.default_address && <span>[기본]</span>} */}
                                                 </div>
                                                 <div className='deliverylist_address'>{formatAddress(item.user_address)}</div>
@@ -268,15 +327,18 @@ const deleteAddress = (address_idx) => {
                                                 <div className='deliverylist_msg'>{item.msg}</div>
                                             </div>
                                             <div className='deliverylist_btn'>
-                                                {/* <button className='deliverylist_delete' onClick={() => deleteAddress(item.address_idx)}>삭제</button> */}
-                                                <button onClick={() => sendDel(URL + '/EditAddress' , (()=>sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)) , {address_idx:item.address_idx})}>삭제</button>
+
+                                                <button onClick={() => sendDel(URL + '/EditAddress', (() => sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)), { address_idx: item.address_idx })}>삭제</button>
                                                 <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
-                                                <button className='deliverylist_selete'>선택</button>
                                             </div>
                                         </div>
                                     </>
                                 )
                             })}
+
+
+                            
+                          
 
 
 

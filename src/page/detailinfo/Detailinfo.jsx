@@ -42,6 +42,7 @@ const Detailinfo = () => {
     const [data, setData] = useState([]);
     const [review, setReview] = useState([]);
     const [scoreavg, setScoreAvg] = useState([]);
+    // const [allReviews, setAllReviews] = useState([]);
     const [scorecnt, setScoreCnt] = useState([]);
     const [reviewcnt, setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
@@ -66,20 +67,43 @@ const Detailinfo = () => {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(5);
+    // const [currentPosts , setCurrentPosts] = useState([]);
 
 
     const indexOfLastPage = Math.min(page * postPerPage, review.length); // Use review length
     const indexOfFirstPage = Math.max(indexOfLastPage - postPerPage, 0); // Ensure first page is non-negative
-    const currentPosts = review.slice(indexOfFirstPage, indexOfLastPage); // Use slice on review data
+    const currentPosts = (review.slice(indexOfFirstPage, indexOfLastPage));
 
     const onShowSizeChange = (current, pageSize) => {
         setPostPerPage(pageSize);
     };
 
-    useEffect(() => {
-        setReview(review);
-        setTotal(review.length);
-    });
+
+    // useEffect(() => {
+    //     sendGet(URL + "/ReviewPage?idx=" + idx, (data) => {
+    //       setAllReviews(data); // Store all reviews
+    //       setCurrentPosts(data.slice(0, postPerPage)); // Set initial currentPosts
+    //     });
+    //   }, []);
+    
+    //   useEffect(() => {
+    //     setCurrentPosts(allReviews.slice(indexOfFirstPage, indexOfLastPage));
+    //   }, [allReviews, indexOfFirstPage, indexOfLastPage]);
+  
+
+     useEffect(() => {
+         setReview(review);
+         setTotal(review.length);
+     });
+
+
+    //  useEffect(()=> {
+    //   setCurrentPosts(review.slice(indexOfFirstPage, indexOfLastPage));
+    //   console.log(review.slice(indexOfFirstPage, indexOfLastPage));
+
+    //   console.log(review);
+      
+    //  },[review])
 
     const itemRender = (current, type, originalElement) => {
         if (type === 'prev') {
@@ -207,9 +231,7 @@ const Detailinfo = () => {
         return price * quantity;
     };
 
-    const handleStarClick = (index) => {
 
-    };
 
     return (
 
@@ -225,7 +247,7 @@ const Detailinfo = () => {
                         {/* 화장품 이름 */}
 
                         <div className='itemname'>
-                            <img src={goback} className="gobackimg" onClick={() => navigate('/Search')} width={20} height={20}></img>
+                            <img src={goback} className="gobackimg" onClick={() => navigate(-1)} width={20} height={20}></img>
                             <span className='cosmeticname'>{item.cos_name}</span>
                         </div>
 
@@ -290,7 +312,7 @@ const Detailinfo = () => {
                                 <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
                                 <div className='flex_col itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
-                                        if (itemadd > 0) {
+                                        if (itemadd > 1) {
                                             setItemAdd(itemadd - 1);
                                             setIsDecreasing(true);
                                         } else {
@@ -414,7 +436,7 @@ const Detailinfo = () => {
                                     <div className='accountinfo flex items-center'>
                                         <img src={account} width={50} className='w-40 h-40 rounded-full object-cover object-center' />
                                         <div className='textonly'>
-                                            <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_id}</span>
+                                            <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_nm}</span>
                                             <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br />
                                         </div>
                                         <div className='accountstar'>
@@ -464,16 +486,10 @@ const Detailinfo = () => {
                         </nav> */}
 
 
-                            <hr className='bar3' />
+                            {/* <hr className='bar3' /> */}
 
-                            {/* 댓글 쓰는 창 */}
-                            <div className='settingstar'>
-                                <span className='settingstartext px-20'>
-                                    화장품 만족도는 어떠셨나요?
-                                </span>
-                                {setStarMenu(handleStarClick)}
-                            </div>
-                            <InputReview />
+                            {/* 댓글 작성 창 */}
+                            {/* <InputReview item={item} setReview={setReview} setReviewCnt={setReviewCnt} setScoreCnt={setScoreCnt}/> */}
 
 
                             <hr className='bar4' />

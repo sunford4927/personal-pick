@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
 import { sendGet, sendPost, showMap, showPayMent, URL } from "../../util/util";
 import Category from "../../components/category/Category";
@@ -70,6 +70,16 @@ const Home = () => {
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>
+
+             {/* 추천 화장품 광고 배너 */}
+
+             <div className="adbannermain" onClick={() => nav('/airecommend')}>
+                <div className="adbannercontainer">
+                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
+                </div>
+            </div>
+
             <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
                 {(today.getMonth()+1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
                 <span> AI 모델 생성하면 그때 결정할 거🎁 </span> 급상승
@@ -107,12 +117,12 @@ const Home = () => {
             </div>
             </motion.div>
 
-            <div className="flex_row perfume">
+            {/* <div className="flex_row perfume">
                 <img src="https://dn5hzapyfrpio.cloudfront.net/product/533/533472c0-785a-11ee-82a0-977fcb093fe5.jpeg?w=456" alt="" />
                 <div className="basket_fix_btn">
                     향수 매칭 하러 가기
                 </div>
-            </div>
+            </div> */}
 
             {/* sendGet으로 필요한 데이터 세 가지 받아오고 그 데이터 이름을 data라는 키 값으로 보내주면 됨! */}
 
@@ -128,7 +138,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                내 피부에 꼭 맞는 제품 랭킹
+                내 피부에 꼭 맞는 제품 랭킹🏆
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             
@@ -153,7 +163,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                나이대별 추천
+                나이대별 추천💡
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             

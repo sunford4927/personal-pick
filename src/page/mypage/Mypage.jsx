@@ -8,7 +8,6 @@ import { LogoutSession, getLoginSession } from '../../util/session'
 const Join = () => {
     // 페이지 이동 함수
     const navigate = useNavigate();
-    const home = () => navigate('/');
     // const join = () => navigate('/join');
     // const login = () => navigate('/login');
     const order = () => navigate('/order');
@@ -40,12 +39,7 @@ const Join = () => {
                         user_name : getLoginSession().username
                     }
                 });
-                
-                
-                
-                console.log('UserData : ',responseUserData.data[0]);
-                console.log('OrderData : ',responseOrderData.data);
-                
+                            
                 setUserData(responseUserData.data[0])
                 setOrderData(responseOrderData.data)
 
@@ -54,9 +48,7 @@ const Join = () => {
 
         // 화면이 첫 랜더링 될 때 함수 실행
         LoadUsersData();
-    }, []);
-    // console.log('userData : ',userData);
-    
+    }, []);    
 
     return (
         <div id='mypage'>
@@ -145,6 +137,11 @@ const Join = () => {
                     <p>이벤트 신청/당첨 내역</p>
                     <p>찜한 이벤트</p>
                     <p>이벤트 배송지 수정</p>
+                </div>
+
+                <div className='text'>
+                    <h1>주문</h1>
+                    <p className="cursor" >주문 내역</p>
                 </div>
 
                 <div className='text'>

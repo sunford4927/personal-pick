@@ -10,6 +10,7 @@ class payment(Resource):
         # 프론트에서 보내는 정보
         # print("payment from front : ",value['data'])
         conn = http.client.HTTPSConnection("api.tosspayments.com")
+        
 
         payload = ("{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"amount\":%d}" %(value['data']['paymentKey'], value['data']['orderId'], value['data']['totalAmount']))
 
@@ -22,6 +23,7 @@ class payment(Resource):
 
         res = conn.getresponse()
         data = res.read()
+<<<<<<< HEAD
 
         # print("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", data)
         
@@ -30,6 +32,8 @@ class payment(Resource):
         # print("test :", type({}))
         # print("new Type : ", type(newData))
         # print("newdata :", newData['mId'])
+=======
+>>>>>>> 15e1947b26d5ff730aea47a86b2052cd14df0840
 
         # data2 = value
         # print('data1 : ',value['data']['paymentKey'])
