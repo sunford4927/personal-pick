@@ -26,6 +26,7 @@ import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
 import PayShipment from '../payshipment/PayShipment'
 import { setStarMenu, changeStar } from '../../util/util'
+import { useLocation } from 'react-router-dom'
 
 
 const Detailinfo = () => {
@@ -92,9 +93,17 @@ const Detailinfo = () => {
     };
 
 
-    useEffect(() => {
-        console.log(state)
-    })
+    // useEffect(() => {
+    //     console.log(state)
+    // })
+
+    // useEffect(() => {
+    //     console.log(data)
+    // })
+
+    // useEffect(() => {
+    //     console.log(review)
+    // })
 
 
     const showSwal = (e) => {
@@ -313,7 +322,7 @@ const Detailinfo = () => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment')}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/'+item.idx + '/' + itemadd)}>구매하기</a>
                                 </div>
 
                                 <div className="basketbutton">
