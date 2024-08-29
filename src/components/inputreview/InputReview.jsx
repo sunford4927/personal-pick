@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './InputReview.scss'
 import { sendGet, sendPost, URL } from '../../util/util';
-import { useParams } from 'react-router-dom';
+import { setStarMenu } from '../../util/util';
 
 
-const InputReview = () => {
+const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
     const [contents, setContents] = useState("")
     const [user, setUser] = useState({});
-    const [data, setData] = useState([]);
-    const [review, setReview] = useState([]);
+    const [index , setIndex] = useState(1);
 
     function temp(data) {
         console.log(data)
-        setUser(data)
+        setUser(data[0])
     }
 
-    const { idx } = useParams()
-
-    useEffect(() => {
-        sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
-        sendGet(URL + "/ReviewPage?idx=" + idx, setReview); // 리뷰데이터 쪽
-    }, []);
-
+    // useEffect(() => {
+    //     sendGet(URL + "/ReviewPage?idx=" + idx, setReview); // 리뷰데이터 쪽
+    // }, []);
+    
     useEffect(() => {
         let nick = sessionStorage.getItem("username");
         if (nick !== "") {
@@ -34,39 +30,78 @@ const InputReview = () => {
         console.log(user)
     }, [user])
 
+    useEffect(() => {
+
+        console.log(index)
+    }, [index])
+
+function test (data)
+{
+    console.log(data)
+    setReview(data)
+}
+
+function threeget ()
+{
+    sendGet(URL + "/ReviewPage?idx=" + item.idx, test)
+    sendGet(URL + "/ReviewCnt?idx=" + item.idx, setReviewCnt)
+    sendGet(URL + "/RatingCnt?idx=" + item.idx, setScoreCnt)
+}
+
+
     function sendReview() {
-        if (user[0].user_id == "") {
+        if (user.user_id == "") {
             alert("로그인 해 주세요")
             return
         }
-         sendPost(URL + '/InsertReview' , null,
-         {
-            usernm:user.user_nm,
-            usercosmeticname:data.cos_name,
-            userrating:review.rating,
-            userreview:review.review
-        })
+
+        console.log(item.idx);
+        
+
+        sendPost(URL + '/InsertReview',  threeget ,
+            {
+                user_nm: user.user_nm,
+                cos_name: item.cos_name,
+                rating: index,
+                review: contents
+
+            })
     }
+
+
     return (
         <>
+            {/* 댓글 쓰는 창 */}
+            <div className='reviewcommentmainbox'>
+            <div className='settingstar'>
+                <span className='settingstartext px-20'>
+                    화장품 만족도는 어떠셨나요? 후기 남겨주세요!
+                </span>
+            </div>
 
-<div className='review_containerbox' style={{ marginTop: "40px" }}>
-    <input
-        className="review_container"
-        type="text"
-        placeholder='댓글을 입력해주세요...'
-        value={contents}
-        onChange={(e) => setContents(e.target.value)}
-        style={{ height: '40px', lineHeight: '40px' }} // 추가된 스타일
-    />
-</div>
+            <div className='setstarmenu px-20'>
+            <span className='setstarmenutext'>평점 남기기</span>
+            {setStarMenu(setIndex)}
+            </div>
 
-        {/* 등록버튼 */}
-        <div className='reviewenterbox'>
-        <div className='reviewenter' onClick={()=>sendReview()}>
-            등록
-        </div>
-        </div>
+            <div className='review_containerbox'>
+                <input
+                    className="review_container"
+                    type="text"
+                    placeholder='댓글을 입력해주세요...'
+                    value={contents}
+                    onChange={(e) => setContents(e.target.value)}
+                    style={{ height: '40px', lineHeight: '40px' }} // 추가된 스타일
+                />
+            </div>
+
+            {/* 등록버튼 */}
+            <div className='reviewenterbox'>
+                <button className='reviewenter' onClick={() => sendReview()}>
+                    등록
+                </button>
+            </div>
+            </div>
 
         </>
     );

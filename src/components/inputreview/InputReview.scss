@@ -6,8 +6,8 @@
 .review_container{
     width: 80%;
     height: 55px;
-    border: 1px solid #0099FC;
-    border-radius: 10px;
+    border: 1px solid #0099fc00;
+    border-radius: 7px;
 }
 
 .reviewenterbox {
@@ -26,7 +26,7 @@
     border: 2px solid #0099FC;
     text-align: center;
     border-radius: 15px;
-    line-height: 40px;
+    line-height: 36px;
     font-weight: 600;
     color: white;
     margin-top: 25px;
@@ -35,3 +35,34 @@
     background-color: #0099FC;
 }
 
+.reviewcommentmainbox{
+    padding-top: 10px;
+    background-color: #0099fc2e;
+    padding-bottom: 30px;
+}
+
+.settingstar {
+    display: flex;
+    margin-top: 40px;
+}
+
+.settingstartext {
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.setstarmenu{
+    display: flex;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    margin-left: 48px;
+}
+
+.setstarmenutext{
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px;
+    line-height: 19px;;
+}

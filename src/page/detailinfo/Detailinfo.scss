@@ -58,6 +58,9 @@
     justify-content: center;
 }
 
+// 이미지 흐리게 처리하는 기능
+// filter: blur(5px);
+// -webkit-filter: blur(5px);
 
 .starinfo {
     display: flex;
@@ -626,7 +629,6 @@
     background-color: rgb(242, 242, 242, var(--tw-bg-opacity));
     height: 6px;
     border-width: 0px;
-    margin-top: 50px;
 }
 
 .margintop1 {
@@ -871,8 +873,7 @@ input[type="radio"] {
 
 .accountinfo {
     margin: auto;
-    ;
-    margin-left: 10px;
+    margin-left: 18px;
 }
 
 .pagination {
@@ -914,7 +915,7 @@ video {
 }
 
 .hds-text-subtitle-medium {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: 0;
     line-height: 21px;
@@ -985,6 +986,7 @@ video {
 .reviewcomment {
     margin-left: 10px;
     line-height: 32px;
+    margin-right: 10px;
 }
 
 .sosocommentmain {
@@ -1069,16 +1071,6 @@ video {
     margin-bottom: 55px;
 }
 
-.settingstar {
-    display: flex;
-    margin-top: 40px;
-}
-
-.settingstartext {
-    display: flex;
-    font-size: 20px;
-    font-weight: 700;
-}
 
 
 // 전체 리뷰보기 버튼
