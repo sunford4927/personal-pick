@@ -89,11 +89,8 @@ function App() {
                     <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
                     <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>
                     <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
-<<<<<<< HEAD
                     <Route path='/airecommend' element={<AiRecommend/>}></Route>
-=======
                     <Route path='/complete' element={<OrderComplete/>}></Route>
->>>>>>> a46da76b8d92890b346567d9b3f7d3e0c3294814
                 </Routes>
                 <Footer></Footer>
             </div>

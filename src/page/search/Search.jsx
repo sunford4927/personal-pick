@@ -140,7 +140,7 @@ const Search = () => {
     let today = new Date()
 
     return (
-        <div id='wrapper'>
+        <div>
             {/* <div id='main'> */}
             <div className={`Search ${isSticky ? 'sticky' : ''}`}>
                 {/* InputBox 컴포넌트에 searchAdd 함수를 전달하여 검색어 입력 시 호출되게 함 */}
