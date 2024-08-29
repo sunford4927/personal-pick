@@ -3,8 +3,38 @@
 
     .orderC_title{
         font-weight: 800;
+        text-align: center;
+        padding : 40px 0;
+        border-bottom : 5px solid rgb(226, 226, 226);
     }
     .orderC_blue{
         color : #0099FC;
     }
+    .orderC_contents1{
+        height: 60px;
+        line-height: 34px;
+        text-align: center;
+        padding : 80px 0 ;
+        .orderC_contents1_title{
+            font-size : 25px;
+        }
+    }
+    .orderC_contents1_btn{
+        justify-content: space-around;
+        padding : 20px 0;
+        border-bottom : 15px solid rgb(226, 226, 226);
+        .basket_middle_btn{
+            width : 200px;
+             
+        }
+    }
+    .orderC_subtitle{
+        padding : 20px 0;
+        padding-left: 20px;
+        border : 1px solid rgb(226, 226, 226);
+    }
+    .orderC_gray{
+        color : rgb(226, 226, 226);
+    }
+ 
 }
