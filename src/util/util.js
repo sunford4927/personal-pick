@@ -6,7 +6,7 @@ import { IP } from './setIp';
 import emptyStar from '../img/빈별.png'
 import star from '../img/별.png'
 import { loadTossPayments } from '@tosspayments/payment-sdk';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export function sendGet(url, func = null) {
     axios
@@ -245,15 +245,16 @@ export function showPayMent(userId, price, ItemName, address) {
                 orderId: id, // 주문번호
                 orderName: ItemName.orderName, // 구매상품
                 customerName: userId, // 구매자 이름
-                successUrl: "http://localhost:3500/complete", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
-                failUrl: "https://docs.tosspayments.com/guides/payment/test-fail", // 결제 실패 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
+                // successUrl: "http://localhost:3500/complete", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
+                // failUrl: "https://docs.tosspayments.com/guides/payment/test-fail", // 결제 실패 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
             })
             .then(res => {
                 let dic = {
                     paymentKey : res.paymentKey, 
                     user_id : userId, 
                     orderName : ItemName.orderName, 
-                    address : address, 
+                    address : address.user_address, 
+                    address_idx : address.address_idx,
                     totalAmount : price,
                     orderId : id,
                     itemIdList : ItemName.itemIdList,
@@ -261,7 +262,7 @@ export function showPayMent(userId, price, ItemName, address) {
                     // 아이템 개수, 아이템 id 값  
                 };
                 sendPost(URL+"/payment",null, dic);
-                
+                window.location = "/complete?orderId="+res.paymentKey+"&address_id="+address.address_idx;
             })
             // ------ 결제창을 띄울 수 없는 에러 처리 ------
             // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.

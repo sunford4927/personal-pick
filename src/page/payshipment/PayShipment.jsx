@@ -301,7 +301,7 @@ const PayShipment = () => {
                                 showModal((<p>기본 배송지 설정이 안되어있는상태입니다!</p>))
                             }
                             else{
-                                showPayMent(state.user_id,totalPrice, sendData,state.user_address)
+                                showPayMent(state.user_id,totalPrice, sendData,defaultAddr)
                             }
                             }}>
                             {totalPrice + 3000 + "원 결제하기"}
