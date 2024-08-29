@@ -37,7 +37,7 @@ class ppInsertAdd(Resource):
                 WHERE user_id = %s
                 AND default_address = 1
             """
-            PostQuery(update_default_sql, (user_id,))
+            PostQuery(update_default_sql, (user_id))
         
         # 새로운 배송지 추가
         insert_sql = """

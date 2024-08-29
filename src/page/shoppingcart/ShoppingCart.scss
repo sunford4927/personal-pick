@@ -75,10 +75,12 @@
 .basket_middle_btn:first-child{
     border : 1px solid #0099FC;
     color : #0099FC;
+    box-sizing: border-box;
 }
 
 .basket_middle_btn:last-child{
     background: #0099FC;
+    
 }
 
 .tax_title{

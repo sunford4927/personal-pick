@@ -99,10 +99,6 @@ const Category = ({categoryData}) => {
         let titleStr = title.split("\n")[0];
         let list1 = getChoiceRankingData(titleStr); 
         
-        // if(title === "검색하기" ){
-        //     title = categoryData[0]
-        // }
-
         dispatch(setHomeCategoryMenu(titleStr,list1, e.target.innerText));
 
         modalClose()

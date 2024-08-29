@@ -8,6 +8,7 @@ class payment(Resource):
         value = request.get_json()
         print("value : ",value['data']['paymentKey'])
         conn = http.client.HTTPSConnection("api.tosspayments.com")
+        
 
         payload = ("{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"totalAmount\":%d}" %(value['data']['paymentKey'], value['data']['orderId'], value['data']['totalAmount']))
 
@@ -20,7 +21,6 @@ class payment(Resource):
 
         res = conn.getresponse()
         data = res.read()
-        
 
         # data2 = value
         # print('data1 : ',value['data']['paymentKey'])

@@ -31,7 +31,11 @@ import { useEffect, useState } from 'react';
 import SubscriptionIntroduce from './page/subscriptionintoduce/SubscriptionIntroduce';
 import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
 import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
+<<<<<<< HEAD
 import AiRecommend from './page/airecommend/AiRecommend';
+=======
+import OrderComplete from './page/ordercomplete/OrderComplete';
+>>>>>>> a46da76b8d92890b346567d9b3f7d3e0c3294814
 
 
 function App() {
@@ -79,19 +83,22 @@ function App() {
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>
-                    <Route path='/payshipment' element={<PayShipment />}></Route>
+                    <Route path='/payshipment/' element={<PayShipment />}></Route>
+                    <Route path='/payshipment/:cos_id/:cos_count' element={<PayShipment />}></Route>
                     <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
                     <Route path='/subscriptionintroduce' element={<SubscriptionIntroduce/>}></Route>
                     <Route path='/subvueintroduce' element={<SubvueIntroduce/>}></Route>
                     <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
+<<<<<<< HEAD
                     <Route path='/airecommend' element={<AiRecommend/>}></Route>
+=======
+                    <Route path='/complete' element={<OrderComplete/>}></Route>
+>>>>>>> a46da76b8d92890b346567d9b3f7d3e0c3294814
                 </Routes>
                 <Footer></Footer>
             </div>
         </BrowserRouter>
     );
 }
-
-
 
 export default App;

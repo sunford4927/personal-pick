@@ -243,19 +243,22 @@ export function showPayMent(userId, price, ItemName, address) {
                 // https://docs.tosspayments.com/sdk/payment-js
                 amount: price, // 결제 금액
                 orderId: id, // 주문번호
-                orderName: ItemName, // 구매상품
+                orderName: ItemName.orderName, // 구매상품
                 customerName: userId, // 구매자 이름
-                // successUrl: "https://localhost:3500", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
-                // failUrl: "https://docs.tosspayments.com/guides/payment/test-fail", // 결제 실패 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
+                successUrl: "http://localhost:3500/complete", // 결제 성공 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
+                failUrl: "https://docs.tosspayments.com/guides/payment/test-fail", // 결제 실패 시 이동할 페이지(이 주소는 예시입니다. 상점에서 직접 만들어주세요.)
             })
             .then(res => {
                 let dic = {
                     paymentKey : res.paymentKey, 
                     user_id : userId, 
-                    orderName : ItemName, 
+                    orderName : ItemName.orderName, 
                     address : address, 
                     totalAmount : price,
-                    orderId : id
+                    orderId : id,
+                    itemIdList : ItemName.itemIdList,
+                    itemCntList : ItemName.itemCntList ,
+                    // 아이템 개수, 아이템 id 값  
                 };
                 sendPost(URL+"/payment",null, dic);
                 
