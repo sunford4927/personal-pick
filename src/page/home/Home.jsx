@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {motion} from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
 import { sendGet, sendPost, showMap, showPayMent, URL } from "../../util/util";
 import Category from "../../components/category/Category";
@@ -73,7 +73,7 @@ const Home = () => {
 
              {/* 추천 화장품 광고 배너 */}
 
-             <div className="adbannermain">
+             <div className="adbannermain" onClick={() => nav('/airecommend')}>
                 <div className="adbannercontainer">
                 <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
                 <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
@@ -138,7 +138,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                내 피부에 꼭 맞는 제품 랭킹
+                내 피부에 꼭 맞는 제품 랭킹🏆
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             
@@ -163,7 +163,7 @@ const Home = () => {
                 }}
                 >
             <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                나이대별 추천
+                나이대별 추천💡
                 <img className="category_arrow" src={Right} alt="" /> 
             </div>
             

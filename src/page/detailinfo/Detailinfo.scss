@@ -6,7 +6,7 @@
     background: white;
     border-bottom: 1px solid rgb(255, 255, 255);
     top: 0px;
-    z-index: 1;
+    z-index: 10;
     position: sticky;
 
     /* 스크롤 시 그림자 추가 */
@@ -966,6 +966,7 @@ video {
 
 .w-\[1px\] {
     width: 3px;
+    z-index: 1;
 }
 
 .text-gray-quaternary {
