@@ -23,7 +23,6 @@ class payment(Resource):
 
         res = conn.getresponse()
         data = res.read()
-<<<<<<< HEAD
 
         # print("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", data)
         
@@ -32,8 +31,6 @@ class payment(Resource):
         # print("test :", type({}))
         # print("new Type : ", type(newData))
         # print("newdata :", newData['mId'])
-=======
->>>>>>> 15e1947b26d5ff730aea47a86b2052cd14df0840
 
         # data2 = value
         # print('data1 : ',value['data']['paymentKey'])

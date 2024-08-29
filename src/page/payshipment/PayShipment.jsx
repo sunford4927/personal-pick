@@ -180,6 +180,7 @@ const PayShipment = () => {
                         <li className='delivery_text' onClick={() => setCheck(false)}>배송지 목록</li>
                     </ul>
                 </div>
+                <hr className='thin_grayline' />
 
                 {check ?
                     <>
@@ -195,24 +196,25 @@ const PayShipment = () => {
                                     </div>
                                     <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
                                     <div className='delivery_phone'>{defaultAddr.phone_num}</div>
+                                    <div className='delevery_msg'>{defaultAddr.msg}</div>
                                 </div>
 
 
                                 <hr className='thin_grayline' />
 
                                 {/* 배송지 드롭다운 */}
-                                <div className='delivery_dropdown'>
-                                    <button className='dropdown_toggle' onClick={dropdownToggle}>
-                                        {dropdownOptionSelect} {/* 배송지 선택된 옵션*/}
-                                        <img className='dropdown_triangle' src={Triangle} />
-                                    </button>
-                                    {dropdownOpenClose && (<ul className='dropdown_menu'>
-                                        {options.map((option, idx) => (
-                                            <li key={idx} onClick={() => optionSelect(option)}>{option}</li>
-                                        ))}
-                                    </ul>
-                                    )}
-                                </div>
+                                {/* <div className='delivery_dropdown'> */}
+                                    {/* <button className='dropdown_toggle' onClick={dropdownToggle}> */}
+                                        {/* {dropdownOptionSelect} 배송지 선택된 옵션 */}
+                                        {/* <img className='dropdown_triangle' src={Triangle} /> */}
+                                    {/* </button> */}
+                                    {/* {dropdownOpenClose && (<ul className='dropdown_menu'> */}
+                                        {/* {options.map((option, idx) => ( */}
+                                            {/* <li key={idx} onClick={() => optionSelect(option)}>{option}</li> */}
+                                        {/* ))} */}
+                                    {/* </ul> */}
+                                    {/* )} */}
+                                {/* </div> */}
                             </div>
                         }
 
@@ -309,7 +311,9 @@ const PayShipment = () => {
 
                     : <>
 
+
                         <div>
+                        {/* <hr className='thin_grayline' /> */}
                             {deliveryAddress.map((item,idx)=>{
 
                                 return(
@@ -319,7 +323,8 @@ const PayShipment = () => {
                                                 <div className='deliverylist_namebasic'>
                                                     {/* <br /> */}
                                                     <span className='deliverylist_name'>{item.receive_name}</span>
-                                                    <span className='deliverylist_basic'>[기본배송지]</span>
+                                                    {item.default_address === 1 ?  
+                                                    <span className='deliverylist_basic'>[기본배송지] </span> : <div/>}
                                                     {/* {item.default_address && <span>[기본]</span>} */}
                                                 </div>
                                                 <div className='deliverylist_address'>{formatAddress(item.user_address)}</div>
@@ -328,7 +333,7 @@ const PayShipment = () => {
                                             </div>
                                             <div className='deliverylist_btn'>
 
-                                                <button onClick={() => sendDel(URL + '/EditAddress', (() => sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)), { address_idx: item.address_idx })}>삭제</button>
+                                                <button className='deliverylist_del' onClick={() => sendDel(URL + '/EditAddress', (() => sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)), { address_idx: item.address_idx })}>삭제</button>
                                                 <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
                                             </div>
                                         </div>
@@ -343,7 +348,7 @@ const PayShipment = () => {
 
 
                             <div className='delivery_add'>
-                                <button onClick={() => nav('/addressadd/추가/-100')}>배송지추가</button>
+                                <button className='deliverylist_add' onClick={() => nav('/addressadd/추가/-100')}>배송지추가</button>
                             </div>
                         </div>
 

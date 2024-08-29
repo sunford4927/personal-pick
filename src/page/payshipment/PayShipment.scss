@@ -68,12 +68,21 @@
     font-size: 13px;
     color: #383838;
     margin-top: 18px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .delivery_phone {
     color: #333333;
-    font-size: 14px;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+
+.delevery_msg{
+    color: #333333;
+    font-size: 13px;
+
 }
 
 .thin_grayline {
@@ -247,4 +256,99 @@
     justify-content: space-between;
     background-color: #e9e9e9;
     color: #5a5a5a;
+}
+
+// 이름
+.deliverylist_name {
+    font-weight: 700;
+    font-size: 16px;
+    
+}
+
+// 기본 배송지
+.deliverylist_basic{
+    color:#00c1fc;  // 이거 걍 설계도랑 비슷하게 하려고 대충 한 거라 맘에 안 들면 바꿔
+    font-size: 13px;
+    padding-left: 5px;
+    font-weight: 600;
+
+}
+
+// 이름, 기본 배송지 합친 박스
+.deliverylist_namebasic{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.deliverylist_address{
+    margin-top: 10px;
+    font-size: 13px;
+    color: #383838;
+}
+
+.deliverylist_phone {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #333333;
+}
+
+.deliverylist_msg{
+    margin-top: 12px;
+    // margin-bottom: 20px;
+    font-size: 13px;
+    color: #333333;
+}
+
+.deliverylist_btn{
+    // margin-top: 20px;
+    margin-bottom: 8px;
+    padding-left: 500px; // 이거는 두 개 오른쪽 정렬 가능한데 이렇게 할 거면 걍 공중에 띄우는게 나을 듯
+}
+
+
+.deliverylist_del{
+    margin-right: 10px;
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: red;
+    border-color:#d7d5d5;
+    border-width: thin;
+
+    
+}
+
+.deliverylist_edit{
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: #00c1fc;
+    border-color:#d7d5d5;
+    border-width: thin;
+    // margin-left: 500px; // 버튼 두 개 찢어놓으면 안 예뽀
+
+}
+
+.deliverylist_add{
+    background-color: white;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding-left: 280px;
+    padding-right: 280px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #00c1fc;
+    font-weight: bold;
+    border-color:#d7d5d5;
+    border-width: thin;
+    font-weight: 900;
+
+}
+
+.deliverylist_list{
+    padding-left: 16px;
 }
