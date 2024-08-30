@@ -5,10 +5,15 @@
     font-weight: 600;
     margin-left: 11px;
     margin-bottom: 55px;
+    display: flex;
 }
 
 .compositiontext{
-    display: flex;
+
+}
+
+.totaling{
+    margin-left: 5px;
 }
 
 // 청록색 부분
@@ -89,4 +94,30 @@
 
 .lowdanger{
     
+}
+
+.ingmaintext{
+
+}
+
+.ingscore{
+    display: flex;
+}
+
+.ingeng{
+    display: flex;
+    font-size: 17px;
+
+}
+
+.ingkor{
+    display: flex;
+    font-size: 17px;
+
+}
+
+.inguse{
+    display: flex;
+    font-size: 17px;
+
 }

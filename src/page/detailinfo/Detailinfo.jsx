@@ -87,6 +87,8 @@ const Detailinfo = () => {
         
     });
 
+    
+
     useEffect(()=> {
         console.log(data);
         
@@ -112,6 +114,7 @@ const Detailinfo = () => {
          setTotal(review.length);
      });
 
+    
 
     //  useEffect(()=> {
     //   setCurrentPosts(review.slice(indexOfFirstPage, indexOfLastPage));
@@ -525,7 +528,7 @@ const Detailinfo = () => {
                             
                             <div className='ingredientdropbox'>
                                 <input id="dropdown" type="checkbox" />
-                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient/>)}}>
+                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient idx = {idx}/>)}}>
                                     <div>화장품 성분보기</div>
                                     <FaAngleDown className="caretIcon" />
                                 </label>

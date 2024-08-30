@@ -7,11 +7,12 @@ import './Ingredient.scss'
 
 
 
-const Ingredient = () => {
+const Ingredient = (props) => {
 
   const [cosingredient, setCosIngredient] = useState([]);
   const [data, setData] = useState([]);
-  const { idx } = useParams();
+  const [totalIngredients, setTotalIngredients] = useState(0);
+  const { idx } = props;
 
   useEffect(() => {
     sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
@@ -25,24 +26,32 @@ const Ingredient = () => {
   }, [data]);
 
 
+
   useEffect(() => {
     console.log(cosingredient);
+    console.log(props);
+    
   })
+
+  useEffect(() => {
+    setTotalIngredients(cosingredient.length);
+  }, [cosingredient]);
 
 
 
   return (
     <div>
     {/* 성분 구성 */}
-
     <div className="ingredientcomposition mt-8 px-20">
       <span className="compositiontext">성분 구성</span>
+      <span className='totaling'>{totalIngredients}개</span>
     </div>
 
+    
     {/* 성분 구성 위험 단계 */}
     <div className="colordanger flex justify-between mt-16">
       <div className="bluecolor gap-x-4">
-        <div className="w-[10px] h-[10px] rounded-full bg-mint-600">개</div>
+        <div className="w-[10px] h-[10px] rounded-full bg-mint-600"></div>
         <div className="lowdanger">
           <span className="hds-text-smalltext-large text-mint-600">1-2</span>
           <span className="hds-text-smalltext-large text-gray-tertiary">낮은 위험</span>
@@ -68,14 +77,16 @@ const Ingredient = () => {
     </div>
 
     {/* 성분 목록 */}
-   
+    {cosingredient.map((ingredient) => (
+    <div key={ingredient.ing_idx}>
         <div className="ingmaintext">
-            <div key={cosingredient.ing_idx}>
-              <span>{cosingredient.eng_name}</span>
-              <span>{cosingredient.kor_name}</span>
+              <span className='ingscore'>{ingredient.score}</span>
+              <span className='ingeng'>{ingredient.eng_name}</span>
+              <span className='ingkor'>{ingredient.kor_name}</span>
+              <span className='inguse'>{ingredient.use}</span>
             </div>
-
         </div>
+        ))}
     </div>
   )
 }
