@@ -4,7 +4,11 @@ import React, { useEffect, useState } from 'react';
 import "./Menu.scss"
 import UserImg from "../../img/사용자프로필.png"
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LogoutSession } from '../../util/session';
+import { setUser } from '../../redux/type/typefunc';
+
+
 
 
 const Menu = ({ isView }) => {
@@ -12,6 +16,11 @@ const Menu = ({ isView }) => {
     
     const isMenuView = useSelector(state => state.isMenu)
     const name = useSelector(state => state.user);
+    const dispatch = useDispatch();
+    function logout(){
+        LogoutSession();
+        dispatch(setUser({}));
+    }
     return (
         <>
             { 
@@ -23,15 +32,22 @@ const Menu = ({ isView }) => {
                     </div>
                     <div className='menu_box'>
                         <hr />
-                        <p className='menu_sub_title cursor'>제품</p>  
-                        <hr />
-                        <p className='menu_sub_title cursor'>본품</p>
-                        <p className='menu_sub_title cursor'>샘플</p>
-                        <hr />
+                        <p className='menu_sub_title cursor'>피부타입별</p>
+                        <p className='menu_sub_title cursor'>나이대별</p>
                         <p className='menu_sub_title cursor' onClick={() => nav("/subscription")}>정기배송/구독</p>
-                        <hr />
-                        <p className='menu_sub_title cursor'>리뷰</p>
-                        {name !== null && <p className='menu_sub_title cursor' onClick={()=>nav("/mypage")}>마이페이지</p>}
+                        {name.user_id !== undefined && 
+                        <>
+                            <p className='menu_sub_title cursor' onClick={()=>nav("/mypage")}>마이페이지</p>
+                            <hr/>
+                            <p className='menu_sub_title cursor' onClick={()=>nav("/cartlist")}>장바구니</p>
+                            <hr />
+                            <p className='menu_sub_title cursor' >나의 리뷰</p>
+                            <hr />
+                            <p className='menu_sub_title cursor' >배송지</p>
+                            <hr />
+                            <p className='menu_sub_title cursor' onClick={()=>logout()}>로그아웃</p>
+                        </>
+                        }
                     </div>
                 </div>
 

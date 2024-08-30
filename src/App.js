@@ -79,7 +79,7 @@ function App() {
                     <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
-                    <Route path='/cartlist' element={<ShoppingCart />}></Route>
+                    <Route path='/ ' element={<ShoppingCart />}></Route>
                     <Route path='/payshipment/' element={<PayShipment />}></Route>
                     <Route path='/payshipment/:cos_id/:cos_count' element={<PayShipment />}></Route>
                     <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
