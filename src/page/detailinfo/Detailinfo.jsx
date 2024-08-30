@@ -50,9 +50,12 @@ const Detailinfo = () => {
     const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
+    const [cosingredient,setCosIngredient] = useState([]);
 
 
-    const { idx } = useParams()
+
+    const { idx } = useParams();
+
 
     useEffect(() => {
         sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
@@ -60,6 +63,7 @@ const Detailinfo = () => {
         sendGet(URL + "/RatingAvg?idx=" + idx, setScoreAvg); // 평점 평균
         sendGet(URL + "/RatingCnt?idx=" + idx, setScoreCnt); // 그래프 바 평점 개수
         sendGet(URL + "/ReviewCnt?idx=" + idx, setReviewCnt); // 리뷰 개수
+       
     }, []);
 
     // 페이지네이션 함수
@@ -78,6 +82,18 @@ const Detailinfo = () => {
         setPostPerPage(pageSize);
     };
 
+    useEffect(() => {
+        console.log(cosingredient);
+        
+    });
+
+    useEffect(()=> {
+        console.log(data);
+        
+       if (data.length > 0) {
+        sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name , setCosIngredient) // 화장품 성분 데이터
+       }
+    },[data])
 
     // useEffect(() => {
     //     sendGet(URL + "/ReviewPage?idx=" + idx, (data) => {
@@ -421,7 +437,7 @@ const Detailinfo = () => {
                                 ))}
 
 
-                                <div className='w-[1px] bg-gray-300' />
+                                <div className='w-[1px] bg-gray-300 reviewallbar' />
 
                                 {/* 평점 별점그래프 구간 */}
                                 <div className="flex gap-x-8 h-[95px]">
@@ -506,14 +522,15 @@ const Detailinfo = () => {
                                 <span>성분</span>
                             </div>
 
-
+                            
                             <div className='ingredientdropbox'>
                                 <input id="dropdown" type="checkbox" />
-                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient />) }}>
+                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient/>)}}>
                                     <div>화장품 성분보기</div>
                                     <FaAngleDown className="caretIcon" />
                                 </label>
                             </div>
+                    
 
 
                             <hr className='allingredientbar' />

@@ -1,43 +1,81 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
+import { URL } from '../../util/util';
+import { sendGet } from '../../util/util';
+import { useParams } from 'react-router-dom';
+import './Ingredient.scss'
+
+
 
 const Ingredient = () => {
+
+  const [cosingredient, setCosIngredient] = useState([]);
+  const [data, setData] = useState([]);
+  const { idx } = useParams();
+
+  useEffect(() => {
+    sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
+  }, []);
+  
+  useEffect(() => {
+    if (data.length > 0) {
+      sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name, setCosIngredient);
+      console.log("Fetched Ingredient Data:", cosingredient); // Log the data after fetching
+    }
+  }, [data]);
+
+
+  useEffect(() => {
+    console.log(cosingredient);
+  })
+
+
+
   return (
     <div>
+    {/* 성분 구성 */}
 
-      {/* 성분 구성 */}
-      <div className='ingredientcomposition mt-8 px-20'>
-        <span className='compositiontext'>성분 구성</span>
-      </div>
+    <div className="ingredientcomposition mt-8 px-20">
+      <span className="compositiontext">성분 구성</span>
+    </div>
 
-      {/* 성분 구성 위험 단계 */}
-
-      <div class="colordanger flex justify-between mt-16">
-        <div className="flex items-center gap-x-4">
-          <div className="w-[10px] h-[10px] rounded-full bg-mint-600"></div>
+    {/* 성분 구성 위험 단계 */}
+    <div className="colordanger flex justify-between mt-16">
+      <div className="bluecolor gap-x-4">
+        <div className="w-[10px] h-[10px] rounded-full bg-mint-600">개</div>
+        <div className="lowdanger">
           <span className="hds-text-smalltext-large text-mint-600">1-2</span>
           <span className="hds-text-smalltext-large text-gray-tertiary">낮은 위험</span>
         </div>
-
-        <div className="flex items-center gap-x-4">
-          <div className="w-[10px] h-[10px] rounded-full bg-yellow-600"></div>
-          <span className="hds-text-smalltext-large text-yellow-600">3-6</span>
-          <span className="hds-text-smalltext-large text-gray-tertiary">중간 위험</span>
-        </div>
-
-        <div className="flex items-center gap-x-4">
-          <div className="w-[10px] h-[10px] rounded-full bg-red-600"></div>
-          <span className="hds-text-smalltext-large text-red-600">7-10</span>
-          <span className="hds-text-smalltext-large text-gray-tertiary">높은 위험</span>
-        </div>
-
-        <div className="flex items-center gap-x-4">
-          <div className="w-[10px] h-[10px] rounded-full bg-gray-600"></div>
-          <span className="hds-text-smalltext-large text-gray-tertiary">등급 미정</span>
-        </div>
       </div>
 
+      <div className="yellowcolor gap-x-4">
+        <div className="w-[10px] h-[10px] rounded-full bg-yellow-600"></div>
+        <span className="hds-text-smalltext-large text-yellow-600">3-6</span>
+        <span className="hds-text-smalltext-large text-gray-tertiary">중간 위험</span>
+      </div>
 
+      <div className="redcolor gap-x-4">
+        <div className="w-[10px] h-[10px] rounded-full bg-red-600"></div>
+        <span className="hds-text-smalltext-large text-red-600">7-10</span>
+        <span className="hds-text-smalltext-large text-gray-tertiary">높은 위험</span>
+      </div>
 
+      <div className="graycolor gap-x-4">
+        <div className="w-[10px] h-[10px] rounded-full bg-gray-600"></div>
+        <span className="hds-text-smalltext-large text-gray-tertiary">등급 미정</span>
+      </div>
+    </div>
+
+    {/* 성분 목록 */}
+   
+        <div className="ingmaintext">
+            <div key={cosingredient.ing_idx}>
+              <span>{cosingredient.eng_name}</span>
+              <span>{cosingredient.kor_name}</span>
+            </div>
+
+        </div>
     </div>
   )
 }
