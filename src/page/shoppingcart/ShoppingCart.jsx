@@ -168,8 +168,8 @@ const ShoppingCart = () => {
                 <span className='float_r basket_price basket_color_text'>{totalPrice+3000+"원"}</span>
             </div>
             <div className='pay_fix_btn' onClick={()=>{
-                sendPost(URL+"/OrderCart", null , data)
-                nav('/payshipment')
+                sendPost(URL+"/OrderCart", (()=>nav('/payshipment')) , data)
+                
                 }}>
                 {totalPrice+3000+"원 주문하기"}
             </div>
