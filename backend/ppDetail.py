@@ -140,3 +140,24 @@ class ppInsertReview(Resource):
         data = (cos_name, nm, rating, review)
 
         PostQuery(insert_sql, data)
+
+
+
+
+class ppGetIngredient(Resource):
+    def get(self):
+        value = request.args.to_dict()
+
+        # print('result_ingredientttttttttttttttttttttttttttttttttttt', value)
+
+        cos_name = value['cos_name']
+       
+        data = setQuery("""
+                SELECT 
+                    *
+                FROM 
+                    result_ingredient
+                WHERE 
+                    cos_name = %s
+                """, cos_name)
+        return jsonify(data)

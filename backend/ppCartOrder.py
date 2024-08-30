@@ -265,13 +265,11 @@ class ppUpdateCartCnt(Resource):
             # return jsonify({"message": "An error occurred."}), 500
 
 
-
-class ppOrderHistory(Resource):
+class ppOrderHistoryOne(Resource):
     def get(self):
         value = request.args.to_dict()
 
-        # print('valllllllllllll', value)
-        # payment = value.get('payment')
+        # print('payment valllllllllllll', value)
         payment = value['payment']
         idx = value['a_idx']
         
@@ -297,4 +295,48 @@ class ppOrderHistory(Resource):
                 """, (payment, idx))
 
         return jsonify(data)
+
+
+class ppSubscribeHistory(Resource):
+    def get(self):
+        value = request.args.to_dict()
+        # print('valllllllllllllllllll', value)
+
+        user_id = value['user_id']
+        order_name = value['order_name']
+
+        data = setQuery("""
+                SELECT 
+                    *
+                FROM 
+                    result_order
+                WHERE 
+                    user_id = %s
+                    AND order_name = %s
+                """, (user_id, order_name))
+
+        return jsonify(data)
+    
+
+class ppOrderHistory(Resource):
+    def get(self):
+        value = request.args.to_dict()
+        # print('valllllllllllllllllll', value)
+
+        user_id = value['user_id']
+        order_name = value['order_name']
+
+        data = setQuery("""
+                SELECT 
+                    *
+                FROM 
+                    result_order
+                WHERE 
+                    user_id = %s
+                    AND not order_name = '구독결제'
+                """, user_id, order_name)
+
+        return jsonify(data)
        
+       
+    
