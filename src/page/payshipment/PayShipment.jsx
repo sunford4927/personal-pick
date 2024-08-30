@@ -5,7 +5,8 @@ import Triangle from '../../img/역삼각형.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { sendDel, sendGet, showIngredient, showModal, showPayMent, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
-
+import AddressList from '../addresslist/AddressList';
+import Right from "../../img/오른쪽.png"
 
 const PayShipment = () => {
 
@@ -57,7 +58,7 @@ const PayShipment = () => {
     }
 
     function setDeliverData(data) {
-        
+
         setDeliveryAddress(data)
     }
 
@@ -100,57 +101,52 @@ const PayShipment = () => {
         let price = 0;
         let itemIdList = "";
         let itemCntList = "";
-        
+
         for (let i = 0; i < orderProduct.length; i++) {
             price += orderProduct[i].total_price;
             itemIdList += orderProduct[i].idx
             itemCntList += orderProduct[i].buy_cnt
-            if(i !== orderProduct.length-1)
-            {
+            if (i !== orderProduct.length - 1) {
                 itemIdList += ","
                 itemCntList += ","
             }
         }
 
         setTotalPrice(price)
-        if(orderProduct.length >0)
-        {
+        if (orderProduct.length > 0) {
             setSendData({
-                orderName : orderProduct.length ===1 ? orderProduct[0].cos_name : `${orderProduct[0].cos_name} 외 ${orderProduct.length-1}건`,
-                itemIdList : itemIdList,
-                itemCntList : itemCntList,
+                orderName: orderProduct.length === 1 ? orderProduct[0].cos_name : `${orderProduct[0].cos_name} 외 ${orderProduct.length - 1}건`,
+                itemIdList: itemIdList,
+                itemCntList: itemCntList,
             })
         }
-        
+
     }, [orderProduct])
 
     const [defaultAddr, setDefaultAddr] = useState({
-        address_idx:"",
-        default_address:"",
-        msg : "",
+        address_idx: "",
+        default_address: "",
+        msg: "",
         user_address: ""
-        
+
     });
-    useEffect(()=>{
-        if(typeof(deliveryAddress) !== "undefined")
-        {
-            let list = deliveryAddress.filter((item)=> item.default_address === 1)
-            if(list.length >0)
-            {
+    useEffect(() => {
+        if (typeof (deliveryAddress) !== "undefined") {
+            let list = deliveryAddress.filter((item) => item.default_address === 1)
+            if (list.length > 0) {
                 setDropdownOptionSelect(list[0].msg)
                 setDefaultAddr(list[0])
             }
-            else{
-                setDefaultAddr({user_address: ""})
+            else {
+                setDefaultAddr({ user_address: "" })
             }
         }
-    },[deliveryAddress])
+    }, [deliveryAddress])
 
     // 주소 포맷팅 함수(특정 기준으로 분리&추가)
     const formatAddress = (address) => {
         // 주소를 split하여 배열로 변환
-        if(address !== "" || address !== undefined)
-        {
+        if (address !== "" || address !== undefined) {
             const parts = address.split('///');
             if (parts.length > 0) {
                 // 우편번호에 대괄호 추가
@@ -173,187 +169,130 @@ const PayShipment = () => {
 
             <div className='orderpay_body'>
                 <div className='delivery_boxes'>
-                    <ul className='delivery_btn'>
-                        <li className='delivery_text active' onClick={() => setCheck(true)}>배송지</li>
-                    </ul>
-                    <ul className='delivery_btn'>
-                        <li className='delivery_text' onClick={() => setCheck(false)}>배송지 목록</li>
-                    </ul>
+                    <div className='delivery_btn'>
+                        <div className='delivery_text flex_col' onClick={() => nav('/addressList')}>
+
+                            <div className='delivery_boxes_left'>
+                                배송지
+                            </div>
+
+                            <img className='orderpay_back_btn ' src={Right} alt="" />
+                        </div>
+                    </div>
+
                 </div>
                 <hr className='thin_grayline' />
 
-                {check ?
-                    <>
+                <>
 
-                        {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
+                    {/* 기본 배송지가 설정된 경우, 기본 배송지를 화면에 표시  */}
 
-                        {defaultAddr.user_address !== "" &&
-                            <div>
-                                <div className='delivery_container'>
-                                    <div className='basic_name'>
-                                        <span className='basic'>[기본]</span>
-                                        <span className='delivery_name'>{defaultAddr.receive_name}</span>
+                    {defaultAddr.user_address !== "" &&
+                        <div>
+                            <div className='delivery_container'>
+                                <div className='basic_name'>
+                                    <span className='basic'>[기본]</span>
+                                    <span className='delivery_name'>{defaultAddr.receive_name}</span>
+                                </div>
+                                <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
+                                <div className='delivery_phone'>{defaultAddr.phone_num}</div>
+                                <div className='delevery_msg'>{defaultAddr.msg}</div>
+                            </div>
+
+
+                            <hr className='thin_grayline' />
+                        </div>
+                    }
+
+                    <hr className='thick_grayline' />
+
+                    <div>
+                        <div className='white_text_box'>
+                            주문상품
+                        </div>
+
+                        <hr className='thin_grayline' />
+
+
+                        {orderProduct.map((item, i) => {
+                            return (
+                                <>
+
+                                    <div key={i} className='order_product' >
+                                        <img className='order_img' style={{ width: '80px', height: '80px' }} src={item.cos_img_src} alt="" />
+                                        <div className='order_content_text' >
+                                            <div className='order_product_brandxbtn'>
+                                                <span className='order_graytext'>
+                                                    {item.brand_name}
+                                                </span>
+                                            </div>
+                                            <div className='order_product_nametext'>
+
+                                                <span className='order_product_name'>
+                                                    {item.cos_name}
+                                                </span>
+                                                <span className='order_product_vol'>
+                                                    {item.vol}
+                                                </span>
+
+                                            </div>
+                                            <div>
+                                                <span className='order_product_price'>{item.price}</span>
+                                                <span className='order_graytext'>{item.buy_cnt + "개"}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* <img className='order_x_btn ' src={XBtn} alt="" style={{ marginLeft: "50%", width: '10px', height: '10px' }} /> */}
+
+
                                     </div>
-                                    <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
-                                    <div className='delivery_phone'>{defaultAddr.phone_num}</div>
-                                    <div className='delevery_msg'>{defaultAddr.msg}</div>
-                                </div>
 
+                                </>
+                            )
+                        })}
 
-                                <hr className='thin_grayline' />
+                    </div>
 
-                                {/* 배송지 드롭다운 */}
-                                {/* <div className='delivery_dropdown'> */}
-                                    {/* <button className='dropdown_toggle' onClick={dropdownToggle}> */}
-                                        {/* {dropdownOptionSelect} 배송지 선택된 옵션 */}
-                                        {/* <img className='dropdown_triangle' src={Triangle} /> */}
-                                    {/* </button> */}
-                                    {/* {dropdownOpenClose && (<ul className='dropdown_menu'> */}
-                                        {/* {options.map((option, idx) => ( */}
-                                            {/* <li key={idx} onClick={() => optionSelect(option)}>{option}</li> */}
-                                        {/* ))} */}
-                                    {/* </ul> */}
-                                    {/* )} */}
-                                {/* </div> */}
+                    <hr className='thick_grayline' />
+
+                    <div>
+                        <div className='white_text_box'>
+                            결제정보
+                        </div>
+
+                        <hr className='thin_grayline' />
+
+                        <div className='gray_text'>
+                            <div className='gray_text_money'>
+                                <span>총 상품금액</span>
+                                <span>{totalPrice + "원"}</span>
                             </div>
+                            <div className='gray_text_money'>
+                                <span>배송비</span>
+                                <span className=''>3000원</span>
+                            </div>
+                        </div>
+
+                        <hr className='thin_grayline' />
+
+                        <div className='pay_fix_box'>
+                            <span className='pay_fix_amount'>최종 결제 금액</span>
+                            <span className='pay_fix_num'>{totalPrice + 3000 + "원"}</span>
+                        </div>
+
+                        <hr className='thin_grayline' />
+
+                    </div>
+                    <div className='pay_fix_btn cursor' onClick={() => {
+                        if (defaultAddr.user_address === "") {
+                            showModal((<p>기본 배송지 설정이 안되어있는상태입니다!</p>))
                         }
-
-                        <hr className='thick_grayline' />
-
-                        <div>
-                            <div className='white_text_box'>
-                                주문상품
-                            </div>
-
-                            <hr className='thin_grayline' />
-
-
-                            {orderProduct.map((item, i) => {
-                                return (
-                                    <>
-
-                                        <div key={i} className='order_product' >
-                                            <img className='order_img' style={{ width: '80px', height: '80px' }} src={item.cos_img_src} alt="" />
-                                            <div className='order_content_text' >
-                                                <div className='order_product_brandxbtn'>
-                                                    <span className='order_graytext'>
-                                                        {item.brand_name}
-                                                    </span>
-                                                </div>
-                                                <div className='order_product_nametext'>
-
-                                                    <span className='order_product_name'>
-                                                        {item.cos_name}
-                                                    </span>
-                                                    <span className='order_product_vol'>
-                                                        {item.vol}
-                                                    </span>
-
-                                                </div>
-                                                <div>
-                                                    <span className='order_product_price'>{item.price}</span>
-                                                    <span className='order_graytext'>{item.buy_cnt + "개"}</span>
-                                                </div>
-                                            </div>
-
-                                            {/* <img className='order_x_btn ' src={XBtn} alt="" style={{ marginLeft: "50%", width: '10px', height: '10px' }} /> */}
-
-
-                                        </div>
-
-                                    </>
-                                )
-                            })}
-
-                        </div>
-
-                        <hr className='thick_grayline' />
-
-                        <div>
-                            <div className='white_text_box'>
-                                결제정보
-                            </div>
-
-                            <hr className='thin_grayline' />
-
-                            <div className='gray_text'>
-                                <div className='gray_text_money'>
-                                    <span>총 상품금액</span>
-                                    <span>{totalPrice + "원"}</span>
-                                </div>
-                                <div className='gray_text_money'>
-                                    <span>배송비</span>
-                                    <span className=''>3000원</span>
-                                </div>
-                            </div>
-
-                            <hr className='thin_grayline' />
-
-                            <div className='pay_fix_box'>
-                                <span className='pay_fix_amount'>최종 결제 금액</span>
-                                <span className='pay_fix_num'>{totalPrice + 3000 + "원"}</span>
-                            </div>
-
-                            <hr className='thin_grayline' />
-
-                        </div>
-                        <div className='pay_fix_btn cursor' onClick={() => {
-                            if(defaultAddr.user_address === "")
-                            {
-                                showModal((<p>기본 배송지 설정이 안되어있는상태입니다!</p>))
-                            }
-                            else{
-                                showPayMent(state.user_id,totalPrice, sendData,defaultAddr)
-                            }
-                            }}>
-                            {totalPrice + 3000 + "원 결제하기"}
-                        </div> </>
-
-                    : <>
-
-
-                        <div>
-                        {/* <hr className='thin_grayline' /> */}
-                            {deliveryAddress.map((item,idx)=>{
-
-                                return(
-                                    <>
-                                        <div className='delivery_list_box'>
-                                            <div className='deliverylist_list'>
-                                                <div className='deliverylist_namebasic'>
-                                                    {/* <br /> */}
-                                                    <span className='deliverylist_name'>{item.receive_name}</span>
-                                                    {item.default_address === 1 ?  
-                                                    <span className='deliverylist_basic'>[기본배송지] </span> : <div/>}
-                                                    {/* {item.default_address && <span>[기본]</span>} */}
-                                                </div>
-                                                <div className='deliverylist_address'>{formatAddress(item.user_address)}</div>
-                                                <div className='deliverylist_phone'>{item.phone_num}</div>
-                                                <div className='deliverylist_msg'>{item.msg}</div>
-                                            </div>
-                                            <div className='deliverylist_btn'>
-
-                                                <button className='deliverylist_del' onClick={() => sendDel(URL + '/EditAddress', (() => sendGet(URL + '/addressList?userid=' + state.user_id, setDeliveryAddress)), { address_idx: item.address_idx })}>삭제</button>
-                                                <button className='deliverylist_edit' onClick={() => nav(`/addressadd/수정/${item.address_idx}`)}>수정</button>
-                                            </div>
-                                        </div>
-                                    </>
-                                )
-                            })}
-
-
-                            
-                          
-
-
-
-                            <div className='delivery_add'>
-                                <button className='deliverylist_add' onClick={() => nav('/addressadd/추가/-100')}>배송지추가</button>
-                            </div>
-                        </div>
-
-                    </>
-                }
+                        else {
+                            showPayMent(state.user_id, totalPrice, sendData, defaultAddr)
+                        }
+                    }}>
+                        {totalPrice + 3000 + "원 결제하기"}
+                    </div> </>
 
 
 

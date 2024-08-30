@@ -24,11 +24,17 @@
 }
 
 .delivery_btn {
+    width : 100%;
     margin-left: 0;
+}
+.delivery_boxes_left{
+    width : 95%;
+    line-height: 24px;
 }
 
 .delivery_text {
     // font-weight: 500;
+    
     color: #000;
     background: #fff;
     padding: 15px 10px 14px;
