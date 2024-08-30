@@ -18,7 +18,7 @@ const ShoppingCart = () => {
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
-    },[])
+    },[user])
     
     const PLUS = 0;
     const MINUS = 1;
