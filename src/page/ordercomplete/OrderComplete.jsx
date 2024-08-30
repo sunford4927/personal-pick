@@ -8,7 +8,6 @@ const OrderComplete = () => {
     const user = useSelector(state=>state.user)
     const [data, setData] = useState([])
     function addrParse(str){
-        console.log(str)
         let list = str.split("///")
         return list;
     }
@@ -16,9 +15,6 @@ const OrderComplete = () => {
         sendGet(URL+"/OrderHistoryOne?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
     },[user])
     
-    useEffect(()=>{
-        console.log(data)
-    },[data])
     return (
         <>
             {data.length > 0 &&
