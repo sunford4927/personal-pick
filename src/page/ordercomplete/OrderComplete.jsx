@@ -6,21 +6,22 @@ import { sendGet, URL } from '../../util/util';
 const OrderComplete = () => {
     const [Uri,setUri] = useSearchParams();
     const user = useSelector(state=>state.user)
-    const [data, setData] = useState({})
+    const [data, setData] = useState([])
     function addrParse(str){
-        let list = str.spilt("///")
-        
+        console.log(str)
+        let list = str.split("///")
+        return list;
     }
     useEffect(()=>{
-        sendGet(URL+"/OrderHistory?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
-    },[])
+        sendGet(URL+"/OrderHistoryOne?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
+    },[user])
     
     useEffect(()=>{
         console.log(data)
     },[data])
     return (
         <>
-            {data &&
+            {data.length > 0 &&
                 <div className='orderC'>
                 <p className='orderC_title'>주문완료</p>
                 <div className='orderC_contents1'>
@@ -32,21 +33,31 @@ const OrderComplete = () => {
                     <div className='basket_middle_btn'>계속 쇼핑하기</div>
                 </div>
 
-                <div>
+                <div className=''>
                     <p className='orderC_subtitle'>배송정보</p>
-                    <div className=''>
-                        <p><span className='orderC_gray'>받는 분</span> {data[0].receive_name}({data[0].phone_num})</p>
-                        <p><span className='orderC_gray'>배송지 </span>광주광역시</p>
+                    <div className='orderC_user_container'>
+                        <div className='orderC_user_container_row'>
+                            <div className='orderC_gray orderC_user_container_row_left'>받는 분</div> 
+                            <div className='orderC_user_container_middle'>{data[0].receive_name}({data[0].phone_num})</div>
+                        </div>
+                        <div className='orderC_user_container_row'>
+                            <div className='orderC_gray orderC_user_container_row_left'>배송지 </div>
+                            <div className='orderC_user_container_middle'>
+                                <div>
+                                    {addrParse(data[0].user_address)[1]}
+                                </div>
+                                <div className='orderC_user_container_middle_last' >
+                                    {addrParse(data[0].user_address)[2]}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-                <div>
-                    <p>배송정보</p>
-                    <p>이메일</p>
-                </div>
-                <div>
-                    <span>결제금액</span> 
-                    <span>{0 + "원"}</span>
+
+                <div className='orderC_price flex_col'>
+                    <div className='orderC_blue orderC_price_left'>결제금액</div> 
+                    <div className='orderC_blue orderC_price_right'>{data[0].price + "원"}</div>
                 </div>
             
             
