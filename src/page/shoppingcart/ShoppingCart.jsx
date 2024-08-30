@@ -18,7 +18,7 @@ const ShoppingCart = () => {
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
-    },[])
+    },[user])
     
     const PLUS = 0;
     const MINUS = 1;
@@ -33,7 +33,7 @@ const ShoppingCart = () => {
                 newData[targetNum].buy_cnt++;
                 break;
             case MINUS:
-                if(newData[targetNum].buy_cnt == 1)
+                if(newData[targetNum].buy_cnt === 1)
                 {
                     return
                 }
