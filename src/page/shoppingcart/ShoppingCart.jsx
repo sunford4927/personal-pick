@@ -18,7 +18,7 @@ const ShoppingCart = () => {
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
-    },[])
+    },[user])
     
     const PLUS = 0;
     const MINUS = 1;
@@ -33,7 +33,7 @@ const ShoppingCart = () => {
                 newData[targetNum].buy_cnt++;
                 break;
             case MINUS:
-                if(newData[targetNum].buy_cnt == 1)
+                if(newData[targetNum].buy_cnt === 1)
                 {
                     return
                 }
@@ -97,7 +97,7 @@ const ShoppingCart = () => {
 
             <p className='sampleroad_text'>샘플로드 배송상품</p>
 
-            <div className='basket_line flex_col ' style={{alignItems:"center"}}>
+            <div className='flex_col ' style={{alignItems:"center"}}>
                 <input type="checkbox" className='total_check'  onChange={(e)=> totalCheck(e)}/>
                 <div className='totalcheck_text' >전체선택</div>
                 <div className='deletebtn_text' style={{marginRight : "30px", marginLeft : "auto"}}>품절삭제</div>
