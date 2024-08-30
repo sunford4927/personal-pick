@@ -7,63 +7,67 @@ import { sendGet, sendPost, URL } from '../../util/util';
 
 import Star from '../../img/별.png'
 import { useSelector } from 'react-redux';
-
+import PageHeader from '../../components/pageheader/PageHeader';
+import OrderView from '../../components/orderview/OrderView';
+const _ = require('lodash');
 const SubscriptionManagement = () => {
     const [subTitle, setSubTitle] = useState("기초케어 제품");
     const [mainTitle, setMainTitle] = useState("구독상품 내역")
     const nav = useNavigate();
     const isSubscript = true;
     const [data, setData] = useState([])
+    const [mainData, setMainData] = useState([]);
     const user = useSelector(state=>state.user);
+    function calData(data)
+    {
+        let list = [...data]
+        for(let i =0; i< list.length; i++)
+        {
+            let date2 = list[i].order_date.split("T");
+            list[i].order_date = date2[0]
+        }
+        let DataList = _.uniqBy(list, "order_date")
+        // for (let i = 0; i< DataList.length; i++)
+        // {
+        //     let date = DataList[i].order_date.split("T");
+            
+        //     DataList[i].order_date = date[0]
+            
+        // }
+
+        setMainData(list);
+        setData(DataList)
+
+    }
     useEffect(() => {
-        sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=원더 세라마이드 모찌 토너 외 5건" , setData);
+        sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=원더 세라마이드 모찌 토너 외 5건" , calData);
     }, [user])
 
     useEffect(() => {
         console.log(data)
     }, [data])
     function changeclass(e){
-        console.log(e.target.className)
+        let list = document.getElementsByClassName('management_subtitle_contents');
+        for(let i = 0; i< list.length; i++)
+        {
+            if(e.target === list[i])
+            {
+                list[i].className = "cursor management_subtitle_contents active"
+            }
+            else{
+                list[i].className = "cursor management_subtitle_contents none"
+            }
+        }
     }
     
     const tag = 
     <>
-        <div className='flex_col management_content_box'>
-            <div className='management_content_label cursor' onClick={()=>setSubTitle("기초케어 제품")}>
-                기초케어
-            </div>
-            <div className='management_content_label cursor' onClick={()=>setSubTitle("화장품")}>
-                화장품
-            </div>
-        </div> 
-
         <div className='management_contents'>
             <div>{subTitle}</div>  
             <div >
-                {data.map((item)=>{
+                {data.map((item, i)=>{
                     return (
-                        <div className='flex_col ' key={item.cos_name}>
-                            <img src={item.cos_img_src} style={{ width: 80, height: 80 }} alt="" />
-                            <div style={{alignContent: "center", lineHeight: "25px"}}>
-                                <span>{item.brand_name}</span><br/>
-                                <span>{item.cos_name}</span>&nbsp;&nbsp; <span></span>
-                                <div style={{display:"inline-block"}}>
-                                    <img className='star' src={Star} alt="" />
-                                    <span className='rank_cos_grade'>&nbsp;{item.grade}</span>
-                                    <span className='rank_cos_grade_cnt'> {"(" + item.grade_count + ")"}</span>
-                                </div>
-                                &nbsp;&nbsp;
-                                <div style={{display:"inline-block"}} >
-                                    <span className='rank_text'>정가&nbsp;</span>
-                                    <span className='rank_cos_price'>{item.price + "원"}</span>
-                                    <span className='rank_vol'>{"/" + item.vol}</span>
-                                </div>
-                            </div>
-                            <div style={{alignContent: "center", marginLeft : "auto", lineHeight: "25px"}}>
-                                <p className='rank_cos_price'>주문날짜</p>
-                                <p className='rankrank_cos_price_vol'>2024/10/12</p>
-                            </div>
-                        </div>
+                        <OrderView data={mainData} item={item}/>
                     )
                 })}
                 
@@ -88,16 +92,13 @@ const SubscriptionManagement = () => {
     ;
     return (
         <>
-            <div className='management_title'>
-                <img className='home_menu float_l cursor' src={LeftArrow} alt=""  onClick={()=>nav(-1)}/>
-                <p>구독관리</p>
-            </div>
+            <PageHeader title={"구독관리"}/>
             <div className='flex_col management_subtitle'>
-                <p className='cursor management_subtitle_contents' onClick={(e)=> {
+                <p className='cursor management_subtitle_contents none' onClick={(e)=> {
                     changeclass(e)
                     setMainTitle("구독상품 내역")}
                 }>구독상품 내역</p>
-                <p className='cursor management_subtitle_contents' onClick={(e)=> {
+                <p className='cursor management_subtitle_contents active' onClick={(e)=> {
                     changeclass(e)
                     setMainTitle("구독 해지")}
                 }>구독 해지</p>
