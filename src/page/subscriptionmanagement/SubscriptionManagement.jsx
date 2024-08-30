@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { sendGet, sendPost, URL } from '../../util/util';
 
 import Star from '../../img/별.png'
+import { useSelector } from 'react-redux';
 
 const SubscriptionManagement = () => {
     const [subTitle, setSubTitle] = useState("기초케어 제품");
@@ -13,9 +14,18 @@ const SubscriptionManagement = () => {
     const nav = useNavigate();
     const isSubscript = true;
     const [data, setData] = useState([])
+    const user = useSelector(state=>state.user);
     useEffect(() => {
-        sendGet(URL + '/MainPage', setData);
-    }, [])
+        sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=원더 세라마이드 모찌 토너 외 5건" , setData);
+    }, [user])
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
+    function changeclass(e){
+        console.log(e.target.className)
+    }
+    
     const tag = 
     <>
         <div className='flex_col management_content_box'>
@@ -83,8 +93,14 @@ const SubscriptionManagement = () => {
                 <p>구독관리</p>
             </div>
             <div className='flex_col management_subtitle'>
-                <p className='cursor' onClick={()=> setMainTitle("구독상품 내역")}>구독상품 내역</p>
-                <p className='cursor' onClick={()=> setMainTitle("구독 해지")}>구독 해지</p>
+                <p className='cursor management_subtitle_contents' onClick={(e)=> {
+                    changeclass(e)
+                    setMainTitle("구독상품 내역")}
+                }>구독상품 내역</p>
+                <p className='cursor management_subtitle_contents' onClick={(e)=> {
+                    changeclass(e)
+                    setMainTitle("구독 해지")}
+                }>구독 해지</p>
             </div>
             <div >
                 {isSubscript ? mainTitle=== "구독상품 내역"? tag  : clearTag: "구독이 필요합니다!"}

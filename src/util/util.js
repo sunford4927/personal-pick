@@ -252,7 +252,8 @@ export function showPayMent(userId, price, ItemName, address) {
                 let dic = {
                     paymentKey : res.paymentKey, 
                     user_id : userId, 
-                    orderName : ItemName.orderName, 
+                    // orderName : ItemName.orderName, 
+                    orderName : "구독결제", 
                     address : address.user_address, 
                     address_idx : address.address_idx,
                     totalAmount : price,
