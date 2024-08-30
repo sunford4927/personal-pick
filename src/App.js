@@ -33,7 +33,6 @@ import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
 import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
 import OrderComplete from './page/ordercomplete/OrderComplete';
 import AiRecommend from './page/airecommend/AiRecommend';
-import AddressList from './page/addresslist/AddressList';
 
 
 function App() {
@@ -80,7 +79,7 @@ function App() {
                     <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
-                    <Route path='/ ' element={<ShoppingCart />}></Route>
+                    <Route path='/cartlist' element={<ShoppingCart />}></Route>
                     <Route path='/payshipment/' element={<PayShipment />}></Route>
                     <Route path='/payshipment/:cos_id/:cos_count' element={<PayShipment />}></Route>
                     <Route path='/addressadd/:pagetype/:address_idx' element={<AddressManagement />}></Route>
@@ -89,7 +88,7 @@ function App() {
                     <Route path='/subbasicvueintroduce' element={<SubbasicvueIntroduce/>}></Route>
                     <Route path='/airecommend' element={<AiRecommend/>}></Route>
                     <Route path='/complete' element={<OrderComplete/>}></Route>
-                    <Route path='/addressList' element={<AddressList/>}></Route>
+                    <Route path='/addressList' element={<AddressManagement/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

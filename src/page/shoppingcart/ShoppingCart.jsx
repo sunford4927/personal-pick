@@ -18,10 +18,6 @@ const ShoppingCart = () => {
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
-
-        if(typeof(user.user_id) === "undefined"){
-            nav("/")
-        }
     },[])
     
     const PLUS = 0;
@@ -29,6 +25,7 @@ const ShoppingCart = () => {
     function calcul(type, targetNum){
         let str = "";
         let newData = [...data]
+        
         switch(type)
         {
             case PLUS:
@@ -36,6 +33,10 @@ const ShoppingCart = () => {
                 newData[targetNum].buy_cnt++;
                 break;
             case MINUS:
+                if(newData[targetNum].buy_cnt == 1)
+                {
+                    return
+                }
                 str = "decrease"
                 newData[targetNum].buy_cnt--;
                 break;
@@ -46,7 +47,7 @@ const ShoppingCart = () => {
         {
             sendPost(URL + "/UpdateCartCnt", (()=>setData(newData)), { user_id: user.user_id, idx : data[targetNum].idx, action : str})
             
-            // sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
+            
         }
     }
     
@@ -57,6 +58,14 @@ const ShoppingCart = () => {
             for(let i = 0; i<changeList.length; i++)
             {
                 changeList[i].is_selected = true;
+            }   
+            setData([...changeList])
+        }
+        else{
+            let changeList = [...data];
+            for(let i = 0; i<changeList.length; i++)
+            {
+                changeList[i].is_selected = false;
             }   
             setData([...changeList])
         }
@@ -149,7 +158,7 @@ const ShoppingCart = () => {
             </div>
             <div className='basket_line'>
                 <span className='totalpay_delivery'>배송비</span>
-                <span className='float_r basket_price'>3000원</span>
+                <span className='float_r basket_price'>{totalPrice}원</span>
             </div>
             </div>
 

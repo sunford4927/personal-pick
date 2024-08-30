@@ -6,15 +6,15 @@ import { sendGet, URL } from '../../util/util';
 const OrderComplete = () => {
     const [Uri,setUri] = useSearchParams();
     const user = useSelector(state=>state.user)
-    const [data, setData] = useState({})
+    const [data, setData] = useState([])
     function addrParse(str){
         console.log(str)
         let list = str.split("///")
         return list;
     }
     useEffect(()=>{
-        sendGet(URL+"/OrderHistory?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
-    },[])
+        sendGet(URL+"/OrderHistoryOne?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
+    },[user])
     
     useEffect(()=>{
         console.log(data)
@@ -57,7 +57,7 @@ const OrderComplete = () => {
 
                 <div className='orderC_price flex_col'>
                     <div className='orderC_blue orderC_price_left'>결제금액</div> 
-                    <div className='orderC_blue orderC_price_right'>{0 + "원"}</div>
+                    <div className='orderC_blue orderC_price_right'>{data[0].price + "원"}</div>
                 </div>
             
             
