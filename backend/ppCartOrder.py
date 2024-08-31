@@ -269,13 +269,13 @@ class ppOrderHistoryOne(Resource):
     def get(self):
         value = request.args.to_dict()
 
-        # print('payment valllllllllllll', value)
+        print('payment valllllllllllll', value)
         payment = value['payment']
         idx = value['a_idx']
         
 
-        # print('paymenttttttt:', payment)
-        # print('idxxxxxxxxxxxxxxxxxxxxxxx', idx)
+        print('paymenttttttt:', payment)
+        print('address idxxxxxxxxxxxxxxxxxxxxxxx', idx)
 
         data = setQuery("""
                 SELECT 
@@ -293,6 +293,7 @@ class ppOrderHistoryOne(Resource):
                     ro.payment_key = %s
                     AND ra.address_idx = %s
                 """, (payment, idx))
+        print('nowwwwwwwwwwwwwwwwwwwwwwwww', data)
 
         return jsonify(data)
 

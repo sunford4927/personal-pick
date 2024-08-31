@@ -33,6 +33,8 @@ import SubvueIntroduce from './page/subscriptionintoduce/SubvueIntroduce';
 import SubbasicvueIntroduce from './page/subscriptionintoduce/SubbasicvueIntroduce';
 import OrderComplete from './page/ordercomplete/OrderComplete';
 import AiRecommend from './page/airecommend/AiRecommend';
+import ItemOrderView from './page/itemorderview/ItemOrderView';
+import AddressList from './page/addresslist/AddressList';
 
 
 function App() {
@@ -89,6 +91,8 @@ function App() {
                     <Route path='/airecommend' element={<AiRecommend/>}></Route>
                     <Route path='/complete' element={<OrderComplete/>}></Route>
                     <Route path='/addressList' element={<AddressManagement/>}></Route>
+                    <Route path='/addressListAll' element={<AddressList/>}></Route>
+                    <Route path='/itemOrder' element={<ItemOrderView/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>

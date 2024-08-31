@@ -6,7 +6,8 @@ import { IP } from './setIp';
 import emptyStar from '../img/빈별.png'
 import star from '../img/별.png'
 import { loadTossPayments } from '@tosspayments/payment-sdk';
-import { Navigate, useNavigate } from 'react-router-dom';
+
+
 
 export function sendGet(url, func = null) {
     axios
