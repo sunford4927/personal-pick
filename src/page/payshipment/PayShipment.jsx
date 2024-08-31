@@ -170,7 +170,7 @@ const PayShipment = () => {
             <div className='orderpay_body'>
                 <div className='delivery_boxes'>
                     <div className='delivery_btn'>
-                        <div className='delivery_text flex_col' onClick={() => nav('/addressList')}>
+                        <div className='delivery_text flex_col' onClick={() => nav('/addressListAll')}>
 
                             <div className='delivery_boxes_left'>
                                 배송지

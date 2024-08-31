@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './OrderComplete.scss'
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { sendGet, URL } from '../../util/util';
 const OrderComplete = () => {
     const [Uri,setUri] = useSearchParams();
     const user = useSelector(state=>state.user)
     const [data, setData] = useState([])
+    const nav = useNavigate();
     function addrParse(str){
         let list = str.split("///")
         return list;
@@ -25,8 +26,8 @@ const OrderComplete = () => {
                     <p>주문번호 : {Uri.get("orderId")}</p>
                 </div>
                 <div className='flex_col orderC_contents1_btn'>
-                    <div className='basket_middle_btn'>주문내역보기</div>
-                    <div className='basket_middle_btn'>계속 쇼핑하기</div>
+                    <div className='basket_middle_btn' onClick={()=>nav('/itemOrder')}>주문내역보기</div>
+                    <div className='basket_middle_btn' onClick={()=>nav("/")}>계속 쇼핑하기</div>
                 </div>
 
                 <div className=''>

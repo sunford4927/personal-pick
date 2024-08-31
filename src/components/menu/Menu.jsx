@@ -43,7 +43,7 @@ const Menu = ({ isView }) => {
                             <hr />
                             <p className='menu_sub_title cursor' >나의 리뷰</p>
                             <hr />
-                            <p className='menu_sub_title cursor' onClick={()=>nav("/addressList")}>배송지</p>
+                            <p className='menu_sub_title cursor' onClick={()=>nav("/addressListAll")}>배송지</p>
                             <hr />
                             <p className='menu_sub_title cursor' onClick={()=>logout()}>로그아웃</p>
                         </>

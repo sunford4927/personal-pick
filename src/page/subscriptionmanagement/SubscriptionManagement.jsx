@@ -27,25 +27,14 @@ const SubscriptionManagement = () => {
             list[i].order_date = date2[0]
         }
         let DataList = _.uniqBy(list, "order_date")
-        // for (let i = 0; i< DataList.length; i++)
-        // {
-        //     let date = DataList[i].order_date.split("T");
-            
-        //     DataList[i].order_date = date[0]
-            
-        // }
 
         setMainData(list);
         setData(DataList)
-
     }
     useEffect(() => {
         sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=원더 세라마이드 모찌 토너 외 5건" , calData);
     }, [user])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
     function changeclass(e){
         let list = document.getElementsByClassName('management_subtitle_contents');
         for(let i = 0; i< list.length; i++)

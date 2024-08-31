@@ -158,20 +158,24 @@ const ShoppingCart = () => {
             </div>
             <div className='basket_line'>
                 <span className='totalpay_delivery'>배송비</span>
-                <span className='float_r basket_price'>{totalPrice}원</span>
+                <span className='float_r basket_price'>{totalPrice === 0 ? 0:3000}원</span>
             </div>
             </div>
 
             <hr className='thin_grayline'/>
             <div className='cart_totalpay_box'>
                 <span>총 주문금액</span>
-                <span className='float_r basket_price basket_color_text'>{totalPrice+3000+"원"}</span>
+                <span className='float_r basket_price basket_color_text'>{totalPrice+(totalPrice ===0 ? 0:3000)}</span>
             </div>
             <div className='pay_fix_btn' onClick={()=>{
+                if(totalPrice === 0)
+                {
+                    return
+                }
                 sendPost(URL+"/OrderCart", (()=>nav('/payshipment')) , data)
                 
                 }}>
-                {totalPrice+3000+"원 주문하기"}
+                {totalPrice+(totalPrice ===0 ? 0:3000)+"원 주문하기"}
             </div>
         </>
     );
