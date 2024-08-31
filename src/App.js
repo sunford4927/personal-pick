@@ -42,25 +42,7 @@ function App() {
     function funcList(){
         dispatch(setMenuView(false))
     }
-    const [userData, setUserData] = useState();
 
-    
-    useEffect(()=>{
-        let usernm = sessionStorage.getItem("username");
-
-        if(usernm)
-        {
-            sendGet(URL+'/TestSearch?user_nm='+ usernm, setUserData)
-        }
-    },[])
-
-    useEffect(()=>{
-        if(typeof(userData)!=="undefined")
-        {{
-            dispatch(setUser(userData[0]))
-
-        }}
-    },[userData])
 
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>

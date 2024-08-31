@@ -10,16 +10,17 @@ import { useSelector } from 'react-redux';
 const ShoppingCart = () => {
     const nav = useNavigate();
     const user = useSelector(state => state.user);
-
+    
     const [data, setData] = useState([])
     const [totalPrice, setTotalPrice]= useState(0);
     useEffect(()=>{
-        if(typeof(user.user_id) !== "undefined")
+        
+        if(user !== "undefined")
         {
             sendGet(URL+"/OrderCart?userid="+user.user_id,setData)
         }
     },[user])
-    
+
     const PLUS = 0;
     const MINUS = 1;
     function calcul(type, targetNum){
@@ -31,6 +32,7 @@ const ShoppingCart = () => {
             case PLUS:
                 str = "increase"
                 newData[targetNum].buy_cnt++;
+                newData[targetNum].total_price = newData[targetNum].buy_cnt * newData[targetNum].price
                 break;
             case MINUS:
                 if(newData[targetNum].buy_cnt === 1)
@@ -39,6 +41,7 @@ const ShoppingCart = () => {
                 }
                 str = "decrease"
                 newData[targetNum].buy_cnt--;
+                newData[targetNum].total_price = newData[targetNum].buy_cnt * newData[targetNum].price
                 break;
             default:
                 break;
@@ -143,12 +146,6 @@ const ShoppingCart = () => {
 
 
             </div>
-
-            {/* <div className='flex_col basket_middle_container'>
-                <div className='basket_middle_btn'>선택주문</div>
-                <div className='basket_middle_btn'>전체주문</div>
-            </div> */}
-
             <p className='tax_title'>예상 결제금액</p>
             {/* <hr className='thin_grayline'/> */}
             <div className='gray_text'>
@@ -165,7 +162,7 @@ const ShoppingCart = () => {
             <hr className='thin_grayline'/>
             <div className='cart_totalpay_box'>
                 <span>총 주문금액</span>
-                <span className='float_r basket_price basket_color_text'>{totalPrice+(totalPrice ===0 ? 0:3000)}</span>
+                <span className='float_r basket_price basket_color_text'>{totalPrice+(totalPrice ===0 ? 0:3000)}원</span>
             </div>
             <div className='pay_fix_btn' onClick={()=>{
                 if(totalPrice === 0)

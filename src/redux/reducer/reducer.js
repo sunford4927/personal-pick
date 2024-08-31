@@ -64,6 +64,7 @@ const personalReducer = (state = initialState, action) => {
                 }
             }
         case types.SETUSER:
+            console.log(action)
             return {
                 ...state,
                 user : action.user

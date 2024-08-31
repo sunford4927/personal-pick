@@ -263,8 +263,8 @@ export function showPayMent(userId, price, ItemName, address) {
                     itemCntList : ItemName.itemCntList ,
                     // 아이템 개수, 아이템 id 값  
                 };
-                sendPost(URL+"/payment",null, dic);
-                window.location = "/complete?orderId="+res.paymentKey+"&address_id="+address.address_idx;
+                sendPost(URL+"/payment",(()=> window.location = "/complete?orderId="+res.paymentKey+"&address_id="+address.address_idx), dic);
+                
             })
             // ------ 결제창을 띄울 수 없는 에러 처리 ------
             // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
