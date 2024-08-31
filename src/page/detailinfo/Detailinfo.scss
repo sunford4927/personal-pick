@@ -701,12 +701,16 @@
     width: 19vw;
 }
 
+.reviewallbar{
+    display: flex;
+}
+
 
 .reviewratemain {
     display: inline-grid;
     align-items: center;
     justify-content: center;
-    width: 7vw;
+    width: 146.8px;
     text-align: center;
 }
 
@@ -1064,13 +1068,7 @@ video {
 }
 
 
-.ingredientcomposition {
-    margin-top: 90px;
-    font-size: 20px;
-    font-weight: 600;
-    margin-left: 11px;
-    margin-bottom: 55px;
-}
+
 
 
 
@@ -1136,17 +1134,7 @@ video {
 }
 
 
-.rounded-full {
-    border-radius: 99999px;
-}
 
-.w-\[10px\] {
-    width: 10px;
-}
-
-.h-\[10px\] {
-    height: 10px;
-}
 
 
 .text-gray-tertiary {
@@ -1157,52 +1145,6 @@ video {
     margin-top: 20px;
 }
 
-// 청록색 부분
-.bg-mint-600 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(25, 215, 210, var(--tw-bg-opacity));
-}
-
-.text-mint-600 {
-    --tw-text-opacity: 1;
-    color: rgba(25, 215, 210, var(--tw-text-opacity));
-}
-
-// 노란색 부분
-
-.bg-yellow-600 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(255, 190, 20, var(--tw-bg-opacity));
-}
-
-.text-yellow-600 {
-    --tw-text-opacity: 1;
-    color: rgba(255, 190, 20, var(--tw-text-opacity));
-}
-
-// 빨간색 부분
-
-.bg-red-600 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(255, 85, 85, var(--tw-bg-opacity));
-}
-
-.text-red-600 {
-    --tw-text-opacity: 1;
-    color: rgba(255, 85, 85, var(--tw-text-opacity));
-}
-
-// 등급 미정 부분
-
-.bg-gray-600 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(170, 170, 170, var(--tw-bg-opacity));
-}
-
-.text-gray-600 {
-    --tw-text-opacity: 1;
-    color: rgba(170, 170, 170, var(--tw-text-opacity));
-}
 
 // 성분 구성 막대
 

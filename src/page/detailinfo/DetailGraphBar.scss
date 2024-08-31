@@ -4,6 +4,16 @@
     text-align: center;
 }
 
+.cntcounttext{
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    margin-left: 4px;
+    margin-right: 4px;
+    background: #0099FC;
+    color: #ffffff;
+    border-radius: 9px;
+}
+
 .detailgraphbarchart{
     // object-fit: fill;
 }
@@ -22,7 +32,9 @@
 
 .detailgraphbar_Title{
     word-break:break-all;
-    font-size: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
 }
 
 .detailgraphbar_main{

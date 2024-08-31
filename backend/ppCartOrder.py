@@ -325,7 +325,7 @@ class ppOrderHistory(Resource):
         user_id = value['user_id']
 
         data = setQuery("""
-                SELECT ro.order_date, ro.payment_key, ro.idx_cnt, rp.*
+                SELECT ro.order_date,ro.order_name, ro.payment_key, ro.idx_cnt, rp.*
                 FROM result_order ro
                 LEFT JOIN result_product rp ON FIND_IN_SET(rp.idx, ro.idx) > 0
                 WHERE ro.user_id = %s
