@@ -30,7 +30,7 @@ class payment(Resource):
         newData = json.loads(data.decode("utf-8"))
         # print("test :", type({}))
         # print("new Type : ", type(newData))
-        # print("newdata :", newData['mId'])
+        print("newdataaaaaaaaaaaaaaaaaaaaaaaaaaaaa :", newData['status'])
 
         # data2 = value
         # print('data1 : ',value['data']['paymentKey'])
@@ -76,7 +76,7 @@ class payment(Resource):
         
         user_id = value['data']['user_id']
 
-        if newData['state'] == 'Done' :
+        if newData['status'] == 'DONE' :
             PostQuery(insert_sql, insert_value)
             if value['data']['orderName'] == "구독결제" :
                 print("결제 성공")

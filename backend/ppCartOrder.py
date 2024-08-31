@@ -297,44 +297,41 @@ class ppOrderHistoryOne(Resource):
         return jsonify(data)
 
 
+
 class ppSubscribeHistory(Resource):
     def get(self):
         value = request.args.to_dict()
         # print('valllllllllllllllllll', value)
 
         user_id = value['user_id']
-        order_name = value['order_name']
+        # order_name = value['order_name']
 
         data = setQuery("""
-                SELECT 
-                    *
-                FROM 
-                    result_order
-                WHERE 
-                    user_id = %s
-                    AND order_name = %s
-                """, (user_id, order_name))
+                SELECT ro.order_date, ro.payment_key, ro.idx_cnt, rp.*
+                FROM result_order ro
+                LEFT JOIN result_product rp ON FIND_IN_SET(rp.idx, ro.idx) > 0
+                WHERE ro.user_id = %s
+                AND ro.order_name = '구독결제'
+                order by ro.order_date asc;
+                """, user_id)
 
         return jsonify(data)
     
 
 class ppOrderHistory(Resource):
-    def get(self):
+     def get(self):
         value = request.args.to_dict()
-        # print('valllllllllllllllllll', value)
 
         user_id = value['user_id']
-        order_name = value['order_name']
 
         data = setQuery("""
-                SELECT 
-                    *
-                FROM 
-                    result_order
-                WHERE 
-                    user_id = %s
-                    AND not order_name = '구독결제'
-                """, user_id, order_name)
+                SELECT ro.order_date, ro.payment_key, ro.idx_cnt, rp.*
+                FROM result_order ro
+                LEFT JOIN result_product rp ON FIND_IN_SET(rp.idx, ro.idx) > 0
+                WHERE ro.user_id = %s
+                AND not ro.order_name = '구독결제'
+                order by ro.order_date asc;
+                """, user_id)
 
         return jsonify(data)
        
