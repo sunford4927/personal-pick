@@ -381,6 +381,25 @@ const Detailinfo = () => {
                                 </div>
                             </div>
 
+                            <hr className='allingredientbar1' />
+
+                            {/* 성분 */}
+
+                            <div className='ingredientmain mt-8 px-20'>
+                                <span>성분</span>
+                            </div>
+
+                            
+                            <div className='ingredientdropbox'>
+                                <input id="dropdown" type="checkbox" />
+                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient idx = {idx}/>)}}>
+                                    <div>화장품 성분보기</div>
+                                    <FaAngleDown className="caretIcon" />
+                                </label>
+                            </div>
+
+                            <hr className='allingredientbar2' />
+
 
                             {/*ai 리뷰 */}
                             <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
@@ -519,24 +538,6 @@ const Detailinfo = () => {
                             <a class="allreviewbtn btn-5" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>리뷰 전체보기</a>
                             </div> */}
 
-                            {/* 성분 */}
-
-                            <div className='ingredientmain mt-8 px-20'>
-                                <span>성분</span>
-                            </div>
-
-                            
-                            <div className='ingredientdropbox'>
-                                <input id="dropdown" type="checkbox" />
-                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient idx = {idx}/>)}}>
-                                    <div>화장품 성분보기</div>
-                                    <FaAngleDown className="caretIcon" />
-                                </label>
-                            </div>
-                    
-
-
-                            <hr className='allingredientbar' />
 
 
                             {/* 전체 성분 */}
