@@ -4,10 +4,12 @@ import './ItemOrderView.scss'
 import { sendGet, URL } from '../../util/util';
 import { useSelector } from 'react-redux';
 import Right from '../../img/오른쪽.png'
+import { useNavigate } from 'react-router-dom';
 const _ = require('lodash');
 const ItemOrderView = () => {
     const [data, setData] = useState([]);
     const [nameData, setNameData] = useState([])
+    const nav = useNavigate();
     const user = useSelector(state => state.user)
     useEffect(() => {
         sendGet(URL + "/OrderHistory?user_id=" + user.user_id, datafactory);
@@ -22,18 +24,14 @@ const ItemOrderView = () => {
         }
         console.log(data)
         setNameData(_.uniqBy(list, "order_name"))
-
+        setData(data)
         
     }
 
     useEffect(() => {
-        console.log(nameData)
-        setData(_.uniqBy(nameData, "order_date"))
-    }, [nameData])
-    useEffect(() => {
         console.log(data)
-        
     }, [data])
+
     return (
         <>
             <PageHeader title={"주문내역"} />
@@ -43,16 +41,21 @@ const ItemOrderView = () => {
                     <div className='itemordercontainer'>
                         <div className='date_title flex_col'>
                             <p>{name.order_date}</p>
-                            <div><img src={Right} alt="" /></div>
+                            <div><img src={Right} alt="" onClick={() =>{
+                                let list = data.filter(box => {
+                                    if(name.order_date === box.order_date && name.order_name === box.order_name)
+                                    {
+                                        return box;
+                                    }
+                                })
+                                console.log(list)                                        
+                                
+                                nav('/itemOrderDetail',{
+                                state : list
+                                })
+                            }}/></div>
                         </div>
-                        {nameData.map(item => {
-                            return item.order_name === name.order_name &&
-                                    <div className='under_contents' >{item.order_name}</div>
-    
-    
-    
-                        })}
-                    
+                        <div className='under_contents' >{name.order_name}</div>
                     </div> 
                 )
             })}

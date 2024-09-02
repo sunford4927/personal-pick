@@ -1,0 +1,21 @@
+.review_box{
+    border-bottom: 1px solid gray;
+    padding : 15px 0;
+    padding-left : 25px;
+    
+    img{
+        width :80px;
+        height : 80px;
+    }
+    .review_text_box{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        p{
+            line-height: 20px;
+        }
+    }
+}
+.grayText{
+    color : gray;
+}

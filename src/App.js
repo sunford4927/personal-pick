@@ -35,6 +35,8 @@ import OrderComplete from './page/ordercomplete/OrderComplete';
 import AiRecommend from './page/airecommend/AiRecommend';
 import ItemOrderView from './page/itemorderview/ItemOrderView';
 import AddressList from './page/addresslist/AddressList';
+import ItemOrderDetail from './page/itemorderdetail/ItemOrderDetail';
+import ItemReview from './page/itemreview/ItemReview';
 
 
 function App() {
@@ -75,6 +77,8 @@ function App() {
                     <Route path='/addressList' element={<AddressManagement/>}></Route>
                     <Route path='/addressListAll' element={<AddressList/>}></Route>
                     <Route path='/itemOrder' element={<ItemOrderView/>}></Route>
+                    <Route path='/itemOrderDetail' element={<ItemOrderDetail/>}></Route>
+                    <Route path='/itemOrderReview' element={<ItemReview/>}></Route>
                 </Routes>
                 <Footer></Footer>
             </div>
