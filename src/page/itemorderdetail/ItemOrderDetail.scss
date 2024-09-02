@@ -1,0 +1,43 @@
+.detail_orderKey{
+    font-weight:  700;
+    padding-top : 20px;
+}
+
+.detail_p{
+    padding-left: 20px;
+    line-height: 22px;
+    padding-bottom: 5px;
+}
+
+
+.detail_container{
+    // align-items: center;
+    padding : 15px 0;
+    padding-left : 20px;
+    border-top: 1px solid rgb(207, 207, 207);
+    border-bottom: 10px solid rgb(207, 207, 207);
+    img{
+        width: 150px;
+        height :150px;
+    }
+
+
+    .detail_btn{
+        border : 1px solid #0099FC;
+        width : 80%;
+        height: 40px;
+        line-height : 40px;
+        margin :auto;
+        text-align: center;
+        border-radius: 10px;
+        margin-top : 20px;
+        color : #0099FC;
+    }
+
+    .detail_text{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+}
