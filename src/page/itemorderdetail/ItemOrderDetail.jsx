@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/pageheader/PageHeader';
 import './ItemOrderDetail.scss'
 function getCnt(str, idx)
@@ -10,7 +10,7 @@ function getCnt(str, idx)
 
 const ItemOrderDetail = () => {
     const { state } = useLocation();
-    
+    const nav = useNavigate();
     return (
         <>
             <PageHeader title={"주문상세"}/>
@@ -27,7 +27,7 @@ const ItemOrderDetail = () => {
                             <p>{item.price*getCnt(item.idx_cnt, i)}원 {getCnt(item.idx_cnt, i)}개</p> 
                         </div>
                     </div>
-                    <div className='detail_btn'>
+                    <div className='detail_btn' onClick={()=> nav('/itemOrderReview',{state : item})}>
                         리뷰 작성 포인트 {item.price*getCnt(item.idx_cnt, i) * 0.01}원
                     </div>
                 </div>

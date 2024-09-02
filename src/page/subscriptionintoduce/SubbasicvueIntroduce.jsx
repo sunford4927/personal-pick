@@ -1,7 +1,11 @@
 import React from 'react'
 import './SubscriptionIntroduce.scss'
+import { showPayMent } from '../../util/util'
+import { useSelector } from 'react-redux'
 
 const SubbasicvueIntroduce = () => {
+  const user = useSelector(state => state.user) 
+  console.log(user)
   return (
     <div>
 
@@ -36,8 +40,15 @@ const SubbasicvueIntroduce = () => {
             {/* 결제하기 버튼 */}
 
             <div className='buysubscriptionmain'>
-                <div className="buysubscriptionbutton">
-                    <a className="buysubscription btn first flex">구매하기</a>
+                <div className="buysubscriptionbutton" onClick={()=>showPayMent(user.user_id, 20000, {
+                    orderName:"구독결제",
+                    itemIdList:"",
+                    itemCntList:"",
+                  }, {
+                    user_address : user.user_address, 
+                    address_idx: 1 
+                  })}>
+                    <a className="buysubscription btn first flex" >구매하기</a>
                 </div>
             </div>
 
