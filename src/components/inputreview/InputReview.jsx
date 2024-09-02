@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './InputReview.scss'
-import { sendGet, sendPost, URL } from '../../util/util';
+import { sendGet, sendPost, showComplete, URL } from '../../util/util';
 import { setStarMenu } from '../../util/util';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,18 +8,12 @@ import { useNavigate } from 'react-router-dom';
 const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
     const [contents, setContents] = useState("")
     const [user, setUser] = useState({});
-    const [index , setIndex] = useState(1);
+    const [index , setIndex] = useState(10);
 
     const nav = useNavigate();
-    function temp(data) {
-        
+    function temp(data) {  
         setUser(data[0])
     }
-
-    // useEffect(() => {
-    //     sendGet(URL + "/ReviewPage?idx=" + idx, setReview); // 리뷰데이터 쪽
-    // }, []);
-    
     useEffect(() => {
         let nick = sessionStorage.getItem("username");
         if (nick !== "") {
@@ -30,7 +24,8 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
 
     function threeget ()
     {
-        nav(-1)
+        showComplete(<p style={{padding:"50px 0"}}>리뷰 등록이 완료되었습니다.</p>,  nav);
+        
     }
 
 
@@ -39,12 +34,18 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
             alert("로그인 해 주세요")
             return
         }
+        if(index === 10)
+        {
+            alert("별점을 골라주세요")
+            return
+        }
 
         if(contents === "")
         {
             alert("리뷰를 작성해 주세요")
             return
         }
+
 
         sendPost(URL + '/InsertReview',  threeget ,
             {
