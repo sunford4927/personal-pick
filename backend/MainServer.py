@@ -3,13 +3,13 @@ from flask_restx import Api
 from flask_cors import CORS
 # from hello import test
 from ppMain import ppMainPage, ppCategorySel, ppSuggestAge, ppSuggestSkinType
-from ppDetail import ppDetailPage, ppGetReveiw, ppRatingAvg, ppRatingCnt, ppReviewCnt, ppInsertReview
+from ppDetail import ppDetailPage, ppGetReveiw, ppRatingAvg, ppRatingCnt, ppReviewCnt, ppInsertReview,ppGetIngredient
 from join import ppJoin
 from ppLogin import ppLogin
 from ppSearch import ppSearch, ppSearchList
 from Test import testJoin, testLogin, testUserData, testOrderData, testCategory, testSearch
 from payment import payment, Clearpayment
-from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUpdateCartCnt, ppOrderHistory
+from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUpdateCartCnt, ppOrderHistoryOne, ppOrderHistory, ppSubscribeHistory
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
@@ -32,7 +32,9 @@ api.add_resource(ppSuggestAge, '/suggestAge')
 api.add_resource(ppSuggestSkinType, '/suggestSkinType')
 api.add_resource(ppAddCart, '/AddCart')
 api.add_resource(ppOrderCart, '/OrderCart')
+api.add_resource(ppOrderHistoryOne, '/OrderHistoryOne')
 api.add_resource(ppOrderHistory, '/OrderHistory')
+api.add_resource(ppSubscribeHistory, '/SubscribeHistory')
 api.add_resource(ppDeleteCartItems, '/DeleteCartItems')
 api.add_resource(ppUpdateCartCnt, '/UpdateCartCnt')
 api.add_resource(ppOrder, '/OrderPage')
@@ -40,6 +42,7 @@ api.add_resource(ppAddressList, '/addressList')
 api.add_resource(ppEditAddress, '/EditAddress')
 api.add_resource(ppInsertAdd, '/InsertAddress')
 api.add_resource(ppInsertReview, '/InsertReview')
+api.add_resource(ppGetIngredient, '/GetIngredient')
 
 api.add_resource(testJoin, '/TestJoin')
 api.add_resource(testLogin, '/TestLogin')

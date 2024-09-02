@@ -30,7 +30,7 @@ class payment(Resource):
         newData = json.loads(data.decode("utf-8"))
         # print("test :", type({}))
         # print("new Type : ", type(newData))
-        # print("newdata :", newData['mId'])
+        print("newdataaaaaaaaaaaaaaaaaaaaaaaaaaaaa :", newData['status'])
 
         # data2 = value
         # print('data1 : ',value['data']['paymentKey'])
@@ -38,14 +38,12 @@ class payment(Resource):
         # data2 = request.get_json()
         # print("data2 : ",data2['data']['paymentKey'])
 
-        sql = '''INSERT INTO result_order (
+        insert_sql = '''INSERT INTO result_order (
         user_id, order_name, payment_key,
         address, order_date, price, delivery_state, idx, idx_cnt, address_idx)
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-        # print("주소입니둥둥둥", data['requestedAt'])
-        
-        value2 = (
+        insert_value = (
         # user_id 받아오기
         value['data']['user_id'],
         # order_name
@@ -69,9 +67,24 @@ class payment(Resource):
         )
         # print('sql : ',sql)
         # print('value2 : ',value2)
+        # print("주소입니둥둥둥", data['requestedAt'])
+
+        # 결제 성공 후 상품 결제라면 장바구니에서 true인 값들 삭제하는 쿼리
+        del_sql = """delete from result_cart_item 
+                        where user_id = %s
+                        and is_selected = true"""
+        
+        user_id = value['data']['user_id']
+
+        if newData['status'] == 'DONE' :
+            PostQuery(insert_sql, insert_value)
+            if value['data']['orderName'] == "구독결제" :
+                print("결제 성공")
+            else :
+                PostQuery(del_sql, user_id)
 
         # print('insert_order : ',PostQuery(sql, value2))
-        return PostQuery(sql, value2)
+        # return PostQuery(sql, value2)
 
        
 

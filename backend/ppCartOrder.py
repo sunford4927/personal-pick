@@ -265,19 +265,17 @@ class ppUpdateCartCnt(Resource):
             # return jsonify({"message": "An error occurred."}), 500
 
 
-
-class ppOrderHistory(Resource):
+class ppOrderHistoryOne(Resource):
     def get(self):
         value = request.args.to_dict()
 
-        # print('valllllllllllll', value)
-        # payment = value.get('payment')
+        print('payment valllllllllllll', value)
         payment = value['payment']
         idx = value['a_idx']
         
 
-        # print('paymenttttttt:', payment)
-        # print('idxxxxxxxxxxxxxxxxxxxxxxx', idx)
+        print('paymenttttttt:', payment)
+        print('address idxxxxxxxxxxxxxxxxxxxxxxx', idx)
 
         data = setQuery("""
                 SELECT 
@@ -295,6 +293,48 @@ class ppOrderHistory(Resource):
                     ro.payment_key = %s
                     AND ra.address_idx = %s
                 """, (payment, idx))
+        print('nowwwwwwwwwwwwwwwwwwwwwwwww', data)
+
+        return jsonify(data)
+
+
+
+class ppSubscribeHistory(Resource):
+    def get(self):
+        value = request.args.to_dict()
+        # print('valllllllllllllllllll', value)
+
+        user_id = value['user_id']
+        # order_name = value['order_name']
+
+        data = setQuery("""
+                SELECT ro.order_date, ro.payment_key, ro.idx_cnt, rp.*
+                FROM result_order ro
+                LEFT JOIN result_product rp ON FIND_IN_SET(rp.idx, ro.idx) > 0
+                WHERE ro.user_id = %s
+                AND ro.order_name = '구독결제'
+                order by ro.order_date asc;
+                """, user_id)
+
+        return jsonify(data)
+    
+
+class ppOrderHistory(Resource):
+     def get(self):
+        value = request.args.to_dict()
+
+        user_id = value['user_id']
+
+        data = setQuery("""
+                SELECT ro.order_date,ro.order_name, ro.payment_key, ro.idx_cnt, rp.*
+                FROM result_order ro
+                LEFT JOIN result_product rp ON FIND_IN_SET(rp.idx, ro.idx) > 0
+                WHERE ro.user_id = %s
+                AND not ro.order_name = '구독결제'
+                order by ro.order_date asc;
+                """, user_id)
 
         return jsonify(data)
        
+       
+    

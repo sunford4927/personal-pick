@@ -142,6 +142,27 @@
     display: none;
 }
 
+.cosdescription{
+
+}
+
+.cosdesintro{
+    display: flex;
+    margin-right: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 30px;
+    color : gray
+}
+
+.cosdescriptiontext{
+    display: flex;
+    margin-right: 40px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
 // 배송비 영역
 
 .deliveryprice {
@@ -253,17 +274,44 @@
     margin: 40px 20px 10px 10px;
 }
 
+
+
 .randomimgname {
     color: #000000;
     display: flex;
     justify-content: center;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .randomimgprice {
     font-weight: 600;
     font-size: 17px;
     color: #0099FC;
+}
+
+.randombrandname{
+    font-size: 15px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.randomvolname{
+    font-size: 15px;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.randomrankingname{
+    font-size: 15px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.randomcosinfo{
+
 }
 
 .modalimg {
@@ -1226,12 +1274,22 @@ video {
     margin-left: 11px;
 }
 
-.allingredientbar {
+.allingredientbar1 {
     --tw-bg-opacity: 1;
     background-color: rgba(242, 242, 242, var(--tw-bg-opacity));
     height: 5px;
     border-width: 0;
-    margin-top: 65px;
+    margin-top: 7px;
+    margin-bottom: 40px;
+}
+
+.allingredientbar2 {
+    --tw-bg-opacity: 1;
+    background-color: rgba(242, 242, 242, var(--tw-bg-opacity));
+    height: 5px;
+    border-width: 0;
+    margin-top: 60px;
+    margin-bottom: 52px;
 }
 
 .ingredientbar {

@@ -133,7 +133,8 @@ export function showIngredient(strTag, func) {
         width : "100%",
 
         position: 'bottom',
-        width: "100%",
+        width:"100%",
+        
 
         showClass: {
             popup: `
