@@ -55,17 +55,21 @@ const ShoppingCartBtn = ({ func}) => {
     <>
       <div class="shoppingcart mt-8 px-20">장바구니 담기</div>
       <hr class='shoppingcartbar' />
+      <div className='shoppingcart_box'>
       <span class="addshopping">장바구니에 추가되었습니다.</span>
+      </div>
       <div class="shoppincartmainbox">
         <div class='godetailmain'>
-          <div class="godetailbutton">
-            <a class="godetailbutton btn1 first flex" onClick={() => modalClose()}>쇼핑 계속하기</a>
-          </div>
+          {/* <div class="godetailbutton">
+            <a class="godetailbutton btn1 first flex" onClick={() => modalClose()}>쇼핑계속하기</a>
+          </div> */}
+            <a class="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
         </div>
         <div class='gotoshoppingmain'>
-          <div class="gotoshoppingbutton">
+          {/* <div class="gotoshoppingbutton">
             <a className="gotoshoppingbutton btn1 first flex" onClick={() => func("/cartlist")}>장바구니 이동</a>
-          </div>
+          </div> */}
+          <a className="gotoshoppingbutton" onClick={() => func("/cartlist")}>장바구니 이동</a>
         </div>
       </div>
 
@@ -79,9 +83,9 @@ const ShoppingCartBtn = ({ func}) => {
         <div className="modalimg">
           {data[randomIndex1] && (
             <>
-              <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={200} height={200} />
-              <span className='randomimgname'>이름: {data[randomIndex1]?.cos_name || '데이터 없음'}</span>
-              <span className='randomimgprice'>가격: {data[randomIndex1]?.price ? `${data[randomIndex1]?.price}원` : '가격 정보 없음'}</span>
+              <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={185} height={185} />
+              <span className='randomimgname'>{data[randomIndex1]?.cos_name || '데이터 없음'}</span>
+              <span className='randomimgprice'>{data[randomIndex1]?.price ? `${data[randomIndex1]?.price}원` : '가격 정보 없음'}</span>
             </>
           )}
           {!data[randomIndex1] && <div>데이터가 없습니다.</div>}

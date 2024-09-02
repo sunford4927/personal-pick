@@ -228,6 +228,7 @@ const Category = ({categoryData}) => {
         e.stopPropagation()
         if(categoryData[0] === '건성' )
         {
+            
             let data = await axios
             .get(URL + "/suggestSkinType?skintype="+ e.target.innerText)
             .then(res=>{

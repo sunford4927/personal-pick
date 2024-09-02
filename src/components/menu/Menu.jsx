@@ -20,8 +20,9 @@ const Menu = ({ isView }) => {
     const dispatch = useDispatch();
     function logout() {
         LogoutSession();
-        dispatch(setUser({}));
+        dispatch(setUser(undefined));
     }
+    
     return (
         <>
             {
@@ -29,7 +30,7 @@ const Menu = ({ isView }) => {
                 <div className="menu_container" style={{ position: "absolute", top: isView.y, left: isView.x }}>
                     <div className='flex_col home_header menu_loginbox'>
                         <img className='menu_userimg float_l' src={UserImg} alt="" />
-                        <p className='menu_title' onClick={() => nav("/login")}>{typeof (name) === "undefined" ? "로그인/회원가입" :
+                        <p className='menu_title' onClick={() => nav("/login")}>{name === undefined ? "로그인/회원가입" :
                             <>
                                 <span style={{ fontWeight: 800,color:'#555555',marginRight:'3px' }}>{name.user_nm}</span>
                                 님 환영합니다
