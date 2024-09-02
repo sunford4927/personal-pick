@@ -59,7 +59,8 @@ table {
 }
 
 .swal2-container.swal2-backdrop-show {
-    background: rgba(37, 86, 153, 0.4);
+    background: rgba(84, 84, 84, 0.4);
+    backdrop-filter: blur(2.5px);
 }
 
 .flex_col
