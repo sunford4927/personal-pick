@@ -142,6 +142,27 @@
     display: none;
 }
 
+.cosdescription{
+
+}
+
+.cosdesintro{
+    display: flex;
+    margin-right: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 30px;
+    color : gray
+}
+
+.cosdescriptiontext{
+    display: flex;
+    margin-right: 40px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
 // 배송비 영역
 
 .deliveryprice {

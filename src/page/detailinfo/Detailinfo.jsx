@@ -19,16 +19,21 @@ import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
+import { useDispatch } from 'react-redux'
 
 
 
-const Detailinfo = () => {
+const Detailinfo = (item) => {
     // 페이지 이동 함수
     const navigate = useNavigate();
     const home = () => navigate('/');
 
 
     const state = useSelector(user => user.user)
+
+    const user = useSelector((state) => state.user);
+
+
 
 
 
@@ -39,7 +44,6 @@ const Detailinfo = () => {
     const [scorecnt, setScoreCnt] = useState([]);
     const [reviewcnt, setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
-
     const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
@@ -51,6 +55,7 @@ const Detailinfo = () => {
 
 
     const { idx } = useParams();
+
 
 
     useEffect(() => {
@@ -80,6 +85,7 @@ const Detailinfo = () => {
 
     useEffect(() => {
         console.log(cosingredient);
+        console.log(review);
 
     });
 
@@ -207,7 +213,31 @@ const Detailinfo = () => {
         showIngredient(<Ingredient idx={idx} />);
     };
 
+    // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
+    const handlePurchase = () => {
+        if (user) {
+            navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
+        } else {
+            navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
+        }
+    };
 
+    // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
+    const handleAddToCart = () => {
+        if (user) {
+            // 장바구니 추가 로직
+            showModal(<ShoppingCartBtn func={func1} />);
+            sendPost(URL + '/AddCart', null, {
+                userid: state.user_id,
+                categorynumber: idx,
+                cosmeticprice: item.price,
+                cosmeticcount: itemadd,
+                cosmetictotal: item.price * itemadd
+            });
+        } else {
+            navigate('/login');
+        }
+    };
 
     return (
 
@@ -223,7 +253,7 @@ const Detailinfo = () => {
                         {/* 화장품 이름 */}
 
                         <div className='itemname'>
-                            <img src={goback} className="gobackimg" onClick={() => navigate(-1)} width={20} height={20}></img>
+                            <img src={goback} className="gobackimg" onClick={() => navigate('/')} width={20} height={20}></img>
                             <span className='cosmeticname'>{item.cos_name}</span>
                         </div>
 
@@ -262,6 +292,11 @@ const Detailinfo = () => {
                                             <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                                         </div>
                                         <img src={detailright} width={23} height={23} />
+                                    </div>
+
+                                    <div className='cosdescription'>
+                                        <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
                                     </div>
                                 </div>
                             </div>
@@ -320,23 +355,13 @@ const Detailinfo = () => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/' + item.idx + '/' + itemadd)}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={handlePurchase}>구매하기</a>
                                 </div>
-
                                 <div className="basketbutton">
-                                    <button className='basketbutton btn' onClick={() => {
-                                        showModal(<ShoppingCartBtn func={func1} />);
-                                        sendPost(URL + '/AddCart', null,
-                                            {
-                                                userid: state.user_id,
-                                                categorynumber: idx,
-                                                cosmeticprice: item.price,
-                                                cosmeticcount: itemadd,
-                                                cosmetictotal: item.price * itemadd
-                                            })
-                                    }}>장바구니</button>
+                                    <button className='basketbutton btn' onClick={handleAddToCart}>장바구니</button>
                                 </div>
                             </div>
+
 
                             <hr className='allingredientbar1' />
 
@@ -437,7 +462,7 @@ const Detailinfo = () => {
                                         <div className='accountstar'>
                                             {setScore(`${item.rating}`)}
                                         </div>
-                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_up_dt}</span>
+                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_reg_dt}</span>
                                     </div>
 
                                     <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
