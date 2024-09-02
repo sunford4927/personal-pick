@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './InputReview.scss'
 import { sendGet, sendPost, URL } from '../../util/util';
 import { setStarMenu } from '../../util/util';
+import { useNavigate } from 'react-router-dom';
 
 
 const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
@@ -9,8 +10,9 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
     const [user, setUser] = useState({});
     const [index , setIndex] = useState(1);
 
+    const nav = useNavigate();
     function temp(data) {
-        console.log(data)
+        
         setUser(data[0])
     }
 
@@ -25,38 +27,24 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
         }
 
     }, [])
-    useEffect(() => {
 
-        console.log(user)
-    }, [user])
-
-    useEffect(() => {
-
-        console.log(index)
-    }, [index])
-
-function test (data)
-{
-    console.log(data)
-    setReview(data)
-}
-
-function threeget ()
-{
-    sendGet(URL + "/ReviewPage?idx=" + item.idx, test)
-    sendGet(URL + "/ReviewCnt?idx=" + item.idx, setReviewCnt)
-    sendGet(URL + "/RatingCnt?idx=" + item.idx, setScoreCnt)
-}
+    function threeget ()
+    {
+        nav(-1)
+    }
 
 
     function sendReview() {
-        if (user.user_id == "") {
+        if (user.user_id === "") {
             alert("로그인 해 주세요")
             return
         }
 
-        console.log(item.idx);
-        
+        if(contents === "")
+        {
+            alert("리뷰를 작성해 주세요")
+            return
+        }
 
         sendPost(URL + '/InsertReview',  threeget ,
             {
@@ -64,7 +52,6 @@ function threeget ()
                 cos_name: item.cos_name,
                 rating: index,
                 review: contents
-
             })
     }
 
@@ -74,31 +61,36 @@ function threeget ()
             {/* 댓글 쓰는 창 */}
             <div className='reviewcommentmainbox'>
             <div className='settingstar'>
-                <span className='settingstartext px-20'>
-                    화장품 만족도는 어떠셨나요? 후기 남겨주세요!
-                </span>
+                <p className='settingstartext px-20'>
+                    화장품 만족도는 어떠셨나요?
+                </p>
+                <br />
+                <p className='settingstartext px-20'>리뷰를 작성해 주세요. 리뷰 작성 시 포인트 지급됩니다.</p>
             </div>
 
             <div className='setstarmenu px-20'>
-            <span className='setstarmenutext'>평점 남기기</span>
-            {setStarMenu(setIndex)}
+            <span className='setstarmenutext'>평점</span>
+                <div>
+                    {setStarMenu(setIndex)}
+
+                </div>
             </div>
 
             <div className='review_containerbox'>
-                <input
+                <textarea
                     className="review_container"
                     type="text"
-                    placeholder='댓글을 입력해주세요...'
+                    placeholder={'상세한 리뷰를 작성해보세요! \n리뷰 작성하면 포인트도 받고, 내리뷰가 최상단에 떠요!'}
                     value={contents}
                     onChange={(e) => setContents(e.target.value)}
-                    style={{ height: '40px', lineHeight: '40px' }} // 추가된 스타일
+                    
                 />
             </div>
 
             {/* 등록버튼 */}
             <div className='reviewenterbox'>
                 <button className='reviewenter' onClick={() => sendReview()}>
-                    등록
+                    리뷰 등록하기
                 </button>
             </div>
             </div>

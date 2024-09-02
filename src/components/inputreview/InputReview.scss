@@ -1,6 +1,13 @@
 .review_containerbox{
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
+    textarea {
+        border : 1px solid #0099FC;
+        width : 90%;
+        height : 200px;
+        padding: 10px;
+        line-height: 20px;;
+    }
 }
 
 .review_container{
@@ -12,8 +19,7 @@
 
 .reviewenterbox {
     display: flex;
-    justify-content: flex-end;
-    
+    justify-content: center;
 }
 
 .reviewenter:hover{
@@ -21,7 +27,7 @@
 }
 
 .reviewenter{
-    width: 13%;
+    width: 80%;
     height: 40px;
     border: 2px solid #0099FC;
     text-align: center;
@@ -33,34 +39,40 @@
     margin-right: 66px;
     cursor: pointer;
     background-color: #0099FC;
+    
 }
 
 .reviewcommentmainbox{
     padding-top: 10px;
-    background-color: #0099fc2e;
     padding-bottom: 30px;
 }
 
 .settingstar {
-    display: flex;
-    margin-top: 40px;
+    padding : 20px 0;
 }
 
 .settingstartext {
-    display: flex;
     font-size: 16px;
     font-weight: 700;
 }
 
 .setstarmenu{
     display: flex;
-    margin-top: 35px;
+    div{
+        img{
+            
+            width : 15px;
+            height : 15px;
+        }
+
+    }
+    
+    align-items: center;
+    margin-top: 20px;
     margin-bottom: 15px;
-    margin-left: 48px;
 }
 
 .setstarmenutext{
-    display: flex;
     font-size: 16px;
     font-weight: 600;
     margin-right: 10px;
