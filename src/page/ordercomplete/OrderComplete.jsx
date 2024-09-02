@@ -12,9 +12,15 @@ const OrderComplete = () => {
         let list = str.split("///")
         return list;
     }
+
+    function test (data){
+        console.log(data)
+        setData(data)
+    }
     useEffect(()=>{
-        sendGet(URL+"/OrderHistoryOne?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),setData);
-    },[user])
+        console.log(user)
+        sendGet(URL+"/OrderHistoryOne?payment="+Uri.get("orderId")+"&a_idx="+Uri.get("address_id"),test);
+    },[])
     
     return (
         <>

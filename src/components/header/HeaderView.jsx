@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLogo from '../../img/메인로고.png'
 import MenuImg from "../../img/햄버거메뉴.png"
 import CartImg from "../../img/장바구니.png"
 import Menu from "../../components/menu/Menu";
-import { setMenuView } from "../../redux/type/typefunc";
+import { setMenuView, setUser } from "../../redux/type/typefunc";
 import { useNavigate } from 'react-router-dom';
+import { sendGet, URL } from '../../util/util';
 const HeaderView = () => {
     const [isMenu, setIsMenu] = useState({
         x : 0,
@@ -21,6 +22,15 @@ const HeaderView = () => {
             y : e.target.offsetTop+40
         })        
     }
+
+    function consolea (data){
+        dispatch(setUser(data[0]))
+    }
+    useEffect(()=>{
+        let usernm = sessionStorage.getItem("username");
+        sendGet(URL+'/TestSearch?user_nm='+ usernm, consolea)
+    },[])
+
     const nav = useNavigate();
     return (
         <>

@@ -23,7 +23,6 @@ const ShoppingCartBtn = ({ func}) => {
   const max = 120; // 최댓값
   const idx = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  console.log(window.location.pathname.split("/")[2]);
 
 
   useEffect(() => {
