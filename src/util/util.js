@@ -167,6 +167,29 @@ export function showMap(strTag, func) {
     });
 }
 
+
+export function showComplete(strTag, func) {
+    withReactContent(Swal).fire({
+        html: strTag,
+        confirmButtonText : "확인",
+        width : "60%",
+        didOpen: () => {
+
+        },
+        
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            func(-1)
+        }
+        else if(result.isDismissed)
+        {
+            func(-1)
+        }
+        
+    });
+}
+
 export function modalClose() {
     withReactContent(Swal).close();
 }
