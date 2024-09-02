@@ -129,11 +129,8 @@ export function showModal(strTag, navigate) {
 export function showIngredient(strTag, func) {
     withReactContent(Swal).fire({
         html: strTag,
-        height: 'auto',
-        maxHeight: '80vh',
         showConfirmButton: false,
         width : "100%",
-
 
         position: 'bottom',
         width:"100%",

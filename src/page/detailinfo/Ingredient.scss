@@ -117,6 +117,15 @@
     display: flex;
 }
 
+.ingmain{
+    height: 480px;
+    overflow-y: auto;
+}
+
+.ingmain::-webkit-scrollbar {
+    display: none;
+}
+
 .ingscore{
     font-size: 15px;
     line-height: 44px;

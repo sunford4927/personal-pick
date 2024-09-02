@@ -9,24 +9,17 @@ import notsmile from '../../img/무표정.png'
 import account from '../../img/account.png'
 import goback from '../../img/왼쪽.png'
 import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 import detailright from '../../img/오른쪽.png'
-import caution from '../../img/caution.png'
-import allergy from '../../img/allergy.png'
 import ScrollToTop from '../../components/scrolltotop/ScrollToTop'
 import { setScore } from '../../util/util'
-import TempSkin from '../../components/tempskin/TempSkin'
-import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
 import StarRating from './StarRating'
-import InputReview from '../../components/inputreview/InputReview'
-import PageHeader from '../../components/pageheader/PageHeader'
 import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
-import PayShipment from '../payshipment/PayShipment'
-import { setStarMenu, changeStar } from '../../util/util'
-import { useLocation } from 'react-router-dom'
+
 
 
 const Detailinfo = () => {
@@ -50,7 +43,10 @@ const Detailinfo = () => {
     const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
-    const [cosingredient,setCosIngredient] = useState([]);
+    const [cosingredient, setCosIngredient] = useState([]);
+
+    const [isOpen, setIsOpen] = useState(false); // 모달 열림/닫힘 상태
+
 
 
 
@@ -63,7 +59,7 @@ const Detailinfo = () => {
         sendGet(URL + "/RatingAvg?idx=" + idx, setScoreAvg); // 평점 평균
         sendGet(URL + "/RatingCnt?idx=" + idx, setScoreCnt); // 그래프 바 평점 개수
         sendGet(URL + "/ReviewCnt?idx=" + idx, setReviewCnt); // 리뷰 개수
-       
+
     }, []);
 
     // 페이지네이션 함수
@@ -84,18 +80,18 @@ const Detailinfo = () => {
 
     useEffect(() => {
         console.log(cosingredient);
-        
+
     });
 
-    
 
-    useEffect(()=> {
+
+    useEffect(() => {
         console.log(data);
-        
-       if (data.length > 0) {
-        sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name , setCosIngredient) // 화장품 성분 데이터
-       }
-    },[data])
+
+        if (data.length > 0) {
+            sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name, setCosIngredient) // 화장품 성분 데이터
+        }
+    }, [data])
 
     // useEffect(() => {
     //     sendGet(URL + "/ReviewPage?idx=" + idx, (data) => {
@@ -103,25 +99,25 @@ const Detailinfo = () => {
     //       setCurrentPosts(data.slice(0, postPerPage)); // Set initial currentPosts
     //     });
     //   }, []);
-    
+
     //   useEffect(() => {
     //     setCurrentPosts(allReviews.slice(indexOfFirstPage, indexOfLastPage));
     //   }, [allReviews, indexOfFirstPage, indexOfLastPage]);
-  
 
-     useEffect(() => {
-         setReview(review);
-         setTotal(review.length);
-     });
 
-    
+    useEffect(() => {
+        setReview(review);
+        setTotal(review.length);
+    });
+
+
 
     //  useEffect(()=> {
     //   setCurrentPosts(review.slice(indexOfFirstPage, indexOfLastPage));
     //   console.log(review.slice(indexOfFirstPage, indexOfLastPage));
 
     //   console.log(review);
-      
+
     //  },[review])
 
     const itemRender = (current, type, originalElement) => {
@@ -181,51 +177,6 @@ const Detailinfo = () => {
         console.log(e.target.innerText)
     }
 
-    let skinList = [
-        {
-            count: 1,
-            value: "피부 보습1"
-        }, {
-            count: 2,
-            value: "피부 보습2"
-        }, {
-            count: 3,
-            value: "피부 보습3"
-        }, {
-            count: 4,
-            value: "피부 보습4"
-        }, {
-            count: 3,
-            value: "피부 보습5"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        },
-        {
-            count: 3,
-            value: "피부 보습"
-        },
-        {
-            count: 3,
-            value: "피부 보습"
-        }
-    ]
-
 
     let cntList = [
         {
@@ -248,6 +199,12 @@ const Detailinfo = () => {
 
     const calculateTotalPrice = (price, quantity) => {
         return price * quantity;
+    };
+
+    // 모달 닫아도 화살표 움직이게 하는 함수
+    const handleDropdownClick = () => {
+        setIsOpen(!isOpen); // 상태 토글
+        showIngredient(<Ingredient idx={idx} />);
     };
 
 
@@ -363,7 +320,7 @@ const Detailinfo = () => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/'+item.idx + '/' + itemadd)}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/' + item.idx + '/' + itemadd)}>구매하기</a>
                                 </div>
 
                                 <div className="basketbutton">
@@ -389,12 +346,12 @@ const Detailinfo = () => {
                                 <span>성분</span>
                             </div>
 
-                            
+
                             <div className='ingredientdropbox'>
                                 <input id="dropdown" type="checkbox" />
-                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient idx = {idx}/>)}}>
+                                <label className="dropdownLabel" for="dropdown" onClick={handleDropdownClick}>
                                     <div>화장품 성분보기</div>
-                                    <FaAngleDown className="caretIcon" />
+                                    {isOpen ? <FaAngleUp className="caretIcon" /> : <FaAngleDown className="caretIcon" />}
                                 </label>
                             </div>
 
@@ -541,11 +498,11 @@ const Detailinfo = () => {
 
 
                             {/* 전체 성분 */}
-                            <div className='allingredient mt-8 px-20'>
+                            {/* <div className='allingredient mt-8 px-20'>
                                 <span>전체 성분 (들어올값)개</span>
-                            </div>
+                            </div> */}
 
-                            <div className='caution mt-8 px-20'>
+                            {/* <div className='caution mt-8 px-20'>
                                 <div className='flex gap-x-8'>
                                     <img src={caution} alt="caution" />
                                     <span className='cautiontext hds-text-body-medium text-gray-secondary'>
@@ -556,9 +513,9 @@ const Detailinfo = () => {
                                         <span className='hds-text-body-medium text-gray-secondary'>개</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className='allergy mt-8 px-20'>
+                            {/* <div className='allergy mt-8 px-20'>
                                 <div className='flex gap-x-8'>
                                     <img src={allergy} alt="allergy"></img>
                                     <span className='allergytext hds-text-body-medium text-gray-secondary'>
@@ -569,20 +526,20 @@ const Detailinfo = () => {
                                         <span className='hds-text-body-medium text-gray-secondary'>개</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* 하단 고정 버튼 쪽*/}
 
                         {/* 댓글쓰기 쓸때 쓸 별점 */}
                         {/* {setStarMenu(setStarScore) */}
-                        <hr className='purposeingredientbar' />
+                        {/* <hr className='purposeingredientbar' /> */}
 
                         {/* 목적별 성분 */}
-                        <div className='purpose mt-8 px-20'>
+                        {/* <div className='purpose mt-8 px-20'>
                             <span className='purposetext'>목적별 성분</span>
                         </div>
-                        <TempSkin list={skinList} />
+                        <TempSkin list={skinList} /> */}
 
                         {/* 회색 텍스트 박스1 */}
                         <div className='graybox px-20 py-16 background-gray-secondary-disabled rounded-8'>
@@ -593,10 +550,10 @@ const Detailinfo = () => {
 
 
                         {/*피부 타입별 성분 */}
-                        <div className='skintypeingredient mt-8 px-20'>
+                        {/* <div className='skintypeingredient mt-8 px-20'>
                             <span className='skintypeingredienttext'>피부 타입별 성분</span>
                         </div>
-                        <SkinType />
+                        <SkinType /> */}
 
                         {/* 회색 텍스트 박스2 */}
 

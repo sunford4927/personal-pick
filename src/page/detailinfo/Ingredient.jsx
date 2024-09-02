@@ -20,16 +20,33 @@ const [colorCounts, setColorCounts] = useState({
 });
   const { idx } = props;
 
-  // 색깔별 성분 개수 함수
   const getRiskCategory = (score) => {
-    if (score >= 7 || score === '05-07' || score === '05-08' || score === '05-09' || score === '05-10' || score === '06-07' || score === '06-08' || score === '06-09' || score === '06-10' || score === '07-08' || score === '07-09' || score === '07-10' || score === '08-09' || score === '08-10' || score === '09-10') {
-      return 'high';
-    } else if (score >= 3 || score === '02-03' || score === '03-04' || score === '03-05' || score === '03-06' || score === '04-05' || score === '04-06' || score === '05-06') {
-      return 'medium';
-    } else if (score >= 1 || score === '01-02' || score === '01-03') {
-      return 'low';
-    } else {
+    const numericScore = parseInt(score, 10);
+
+    // 100인 경우 먼저 처리
+
+    if (numericScore === 100) {
       return 'unknown';
+
+    } else if (numericScore >= 7 || 
+      score === '01-07' || score === '01-08' || score === '01-09' || score === '01-10' || 
+      score === '02-07' || score === '02-08' || score === '02-09' || score === '02-10' || 
+      score === '03-07' || score === '03-08' || score === '03-09' || score === '03-10' ||
+      score === '04-07' || score === '04-08' || score === '04-09' || score === '04-10' ||
+      score === '05-07' || score === '05-08' || score === '05-09' || score === '05-10' || 
+      score === '06-07' || score === '06-08' || score === '06-09' || score === '06-10' || 
+      score === '07-08' || score === '07-09' || score === '07-10' || 
+      score === '08-09' || score === '08-10' || score === '09-10') {
+      return 'high';
+    } else if (numericScore >= 3 || score === '01-04' || score === '01-05' || score === '01-06' || 
+      score === '02-03' || score === '02-04' || score === '02-05' || score === '02-06' || 
+      score === '03-04' || score === '03-05' || score === '03-06' || score === '04-05' || 
+      score === '04-06' || score === '05-06') {
+      return 'medium';
+    } else if (numericScore >= 1 || score === '01-02' || score === '01-03') {
+      return 'low'; 
+    } else {
+      return 'unknown'; // Default case for unexpected scores
     }
   };
 
@@ -119,23 +136,48 @@ const [colorCounts, setColorCounts] = useState({
       <hr className='ingbar'/>
   
       {/* 성분 목록 */}
+      <div className='ingmain'>
       {cosingredient.map((ingredient) => (
         <div key={ingredient.ing_idx}>
           <div className="ingmaintext">
             <span
               className={`ingscore ${
+                ingredient.score >= 100 ? 'w-[10px] h-[10px] rounded-full bg-gray-600' : 
                 ingredient.score >= 7 ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
                 ingredient.score >= 3 ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score >= 1 ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
                 ingredient.score === '01-02' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
                 ingredient.score === '01-03' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
+                ingredient.score === '01-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '01-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '01-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '02-03' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '02-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '02-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '02-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '03-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '03-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '03-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '04-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '04-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score === '05-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '01-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '01-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '01-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '01-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '02-06' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '02-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '02-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '02-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '02-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '03-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '03-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '03-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '03-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '04-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '04-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '04-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '04-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
                 ingredient.score === '05-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
                 ingredient.score === '05-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
                 ingredient.score === '05-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
@@ -164,6 +206,7 @@ const [colorCounts, setColorCounts] = useState({
           <hr className='ingbar2'/>
         </div>
       ))}
+    </div>
     </div>
   )
 }

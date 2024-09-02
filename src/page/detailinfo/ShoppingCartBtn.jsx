@@ -77,14 +77,19 @@ const ShoppingCartBtn = ({ func}) => {
         비슷한 성분 추천 상품
       </div>
 
-      {/* 랜덤 추천 상품 */}
+{/* 랜덤 추천 상품 */}
       {/* <div className='modalimgmain'> */}
         {/* 랜덤 이미지1 */}
         <div className="modalimg">
           {data[randomIndex1] && (
             <>
               <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={185} height={185} />
+              <div className='randomcosinfo'>
+              <span className='randombrandname'>[{data[randomIndex1]?.brand_name}]</span>
               <span className='randomimgname'>{data[randomIndex1]?.cos_name || '데이터 없음'}</span>
+              <span className='randomvolname'>({data[randomIndex1]?.vol})</span>
+              <span className='randomrankingname'>{data[randomIndex1]?.ranking}</span>
+              </div>
               <span className='randomimgprice'>{data[randomIndex1]?.price ? `${data[randomIndex1]?.price}원` : '가격 정보 없음'}</span>
             </>
           )}
@@ -94,7 +99,7 @@ const ShoppingCartBtn = ({ func}) => {
         {/* <div className='w-[1px] bg-gray-300 modalimgbar' /> */}
 
         {/*  랜덤 이미지2 */}
-        {/* <div className="modalimg">
+         <div className="modalimg">
           {data[randomIndex2] && (
             <>
               <img src={data[randomIndex2]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={200} height={200} />
@@ -104,8 +109,6 @@ const ShoppingCartBtn = ({ func}) => {
           )}
           {!data[randomIndex2] && <div>데이터가 없습니다.</div>}
         </div>
-      </div> */}
-
     </>
   )
 }
