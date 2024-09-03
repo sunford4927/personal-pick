@@ -47,27 +47,14 @@ class ppSuggestAge(Resource):
                                 ORDER BY COUNT(*) DESC
                                 LIMIT 6; """, (age, twoOldAge))
         elif (age < 50) :
-            data = setQuery(""" WITH FilteredUsers AS (
-    SELECT user_nm
-    FROM result_users
-    WHERE user_age BETWEEN %s AND %s
-),
-FilteredReviews AS (
-    SELECT r.cos_name
-    FROM result_review r
-    JOIN FilteredUsers u ON r.user_nm = u.user_nm
-),
-ProductCounts AS (
-    SELECT p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category,
-           COUNT(*) AS review_count
-    FROM result_product p
-    JOIN FilteredReviews r ON p.cos_name = r.cos_name
-    GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
-)
-SELECT *
-FROM ProductCounts
-ORDER BY review_count DESC
-LIMIT 6;""", (age, oldAge))
+            data = setQuery(""" SELECT p.*
+                                FROM result_product p
+                                JOIN result_review r ON p.cos_name = r.cos_name
+                                JOIN result_users u ON r.user_nm = u.user_nm
+                                WHERE u.user_age BETWEEN 20 AND 29
+                                GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
+                                 ORDER BY COUNT(*) DESC
+                                LIMIT 6;""", (age, oldAge))
 
         return jsonify(data)
             
