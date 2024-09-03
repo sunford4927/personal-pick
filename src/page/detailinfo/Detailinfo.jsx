@@ -9,33 +9,31 @@ import notsmile from '../../img/무표정.png'
 import account from '../../img/account.png'
 import goback from '../../img/왼쪽.png'
 import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 import detailright from '../../img/오른쪽.png'
-import caution from '../../img/caution.png'
-import allergy from '../../img/allergy.png'
 import ScrollToTop from '../../components/scrolltotop/ScrollToTop'
 import { setScore } from '../../util/util'
-import TempSkin from '../../components/tempskin/TempSkin'
-import SkinType from '../../components/skintype/SkinType'
 import DetailGraphBar from './DetailGraphBar'
 import StarRating from './StarRating'
-import InputReview from '../../components/inputreview/InputReview'
-import PageHeader from '../../components/pageheader/PageHeader'
 import ShoppingCartBtn from './ShoppingCartBtn'
 import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
-import PayShipment from '../payshipment/PayShipment'
-import { setStarMenu, changeStar } from '../../util/util'
-import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 
-const Detailinfo = () => {
+
+const Detailinfo = (item) => {
     // 페이지 이동 함수
     const navigate = useNavigate();
     const home = () => navigate('/');
 
 
     const state = useSelector(user => user.user)
+
+    const user = useSelector((state) => state.user);
+
+
 
 
 
@@ -46,15 +44,18 @@ const Detailinfo = () => {
     const [scorecnt, setScoreCnt] = useState([]);
     const [reviewcnt, setReviewCnt] = useState([]);
     // const [starscore , setStarScore] = useState(0);
-
     const [itemadd, setItemAdd] = useState(1);
     const [isDecreasing, setIsDecreasing] = useState(false);
 
-    const [cosingredient,setCosIngredient] = useState([]);
+    const [cosingredient, setCosIngredient] = useState([]);
+
+    const [isOpen, setIsOpen] = useState(false); // 모달 열림/닫힘 상태
+
 
 
 
     const { idx } = useParams();
+
 
 
     useEffect(() => {
@@ -63,7 +64,7 @@ const Detailinfo = () => {
         sendGet(URL + "/RatingAvg?idx=" + idx, setScoreAvg); // 평점 평균
         sendGet(URL + "/RatingCnt?idx=" + idx, setScoreCnt); // 그래프 바 평점 개수
         sendGet(URL + "/ReviewCnt?idx=" + idx, setReviewCnt); // 리뷰 개수
-       
+
     }, []);
 
     // 페이지네이션 함수
@@ -84,18 +85,19 @@ const Detailinfo = () => {
 
     useEffect(() => {
         console.log(cosingredient);
-        
+        console.log(review);
+
     });
 
-    
 
-    useEffect(()=> {
+
+    useEffect(() => {
         console.log(data);
-        
-       if (data.length > 0) {
-        sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name , setCosIngredient) // 화장품 성분 데이터
-       }
-    },[data])
+
+        if (data.length > 0) {
+            sendGet(URL + "/GetIngredient?cos_name=" + data[0].cos_name, setCosIngredient) // 화장품 성분 데이터
+        }
+    }, [data])
 
     // useEffect(() => {
     //     sendGet(URL + "/ReviewPage?idx=" + idx, (data) => {
@@ -103,25 +105,25 @@ const Detailinfo = () => {
     //       setCurrentPosts(data.slice(0, postPerPage)); // Set initial currentPosts
     //     });
     //   }, []);
-    
+
     //   useEffect(() => {
     //     setCurrentPosts(allReviews.slice(indexOfFirstPage, indexOfLastPage));
     //   }, [allReviews, indexOfFirstPage, indexOfLastPage]);
-  
 
-     useEffect(() => {
-         setReview(review);
-         setTotal(review.length);
-     });
 
-    
+    useEffect(() => {
+        setReview(review);
+        setTotal(review.length);
+    });
+
+
 
     //  useEffect(()=> {
     //   setCurrentPosts(review.slice(indexOfFirstPage, indexOfLastPage));
     //   console.log(review.slice(indexOfFirstPage, indexOfLastPage));
 
     //   console.log(review);
-      
+
     //  },[review])
 
     const itemRender = (current, type, originalElement) => {
@@ -181,51 +183,6 @@ const Detailinfo = () => {
         console.log(e.target.innerText)
     }
 
-    let skinList = [
-        {
-            count: 1,
-            value: "피부 보습1"
-        }, {
-            count: 2,
-            value: "피부 보습2"
-        }, {
-            count: 3,
-            value: "피부 보습3"
-        }, {
-            count: 4,
-            value: "피부 보습4"
-        }, {
-            count: 3,
-            value: "피부 보습5"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        }, {
-            count: 3,
-            value: "피부 보습"
-        },
-        {
-            count: 3,
-            value: "피부 보습"
-        },
-        {
-            count: 3,
-            value: "피부 보습"
-        }
-    ]
-
 
     let cntList = [
         {
@@ -250,7 +207,37 @@ const Detailinfo = () => {
         return price * quantity;
     };
 
+    // 모달 닫아도 화살표 움직이게 하는 함수
+    const handleDropdownClick = () => {
+        setIsOpen(!isOpen); // 상태 토글
+        showIngredient(<Ingredient idx={idx} />);
+    };
 
+    // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
+    const handlePurchase = () => {
+        if (user) {
+            navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
+        } else {
+            navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
+        }
+    };
+
+    // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
+    const handleAddToCart = () => {
+        if (user) {
+            // 장바구니 추가 로직
+            showModal(<ShoppingCartBtn func={func1} />);
+            sendPost(URL + '/AddCart', null, {
+                userid: state.user_id,
+                categorynumber: idx,
+                cosmeticprice: item.price,
+                cosmeticcount: itemadd,
+                cosmetictotal: item.price * itemadd
+            });
+        } else {
+            navigate('/login');
+        }
+    };
 
     return (
 
@@ -266,7 +253,7 @@ const Detailinfo = () => {
                         {/* 화장품 이름 */}
 
                         <div className='itemname'>
-                            <img src={goback} className="gobackimg" onClick={() => navigate(-1)} width={20} height={20}></img>
+                            <img src={goback} className="gobackimg" onClick={() => navigate('/')} width={20} height={20}></img>
                             <span className='cosmeticname'>{item.cos_name}</span>
                         </div>
 
@@ -305,6 +292,11 @@ const Detailinfo = () => {
                                             <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                                         </div>
                                         <img src={detailright} width={23} height={23} />
+                                    </div>
+
+                                    <div className='cosdescription'>
+                                        <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
                                     </div>
                                 </div>
                             </div>
@@ -363,23 +355,32 @@ const Detailinfo = () => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={() => navigate('/payshipment/'+item.idx + '/' + itemadd)}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={handlePurchase}>구매하기</a>
                                 </div>
-
                                 <div className="basketbutton">
-                                    <button className='basketbutton btn' onClick={() => {
-                                        showModal(<ShoppingCartBtn func={func1} />);
-                                        sendPost(URL + '/AddCart', null,
-                                            {
-                                                userid: state.user_id,
-                                                categorynumber: idx,
-                                                cosmeticprice: item.price,
-                                                cosmeticcount: itemadd,
-                                                cosmetictotal: item.price * itemadd
-                                            })
-                                    }}>장바구니</button>
+                                    <button className='basketbutton btn' onClick={handleAddToCart}>장바구니</button>
                                 </div>
                             </div>
+
+
+                            <hr className='allingredientbar1' />
+
+                            {/* 성분 */}
+
+                            <div className='ingredientmain mt-8 px-20'>
+                                <span>성분</span>
+                            </div>
+
+
+                            <div className='ingredientdropbox'>
+                                <input id="dropdown" type="checkbox" />
+                                <label className="dropdownLabel" for="dropdown" onClick={handleDropdownClick}>
+                                    <div>화장품 성분보기</div>
+                                    {isOpen ? <FaAngleUp className="caretIcon" /> : <FaAngleDown className="caretIcon" />}
+                                </label>
+                            </div>
+
+                            <hr className='allingredientbar2' />
 
 
                             {/*ai 리뷰 */}
@@ -461,7 +462,7 @@ const Detailinfo = () => {
                                         <div className='accountstar'>
                                             {setScore(`${item.rating}`)}
                                         </div>
-                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_up_dt}</span>
+                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_reg_dt}</span>
                                     </div>
 
                                     <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
@@ -519,32 +520,14 @@ const Detailinfo = () => {
                             <a class="allreviewbtn btn-5" href='https://play.google.com/store/search?q=%EC%83%98%ED%94%8C%EB%A1%9C%EB%93%9C&c=apps&hl=ko'>리뷰 전체보기</a>
                             </div> */}
 
-                            {/* 성분 */}
-
-                            <div className='ingredientmain mt-8 px-20'>
-                                <span>성분</span>
-                            </div>
-
-                            
-                            <div className='ingredientdropbox'>
-                                <input id="dropdown" type="checkbox" />
-                                <label className="dropdownLabel" for="dropdown" onClick={() => { showIngredient(<Ingredient idx = {idx}/>)}}>
-                                    <div>화장품 성분보기</div>
-                                    <FaAngleDown className="caretIcon" />
-                                </label>
-                            </div>
-                    
-
-
-                            <hr className='allingredientbar' />
 
 
                             {/* 전체 성분 */}
-                            <div className='allingredient mt-8 px-20'>
+                            {/* <div className='allingredient mt-8 px-20'>
                                 <span>전체 성분 (들어올값)개</span>
-                            </div>
+                            </div> */}
 
-                            <div className='caution mt-8 px-20'>
+                            {/* <div className='caution mt-8 px-20'>
                                 <div className='flex gap-x-8'>
                                     <img src={caution} alt="caution" />
                                     <span className='cautiontext hds-text-body-medium text-gray-secondary'>
@@ -555,9 +538,9 @@ const Detailinfo = () => {
                                         <span className='hds-text-body-medium text-gray-secondary'>개</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className='allergy mt-8 px-20'>
+                            {/* <div className='allergy mt-8 px-20'>
                                 <div className='flex gap-x-8'>
                                     <img src={allergy} alt="allergy"></img>
                                     <span className='allergytext hds-text-body-medium text-gray-secondary'>
@@ -568,20 +551,20 @@ const Detailinfo = () => {
                                         <span className='hds-text-body-medium text-gray-secondary'>개</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* 하단 고정 버튼 쪽*/}
 
                         {/* 댓글쓰기 쓸때 쓸 별점 */}
                         {/* {setStarMenu(setStarScore) */}
-                        <hr className='purposeingredientbar' />
+                        {/* <hr className='purposeingredientbar' /> */}
 
                         {/* 목적별 성분 */}
-                        <div className='purpose mt-8 px-20'>
+                        {/* <div className='purpose mt-8 px-20'>
                             <span className='purposetext'>목적별 성분</span>
                         </div>
-                        <TempSkin list={skinList} />
+                        <TempSkin list={skinList} /> */}
 
                         {/* 회색 텍스트 박스1 */}
                         <div className='graybox px-20 py-16 background-gray-secondary-disabled rounded-8'>
@@ -592,10 +575,10 @@ const Detailinfo = () => {
 
 
                         {/*피부 타입별 성분 */}
-                        <div className='skintypeingredient mt-8 px-20'>
+                        {/* <div className='skintypeingredient mt-8 px-20'>
                             <span className='skintypeingredienttext'>피부 타입별 성분</span>
                         </div>
-                        <SkinType />
+                        <SkinType /> */}
 
                         {/* 회색 텍스트 박스2 */}
 
