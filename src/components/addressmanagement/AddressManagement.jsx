@@ -95,6 +95,7 @@ const AddressManagement = () => {
     }
     // pageType 이 true일때는 배송지 수정화면이 출력 false일때는 배송지 등록화면
     useEffect(()=>{
+
         UserNm =sessionStorage.getItem("username");
         if(isType(pagetype))
         {
