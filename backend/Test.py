@@ -10,8 +10,8 @@ class testJoin(Resource):
 
         sql = '''INSERT INTO result_users (
         user_id, user_pw, user_name, user_nm, user_email,
-        user_age, user_sex, skin_type, user_address
-        ) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+        user_age, user_sex, skin_type
+        ) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)'''
         value = (data['user_id'],
         data['user_pw'],
         data['user_name'],
@@ -19,8 +19,7 @@ class testJoin(Resource):
         data['user_email'],
         data['user_age'],
         data['user_sex'],
-        data['skin_type'],
-        data['user_address'])
+        data['skin_type'])
 
         # print('values : ', value)
         

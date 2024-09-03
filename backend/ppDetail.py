@@ -30,8 +30,7 @@ class ppGetReveiw(Resource):
                                 rr.review_idx, 
                                 rr.review, 
                                 rr.rating, 
-                                rr.review_reg_dt, 
-                                rr.review_up_dt, 
+                                rr.review_reg_dt,
                                 p.idx
                             FROM 
                                 result_product p
@@ -41,7 +40,7 @@ class ppGetReveiw(Resource):
                                 result_users ru ON rr.user_nm = ru.user_nm
                             WHERE 
                                 p.idx = %s
-                            order by review_up_dt desc
+                            order by review_reg_dt desc
 
                             """, idx)
         # print("dataquery: ", data)
