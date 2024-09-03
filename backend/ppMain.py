@@ -51,7 +51,7 @@ class ppSuggestAge(Resource):
                                 FROM result_product p
                                 JOIN result_review r ON p.cos_name = r.cos_name
                                 JOIN result_users u ON r.user_nm = u.user_nm
-                                WHERE u.user_age BETWEEN 20 AND 29
+                                WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                  ORDER BY COUNT(*) DESC
                                 LIMIT 6;""", (age, oldAge))
