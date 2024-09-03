@@ -33,7 +33,7 @@ const Detailinfo = (item) => {
 
     const user = useSelector((state) => state.user);
 
-
+    const description = item?.description || '';
 
 
 
@@ -236,6 +236,7 @@ const Detailinfo = (item) => {
                 cosmetictotal: item.price * itemadd
             });
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login');
         }
     };
@@ -297,7 +298,11 @@ const Detailinfo = (item) => {
 
                                     <div className='cosdescription'>
                                         <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
-                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
+                                        <div className='cosdescriptiontext px-20 mt-24'>
+                                            {description.split('-').map((line, index) => (
+                                                <p key={index}>{line}</p>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

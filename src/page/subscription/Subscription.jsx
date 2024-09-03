@@ -142,7 +142,7 @@ const Subscription = () => {
                 </div>
                 </div>
 
-                {/* 기초 구독 설명 영역 */}
+                {/* 구독 설명 영역 */}
                 <div className='basicexplainmainbox'>
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -167,10 +167,13 @@ const Subscription = () => {
 
                 <div className='basictextbox'>
                     <span className='basictext'>
-                        피부 특성 분석 후 사용자 맞춤형 기초 샘플 4종을 보내드립니다.
+                    기초 샘플 구독 20,000/월 
                     </span>
                     <span className='basictext2'>
-                        배송비 무료!
+                    월 정기결제, 기초 샘플 기준
+                    </span>
+                    <span className='basictext3'>
+                    빅데이터 알고리즘 반영 사용자 맞춤형 샘플 5가지 제공!
                     </span>
                 </div>
 
