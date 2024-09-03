@@ -35,12 +35,13 @@
     margin: 4px;
     padding: 33px;
     width: 185px;
+    padding-bottom: 0px;
 }
 
 .firstboxtext {
     display: flex;
     margin-left: -28px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     margin-top: -14px;
 }
@@ -87,7 +88,7 @@
     display: flex;
     margin-left: -59px;
     margin-top: -47px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     width: 204px;
 }
@@ -136,34 +137,34 @@
     border-radius: 8px;
     background-color: #ffffff;
     margin: 4px;
-    padding: 66px;
-    width: 134px;
-    height: 0px;
+    padding: 61px;
+    width: 129px;
+    height: 11px;
     margin-top: 44px;
 }
 
 .thirdboxtext {
     display: flex;
-    margin-left: -60px;
-    margin-top: -43px;
-    font-size: 18px;
+    margin-left: -56px;
+    margin-top: -39px;
+    font-size: 17px;
     font-weight: 600;
     width: 213px;
 }
 
 .thirdboxtext2 {
     display: flex;
-    margin-left: -60px;
+    margin-left: -55px;
     font-size: 12px;
     line-height: 16px;
     color: gray;
     width: 255px;
-    margin-top: 24px;
+    margin-top: 21px;
 }
 
 .thirdboxtext2_1 {
     display: flex;
-    margin-left: -60px;
+    margin-left: -55px;
     font-size: 12px;
     line-height: 16px;
     color: gray;
@@ -175,17 +176,19 @@
     border-radius: 8px;
     background-color: #ffffff;
     margin: 4px;
-    height: 135px;
+    height: 134px;
     margin-top: 45px;
     box-sizing: border-box;
+    width: 247px;
 }
 
 .fourthboxtext {
     display: flex;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    margin-top: 17px;
-    margin-left: 9px;
+    margin-top: 21px;
+    margin-left: 4px;
+
 }
 
 .fourthboxtext2 {
@@ -193,8 +196,9 @@
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    margin-top: 27px;
-    margin-left: 10px;
+    margin-top: 21px;
+    margin-left: 5px;
+
 }
 
 .fourthboxtext2_1 {
@@ -202,7 +206,8 @@
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    margin-left: 10px;
+    margin-left: 5px;
+
 }
 
 .fourthboxtext2_2 {
@@ -210,7 +215,8 @@
     font-size: 12px;
     line-height: 16px;
     color: gray;
-    margin-left: 10px;
+    margin-left: 5px;
+
 }
 
 
@@ -239,15 +245,14 @@
 }
 
 .basictitle {
-    display: flex;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;    
     line-height: 40px;
 }
 
 .basictitle2 {
     display: flex;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 700;
     margin-top: 20px;
 }
@@ -367,14 +372,14 @@
 
 .basichuetitle {
     display: flex;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 44px;
 }
 
 .basichuetitle2 {
     display: flex;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 700;
     margin-top: 20px;
 }

@@ -57,6 +57,16 @@ const Subscription = () => {
     //     return <span id="subsriptioncounter" />;
     //   };
 
+    const CountUp = () => {
+        useCountUp({ ref: 'counter', end: 3000});
+        return <span id="counter" />;
+      };
+
+    const CountUp1 = () => {
+        useCountUp({ ref: 'counter1', end: 10000});
+        return <span id="counter1" />;
+    };
+
 
     return (
 
@@ -146,8 +156,9 @@ const Subscription = () => {
                 >
                 <div className='basictitlemainbox'>
                     <img src ={image1} width={300} height={300} className='image1'/>
+                    <CountUp1/>
                     <span className='basictitle'>
-                    나에게 맞는 기초 화장품
+                    개의 데이터 분석을 통한 추천 화장품을
                     </span> 
                     <span className='basictitle2'>
                     고민 없이 사용해보고 싶다면?
@@ -164,7 +175,7 @@ const Subscription = () => {
                 </div>
 
                 <div class="basicbutton">
-                    <a class="basicbutton btn-5" onClick={basicMakeup}>기초 화장품 구독하러 가기</a>
+                    <a class="basicbutton btn-5" onClick={basicMakeup}>구독하러 가기</a>
                 </div>
                 </motion.div>
                 </div>

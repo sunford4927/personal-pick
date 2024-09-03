@@ -218,6 +218,7 @@ const Detailinfo = (item) => {
         if (user) {
             navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
         }
     };

@@ -29,19 +29,19 @@ const [colorCounts, setColorCounts] = useState({
       return 'unknown';
 
     } else if (numericScore >= 7 || 
-      score === '01-07' || score === '01-08' || score === '01-09' || score === '01-10' || 
-      score === '02-07' || score === '02-08' || score === '02-09' || score === '02-10' || 
-      score === '03-07' || score === '03-08' || score === '03-09' || score === '03-10' ||
-      score === '04-07' || score === '04-08' || score === '04-09' || score === '04-10' ||
-      score === '05-07' || score === '05-08' || score === '05-09' || score === '05-10' || 
-      score === '06-07' || score === '06-08' || score === '06-09' || score === '06-10' || 
-      score === '07-08' || score === '07-09' || score === '07-10' || 
-      score === '08-09' || score === '08-10' || score === '09-10') {
+      score === '1-7' || score === '1-8' || score === '1-9' || score === '1-10' || 
+      score === '2-7' || score === '2-8' || score === '2-9' || score === '2-10' || 
+      score === '3-7' || score === '3-8' || score === '3-9' || score === '3-10' ||
+      score === '4-7' || score === '4-8' || score === '4-9' || score === '4-10' ||
+      score === '5-7' || score === '5-8' || score === '5-9' || score === '5-10' || 
+      score === '6-7' || score === '6-8' || score === '6-9' || score === '6-10' || 
+      score === '7-8' || score === '7-9' || score === '7-10' || 
+      score === '8-9' || score === '8-10' || score === '9-10') {
       return 'high';
-    } else if (numericScore >= 3 || score === '01-04' || score === '01-05' || score === '01-06' || 
-      score === '02-03' || score === '02-04' || score === '02-05' || score === '02-06' || 
-      score === '03-04' || score === '03-05' || score === '03-06' || score === '04-05' || 
-      score === '04-06' || score === '05-06') {
+    } else if (numericScore >= 3 || score === '1-4' || score === '1-5' || score === '1-6' || 
+      score === '2-3' || score === '2-4' || score === '2-5' || score === '2-6' || 
+      score === '3-4' || score === '3-5' || score === '3-6' || score === '4-5' || 
+      score === '4-6' || score === '5-6') {
       return 'medium';
     } else if (numericScore >= 1 || score === '01-02' || score === '01-03') {
       return 'low'; 
@@ -146,52 +146,52 @@ const [colorCounts, setColorCounts] = useState({
                 ingredient.score >= 7 ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
                 ingredient.score >= 3 ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
                 ingredient.score >= 1 ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
-                ingredient.score === '01-02' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
-                ingredient.score === '01-03' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
-                ingredient.score === '01-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '01-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '01-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '02-03' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '02-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '02-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '02-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '03-04' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '03-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '03-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '04-05' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '04-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '05-06' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
-                ingredient.score === '01-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '01-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '01-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '01-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '02-06' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '02-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '02-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '02-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '02-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '03-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '03-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '03-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '03-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '04-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '04-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '04-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '04-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
-                ingredient.score === '05-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '05-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '05-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '05-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '06-07' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '06-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '06-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '06-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '07-08' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '07-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '07-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '08-09' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '08-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
-                ingredient.score === '09-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '1-2' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
+                ingredient.score === '1-3' ? 'w-[10px] h-[10px] rounded-full bg-mint-600' :
+                ingredient.score === '1-4' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '1-5' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '1-6' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '2-3' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '2-4' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '2-5' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '2-6' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '3-4' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '3-5' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '3-6' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '4-5' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '4-6' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '5-6' ? 'w-[10px] h-[10px] rounded-full bg-yellow-600' :
+                ingredient.score === '1-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '1-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '1-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '1-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '2-6' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '2-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '2-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '2-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '2-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '3-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '3-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '3-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '3-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '4-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '4-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '4-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '4-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600':
+                ingredient.score === '5-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '5-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '5-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '5-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '6-7' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '6-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '6-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '6-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '7-8' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '7-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '7-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '8-9' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '8-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
+                ingredient.score === '9-10' ? 'w-[10px] h-[10px] rounded-full bg-red-600' :
                 'w-[10px] h-[10px] rounded-full bg-gray-600'
               }`}
             >
