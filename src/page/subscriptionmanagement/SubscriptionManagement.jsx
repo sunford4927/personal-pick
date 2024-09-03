@@ -32,7 +32,11 @@ const SubscriptionManagement = () => {
         setData(DataList)
     }
     useEffect(() => {
-        sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=원더 세라마이드 모찌 토너 외 5건" , calData);
+        if(user !== undefined)
+        {
+            sendGet(URL + '/SubscribeHistory?user_id='+user.user_id + "&order_name=구독결제" , calData);
+        }
+
     }, [user])
 
     function changeclass(e){

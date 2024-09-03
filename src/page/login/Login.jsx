@@ -37,7 +37,6 @@ const Login = () => {
             });
             const responseData = response.data[0]
             // 반환 데이터 확인
-            console.log(responseData)
             dispatch(setUser(responseData));
             
             // 반환 데이터가 있으면 -> 로그인 성공하면
@@ -46,9 +45,8 @@ const Login = () => {
                 LoginSession(responseData.user_nm);
                 // login 변수에 true 저장
                 setIsLogin(true);
-                console.log('로그인 유저 : ',getLoginSession().user_nm);
                 setError('');
-                alert('로그인 성공!')
+                navigate('/')
             } else {
                 setError('ID, PW가 일치하지 않습니다');
             }
@@ -63,10 +61,7 @@ const Login = () => {
         LogoutSession();
         setIsLogin(false);
     }
-    useEffect(() => {
-        // login 상태가 바뀔 때마다 화면 랜더링
-        console.log('Login User : ',getLoginSession().user_nm);
-    }, [isLogin]);
+
     
 
     return (
