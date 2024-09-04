@@ -37,7 +37,7 @@ const AiRecommend = () => {
         const LoadUsersData = async () => {
             const user_nm = getLoginSession().username
             // 1. 유저 데이터
-            const user_response = await axios.get(URL + '/TestUserData', {
+            const user_response = await axios.get(URL + '/TestDY', {
                 params: {
                     user_nm: user_nm
                 }
