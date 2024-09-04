@@ -24,9 +24,9 @@ df_ing_reco, df_ing_effect, df_ing, df_product, df_review, df_user = data.get_da
 
 class recommend(Resource):
     def get(self):
-        print('recommend  121314')
-        # user = request.args.get('user_nm')
-        user = 'hiinaa'
+        # print('recommend  121314')
+        user = request.args.get('user_nm')
+        # user = 'hiinaa'
         # user_age = request.args.get('user_age')
         # user_sex = request.args.get('user_sex')
         # skin_type = request.args.get('skin_type')
@@ -61,13 +61,16 @@ class recommend(Resource):
             size = 6 - len(cos_reco)
             # 4개 미만일 경우 모두 선택
             temp = cos_reco.index
+        # print('temp1 : ', temp)
         ran_cos = cos_reco.loc[temp]
+        # print('ran_cos : ', ran_cos)
 
         temp = np.random.choice(simple_reco.index, size, replace=False)
+        # print('temp : ', temp)
         ran_simple = simple_reco.loc[temp]
-        print('ran_simple : ', ran_simple)
+        # print('ran_simple : ', ran_simple)
 
         final_reco = pd.concat([ran_cos, ran_simple]).to_dict()
-        print('final_reco : ', final_reco)
+        # print('final_reco : ', final_reco)
 
         return jsonify(final_reco)

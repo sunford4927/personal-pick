@@ -28,7 +28,7 @@ const AiRecommend = () => {
     // const user_sex = user.user_sex
     // console.log('피부타입 : ', skin_type);
     // console.log('연령 : ', user_age);
-    // console.log('성별 : ', user_sex);
+    // console.log('성별 : ', user_sex);  
 
     useEffect(() => {
         console.log('user_nm : ', getLoginSession().username);
@@ -59,7 +59,7 @@ const AiRecommend = () => {
                     skin_type : skin_type
                 }
             });
-            console.log(reco_response);
+            console.log(reco_response.data);
             
 
         }
