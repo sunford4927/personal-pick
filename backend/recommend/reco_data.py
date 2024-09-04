@@ -40,13 +40,16 @@ class reco_data:
         self.df_user['user_age_group'] = self.df_user['user_age'].apply(categorize_age)
 
         # 사용할 유저 정보 저장
-        # self.user = '더무아'
-        # self.user_data = {
-        #     '나이': self.df_user[self.df_user['user_nm']==self.user]['user_age_group'].values[0],
-        #     '성별': self.df_user[self.df_user['user_nm']==self.user]['user_sex'].values[0],
-        #     '피부타입': self.df_user[self.df_user['user_nm']==self.user]['skin_type'].values[0]
-        # }
+        self.user = '더무아'
+        self.user_data = {
+            '나이': self.df_user[self.df_user['user_nm']==self.user]['user_age_group'].values[0],
+            '성별': self.df_user[self.df_user['user_nm']==self.user]['user_sex'].values[0],
+            '피부타입': self.df_user[self.df_user['user_nm']==self.user]['skin_type'].values[0]
+        }
+        # print('user : ', self.user)
 
     def get_data(self):
+        # print('user : ', self.user)
         return self.df_ing_reco, self.df_ing_effect, self.df_ing, self.df_product, self.df_review, self.df_user
     # , self.user, self.user_data
+    # print('user : ', __init__, get_data)

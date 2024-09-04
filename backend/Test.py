@@ -90,3 +90,15 @@ class testSearch(Resource):
 
         # result = setQuery(sql)
         return jsonify(result)
+    
+# 로그인 한 유저의 유저 데이터 select
+class testDY(Resource):
+    def get(self):
+        user_nm = request.args.get('user_nm')
+        print('user_nm : ', user_nm)
+
+        sql ='SELECT * FROM result_users WHERE user_nm = %s'
+        value = user_nm
+        result = setQuery(sql, value)
+        # print('result : ', result)
+        return jsonify(result)

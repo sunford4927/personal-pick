@@ -33,11 +33,9 @@ const Detailinfo = (item) => {
 
     const user = useSelector((state) => state.user);
 
+    
 
-
-
-
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([{description:""}]);
     const [review, setReview] = useState([]);
     const [scoreavg, setScoreAvg] = useState([]);
     // const [allReviews, setAllReviews] = useState([]);
@@ -116,6 +114,7 @@ const Detailinfo = (item) => {
         setTotal(review.length);
     });
 
+    
 
 
     //  useEffect(()=> {
@@ -213,31 +212,36 @@ const Detailinfo = (item) => {
         showIngredient(<Ingredient idx={idx} />);
     };
 
+
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handlePurchase = () => {
-        if (user) {
-            navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
+    const handlePurchase = (e) => {
+        if (user !== undefined) {
+            navigate('/payshipment/' + e + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
         }
     };
 
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handleAddToCart = () => {
-        if (user) {
+    const handleAddToCart = (e) => {
+        if (user !== undefined) {
             // 장바구니 추가 로직
             showModal(<ShoppingCartBtn func={func1} />);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
-                cosmeticprice: item.price,
+                cosmeticprice: e,
                 cosmeticcount: itemadd,
-                cosmetictotal: item.price * itemadd
+                cosmetictotal: e * itemadd
             });
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login');
         }
     };
+
+
 
     return (
 
@@ -294,9 +298,10 @@ const Detailinfo = (item) => {
                                         <img src={detailright} width={23} height={23} />
                                     </div>
 
+                                    {/* 화장품 설명 */}
                                     <div className='cosdescription'>
                                         <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
-                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description.split("-").map(line => <>- <span className='cosdesline'>{line}</span><br/></>)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +325,8 @@ const Detailinfo = (item) => {
                             {/* 수량 변경 부분 */}
 
                             <div className='itemtitlebox'>
-                                <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
+                                <span className='itemtitlebox2'>{item.cos_name}</span>
+                                <span className='amount'>({item.vol})</span>
                                 <div className='flex_col itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
                                         if (itemadd > 1) {
@@ -355,10 +361,10 @@ const Detailinfo = (item) => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={handlePurchase}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={()=>handlePurchase(item.idx)}>구매하기</a>
                                 </div>
                                 <div className="basketbutton">
-                                    <button className='basketbutton btn' onClick={handleAddToCart}>장바구니</button>
+                                    <button className='basketbutton btn' onClick={()=>handleAddToCart(item.price)}>장바구니</button>
                                 </div>
                             </div>
 

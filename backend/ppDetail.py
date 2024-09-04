@@ -35,9 +35,9 @@ class ppGetReveiw(Resource):
                             FROM 
                                 result_product p
                             JOIN 
-                                result_review rr ON p.cos_name = rr.cos_name
+                                result_review rr ON p.idx = rr.cos_idx
                             JOIN 
-                                result_users ru ON rr.user_nm = ru.user_nm
+                                result_users ru ON rr.user_idx = ru.user_id
                             WHERE 
                                 p.idx = %s
                             order by review_reg_dt desc

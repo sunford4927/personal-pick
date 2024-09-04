@@ -35,7 +35,7 @@ const DetailGraphBar = () => {
             <div className='detailgraphbarchart_back'>
               <div
                 className='detailgraphbarchart'
-                style={{ height: cnt.count * 1 + "%", backgroundColor: "#0099FC" }}
+                style={{ height: cnt.count * 0.6 + "%", backgroundColor: "#0099FC" }}
               />
             </div>
             <div className='detailgraphbar_Title'>{cnt.rating}</div>

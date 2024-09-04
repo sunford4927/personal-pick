@@ -1,3 +1,4 @@
+from flask import request, jsonify
 # from flask_restx import Resource
 from reco_data import reco_data
 import pandas as pd
