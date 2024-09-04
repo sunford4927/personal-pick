@@ -1179,48 +1179,13 @@ video {
     margin: 0.8rem 0;
 }
 
-
-
-
-
-
-// 전체 리뷰보기 버튼
-
-.allreviewbtncontainer {
+.more-button{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
-    /* width: 80vw; */
-    /* margin: 0 auto; */
-    /* min-height: 100vh; */
-}
-
-
-.allreviewbtn {
-    flex: 1 1 auto;
-    padding: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
+    margin-left: 13px;
+    background: #ffffff;
+    border: white;
+    font-size: 16px;
     font-weight: 600;
-    text-decoration-line: none;
-    cursor: pointer;
-    margin-top: 30px;
-    font-size: 18px;
-}
-
-.btn-5:hover {
-    background-position: right center;
-    /* change the direction of the change here */
-}
-
-.btn-5 {
-    background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
 }
 
 // 성분 구성 위험 단계 부분 (공통 css)
@@ -1244,9 +1209,6 @@ video {
 .items-center {
     align-items: center;
 }
-
-
-
 
 
 .text-gray-tertiary {

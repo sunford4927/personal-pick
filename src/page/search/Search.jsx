@@ -5,7 +5,7 @@ import './Search.scss';
 import Star from '../../img/별.png';
 import Back from '../../img/왼쪽.png';
 import { getDay } from "../../util/utilStr";
-
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
@@ -14,6 +14,8 @@ const Search = () => {
     // 페이지 이동 함수
     const nav = useNavigate();
 
+    // 검색 화면에서 제품 클릭시 페이지 제일 위로 가게 하는 함수
+    const itemRefs = useRef([]);
 
 
     // 사용자가 찾고 싶은 제품을 검색했을 때 나타나는 제품리스트
@@ -22,6 +24,10 @@ const Search = () => {
     const [inputvalue, setInputvalue] = useState("");
 
     const [isSticky, setIsSticky] = useState(false); // 상태 변수 추가
+
+    // 리뷰의 최종 긍정 점수
+    const [reviewscore, setReviewScore] = useState([]);
+    const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -67,7 +73,7 @@ const Search = () => {
     // 굳이 sendDel을 만들지 않아도 sendPost로 내가 검색한 최근검새어 리스트(ex.5개)를 보낼 것이고
     // X 버튼을 onClick 했을 때에 남은 리스트(ex.4개)도 sendPost로 보내기때문에 sendDel를 만들 필요 없음
     useEffect(() => {
-        
+
         sendPost(URL + "/SearchList", null, searchHistory);
     }, [searchHistory]); // 빈배열 안에 searchHistory(최근 검색어)가 있는 경우는 최근검색어를 검색하고 화면에 나왔을 때 렌더링하겠다는 뜻
 
@@ -99,26 +105,26 @@ const Search = () => {
             setSearchHistory([...newHistory])
         }
         sendGet(URL + "/SearchPage?value=" + searchValue, showConsole);
-        
+
         // 검색어를 inputvalue에 설정하여 검색 실행
         //setInputvalue("");
-         setInputvalue(inputvalue);
+        setInputvalue(inputvalue);
 
-        
+
     };
 
 
 
     // 검색어를 삭제하는 함수
     const searchDelete = (indexToDelete, e) => {
-        e.stopPropagation() 
+        e.stopPropagation()
         const newHistory = [...searchHistory];
         // filter함수를 사용해 indexToDelete한 것이 아닌 index값들만 가져오는 것
         const newList = newHistory.filter((item, index) => index !== indexToDelete)
         // 스트레드로 newList에 리스트 형식으로 묶어서 SearchHistory에 담아주기
         setSearchHistory([...newList]);
         // console.log("i");
-        
+
     };
 
 
@@ -134,10 +140,20 @@ const Search = () => {
     };
 
 
-
+    // 리뷰 최종 긍정 점수
+    useEffect(() => {
+        sendGet(URL + "/PositiveScore", setReviewScore);
+    }, [])
 
     // 오늘날짜
     let today = new Date()
+
+    // 페이지 이동 시 제일 위에 뜨게 
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 });
+    };
+
 
     return (
         <div>
@@ -146,14 +162,14 @@ const Search = () => {
                 {/* InputBox 컴포넌트에 searchAdd 함수를 전달하여 검색어 입력 시 호출되게 함 */}
                 <div className='searchbtn'>
                     {/* <button className='' type="button" onClick={() => nav('/')}> */}
-                        {/* </button> */}
-                        
+                    {/* </button> */}
+
                     <div className='back'>
-                        <img   onClick={() => nav('/')} src={Back}></img>
+                        <img onClick={() => nav('/')} src={Back}></img>
                     </div>
-                        <InputBox className='width' func={searchAdd} inputvalue= {inputvalue} setvalue={setInputvalue}></InputBox>
-                        
-    
+                    <InputBox className='width' func={searchAdd} inputvalue={inputvalue} setvalue={setInputvalue}></InputBox>
+
+
                 </div>
                 {/* <div style={{ height: '120px' }}> */}
                 <div>
@@ -172,19 +188,26 @@ const Search = () => {
                     <hr className='line' />
                 </div>
                 {/* 서버에서 가져온 제품 리스트를 화면에 표시 */}
-                <div className='h-24'/>
+                <div className='h-24' />
                 <div className='timeproduct'>
-                    <p className='searchtime'>{today.getMonth()+1 + "월 " + today.getDate() + "일 " + getDay(today.getDay()) + " " + today.getHours() + ":00" }</p>
+                    <p className='searchtime'>{today.getMonth() + 1 + "월 " + today.getDate() + "일 " + getDay(today.getDay()) + " " + today.getHours() + ":00"}</p>
                     <h2 className='product'>지금 가장 많이 구매하고 있어요:)</h2>
                     {/* <strong>검색한 제품 개수{idx}</strong> */}
                 </div>
                 <div className='products'>
                     <ul>
-                        {productList.length > 0 && productList.map((item) => (
-                            <li className='product1' key={item.idx} onClick={() => handleProductClick(item.idx)}>
+                        {reviewscore.length > 0 && reviewscore.map((item, index) => (
+                            <li
+                                className='product1'
+                                key={item.idx}
+                                onClick={() => {
+                                    handleProductClick(item.idx);
+                                    scrollToTop(); // 클릭 시 스크롤을 최상단으로 이동
+                                }}
+                            >
                                 <div className='searchflex'>
-                                    <div className='idx'>{item.idx}</div>
-                                    <img src={item.cos_img_src} style={{ width: '80px', height: '80px'}} alt={item.cos_name} className='productimg'></img>
+                                    <div className='idx'>{index + 1}</div>
+                                    <img src={item.cos_img_src} style={{ width: '80px', height: '80px' }} alt={item.cos_name} className='productimg' />
                                     <div className='items'>
                                         <div className='searchfont'>
                                             <span className='searchbrand'>{item.brand_name}</span>
@@ -192,10 +215,16 @@ const Search = () => {
                                         </div>
 
                                         <div className='review1'>
-                                            <span><img className='star1' src={Star}></img></span>
+                                            <span><img className='star1' src={Star} alt='Star' /></span>
                                             <span className='grade'>{item.grade}</span>
                                             <span className='gray'>({item.grade_count})</span>
                                         </div>
+
+                                        <div className='reviewpositive'>
+                                            <span className='positivescoretitle'>리뷰 긍정 점수: </span>
+                                            <span className='positivescore'>{item.review_score}</span>
+                                        </div>
+
                                         <div className='searchprice'>
                                             <span className='jungga'>정가 </span>
                                             <span className='won'>{item.price}</span>

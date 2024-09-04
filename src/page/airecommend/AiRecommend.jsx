@@ -43,13 +43,13 @@ const AiRecommend = () => {
                 }
             });
             
-            // const user = user_response.data[0]
-            // const skin_type = user.skin_type
-            // const user_age = user.user_age
-            // const user_sex = user.user_sex
-            // console.log('피부타입 : ', skin_type);
-            // console.log('연령 : ', user_age);
-            // console.log('성별 : ', user_sex);
+            const user = user_response.data[0]
+            const skin_type = user.skin_type
+            const user_age = user.user_age
+            const user_sex = user.user_sex
+            console.log('피부타입 : ', skin_type);
+            console.log('연령 : ', user_age);
+            console.log('성별 : ', user_sex);
 
             // 2. 추천 데이터
             const reco_response = await axios.get(URL + '/Recommend', {
