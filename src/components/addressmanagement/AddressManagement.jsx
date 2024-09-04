@@ -14,7 +14,8 @@ const AddressManagement = () => {
     const nav = useNavigate()
     const {pagetype, address_idx} = useParams()
     const user = useSelector(state=>state.user)
-    
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     
     // 받는 사람
     const [receiveUser, setReceiveUser] = useState("");
@@ -106,6 +107,8 @@ const AddressManagement = () => {
     },[])
 
     function sendData(){
+
+        
         let dic = {
             default_address: defaultAddr,
             msg: messageDirect !=="direct_message" ? messageDirect : message,
