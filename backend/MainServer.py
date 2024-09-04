@@ -7,10 +7,17 @@ from ppDetail import ppDetailPage, ppGetReveiw, ppRatingAvg, ppRatingCnt, ppRevi
 from join import ppJoin
 from ppLogin import ppLogin
 from ppSearch import ppSearch, ppSearchList
-from Test import testJoin, testLogin, testUserData, testOrderData, testCategory, testSearch
+from Test import testJoin, testLogin, testUserData, testOrderData, testCategory, testSearch, testReco
 from payment import payment, Clearpayment
 from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUpdateCartCnt, ppOrderHistoryOne, ppOrderHistory, ppSubscribeHistory
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
+from recommend import recommend
+
+# from recommend.recommend import recommend
+# from recommend.reco_data import reco_data
+# from recommend.reco_def import reco_cosine, reco_simple
+
+
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False
@@ -51,6 +58,8 @@ api.add_resource(testOrderData, '/TestOrderData')
 
 api.add_resource(testCategory, '/TestCategory')
 api.add_resource(testSearch, '/TestSearch')
+
+api.add_resource(recommend, '/Recommend')
 
 api.add_resource(payment , "/payment")
 api.add_resource(Clearpayment , "/clearpayment")
