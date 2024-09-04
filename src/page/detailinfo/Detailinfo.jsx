@@ -212,10 +212,11 @@ const Detailinfo = (item) => {
         showIngredient(<Ingredient idx={idx} />);
     };
 
+
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handlePurchase = () => {
-        if (user) {
-            navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
+    const handlePurchase = (e) => {
+        if (user !== undefined) {
+            navigate('/payshipment/' + e + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
         } else {
             alert("로그인 후 이용해주세요!")
             navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
@@ -223,22 +224,24 @@ const Detailinfo = (item) => {
     };
 
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handleAddToCart = () => {
-        if (user) {
+    const handleAddToCart = (e) => {
+        if (user !== undefined) {
             // 장바구니 추가 로직
             showModal(<ShoppingCartBtn func={func1} />);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
-                cosmeticprice: item.price,
+                cosmeticprice: e,
                 cosmeticcount: itemadd,
-                cosmetictotal: item.price * itemadd
+                cosmetictotal: e * itemadd
             });
         } else {
             alert("로그인 후 이용해주세요!")
             navigate('/login');
         }
     };
+
+
 
     return (
 
@@ -358,10 +361,10 @@ const Detailinfo = (item) => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={handlePurchase}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={()=>handlePurchase(item.idx)}>구매하기</a>
                                 </div>
                                 <div className="basketbutton">
-                                    <button className='basketbutton btn' onClick={handleAddToCart}>장바구니</button>
+                                    <button className='basketbutton btn' onClick={()=>handleAddToCart(item.price)}>장바구니</button>
                                 </div>
                             </div>
 
