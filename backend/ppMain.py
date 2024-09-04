@@ -8,7 +8,7 @@ class ppMainPage(Resource):
     def get(self):
         data = setQuery("""select idx, brand_name, cos_name, cos_img_src, 
                             grade, grade_count, price, vol
-                            from result_product""")
+                            from result_product limit 100""")
         return jsonify(data)
     
 
