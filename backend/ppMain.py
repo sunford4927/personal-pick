@@ -68,8 +68,8 @@ class ppSuggestSkinType(Resource):
         skintype = TypeDic['skintype']
         data = setQuery(""" SELECT p.*
                                 FROM result_product p
-                                JOIN result_review r ON p.cos_name = r.cos_name
-                                JOIN result_users u ON r.user_nm = u.user_nm
+                                JOIN result_review r ON p.idx = r.cos_idx
+                                JOIN result_users u ON r.user_idx = u.user_id
                                 WHERE u.skin_type = %s
                                 AND (p.category = '스킨케어' OR p.category = '클렌징')
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
