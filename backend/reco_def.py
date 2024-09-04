@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from flask_restx import Resource
 # from flask_restx import Resource
 from reco_data import reco_data
 import pandas as pd
@@ -8,14 +9,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 data = reco_data()
 df_ing_reco, df_ing_effect, df_ing, df_product, df_review, df_user = data.get_data()
 
-class reco_simple():
-    def recommend(user_data):
+class reco_simple(Resource):
+    def get(user_data):
         # print('user_data[나이] : ', user_data['나이'])
         # 추천 정보 DataFrame을 열 단위로 추출
         df_reco = pd.DataFrame(df_ing_reco)
         df_reco = df_reco.T
         df_reco.columns = ['추천1', '추천2', '추천3', '추천4', '추천5']
-        
+
         # 사용자 데이터 변수로 저장
         age = user_data['나이']
         gender = user_data['성별']
@@ -29,12 +30,12 @@ class reco_simple():
         # 연령, 성별, 피부타입과 일치하는 추천 리스트 합침
         # 중복 제거 및 필터링 - set() : 자료형 집합, 중복 허용 X, list : set을 다시 list로 감싸 리스트로 변환
         recommend = list(set(reco_age + reco_gender + reco_skin_type))
-        
+
         # 추천 결과 출력
         result_reco=[]
         for i, rec in enumerate(recommend, start=1):
             result_reco.append(f"{rec}")
-        # print("추천 효과:")
+        # print("추천 효과:", result_reco)
         # result_reco
         
         ### 추천 성분 매칭
@@ -89,15 +90,16 @@ class reco_simple():
 
         return df_ratio
     
-class reco_cosine():
-    def recommend_cosine(user, top_n = 20):
-        # print('user : ',user)
+class reco_cosine(Resource):
+    def get(user, top_n = 20):
+        print('user : ',user)
         # 피벗 테이블 생성 : 사용자와 제품에 대한 평점
         # -> 모델이 사용할 수 있는 형태로 변경
         matrix = df_review.pivot_table(
             index=['user_nm', 'user_age_group', 'user_sex', 'skin_type'],
             columns='cos_name',
             values='rating').fillna(0)
+        # print('matrix : ', matrix)
 
         # 사용자 간 유사도 계산( 코사인 유사도 )
         cosine_sim_matrix = cosine_similarity(matrix)

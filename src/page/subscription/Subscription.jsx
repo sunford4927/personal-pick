@@ -27,8 +27,9 @@ const Subscription = () => {
     const basicMakeup = () => {
         if (isLogin) {  // 로그인되어 있을 시
             // "productType"이라는 키에 "기초 화장품"이라는 값을 저장하여 BeforePayment 페이지로 전달
-            nav('/SubscriptionIntroduce', { state: { productType: '기초 화장품' } });
+            nav('/PayShipment', { state: { productType: '기초 화장품' } });
         } else {  // 로그인되어 있지 않을 시
+            alert("로그인 후 이용해주세요!")
             nav('/login');
         }
         
@@ -56,6 +57,16 @@ const Subscription = () => {
     //     useCountUp({ ref: 'subsriptioncounter', end: 3000});
     //     return <span id="subsriptioncounter" />;
     //   };
+
+    const CountUp = () => {
+        useCountUp({ ref: 'counter', end: 3000});
+        return <span id="counter" />;
+      };
+
+    const CountUp1 = () => {
+        useCountUp({ ref: 'counter1', end: 10000});
+        return <span id="counter1" />;
+    };
 
 
     return (
@@ -132,7 +143,7 @@ const Subscription = () => {
                 </div>
                 </div>
 
-                {/* 기초 구독 설명 영역 */}
+                {/* 구독 설명 영역 */}
                 <div className='basicexplainmainbox'>
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -146,8 +157,9 @@ const Subscription = () => {
                 >
                 <div className='basictitlemainbox'>
                     <img src ={image1} width={300} height={300} className='image1'/>
+                    <CountUp1/>
                     <span className='basictitle'>
-                    나에게 맞는 기초 화장품
+                    개의 데이터 분석을 통한 추천 화장품을
                     </span> 
                     <span className='basictitle2'>
                     고민 없이 사용해보고 싶다면?
@@ -156,15 +168,18 @@ const Subscription = () => {
 
                 <div className='basictextbox'>
                     <span className='basictext'>
-                        피부 특성 분석 후 사용자 맞춤형 기초 샘플 4종을 보내드립니다.
+                    기초 샘플 구독 20,000/월 
                     </span>
                     <span className='basictext2'>
-                        배송비 무료!
+                    월 정기결제, 기초 샘플 기준
+                    </span>
+                    <span className='basictext3'>
+                    빅데이터 알고리즘 반영 사용자 맞춤형 샘플 5가지 제공!
                     </span>
                 </div>
 
                 <div class="basicbutton">
-                    <a class="basicbutton btn-5" onClick={basicMakeup}>기초 화장품 구독하러 가기</a>
+                    <a class="basicbutton btn-5" onClick={basicMakeup}>구독하러 가기</a>
                 </div>
                 </motion.div>
                 </div>

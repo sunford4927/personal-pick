@@ -161,6 +161,8 @@
     font-weight: 700;
     font-size: 15px;
     margin-top: 20px;
+    line-height: 25px;
+    text-align: -webkit-left;
 }
 
 // 배송비 영역
@@ -208,10 +210,10 @@
     border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 2px;
     background-color: #ffffff;
-    margin: 32px;
     padding: 12px;
     height: -20px;
     display: flex;
+    margin-bottom: 30px;
 }
 
 .itemtitlebox2 {
@@ -219,6 +221,7 @@
     display: flex;
     font-size: 14px;
     font-weight: 600;
+    justify-content: flex-start;
 }
 
 .amount {
@@ -226,6 +229,7 @@
     display: flex;
     font-size: 14px;
     font-weight: 600;
+    margin-right: 210px;
 }
 
 // .shoppingcart {
@@ -327,6 +331,14 @@
     display: flex;
 }
 
+.itemtitletextbox{
+    display: flex;
+}
+
+.cosdesline {
+    display: contents;
+}
+
 // 구매하기 및 장바구니 버튼
 .buybasketmain {
     justify-content: center;
@@ -334,16 +346,15 @@
 }
 
 .itemtitlecontentbox {
-    width: 109px;
+    width: 64px;
     justify-content: space-between;
     padding: 0px 39px;
-    margin-left: 153px;
+    display: flex;
 }
 
 .itemtitlebtn {
     border: 1px solid rgb(221, 214, 214);
-    width: 30px;
-    // height  :30px;
+    width: 18px;
     border-radius: 20px;
     text-align: center;
 }
