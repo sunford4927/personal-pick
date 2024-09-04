@@ -324,7 +324,7 @@ const Detailinfo = (item) => {
                             <div className='itemtitlebox'>
                                 <span className='itemtitlebox2'>{item.cos_name}</span>
                                 <span className='amount'>({item.vol})</span>
-                                <div className='itemtitlecontentbox'>
+                                <div className='flex_col itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
                                         if (itemadd > 1) {
                                             setItemAdd(itemadd - 1);
