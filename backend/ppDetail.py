@@ -30,18 +30,17 @@ class ppGetReveiw(Resource):
                                 rr.review_idx, 
                                 rr.review, 
                                 rr.rating, 
-                                rr.review_reg_dt, 
-                                rr.review_up_dt, 
+                                rr.review_reg_dt,
                                 p.idx
                             FROM 
                                 result_product p
                             JOIN 
-                                result_review rr ON p.cos_name = rr.cos_name
+                                result_review rr ON p.idx = rr.cos_idx
                             JOIN 
-                                result_users ru ON rr.user_nm = ru.user_nm
+                                result_users ru ON rr.user_idx = ru.user_id
                             WHERE 
                                 p.idx = %s
-                            order by review_up_dt desc
+                            order by review_reg_dt desc
 
                             """, idx)
         # print("dataquery: ", data)
