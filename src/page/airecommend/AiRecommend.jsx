@@ -22,13 +22,13 @@ const AiRecommend = () => {
     const [userData, setUserData] = useState();
     
     // redux에서 데이터 가져오기
-    // const user = useSelector(state => state.user)
-    // const skin_type = user.skin_type
-    // const user_age = user.user_age
-    // const user_sex = user.user_sex
-    // console.log('피부타입 : ', skin_type);
-    // console.log('연령 : ', user_age);
-    // console.log('성별 : ', user_sex);  
+    const user = useSelector(state => state.user)
+    const skin_type = user.skin_type
+    const user_age = user.user_age
+    const user_sex = user.user_sex
+    console.log('피부타입 : ', skin_type);
+    console.log('연령 : ', user_age);
+    console.log('성별 : ', user_sex);  
 
     useEffect(() => {
         

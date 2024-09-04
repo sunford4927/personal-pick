@@ -77,4 +77,18 @@ class ppSuggestSkinType(Resource):
                                 LIMIT 6; """, skintype)
         
         return jsonify(data)
+    
+
+
+# 리뷰 긍정 점수 높은 제품 100개 전송
+class ppPositiveScore(Resource):
+    def get(self):
+        data = setQuery(""" select round(rs.review_positive, 6) as review_score, rp.*
+                            from result_review_score rs
+                            join result_product rp on rp.idx = rs.product_idx
+                            order by review_positive desc
+                            limit 100;
+                            """)
+        print("dataaaaaaaaaaaaaaaaaa", data[0])
+        return jsonify(data)
 

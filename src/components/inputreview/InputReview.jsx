@@ -58,7 +58,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
 
 
     return (
-        <>
+        <div style={{margin: "auto"}}>
             {/* 댓글 쓰는 창 */}
             <div className='reviewcommentmainbox'>
             <div className='settingstar'>
@@ -96,7 +96,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
             </div>
             </div>
 
-        </>
+        </div>
     );
 };
 

@@ -11,7 +11,7 @@ class ppAddCart(Resource):
         # print("addcart : ", value)
 
         data = value['data']
-       
+        print(data)
         # 데이터에서 필요한 값들을 추출
         userid = data['userid']
         idx = int(data['categorynumber'])
