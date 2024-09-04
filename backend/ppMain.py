@@ -35,22 +35,22 @@ class ppSuggestAge(Resource):
         # print(type(age))
         oldAge = age + 9
         # print("oldAge" , oldAge)
-
+        data = setQuery("select * from result_product where idx = 3")
         twoOldAge = age + 30
         if (age == 50) :
             data = setQuery(""" SELECT p.*
                                 FROM result_product p
-                                JOIN result_review r ON p.cos_name = r.cos_name
-                                JOIN result_users u ON r.user_nm = u.user_nm
+                                JOIN result_review r ON p.idx = r.cos_idx
+                                JOIN result_users u ON r.user_idx = u.user_id
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
-                                ORDER BY COUNT(*) DESC
+                                 ORDER BY COUNT(*) DESC
                                 LIMIT 6; """, (age, twoOldAge))
         elif (age < 50) :
             data = setQuery(""" SELECT p.*
                                 FROM result_product p
-                                JOIN result_review r ON p.cos_name = r.cos_name
-                                JOIN result_users u ON r.user_nm = u.user_nm
+                                JOIN result_review r ON p.idx = r.cos_idx
+                                JOIN result_users u ON r.user_idx = u.user_id
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                  ORDER BY COUNT(*) DESC
