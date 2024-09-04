@@ -28,7 +28,7 @@ const AiRecommend = () => {
     // const user_sex = user.user_sex
     // console.log('피부타입 : ', skin_type);
     // console.log('연령 : ', user_age);
-    // console.log('성별 : ', user_sex);
+    // console.log('성별 : ', user_sex);  
 
     useEffect(() => {
         
@@ -51,17 +51,17 @@ const AiRecommend = () => {
             // console.log('연령 : ', user_age);
             // console.log('성별 : ', user_sex);
 
-            // // 2. 추천 데이터
-            // const reco_response = await axios.get(URL + '/Recommend', {
-            //     params: {
-            //         user_nm : user_nm,
-            //         user_age : user_age,
-            //         user_sex : user_sex,
-            //         skin_type : skin_type
-            //     }
-            // });
-            // console.log(reco_response);
-            
+            // 2. 추천 데이터
+            const reco_response = await axios.get(URL + '/Recommend', {
+                params: {
+                    user_nm : user_nm,
+                    user_age : user_age,
+                    user_sex : user_sex,
+                    skin_type : skin_type
+                }
+            });
+            console.log(reco_response.data);
+
 
         }
 
