@@ -31,35 +31,36 @@ const AiRecommend = () => {
     // console.log('성별 : ', user_sex);
 
     useEffect(() => {
-        console.log('user_nm : ', getLoginSession().username);
-        console.log('url : ', URL);
         
         const LoadUsersData = async () => {
             const user_nm = getLoginSession().username
+            console.log('user_nm : ', user_nm);
+            console.log('url : ', URL);
             // 1. 유저 데이터
             const user_response = await axios.get(URL + '/TestDY', {
                 params: {
                     user_nm: user_nm
                 }
             });
-            const user = user_response.data[0]
-            const skin_type = user.skin_type
-            const user_age = user.user_age
-            const user_sex = user.user_sex
-            console.log('피부타입 : ', skin_type);
-            console.log('연령 : ', user_age);
-            console.log('성별 : ', user_sex);
+            
+            // const user = user_response.data[0]
+            // const skin_type = user.skin_type
+            // const user_age = user.user_age
+            // const user_sex = user.user_sex
+            // console.log('피부타입 : ', skin_type);
+            // console.log('연령 : ', user_age);
+            // console.log('성별 : ', user_sex);
 
-            // 2. 추천 데이터
-            const reco_response = await axios.get(URL + '/Recommend', {
-                params: {
-                    user_nm : user_nm,
-                    user_age : user_age,
-                    user_sex : user_sex,
-                    skin_type : skin_type
-                }
-            });
-            console.log(reco_response);
+            // // 2. 추천 데이터
+            // const reco_response = await axios.get(URL + '/Recommend', {
+            //     params: {
+            //         user_nm : user_nm,
+            //         user_age : user_age,
+            //         user_sex : user_sex,
+            //         skin_type : skin_type
+            //     }
+            // });
+            // console.log(reco_response);
             
 
         }
