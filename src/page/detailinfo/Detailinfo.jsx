@@ -33,9 +33,9 @@ const Detailinfo = (item) => {
 
     const user = useSelector((state) => state.user);
 
+    
 
-
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([{description:""}]);
     const [review, setReview] = useState([]);
     const [scoreavg, setScoreAvg] = useState([]);
     // const [allReviews, setAllReviews] = useState([]);
@@ -114,6 +114,7 @@ const Detailinfo = (item) => {
         setTotal(review.length);
     });
 
+    
 
 
     //  useEffect(()=> {
@@ -294,9 +295,10 @@ const Detailinfo = (item) => {
                                         <img src={detailright} width={23} height={23} />
                                     </div>
 
+                                    {/* 화장품 설명 */}
                                     <div className='cosdescription'>
                                         <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
-                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description.split("-").map(line => <>- <span className='cosdesline'>{line}</span><br/></>)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -320,8 +322,9 @@ const Detailinfo = (item) => {
                             {/* 수량 변경 부분 */}
 
                             <div className='itemtitlebox'>
-                                <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
-                                <div className='flex_col itemtitlecontentbox'>
+                                <span className='itemtitlebox2'>{item.cos_name}</span>
+                                <span className='amount'>({item.vol})</span>
+                                <div className='itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
                                         if (itemadd > 1) {
                                             setItemAdd(itemadd - 1);
