@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import CustomSwiper from '../../components/customswiper/CustomSwiper'
 import { Navigate, useNavigate } from "react-router-dom";
 import InputBox from "../../components/inputbox/InputBox";
@@ -8,10 +8,12 @@ import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
 import Right from '../../img/오른쪽.png'
+import Image1 from '../../img/화장품 이미지1.jpg'
+import Image2 from '../../img/화장품 이미지2.jpg'
+import Image3 from '../../img/화장품 이미지3.jpg'
 
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
-
 
 
 
@@ -24,7 +26,7 @@ function show(data) {
 const Home = () => {
     // 페이지 이동 함수
     const nav = useNavigate();
-    
+
     const homeCateMain = useSelector(state => state.homeCategory)
     const skinCateMain = useSelector(state => state.homeSkin)
     const ageCateMain = useSelector(state => state.homeAge)
@@ -37,20 +39,19 @@ const Home = () => {
         sendGet(URL + '/MainPage', setData);
     }, [])
 
-    function temp(data){
+    function temp(data) {
         setUserId(data)
     }
-    const [userId, setUserId] =useState({});
-    useEffect(()=>{
-        let nick =sessionStorage.getItem("username");
-        if(nick!=="")
-        {
-            sendGet(URL+'/TestSearch?user_nm='+ nick, temp)
+    const [userId, setUserId] = useState({});
+    useEffect(() => {
+        let nick = sessionStorage.getItem("username");
+        if (nick !== "") {
+            sendGet(URL + '/TestSearch?user_nm=' + nick, temp)
         }
-    },[])
+    }, [])
 
-    useEffect(()=>{
-    },[userId])
+    useEffect(() => {
+    }, [userId])
 
     // 오늘날짜
     let today = new Date()
@@ -60,28 +61,48 @@ const Home = () => {
     }
 
 
+    // 광고배너 이미지 목록
+    const images = [Image1, Image2, Image3];
+
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    // 이미지가 일정 시간마다 변경되도록 설정
+    useEffect(() => {
+        console.log('Current Image Path:', images[currentImageIndex]);
+        const interval = setInterval(() => {
+            setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
+        }, 3000); // 3초마다 이미지 변경
+
+        return () => clearInterval(interval);
+    }, [images.length]);
+
+
+
     return (
-        <div  className="inner"  >
+        <div className="inner"  >
             {/* // <div id='wrapper' >     */}
 
-            
+
             {/* Main */}
 
             <div className='flex_col width' >
                 <InputBox func={show} />
             </div>
 
-             {/* 추천 화장품 광고 배너 */}
-
-             <div className="adbannermain" onClick={() => nav('/airecommend')}>
+            {/* 추천 화장품 광고 배너 */}
+            <div className="adbannermain" onClick={() => nav('/airecommend')}>
                 <div className="adbannercontainer">
-                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
-                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
+                    <img src={images[currentImageIndex]} alt="배너 이미지" />
+                    <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                    <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
                 </div>
             </div>
 
+
+
+
             <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
-                {(today.getMonth()+1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
+                {(today.getMonth() + 1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
                 <span> AI 모델 생성하면 그때 결정할 거🎁 </span> 급상승
                 <img className="category_arrow" src={Right} alt="" />
             </div>
@@ -97,24 +118,24 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{
-                ease: 'easeInOut',
-                duration: 0.5,
-                x: { duration: 1 },
+                    ease: 'easeInOut',
+                    duration: 0.5,
+                    x: { duration: 1 },
                 }}
-                >
-            <div className="basic-text cursor" onClick={() => nextTotalPage(2)}>
-                화해 고객들이 직접
-                <span> 선택한 랭킹🎁 </span>
-                <img className="category_arrow" src={Right} alt="" /> 
-            </div>
+            >
+                <div className="basic-text cursor" onClick={() => nextTotalPage(2)}>
+                    화해 고객들이 직접
+                    <span> 선택한 랭킹🎁 </span>
+                    <img className="category_arrow" src={Right} alt="" />
+                </div>
 
-            <Category categoryData={titleList} />
-            <Itemview data={homeCateMain.data} />
+                <Category categoryData={titleList} />
+                <Itemview data={homeCateMain.data} />
 
-            <div className="home_page_btn cursor" onClick={() => nextTotalPage(2)}>
-                카테고리 전체보기
-                <img className="homeright" src={Right} alt="" />
-            </div>
+                <div className="home_page_btn cursor" onClick={() => nextTotalPage(2)}>
+                    카테고리 전체보기
+                    <img className="homeright" src={Right} alt="" />
+                </div>
             </motion.div>
 
             {/* <div className="flex_row perfume">
@@ -132,23 +153,23 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{
-                ease: 'easeInOut',
-                duration: 0.5,
-                x: { duration: 1 },
+                    ease: 'easeInOut',
+                    duration: 0.5,
+                    x: { duration: 1 },
                 }}
-                >
-            <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                내 피부에 꼭 맞는 제품 랭킹🏆
-                <img className="category_arrow" src={Right} alt="" /> 
-            </div>
-            
-            <Category categoryData={userTypeList} />
-            <Itemview data={skinCateMain.data} />
+            >
+                <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
+                    내 피부에 꼭 맞는 제품 랭킹🏆
+                    <img className="category_arrow" src={Right} alt="" />
+                </div>
 
-            <div className="home_page_btn cursor" onClick={() => nextTotalPage(3)}>
-                {skinCateMain.choiceKey + ' 전체보기'}
-                <img className="homeright" src={Right} alt="" />
-            </div>
+                <Category categoryData={userTypeList} />
+                <Itemview data={skinCateMain.data} />
+
+                <div className="home_page_btn cursor" onClick={() => nextTotalPage(3)}>
+                    {skinCateMain.choiceKey + ' 전체보기'}
+                    <img className="homeright" src={Right} alt="" />
+                </div>
             </motion.div>
 
             {/* 스크롤 내릴시 생기는 애니메이션 div */}
@@ -157,26 +178,26 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: false }}
                 transition={{
-                ease: 'easeInOut',
-                duration: 0.5,
-                x: { duration: 1 },
+                    ease: 'easeInOut',
+                    duration: 0.5,
+                    x: { duration: 1 },
                 }}
-                >
-            <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
-                나이대별 추천💡
-                <img className="category_arrow" src={Right} alt="" /> 
-            </div>
-            
-            
-            <Category categoryData={userAgeList} />
-            <Itemview data={ageCateMain.data} />
-            <div className="home_page_btn cursor" onClick={() => nextTotalPage(4)}>
-                {ageCateMain.choiceKey + " 전체보기"}
-                <img className="homeright" src={Right} alt="" />
-            </div>
+            >
+                <div className="basic-text cursor" onClick={() => nextTotalPage(3)}>
+                    나이대별 추천💡
+                    <img className="category_arrow" src={Right} alt="" />
+                </div>
+
+
+                <Category categoryData={userAgeList} />
+                <Itemview data={ageCateMain.data} />
+                <div className="home_page_btn cursor" onClick={() => nextTotalPage(4)}>
+                    {ageCateMain.choiceKey + " 전체보기"}
+                    <img className="homeright" src={Right} alt="" />
+                </div>
             </motion.div>
         </div>
-        
+
 
     );
 };

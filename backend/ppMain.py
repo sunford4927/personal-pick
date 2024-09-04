@@ -8,7 +8,7 @@ class ppMainPage(Resource):
     def get(self):
         data = setQuery("""select idx, brand_name, cos_name, cos_img_src, 
                             grade, grade_count, price, vol
-                            from result_product""")
+                            from result_product limit 100""")
         return jsonify(data)
     
 
@@ -53,8 +53,8 @@ class ppSuggestAge(Resource):
                                 JOIN result_users u ON r.user_nm = u.user_nm
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
-                                ORDER BY COUNT(*) DESC
-                                LIMIT 6; """, (age, oldAge))
+                                 ORDER BY COUNT(*) DESC
+                                LIMIT 6;""", (age, oldAge))
 
         return jsonify(data)
             
