@@ -238,6 +238,7 @@ const Detailinfo = (item) => {
         } else {
             alert("로그인 후 이용해주세요!")
             navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
+            scrollToTop();
         }
     };
 
@@ -256,7 +257,14 @@ const Detailinfo = (item) => {
         } else {
             alert("로그인 후 이용해주세요!")
             navigate('/login');
+            scrollToTop();
         }
+    };
+
+    // 페이지 이동 시 스크롤 최상단으로 뜨게 하는 함수
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 });
     };
 
 

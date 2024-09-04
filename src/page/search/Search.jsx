@@ -5,7 +5,6 @@ import './Search.scss';
 import Star from '../../img/별.png';
 import Back from '../../img/왼쪽.png';
 import { getDay } from "../../util/utilStr";
-import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
@@ -13,9 +12,6 @@ const Search = () => {
 
     // 페이지 이동 함수
     const nav = useNavigate();
-
-    // 검색 화면에서 제품 클릭시 페이지 제일 위로 가게 하는 함수
-    const itemRefs = useRef([]);
 
 
     // 사용자가 찾고 싶은 제품을 검색했을 때 나타나는 제품리스트
