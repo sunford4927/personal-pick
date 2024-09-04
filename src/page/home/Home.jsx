@@ -8,9 +8,15 @@ import Category from "../../components/category/Category";
 import Itemview from "../../components/itemview/Itemview"
 import './Home.scss'
 import Right from '../../img/오른쪽.png'
-import Image1 from '../../img/화장품 이미지1.jpg'
-import Image2 from '../../img/화장품 이미지2.jpg'
-import Image3 from '../../img/화장품 이미지3.jpg'
+import Image1 from '../../img/광고배너1.png'
+import Image2 from '../../img/광고배너2.png'
+import Image3 from '../../img/광고배너3.png'
+import Image4 from '../../img/광고배너4.png'
+import Image5 from '../../img/광고배너5.png'
+import Image6 from '../../img/광고배너6.png'
+import Image7 from '../../img/광고배너7.png'
+import Image8 from '../../img/광고배너8.png'
+import Image9 from '../../img/광고배너9.png'
 
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,8 +68,7 @@ const Home = () => {
 
 
     // 광고배너 이미지 목록
-    const images = [Image1, Image2, Image3];
-
+    const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     // 이미지가 일정 시간마다 변경되도록 설정
