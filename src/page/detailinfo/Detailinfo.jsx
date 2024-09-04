@@ -33,8 +33,6 @@ const Detailinfo = (item) => {
 
     const user = useSelector((state) => state.user);
 
-    const description = item?.description || '';
-
 
 
     const [data, setData] = useState([]);
@@ -298,11 +296,7 @@ const Detailinfo = (item) => {
 
                                     <div className='cosdescription'>
                                         <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
-                                        <div className='cosdescriptiontext px-20 mt-24'>
-                                            {description.split('-').map((line, index) => (
-                                                <p key={index}>{line}</p>
-                                            ))}
-                                        </div>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
                                     </div>
                                 </div>
                             </div>
