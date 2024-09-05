@@ -40,6 +40,7 @@ const Menu = ({ isView }) => {
                     <hr className='thin_grayline' />
                     <div className='menu_box'>
                         <div className='menu_logout'>
+                            <p className='menu_skintype' onClick={() => nav("/typecheck")}>피부타입 진단</p>
                             <p className='menu_skintype' onClick={() => nav("/airecommend")}>화장품 추천</p>
                             
                             {/* <p className='menu_skintype'>피부타입별</p>

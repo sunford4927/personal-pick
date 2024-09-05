@@ -10,6 +10,7 @@ import Join from './page/join/Join';
 import Order from './page/order/Order'
 import Review from './page/review/review'
 import Point from './page/backendtest/Point'
+import Typeheck from './page/typecheck/Typecheck'
 
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from './components/footerPage/FooterPage';
@@ -61,6 +62,7 @@ function App() {
                     <Route path='/order' element={<Order />}></Route>
                     <Route path='/review' element={<Review />}></Route>
                     <Route path='/point' element={<Point />}></Route>
+                    <Route path='/typecheck' element={<Typeheck />}></Route>
                     <Route path='/search/:value' element={<Search />}></Route>
                     <Route path='/search' element={<Search />}></Route>
                     <Route path='/totalitem/:category' element={<TotalRanking />}></Route>
