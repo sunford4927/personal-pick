@@ -317,11 +317,11 @@ const Detailinfo = (item) => {
                                         </div>
                                     </div>
 
-                                    <div className='rankinginfo' onClick={(e) => showSwal1(e)}>
+                                    <div className='rankinginfo'>
                                         <div className='ranking px-20 mt-24'>
                                             <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                                         </div>
-                                        <img src={detailright} width={23} height={23} />
+                                        {/* <img src={detailright} width={23} height={23} /> */}
                                     </div>
 
                                     {/* 화장품 설명 */}
