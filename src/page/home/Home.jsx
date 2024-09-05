@@ -67,6 +67,21 @@ const Home = () => {
     }
 
 
+    const user = useSelector((state) => state.user);
+
+    const handleClick = () => {
+        if (user !== undefined) {
+            // 사용자가 로그인한 경우
+            nav('/airecommend');
+        } else {
+            // 사용자가 로그인하지 않은 경우
+            alert("로그인 후 이용해주세요!")
+            nav('/login');
+        }
+    };
+
+
+
     // 광고배너 이미지 목록
     const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -95,13 +110,13 @@ const Home = () => {
             </div>
 
             {/* 추천 화장품 광고 배너 */}
-            <div className="adbannermain" onClick={() => nav('/airecommend')}>
-                <div className="adbannercontainer">
-                    <img src={images[currentImageIndex]} alt="배너 이미지" />
-                    <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
-                    <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
-                </div>
+            <div className="adbannermain" onClick={handleClick}>
+            <div className="adbannercontainer">
+                <img src={images[currentImageIndex]} alt="배너 이미지" />
+                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
             </div>
+        </div>
 
 
 

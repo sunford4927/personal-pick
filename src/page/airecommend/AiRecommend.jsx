@@ -58,20 +58,20 @@ const AiRecommend = () => {
             // 2. 비구독자 추천 데이터
             const reco_non_sub = await axios.get(URL + '/Recommend', {
                 params: {
-                    sub : 0,
+                    sub : false,
                     user_nm : user_nm,
                     user_age : user_temp.user_age,
                     user_sex : user_temp.user_sex,
                     skin_type : user_temp.skin_type
                 }
             });
-            console.log('data_non_sub : ', reco_non_sub);
+            console.log('data_non_sub : ', reco_non_sub.data);
             setDataNonSub(reco_non_sub.data)
             
             // 2. 구독자 추천 데이터
             const reco_sub = await axios.get(URL + '/Recommend', {
                 params: {
-                    sub : 1,
+                    sub : true,
                     user_nm : user_nm,
                     user_age : user_temp.user_age,
                     user_sex : user_temp.user_sex,
@@ -168,7 +168,7 @@ const AiRecommend = () => {
 
             <div className='maketosub'>
                 <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
-                <button className='maketosubbtn'>구독하러 가기</button>
+                <button className='maketosubbtn' onClick={() => nav('/subscriptionintoduce')}>구독하러 가기</button>
             </div>
 
             {/* 구독자 추천 화장품 목록 */}
