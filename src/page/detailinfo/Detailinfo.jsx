@@ -418,7 +418,7 @@ const Detailinfo = (item) => {
 
 
                             {/*ai 리뷰 */}
-                            <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
+                            {/* <span className='aireview mt-8 px-20'><span className='ai'>AI</span>가 분석한 리뷰</span>
 
                             <div className='flex justify-between px-20 my-24 reviewinfo'>
                                 <div className='likereview grow mr-24 w-1/2'>
@@ -445,9 +445,9 @@ const Detailinfo = (item) => {
                                     <span className='margintop2'>가려운<span className='reviewdata8 hds-text-body-medium text-gray-tertiary'>0</span></span>
                                     <span className='margintop2'>내장 도구가 안좋은<span className='reviewdata7 hds-text-body-medium text-gray-tertiary'>0</span></span>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <hr className='bar2' />
+                            {/* <hr className='bar2' /> */}
 
                             {reviewcnt.map((item) => (
                                 <div className='detailreview mt-8 px-20'>

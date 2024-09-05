@@ -42,8 +42,8 @@
 
 .notsubcoslist{
     display: flex;
-    justify-content: center;
     margin-top: 15px;
+    margin-left: 20px;
 }
 
 // 구독자 쪽
@@ -117,8 +117,8 @@
 
 .subscribecos{
     display: flex;
-    filter: blur(15px); 
-    -webkit-filter: blur(15px); 
+    filter: blur(18px); 
+    -webkit-filter: blur(18px); 
     justify-content: center;
     margin-top: 15px;
     pointer-events: none; /* 클릭 이벤트를 차단합니다 */
