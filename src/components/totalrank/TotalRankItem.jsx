@@ -24,7 +24,7 @@ const ItemAll = ({ data , showReviewScore }) => {
             <span className='rank_cos_name'>{item.cos_name}</span>
 
 
-            <div className='rank_grade'>
+            <div className='rank_grade' style={{margin:'1px'}}>
               <img className='star' src={Star} alt="" />
               <span className='rank_cos_grade'>&nbsp;{item.grade}</span>
               <span className='rank_cos_grade_cnt'> {"(" + item.grade_count + ")"}</span>
