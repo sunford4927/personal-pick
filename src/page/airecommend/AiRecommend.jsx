@@ -159,6 +159,7 @@ const AiRecommend = () => {
                         개의 회원들의 데이터 분석을 통해 추천해주는 화장품
                     </div>
                 </div>
+                <hr className='thin_grayline' />
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
@@ -170,7 +171,7 @@ const AiRecommend = () => {
                     </span>
                 </div>
             </div>
-
+            <hr className='thick_grayline' />
             {/* 구독자 전용 화장품 구역 */}
             <div className='subscribe'>
                 <span className='subscribetext'>구독자 전용</span>
@@ -180,6 +181,7 @@ const AiRecommend = () => {
                         개의 회원들의 데이터 분석을 통해 추천해주는 화장품
                     </div>
                 </div>
+                <hr className='thin_grayline' />
                 <div className='maketosub'>
                     <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
                     <button className='maketosubbtn' onClick={handleClick}>구독하러 가기</button>
