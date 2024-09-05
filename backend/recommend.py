@@ -52,15 +52,31 @@ class abc(Resource):
 
         simple = reco_simple.get(age, sex, skin_type)
         cosine = reco_cosine.get(user)
-        reco = pd.concat([simple, cosine])
-        # print('reco : ', reco)
-        reco_final = df_product[df_product['cos_name'].isin(reco.index)]
+        # print('sim : ', simple)
+        # print('cos : ', cosine)
         
+        # cosine 유사도 제품이 simple추천 항목에 포함되면 우선추천
+        same = cosine.index.isin(simple.index)
+        # 추천 항목에 추가
+        reco = cosine[same]
+        leng = len(reco)
+        print('leng : ', leng)
+        # 추가한 항목 제거 후 10개가 되도록
+        if leng<10:
+            # cosine = cosine[~same].head(10-leng)
+            reco = pd.concat([reco, cosine[~same].head(10-leng)])
+        else:
+            cosine = cosine.head(10)
+            reco = pd.concat([reco, cosine[~same].head(10)])
+        
+        print('reco : ', reco)
+
+        reco_final = df_product[df_product['cos_name'].isin(reco.index)]
         reco_final = pd.DataFrame(reco_final)
         # DataFrame을 JSON 형식의 Python 객체로 변환
         reco_final = reco_final.to_dict(orient='records')
 
         # JSON 형식의 Python 객체를 JSON 응답으로 반환
         return jsonify(reco_final)
-        # return reco_final
+        # # return reco_final
 
