@@ -129,14 +129,16 @@ class ppInsertReview(Resource):
         cos_name = value['cos_name']
         rating = int(value['rating'])
         review = value['review']
+        cos_idx = value['cos_idx']
+        user_idx = value['user_id']
 
          # INSERT 쿼리문 작성
         insert_sql = """
-            INSERT INTO result_review (cos_name, user_nm,  rating, review)
-            VALUES (%s, %s, %s, %s) 
+            INSERT INTO result_review (cos_name, user_nm, rating, review, cos_idx, user_idx)
+            VALUES (%s, %s, %s, %s, %s, %s) 
             """
 
-        data = (cos_name, nm, rating, review)
+        data = (cos_name, nm, rating, review, cos_idx, user_idx)
 
         PostQuery(insert_sql, data)
 

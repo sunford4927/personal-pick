@@ -52,7 +52,10 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
                 user_nm: user.user_nm,
                 cos_name: item.cos_name,
                 rating: index,
-                review: contents
+                review: contents,
+                cos_idx: item.idx,
+                user_id: user.user_id
+                // cos_idx, user_idx
             })
     }
 
