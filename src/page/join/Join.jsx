@@ -75,11 +75,7 @@ const Join = () => {
             user_age : age,
             user_sex : sex,
             skin_type : skinType
-<<<<<<< HEAD
             // user_address : address
-=======
-            //user_address : address
->>>>>>> 38c08a39d0274eef2a707a32c6f1ba55a1ad58bc
         });
         
         event.preventDefault();
@@ -225,7 +221,6 @@ const Join = () => {
                                 title="숫자를 입력하세요"
                             />
                         </div>
-<<<<<<< HEAD
 {/* 
                         <div className='textbox'>
                             <div className='imgbox'>
@@ -242,10 +237,6 @@ const Join = () => {
                                 title="주소를 입력하세요"
                             />
                         </div> */}
-=======
-
-                       
->>>>>>> 38c08a39d0274eef2a707a32c6f1ba55a1ad58bc
 
                         <table className="checkbox">
                             <tbody>
