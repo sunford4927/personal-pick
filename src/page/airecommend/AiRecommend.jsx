@@ -168,7 +168,7 @@ const AiRecommend = () => {
 
             <div className='maketosub'>
                 <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
-                <button className='maketosubbtn'>구독하러 가기</button>
+                <button className='maketosubbtn' onClick={() => nav('/subscriptionintoduce')}>구독하러 가기</button>
             </div>
 
             {/* 구독자 추천 화장품 목록 */}

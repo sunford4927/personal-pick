@@ -6,6 +6,16 @@ import './Mypage.scss'
 import { LogoutSession, getLoginSession } from '../../util/session'
 import { useSelector } from 'react-redux';
 import Right from "../../img/오른쪽.png"
+import Image1 from '../../img/광고배너1.png'
+import Image2 from '../../img/광고배너2.png'
+import Image3 from '../../img/광고배너3.png'
+import Image4 from '../../img/광고배너4.png'
+import Image5 from '../../img/광고배너5.png'
+import Image6 from '../../img/광고배너6.png'
+import Image7 from '../../img/광고배너7.png'
+import Image8 from '../../img/광고배너8.png'
+import Image9 from '../../img/광고배너9.png'
+
 const Join = () => {
     // 페이지 이동 함수
     const navigate = useNavigate();
@@ -51,6 +61,20 @@ const Join = () => {
         // 화면이 첫 랜더링 될 때 함수 실행
         LoadUsersData();
     }, []);
+
+        // 광고배너 이미지 목록
+        const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
+        const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    
+        // 이미지가 일정 시간마다 변경되도록 설정
+        useEffect(() => {
+            console.log('Current Image Path:', images[currentImageIndex]);
+            const interval = setInterval(() => {
+                setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
+            }, 3000); // 3초마다 이미지 변경
+    
+            return () => clearInterval(interval);
+        }, [images.length]);
 
     return (
         <div id='mypage'>
@@ -128,10 +152,13 @@ const Join = () => {
 
                 <div className="adbannermain" onClick={() => nav('/airecommend')}>
                     <div className="adbannercontainer">
-                        <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
-                        <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
+                    <img src={images[currentImageIndex]} alt="배너 이미지" style={{marginRight:'50px'}} />
+                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
                     </div>
                 </div>
+
+
                 <div className='text'>
                     <p>쇼핑 활동</p>
                     <h1>🚚 배송지 관리</h1>

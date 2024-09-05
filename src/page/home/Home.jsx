@@ -17,6 +17,13 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import Word1 from '../../img/word1.png'
+import Word2 from '../../img/word2.png'
+import Word3 from '../../img/word3.png'
+import Word4 from '../../img/word4.png'
+import Word5 from '../../img/word5.png'
+import Word6 from '../../img/word6.png'
+import Word7 from '../../img/word7.png'
 
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
@@ -67,6 +74,21 @@ const Home = () => {
     }
 
 
+    const user = useSelector((state) => state.user);
+
+    const handleClick = () => {
+        if (user !== undefined) {
+            // 사용자가 로그인한 경우
+            nav('/airecommend');
+        } else {
+            // 사용자가 로그인하지 않은 경우
+            alert("로그인 후 이용해주세요!")
+            nav('/login');
+        }
+    };
+
+
+
     // 광고배너 이미지 목록
     const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -81,8 +103,28 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [images.length]);
 
-
-
+    const [day, setDay]= useState(5);
+    function changeday(idx)
+    {
+        console.log(idx)
+        if(idx === 0)
+        {
+            setDay(5);
+        }
+        else{
+            setDay(5 + idx);
+        }
+    }
+    const WordList = [
+        {cos_img_src : Word1 },
+        {cos_img_src : Word2 },
+        {cos_img_src : Word3},
+        {cos_img_src : Word4},
+        {cos_img_src : Word5},
+        {cos_img_src : Word6},
+        {cos_img_src : Word7},
+    
+    ]
     return (
         <div className="inner"  >
             {/* // <div id='wrapper' >     */}
@@ -95,26 +137,37 @@ const Home = () => {
             </div>
 
             {/* 추천 화장품 광고 배너 */}
-            <div className="adbannermain" onClick={() => nav('/airecommend')}>
-                <div className="adbannercontainer">
-                    <img src={images[currentImageIndex]} alt="배너 이미지" />
-                    <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
-                    <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
-                </div>
+            <div className="adbannermain" onClick={handleClick}>
+            <div className="adbannercontainer">
+                <img src={images[currentImageIndex]} alt="배너 이미지" />
+                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
             </div>
+        </div>
 
 
 
 
             <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
                 {(today.getMonth() + 1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
-                <span> AI 모델 생성하면 그때 결정할 거🎁 </span> 급상승
+                <span> AI가 분석한 리뷰 긍정 점수 높은 순 🎁 </span> 
                 <img className="category_arrow" src={Right} alt="" />
             </div>
 
 
             <div>
-                <CustomSwiper list={data} />
+                <CustomSwiper list={data}  />
+            </div>
+
+
+            <div className="basic-text cursor" >
+                {"9월 " + day + "일 " }
+                <span> 퍼스널픽 주요 키워드 </span> 
+                <img className="category_arrow" src={Right} alt="" />
+            </div>
+
+            <div>
+                <CustomSwiper list={WordList} type={"word"} func = {changeday}/>
             </div>
 
             {/* 스크롤 내릴시 생기는 애니메이션 div */}
@@ -129,7 +182,7 @@ const Home = () => {
                 }}
             >
                 <div className="basic-text cursor" onClick={() => nextTotalPage(2)}>
-                    화해 고객들이 직접
+                    퍼스널 픽 고객들이 직접
                     <span> 선택한 랭킹🎁 </span>
                     <img className="category_arrow" src={Right} alt="" />
                 </div>
