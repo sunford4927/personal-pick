@@ -16,10 +16,10 @@ const TotalItem = () => {
     // TotalRanking 데이터 관리
     const [AllItem, setAllItem] = useState([]);
     // 카테고리별 상태관리
-    const [totalCate, setTotalCate] = useState({    
+    const [totalCate, setTotalCate] = useState({
         list: [],
         maintitle: "카테고리 전체",
-        subtitle: "" 
+        subtitle: ""
     })
     // 피부별
 
@@ -30,62 +30,62 @@ const TotalItem = () => {
 
     const { category } = useParams();
     useEffect(() => {
-        sendGet(URL + '/MainPage', setAllItem);       
+        sendGet(URL + '/PositiveScore', setAllItem);
     }, [])
     const [cateIdx, setCateIdx] = useState(category)
 
-    function showView(idx){
-        
-        switch(parseInt(idx)){
+    function showView(idx) {
+
+        switch (parseInt(idx)) {
             case 1:
                 return (
                     <div className="itemlist">
-                        <ItemAll data={AllItem}></ItemAll>
+                        <ItemAll data={AllItem} showReviewScore={true} />
                     </div>
-                )
+                );
             case 2:
                 return (
                     <>
                         <Category categoryData={titleList} />
                         <div className="itemlist">
-                            <ItemAll data={homeCateMain.data}></ItemAll>
+                            <ItemAll data={homeCateMain.data} showReviewScore={false} />
                         </div>
                     </>
-                )
+                );
             case 3:
                 return (
                     <>
                         <Category categoryData={userTypeList} />
                         <div className="itemlist">
-                            <ItemAll data={skinCateMain.data}></ItemAll>
+                            <ItemAll data={skinCateMain.data} showReviewScore={false} />
                         </div>
                     </>
-                )              
+                );
             case 4:
                 return (
                     <>
                         <Category categoryData={userAgeList} />
                         <div className="itemlist">
-                            <ItemAll data={ageCateMain.data}></ItemAll>
+                            <ItemAll data={ageCateMain.data} showReviewScore={false} />
                         </div>
                     </>
                 )
         }
     }
 
-    function changeClass( idx){
+    function changeClass(idx) {
         setCateIdx(idx)
     }
-    
+
 
     return (
         <>
             <div className="all_itemBox ">
-                <img className="leftimg float_l cursor" src={left_img} onClick={()=> nav('/')} alt=""  />
+                <img className="leftimg float_l cursor" src={left_img} onClick={() => nav('/')} alt="" />
                 <div className="cos_rank_text">화해 랭킹</div>
                 <div className="totalcatebox">
                     {list.map((item, idx) => {
-                        return <button key={idx} className={cateIdx == idx+1 ? "rank_btn cursor rank_btn_click" : "rank_btn cursor"} onClick={()=>changeClass(idx+1)}>{item}</button>
+                        return <button key={idx} className={cateIdx == idx + 1 ? "rank_btn cursor rank_btn_click" : "rank_btn cursor"} onClick={() => changeClass(idx + 1)}>{item}</button>
                     })}
                 </div>
                 {showView(cateIdx)}

@@ -11,7 +11,7 @@ const Join = () => {
     const navigate = useNavigate();
     // const join = () => navigate('/join');
     // const login = () => navigate('/login');
-    const order = () => navigate('/order');
+    const order = () => navigate('/itemOrder');
     const point = () => navigate('/point');
 
     const user = useSelector(state => state.user)

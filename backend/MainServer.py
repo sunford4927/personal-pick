@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
 # from hello import test
-from ppMain import ppMainPage, ppCategorySel, ppSuggestAge, ppSuggestSkinType
+from ppMain import ppMainPage, ppCategorySel, ppSuggestAge, ppSuggestSkinType, ppPositiveScore
 from ppDetail import ppDetailPage, ppGetReveiw, ppRatingAvg, ppRatingCnt, ppReviewCnt, ppInsertReview,ppGetIngredient
 from join import ppJoin
 from ppLogin import ppLogin
@@ -11,6 +11,8 @@ from Test import testJoin, testLogin, testUserData, testOrderData, testCategory,
 from payment import payment, Clearpayment
 from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUpdateCartCnt, ppOrderHistoryOne, ppOrderHistory, ppSubscribeHistory
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
+from recommend import abc
+
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False
@@ -43,6 +45,7 @@ api.add_resource(ppEditAddress, '/EditAddress')
 api.add_resource(ppInsertAdd, '/InsertAddress')
 api.add_resource(ppInsertReview, '/InsertReview')
 api.add_resource(ppGetIngredient, '/GetIngredient')
+api.add_resource(ppPositiveScore, '/PositiveScore')
 
 api.add_resource(testJoin, '/TestJoin')
 api.add_resource(testLogin, '/TestLogin')
@@ -51,6 +54,7 @@ api.add_resource(testOrderData, '/TestOrderData')
 
 api.add_resource(testCategory, '/TestCategory')
 api.add_resource(testSearch, '/TestSearch')
+api.add_resource(abc, '/Recommend')
 
 api.add_resource(payment , "/payment")
 api.add_resource(Clearpayment , "/clearpayment")

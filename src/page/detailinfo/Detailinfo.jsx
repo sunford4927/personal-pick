@@ -34,28 +34,45 @@ const Detailinfo = (item) => {
     const user = useSelector((state) => state.user);
 
 
+    // 화장품 정보 데이터
+    const [data, setData] = useState([{ description: "" }]);
 
-
-
-    const [data, setData] = useState([]);
+    // 리뷰 데이터
     const [review, setReview] = useState([]);
+
+    // 평점 평균
     const [scoreavg, setScoreAvg] = useState([]);
-    // const [allReviews, setAllReviews] = useState([]);
+
+    // 그래프 바 평점 개수
     const [scorecnt, setScoreCnt] = useState([]);
+
+    // 리뷰 평점
     const [reviewcnt, setReviewCnt] = useState([]);
-    // const [starscore , setStarScore] = useState(0);
+
+    // 수량 합계
     const [itemadd, setItemAdd] = useState(1);
+
     const [isDecreasing, setIsDecreasing] = useState(false);
 
+    // 화장품 성분
     const [cosingredient, setCosIngredient] = useState([]);
 
-    const [isOpen, setIsOpen] = useState(false); // 모달 열림/닫힘 상태
+    // 모달 열림/닫힘 상태
+    const [isOpen, setIsOpen] = useState(false);
 
-
+    // 리뷰 확장 상태를 저장할 객체
+    const [expandedIdx, setExpandedIdx] = useState(null);
 
 
     const { idx } = useParams();
 
+    const maxLength = 200;
+
+    // 리뷰가 길 경우 보여줄 버튼
+    const handleExpand = (idx) => {
+        // 만약 이미 열려있는 리뷰를 클릭했으면 닫음, 아니면 새로운 리뷰를 열음
+        setExpandedIdx(prev => (prev === idx ? null : idx));
+    };
 
 
     useEffect(() => {
@@ -86,7 +103,6 @@ const Detailinfo = (item) => {
     useEffect(() => {
         console.log(cosingredient);
         console.log(review);
-
     });
 
 
@@ -115,6 +131,7 @@ const Detailinfo = (item) => {
         setReview(review);
         setTotal(review.length);
     });
+
 
 
 
@@ -213,31 +230,44 @@ const Detailinfo = (item) => {
         showIngredient(<Ingredient idx={idx} />);
     };
 
+
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handlePurchase = () => {
-        if (user) {
-            navigate('/payshipment/' + item.idx + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
+    const handlePurchase = (e) => {
+        if (user !== undefined) {
+            navigate('/payshipment/' + e + '/' + itemadd); // 로그인된 경우 구매 페이지로 이동
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
+            scrollToTop();
         }
     };
 
     // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
-    const handleAddToCart = () => {
-        if (user) {
+    const handleAddToCart = (e) => {
+        if (user !== undefined) {
             // 장바구니 추가 로직
             showModal(<ShoppingCartBtn func={func1} />);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
-                cosmeticprice: item.price,
+                cosmeticprice: e,
                 cosmeticcount: itemadd,
-                cosmetictotal: item.price * itemadd
+                cosmetictotal: e * itemadd
             });
         } else {
+            alert("로그인 후 이용해주세요!")
             navigate('/login');
+            scrollToTop();
         }
     };
+
+    // 페이지 이동 시 스크롤 최상단으로 뜨게 하는 함수
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 });
+    };
+
+
 
     return (
 
@@ -287,16 +317,17 @@ const Detailinfo = (item) => {
                                         </div>
                                     </div>
 
-                                    <div className='rankinginfo' onClick={(e) => showSwal1(e)}>
+                                    <div className='rankinginfo'>
                                         <div className='ranking px-20 mt-24'>
                                             <span className='ranking1'>랭킹 :</span><span className='rankingtext'>{item.ranking}</span>
                                         </div>
-                                        <img src={detailright} width={23} height={23} />
+                                        {/* <img src={detailright} width={23} height={23} /> */}
                                     </div>
 
+                                    {/* 화장품 설명 */}
                                     <div className='cosdescription'>
                                         <span className='cosdesintro px-20 mt-24'>제품 설명 :</span>
-                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description}</span>
+                                        <span className='cosdescriptiontext px-20 mt-24'>{item.description.split("-").map(line => <>- <span className='cosdesline'>{line}</span><br /></>)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +351,8 @@ const Detailinfo = (item) => {
                             {/* 수량 변경 부분 */}
 
                             <div className='itemtitlebox'>
-                                <span className='itemtitlebox2'>{item.cos_name}</span><span className='amount'>({item.vol})</span>
+                                <span className='itemtitlebox2'>{item.cos_name}</span>
+                                <span className='amount'>({item.vol})</span>
                                 <div className='flex_col itemtitlecontentbox'>
                                     <div className='itemtitlebtn' onClick={() => {
                                         if (itemadd > 1) {
@@ -355,10 +387,10 @@ const Detailinfo = (item) => {
 
                             <div className='buybasketmain'>
                                 <div className="buyitembutton">
-                                    <a className="buyitembutton btn first flex" onClick={handlePurchase}>구매하기</a>
+                                    <a className="buyitembutton btn first flex" onClick={() => handlePurchase(item.idx)}>구매하기</a>
                                 </div>
                                 <div className="basketbutton">
-                                    <button className='basketbutton btn' onClick={handleAddToCart}>장바구니</button>
+                                    <button className='basketbutton btn' onClick={() => handleAddToCart(item.price)}>장바구니</button>
                                 </div>
                             </div>
 
@@ -451,25 +483,43 @@ const Detailinfo = (item) => {
 
 
                             {/* 계정 정보 및 사용자 리뷰 */}
-                            {currentPosts.map((item) => (
-                                <div className='accountmain'>
-                                    <div className='accountinfo flex items-center'>
-                                        <img src={account} width={50} className='w-40 h-40 rounded-full object-cover object-center' />
-                                        <div className='textonly'>
-                                            <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_nm}</span>
-                                            <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br />
-                                        </div>
-                                        <div className='accountstar'>
-                                            {setScore(`${item.rating}`)}
-                                        </div>
-                                        <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_reg_dt}</span>
-                                    </div>
+                            {currentPosts.map((item) => {
+                                const isExpanded = expandedIdx === item.idx; // 현재 리뷰가 확장되어 있는지 확인
+                                const reviewText = item.review;
 
-                                    <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
-                                        <span className='reviewcomment'>{item.review}</span>
+                                // 리뷰의 길이에 따라 잘라내기
+                                const truncatedReview = reviewText.length > maxLength && !isExpanded
+                                    ? `${reviewText.substring(0, maxLength)}...`
+                                    : reviewText;
+
+                                return (
+                                    <div className='accountmain' key={item.idx}>
+                                        <div className='accountinfo flex items-center'>
+                                            <img src={account} width={50} className='w-40 h-40 rounded-full object-cover object-center' alt='Account' />
+                                            <div className='textonly'>
+                                                <span className='nickname hds-text-subtitle-medium text-gray-primary'>{item.user_nm}</span>
+                                                <span className='skintype hds-text-smalltext-large ml-2 text-gray-secondary'>{item.user_age}/{item.user_sex}/{item.skin_type}</span><br />
+                                            </div>
+                                            <div className='accountstar'>
+                                                {setScore(`${item.rating}`)}
+                                            </div>
+                                            <span className='hds-text-smalltext-large ml-8 text-gray-quaternary accountdate'>{item.review_reg_dt}</span>
+                                        </div>
+
+                                        <div className='reviewcommentmain flex items-start gap-x-8 mt-24'>
+                                            <span className='reviewcomment'>{truncatedReview}</span>
+                                        </div>
+                                        {reviewText.length > maxLength && (
+                                            <button
+                                                className='more-button'
+                                                onClick={() => handleExpand(item.idx)}
+                                            >
+                                                {isExpanded ? '간략히' : '더보기'}
+                                            </button>
+                                        )}
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                             <Pagination
                                 className='pagination'
                                 onChange={(value) => setPage(value)}
@@ -481,8 +531,6 @@ const Detailinfo = (item) => {
                                 onShowSizeChange={onShowSizeChange}
                                 itemRender={itemRender}
                             />
-
-
 
                             {/* <nav>
                             <ul className='pagination'>

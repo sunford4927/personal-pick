@@ -23,6 +23,7 @@ function checkPath(path)
         case "/subscriptionintroduce":
         // case "/subscriptionmanagement":
         case "/airecommend":
+        case "/complete":
             check = true;
             break;
         default:

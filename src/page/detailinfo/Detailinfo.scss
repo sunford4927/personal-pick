@@ -124,7 +124,6 @@
     display: flex;
     margin-top: 30px;
     justify-content: space-between;
-    cursor: pointer;
 }
 
 .ranking {
@@ -161,6 +160,8 @@
     font-weight: 700;
     font-size: 15px;
     margin-top: 20px;
+    line-height: 25px;
+    text-align: -webkit-left;
 }
 
 // 배송비 영역
@@ -208,10 +209,10 @@
     border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 2px;
     background-color: #ffffff;
-    margin: 32px;
     padding: 12px;
     height: -20px;
     display: flex;
+    margin-bottom: 30px;
 }
 
 .itemtitlebox2 {
@@ -219,6 +220,7 @@
     display: flex;
     font-size: 14px;
     font-weight: 600;
+    justify-content: flex-start;
 }
 
 .amount {
@@ -226,6 +228,7 @@
     display: flex;
     font-size: 14px;
     font-weight: 600;
+    margin-right: 210px;
 }
 
 // .shoppingcart {
@@ -327,6 +330,14 @@
     display: flex;
 }
 
+.itemtitletextbox{
+    display: flex;
+}
+
+.cosdesline {
+    display: contents;
+}
+
 // 구매하기 및 장바구니 버튼
 .buybasketmain {
     justify-content: center;
@@ -334,16 +345,15 @@
 }
 
 .itemtitlecontentbox {
-    width: 109px;
+    width: 64px;
     justify-content: space-between;
     padding: 0px 39px;
-    margin-left: 153px;
+    display: flex;
 }
 
 .itemtitlebtn {
     border: 1px solid rgb(221, 214, 214);
-    width: 30px;
-    // height  :30px;
+    width: 18px;
     border-radius: 20px;
     text-align: center;
 }
@@ -1168,48 +1178,14 @@ video {
     margin: 0.8rem 0;
 }
 
-
-
-
-
-
-// 전체 리뷰보기 버튼
-
-.allreviewbtncontainer {
+.more-button{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    flex-wrap: wrap;
-    /* width: 80vw; */
-    /* margin: 0 auto; */
-    /* min-height: 100vh; */
-}
-
-
-.allreviewbtn {
-    flex: 1 1 auto;
-    padding: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: rgb(0, 0, 0);
-    border-radius: 10px;
+    margin-left: 13px;
+    background: #ffffff;
+    border: white;
+    font-size: 16px;
     font-weight: 600;
-    text-decoration-line: none;
     cursor: pointer;
-    margin-top: 30px;
-    font-size: 18px;
-}
-
-.btn-5:hover {
-    background-position: right center;
-    /* change the direction of the change here */
-}
-
-.btn-5 {
-    background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
 }
 
 // 성분 구성 위험 단계 부분 (공통 css)
@@ -1233,9 +1209,6 @@ video {
 .items-center {
     align-items: center;
 }
-
-
-
 
 
 .text-gray-tertiary {
