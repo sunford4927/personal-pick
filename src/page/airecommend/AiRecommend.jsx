@@ -49,17 +49,17 @@ const AiRecommend = () => {
             })
 
             // 2. 추천 데이터
-            const reco_response = await axios.get(URL + '/Recommend', {
-                params: {
-                    user_nm : user_nm,
-                    user_age : user_temp.user_age,
-                    user_sex : user_temp.user_sex,
-                    skin_type : user_temp.skin_type
-                }
-            });
-            const data = reco_response.data
-            console.log('data : ', reco_response.data);
-            setData(reco_response.data)
+            // const reco_response = await axios.get(URL + '/Recommend', {
+            //     params: {
+            //         user_nm : user_nm,
+            //         user_age : user_temp.user_age,
+            //         user_sex : user_temp.user_sex,
+            //         skin_type : user_temp.skin_type
+            //     }
+            // });
+            // const data = reco_response.data
+            // console.log('data : ', reco_response.data);
+            // setData(reco_response.data)
             
 
 
