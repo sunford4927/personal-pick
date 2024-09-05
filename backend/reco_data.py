@@ -57,7 +57,7 @@ class reco_data:
 
         # 화장품 데이터
         self.df_product = pd.read_csv(f'{path}/data/result_product.csv', encoding='utf-8')
-        self.df_product= self.df_product.set_index('idx')
+        # self.df_product= self.df_product.set_index('idx')
         # print('4 :',self.df_product)
 
         # 리뷰 파일 읽어오기
