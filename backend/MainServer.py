@@ -13,11 +13,6 @@ from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUp
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
 from recommend import abc
 
-# from recommend.recommend import recommend
-# from recommend.reco_data import reco_data
-# from recommend.reco_def import reco_cosine, reco_simple
-
-
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False

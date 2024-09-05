@@ -61,9 +61,9 @@ class reco_simple(Resource):
         # 총 비율 계산(내림차순 정렬)
         df_ratio = df_result['cos_name'].value_counts(normalize=True).sort_values(ascending=False)
 
-        # 상위 10개 반환
-        if len(df_ratio)>=top_n:
-            df_ratio = df_ratio.head(top_n)
+        # # 상위 10개 반환
+        # if len(df_ratio)>=top_n:
+        #     df_ratio = df_ratio.head(top_n)
 
         # 결과를 DataFrame으로 변환
         ratio_sort = df_ratio.reset_index()
@@ -72,7 +72,7 @@ class reco_simple(Resource):
         return df_ratio
     
 class reco_cosine(Resource):
-    def get(user, top_n = 10):
+    def get(user, top_n = 30):
         # user의 코사인 유사도 정렬
         user_cos = df_cos.loc[df_cos.index==user].T
         user_similarity = user_cos.sort_values(by = user, ascending=False)
