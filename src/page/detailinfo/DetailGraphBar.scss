@@ -1,6 +1,6 @@
 .detailgraphbar_Container{
     display: inline-block;
-    width: 37px;
+    width: 27px;
     text-align: center;
 }
 
@@ -9,9 +9,9 @@
     border: 1px solid #ffffff;
     margin-left: 4px;
     margin-right: 4px;
-    background: #0099FC;
-    color: #ffffff;
-    border-radius: 9px;
+    transform: rotateZ(-90deg);
+    font-weight: 600;
+    color: #00000087;
 }
 
 .detailgraphbarchart{
@@ -20,14 +20,15 @@
 
 .detailgraphbarchart_back {
     width: 5px;
-    height: 62px;
-    background-color: rgb(233 227 227);
+    height: 112px;
+    background-color: rgb(233, 227, 227);
     transform: scaleY(-1);
     transition: 0.3s;
     border: none;
     border-radius: 10px;
     overflow: hidden;
     margin: auto;
+    margin-top: 6px;
 }
 
 .detailgraphbar_Title{
@@ -35,10 +36,14 @@
     font-size: 15px;
     font-weight: 600;
     color: black;
+    transform: rotateZ(-90deg);
+    margin-top: 8px;
+    
 }
 
 .detailgraphbar_main{
     display : flex;
-    overflow-x: auto;
     scrollbar-width: none;
+    transform: rotateZ(90deg);
+    margin-left: 106px;
 }
