@@ -152,7 +152,7 @@ const Join = () => {
 
                 <div className="adbannermain" onClick={() => nav('/airecommend')}>
                     <div className="adbannercontainer">
-                    <img src={images[currentImageIndex]} alt="배너 이미지" style={{paddingRight:'70px'}} />
+                    <img src={images[currentImageIndex]} alt="배너 이미지" style={{marginRight:'50px'}} />
                 <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
                 <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
                     </div>
