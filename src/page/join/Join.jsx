@@ -30,7 +30,7 @@ const Join = () => {
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
     const [sex, setSex] = useState('');
-    const [address, setAddress] = useState('');
+    //const [address, setAddress] = useState('');
 
     const [skinType, setSkinType] = useState('');
     // 회원가입 실패 시 출력할 메세지 저장 변수
@@ -75,7 +75,11 @@ const Join = () => {
             user_age : age,
             user_sex : sex,
             skin_type : skinType
+<<<<<<< HEAD
             // user_address : address
+=======
+            //user_address : address
+>>>>>>> 38c08a39d0274eef2a707a32c6f1ba55a1ad58bc
         });
         
         event.preventDefault();
@@ -221,6 +225,7 @@ const Join = () => {
                                 title="숫자를 입력하세요"
                             />
                         </div>
+<<<<<<< HEAD
 {/* 
                         <div className='textbox'>
                             <div className='imgbox'>
@@ -237,6 +242,10 @@ const Join = () => {
                                 title="주소를 입력하세요"
                             />
                         </div> */}
+=======
+
+                       
+>>>>>>> 38c08a39d0274eef2a707a32c6f1ba55a1ad58bc
 
                         <table className="checkbox">
                             <tbody>

@@ -61,7 +61,7 @@ const Detailinfo = (item) => {
     const [isOpen, setIsOpen] = useState(false);
 
     // 리뷰 확장 상태를 저장할 객체
-    const [expandedIdx, setExpandedIdx] = useState(null);
+    const [expandedReviews, setExpandedReviews] = useState({});
 
 
     const { idx } = useParams();
@@ -70,8 +70,10 @@ const Detailinfo = (item) => {
 
     // 리뷰가 길 경우 보여줄 버튼
     const handleExpand = (idx) => {
-        // 만약 이미 열려있는 리뷰를 클릭했으면 닫음, 아니면 새로운 리뷰를 열음
-        setExpandedIdx(prev => (prev === idx ? null : idx));
+        setExpandedReviews(prevState => ({
+            ...prevState,
+            [idx]: !prevState[idx] // 해당 리뷰의 펼쳐짐 상태를 토글
+        }));
     };
 
 
@@ -483,11 +485,9 @@ const Detailinfo = (item) => {
 
 
                             {/* 계정 정보 및 사용자 리뷰 */}
-                            {currentPosts.map((item) => {
-                                const isExpanded = expandedIdx === item.idx; // 현재 리뷰가 확장되어 있는지 확인
+                            {currentPosts.map(item => {
+                                const isExpanded = expandedReviews[item.idx]; // 리뷰의 현재 펼쳐짐 상태
                                 const reviewText = item.review;
-
-                                // 리뷰의 길이에 따라 잘라내기
                                 const truncatedReview = reviewText.length > maxLength && !isExpanded
                                     ? `${reviewText.substring(0, maxLength)}...`
                                     : reviewText;

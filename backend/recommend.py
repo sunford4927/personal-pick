@@ -26,6 +26,8 @@ df_ing_reco, df_ing_effect, df_ing, df_product, df_review, df_user, df_cos = dat
 class abc(Resource):
     # print(df_ing_effect)
     def get(self):
+        sub = request.args.get('sub')
+        print('sub : ', sub)
         # 나이 -> 연령대 변경
         def categorize_age(age):
             if age < 20:
@@ -52,15 +54,47 @@ class abc(Resource):
 
         simple = reco_simple.get(age, sex, skin_type)
         cosine = reco_cosine.get(user)
-        reco = pd.concat([simple, cosine])
-        # print('reco : ', reco)
-        reco_final = df_product[df_product['cos_name'].isin(reco.index)]
+        # print('sim : ', simple)
+        # print('cos : ', cosine)
         
-        reco_final = pd.DataFrame(reco_final)
+        # cosine 유사도 제품이 simple추천 항목에 포함되면 우선추천
+        same = cosine.index.isin(simple.index)
+        # 추천 항목에 추가
+        reco = cosine[same]
+        leng = len(reco)
+        print('leng : ', leng)
+        # 추가한 항목 제거 후 10개가 되도록
+        if leng<10:
+            # cosine = cosine[~same].head(10-leng)
+            reco = pd.concat([reco, cosine[~same].head(10-leng)])
+        else:
+            cosine = cosine.head(10)
+            reco = pd.concat([reco, cosine[~same].head(10)])
+        
+        # print('reco : ', reco)
+
+        # 비구독자 전용
+        reco_not_sub = df_product[df_product['cos_name'].isin(simple.index)].head(10)
+        # print('not_sub : ', reco_not_sub)
+        reco_not_sub = pd.DataFrame(reco_not_sub)
+
+        # 구독자 전용
+        reco_sub = df_product[df_product['cos_name'].isin(reco.index)]
+        reco_sub = pd.DataFrame(reco_sub)
         # DataFrame을 JSON 형식의 Python 객체로 변환
-        reco_final = reco_final.to_dict(orient='records')
+        reco_not_sub = reco_not_sub.to_dict(orient='records')
+        reco_sub = reco_sub.to_dict(orient='records')
+
+        if sub=='true':
+            reco_final = reco_sub
+            print('sub_1_reco_final', reco_final)
+        else:
+            reco_final = reco_not_sub
+            print('sub_0_reco_final : ', reco_final)
 
         # JSON 형식의 Python 객체를 JSON 응답으로 반환
         return jsonify(reco_final)
-        # return reco_final
+
+
+        # # return reco_final
 

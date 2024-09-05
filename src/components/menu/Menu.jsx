@@ -40,8 +40,10 @@ const Menu = ({ isView }) => {
                     <hr className='thin_grayline' />
                     <div className='menu_box'>
                         <div className='menu_logout'>
-                            <p className='menu_skintype'>피부타입별</p>
-                            <p className='menu_age'>나이대별</p>
+                            <p className='menu_skintype' onClick={() => nav("/airecommend")}>화장품 추천</p>
+                            
+                            {/* <p className='menu_skintype'>피부타입별</p>
+                            <p className='menu_age'>나이대별</p> */}
                             <p className='menu_subscribe' onClick={() => nav("/subscription")}>정기배송/구독</p>
                         </div>
                         {name !== undefined &&
