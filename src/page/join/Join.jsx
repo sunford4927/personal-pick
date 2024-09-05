@@ -39,11 +39,11 @@ const Join = () => {
     const handleSTChange = (event) => {
         // 아래 체크박스에서 선택한 피부 타입으로 ageGroup을 변경하는 함수
         const { id } = event.target;
-        const temp = id === 'box1' ? 'dry' :
-                     id === 'box2' ? 'neut' :
-                     id === 'box3' ? 'oil' :
-                     id === 'box4' ? 'sens' :
-                     id === 'box5' ? 'comb' : '';
+        const temp = id === 'box1' ? '건성' :
+                     id === 'box2' ? '중성' :
+                     id === 'box3' ? '지성' :
+                     id === 'box4' ? '민감성' :
+                     id === 'box5' ? '복합성' : '';
         setSkinType(temp);
     };
     useEffect(() => {
