@@ -124,7 +124,6 @@
     display: flex;
     margin-top: 30px;
     justify-content: space-between;
-    cursor: pointer;
 }
 
 .ranking {
@@ -1186,6 +1185,7 @@ video {
     border: white;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 // 성분 구성 위험 단계 부분 (공통 css)

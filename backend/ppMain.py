@@ -45,7 +45,7 @@ class ppSuggestAge(Resource):
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                  ORDER BY COUNT(*) DESC
-                                LIMIT 6; """, (age, twoOldAge))
+                                LIMIT 100; """, (age, twoOldAge))
         elif (age < 50) :
             data = setQuery(""" SELECT p.*
                                 FROM result_product p
@@ -54,7 +54,7 @@ class ppSuggestAge(Resource):
                                 WHERE u.user_age BETWEEN %s AND %s
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                  ORDER BY COUNT(*) DESC
-                                LIMIT 6;""", (age, oldAge))
+                                LIMIT 100;""", (age, oldAge))
 
         return jsonify(data)
             
@@ -74,7 +74,7 @@ class ppSuggestSkinType(Resource):
                                 AND (p.category = '스킨케어' OR p.category = '클렌징')
                                 GROUP BY p.idx, p.brand_name, p.cos_name, p.cos_img_src, p.grade, p.grade_count, p.price, p.vol, p.ranking, p.category
                                 ORDER BY COUNT(*) DESC
-                                LIMIT 6; """, skintype)
+                                LIMIT 100; """, skintype)
         
         return jsonify(data)
     
