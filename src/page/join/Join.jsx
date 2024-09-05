@@ -74,8 +74,8 @@ const Join = () => {
             user_email : email,
             user_age : age,
             user_sex : sex,
-            skin_type : skinType,
-            user_address : address
+            skin_type : skinType
+            // user_address : address
         });
         
         event.preventDefault();
@@ -91,8 +91,8 @@ const Join = () => {
                 user_email : email,
                 user_age : age,
                 user_sex : sex,
-                skin_type : skinType,
-                user_address : address
+                skin_type : skinType
+                // user_address : address
             });
             // 응답받은 데이터 출력 : 201(성공) or 500(실패)
             console.log('response.data : ',response.data);
@@ -120,23 +120,24 @@ const Join = () => {
     return (
         <div id='join'>
             <div id='wrapper'>
-                <div id='head'>
+                {/* <div id='head'>
                     <div className='left'>
                         <h1 onClick={home}>Personal Pick</h1>
                     </div>
                     <div className='right'>
                         <button onClick={login}>로그인</button>
                     </div>
-                </div>
+                </div> */}
 
                 <div id='main'>
                     <form className='join_form' onSubmit={handleSubmit}>
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                                </div> */}
+                                <label className='inputLabel'>아이디</label>
                             <input
-                                placeholder='아이디'
+                                // placeholder='아이디'
                                 className='inputbox'
                                 type="text"
                                 value={id}
@@ -146,11 +147,12 @@ const Join = () => {
                         </div>
                         
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                            </div> */}
+                            <label className='inputLabel'>비밀번호</label>
                             <input
-                                placeholder='비밀번호'
+                                // placeholder='비밀번호'
                                 className='inputbox'
                                 type="text"
                                 value={pw}
@@ -160,11 +162,12 @@ const Join = () => {
                         </div>
 
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                            </div> */}
+                            <label className='inputLabel'>이름</label>
                             <input
-                                placeholder='이름'
+                                // placeholder='이름'
                                 className='inputbox'
                                 type="text"
                                 value={name}
@@ -174,11 +177,12 @@ const Join = () => {
                         </div>
 
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                            </div> */}
+                            <label className='inputLabel'>닉네임</label>
                             <input
-                                placeholder='닉네임'
+                                // placeholder='닉네임'
                                 className='inputbox'
                                 type="text"
                                 value={nm}
@@ -188,11 +192,12 @@ const Join = () => {
                         </div>
 
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                            </div> */}
+                            <label className='inputLabel'>이메일</label>
                             <input
-                                placeholder='이메일'
+                                // placeholder='이메일'
                                 className='inputbox'
                                 type="text"
                                 value={email}
@@ -202,11 +207,12 @@ const Join = () => {
                         </div>
 
                         <div className='textbox'>
-                            <div className='imgbox'>
+                            {/* <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
-                            </div>
+                            </div> */}
+                            <label className='inputLabel'>나이</label>
                             <input
-                                placeholder='나이'
+                                // placeholder='나이'
                                 className='inputbox'
                                 type="text"
                                 value={age}
@@ -215,11 +221,12 @@ const Join = () => {
                                 title="숫자를 입력하세요"
                             />
                         </div>
-
+{/* 
                         <div className='textbox'>
                             <div className='imgbox'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png" alt="" />
                             </div>
+                            <label className='inputLabel'>주소</label>
                             <input
                                 placeholder='주소'
                                 className='inputbox'
@@ -229,12 +236,12 @@ const Join = () => {
                                 required
                                 title="주소를 입력하세요"
                             />
-                        </div>
+                        </div> */}
 
                         <table className="checkbox">
                             <tbody>
-                            <tr>
-                                <td className='left'>성별</td>
+                            <div className='sex'>
+                                <td className='sex_text'>성별</td>
                                 <td className='right'>
                                     <input
                                         type="checkbox"
@@ -242,23 +249,23 @@ const Join = () => {
                                         checked={sex === '남'}
                                         onChange={handleSex}
                                     />
-                                    <label htmlFor="box1">남</label>
+                                    <label className='label_namtext' htmlFor="box1">남</label>
                                     <input
                                         type="checkbox"
                                         id="box2"
                                         checked={sex === '여'}
                                         onChange={handleSex}
                                     />
-                                    <label htmlFor="box2">여</label>
+                                    <label className='label_text' htmlFor="box2">여</label>
                                 </td>
-                            </tr>
+                            </div>
                             <tr>
                                 {/* 공백 추가 */}
                                 <td colSpan="2" className='spacer'></td> 
                             </tr>
 
-                            <tr>
-                                <td className='left'>피부 타입</td>
+                            <div className='skin_type'>
+                                <td className='skintype_text'>피부 타입</td>
                                 <td className='right'>
                                     <input
                                         type="checkbox"
@@ -266,37 +273,37 @@ const Join = () => {
                                         checked={skinType === 'dry'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box1">건성</label>
+                                    <label className='label_text' htmlFor="box1">건성</label>
                                     <input
                                         type="checkbox"
                                         id="box2"
                                         checked={skinType === 'neut'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box2">중성</label>
+                                    <label className='label_text' htmlFor="box2">중성</label>
                                     <input
                                         type="checkbox"
                                         id="box3"
                                         checked={skinType === 'oil'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box3">지성</label>
+                                    <label className='label_text' htmlFor="box3">지성</label>
                                     <input
                                         type="checkbox"
                                         id="box4"
                                         checked={skinType === 'sens'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box4">민감성</label>
+                                    <label className='label_text' htmlFor="box4">민감성</label>
                                     <input
                                         type="checkbox"
                                         id="box5"
                                         checked={skinType === 'comb'}
                                         onChange={handleSTChange}
                                     />
-                                    <label htmlFor="box5">복합성</label>
+                                    <label className='label_text' htmlFor="box5">복합성</label>
                                 </td>
-                            </tr>
+                            </div>
                             <tr>
                                 {/* 공백 추가 */}
                                 <td colSpan="2" className='spacer'></td> 

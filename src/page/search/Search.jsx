@@ -187,7 +187,11 @@ const Search = () => {
                 <div className='h-24' />
                 <div className='timeproduct'>
                     <p className='searchtime'>{today.getMonth() + 1 + "월 " + today.getDate() + "일 " + getDay(today.getDay()) + " " + today.getHours() + ":00"}</p>
-                    <h2 className='product'>지금 가장 많이 구매하고 있어요:)</h2>
+                    <h2 className='product'>AI가 리뷰를 분석해 긍정 점수가 높은 순서대로 보여드릴게요:)</h2>
+                    <div className='review_maxmin'>
+                        <span className='review_max'>최대 2.0</span>
+                        <span>최소 -2.0</span>
+                        </div>
                     {/* <strong>검색한 제품 개수{idx}</strong> */}
                 </div>
                 <div className='products'>
@@ -210,21 +214,24 @@ const Search = () => {
                                             <span>{item.cos_name}</span>
                                         </div>
 
-                                        <div className='review1'>
+                                        {/* <div className='review1'>
                                             <span><img className='star1' src={Star} alt='Star' /></span>
                                             <span className='grade'>{item.grade}</span>
                                             <span className='gray'>({item.grade_count})</span>
-                                        </div>
+                                        </div> */}
 
-                                        <div className='reviewpositive'>
-                                            <span className='positivescoretitle'>리뷰 긍정 점수: </span>
-                                            <span className='positivescore'>{item.review_score}</span>
-                                        </div>
 
                                         <div className='searchprice'>
+                                        <span><img className='star1' src={Star} alt='Star' /></span>
+                                            <span className='grade'>{item.grade}</span>
+                                            <span className='gray'>({item.grade_count})</span>
                                             <span className='jungga'>정가 </span>
-                                            <span className='won'>{item.price}</span>
+                                            <span className='won'>{item.price}원</span>
                                             <span className='gray'>/{item.vol}</span>
+                                        </div>
+                                        <div className='reviewpositive'>
+                                            <span className='positivescoretitle'>리뷰 긍정 점수 </span>
+                                            <span className='positivescore'>{item.review_score}</span>
                                         </div>
                                         <br />
                                     </div>

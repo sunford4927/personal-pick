@@ -64,30 +64,32 @@ const Login = () => {
     return (
         <div id='login'>
             <div id='wrapper'>
-                <div id='head'>
+                {/* <div id='head'>
                     <div className='left'>
                         <h1 onClick={home}>Personal Pick</h1>
-                    </div>
+                    </div> 
                     <div className='right'>
                         {getLoginSession().username ?
                         <button onClick={handleLogout}>로그아웃</button> :
                         <button onClick={join}>회원가입</button>}
                     </div>
-                </div>
+                </div> */}
                 
                 <div id='main'>
-                    <form className='join_form' onSubmit={handleLogin}>
+                    <form className='mypage_form' onSubmit={handleLogin}>
                         {getLoginSession().username ?
                         <>
-                        <div>
-                            <button onClick={mypage}>마이 페이지</button>
+                        <div className='mypage'>
+                            <button className='mypage_btn' onClick={mypage}>마이 페이지</button>
                         </div>
-                        </> :
+                        </> 
+                        :
 
-                        (<>
+                        (
+                        <>
 
                         <div className='textbox'>
-                            <label className='inputLabel'>ID</label>
+                            <label className='inputLabel_login'>ID</label>
                             <input
                                 className='inputbox'
                                 type="text"
@@ -97,8 +99,8 @@ const Login = () => {
                             />
                         </div>
                         
-                        <div className='textbox'>
-                            <label className='inputLabel'>Password</label>
+                        <div className='textbox margin_20'>
+                            <label className='inputLabel_login'>Password</label>
                             <input
                                 className='inputbox'
                                 type="password"
@@ -109,15 +111,16 @@ const Login = () => {
                         </div>
 
                         <div className='button_login'>
-                            <button type="submit">로그인</button>
+                            <button className='loginbtn' type="submit">LOGIN</button>
                         </div>
                         
                         <div className='button_login'>
-                            <button onClick={join}>회원가입</button>
+                            <button className='joinbtn' onClick={join}>JOIN US</button>
                         </div>
 
                         {error && <p style={{ color: 'red' }}>{error}</p>}
-                        </>)}
+                        </>
+                    )}
                     </form>
                 </div>
             </div>
