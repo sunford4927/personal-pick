@@ -82,7 +82,7 @@ const TotalItem = () => {
         <>
             <div className="all_itemBox ">
                 <img className="leftimg float_l cursor" src={left_img} onClick={() => nav('/')} alt="" />
-                <div className="cos_rank_text">화해 랭킹</div>
+                <div className="cos_rank_text">퍼스널 픽 랭킹</div>
                 <div className="totalcatebox">
                     {list.map((item, idx) => {
                         return <button key={idx} className={cateIdx == idx + 1 ? "rank_btn cursor rank_btn_click" : "rank_btn cursor"} onClick={() => changeClass(idx + 1)}>{item}</button>
