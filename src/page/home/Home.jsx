@@ -17,6 +17,13 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import Word1 from '../../img/word1.png'
+import Word2 from '../../img/word2.png'
+import Word3 from '../../img/word3.png'
+import Word4 from '../../img/word4.png'
+import Word5 from '../../img/word5.png'
+import Word6 from '../../img/word6.png'
+import Word7 from '../../img/word7.png'
 
 import { getDay, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useDispatch, useSelector } from "react-redux";
@@ -96,8 +103,28 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [images.length]);
 
-
-
+    const [day, setDay]= useState(5);
+    function changeday(idx)
+    {
+        console.log(idx)
+        if(idx === 0)
+        {
+            setDay(5);
+        }
+        else{
+            setDay(5 + idx);
+        }
+    }
+    const WordList = [
+        {cos_img_src : Word1 },
+        {cos_img_src : Word2 },
+        {cos_img_src : Word3},
+        {cos_img_src : Word4},
+        {cos_img_src : Word5},
+        {cos_img_src : Word6},
+        {cos_img_src : Word7},
+    
+    ]
     return (
         <div className="inner"  >
             {/* // <div id='wrapper' >     */}
@@ -129,7 +156,18 @@ const Home = () => {
 
 
             <div>
-                <CustomSwiper list={data} />
+                <CustomSwiper list={data}  />
+            </div>
+
+
+            <div className="basic-text cursor" >
+                {"9월 " + day + "일 " }
+                <span> 퍼스널픽 주요 키워드 </span> 
+                <img className="category_arrow" src={Right} alt="" />
+            </div>
+
+            <div>
+                <CustomSwiper list={WordList} type={"word"} func = {changeday}/>
             </div>
 
             {/* 스크롤 내릴시 생기는 애니메이션 div */}
