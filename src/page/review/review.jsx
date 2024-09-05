@@ -81,19 +81,19 @@ const Review = () => {
         LoadUsersData();
     }, []);
 
-    //     // 광고배너 이미지 목록
-    //     const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
-    //     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+        // 광고배너 이미지 목록
+        const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
+        const [currentImageIndex, setCurrentImageIndex] = useState(0);
     
-    //     // 이미지가 일정 시간마다 변경되도록 설정
-    //     useEffect(() => {
-    //         console.log('Current Image Path:', images[currentImageIndex]);
-    //         const interval = setInterval(() => {
-    //             setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
-    //         }, 3000); // 3초마다 이미지 변경
+        // 이미지가 일정 시간마다 변경되도록 설정
+        useEffect(() => {
+            console.log('Current Image Path:', images[currentImageIndex]);
+            const interval = setInterval(() => {
+                setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
+            }, 3000); // 3초마다 이미지 변경
     
-    //         return () => clearInterval(interval);
-    //     }, [images.length]);
+            return () => clearInterval(interval);
+        }, [images.length]);
 
     // 날짜 문자열을 원하는 형식으로 변환하는 함수
     const formatDate = (dateString) => {
@@ -110,6 +110,15 @@ const Review = () => {
         <div id='review'>
             <div id='head'>
                 <PageHeader title={"나의 리뷰"} />
+
+                {/* 광고 배너 */}
+                <div className="adbannermain" onClick={() => navigate('/airecommend')}>
+                    <div className="adbannercontainer">
+                        <img src={images[currentImageIndex]} alt="배너 이미지" />
+                        <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                        <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
+                    </div>
+                </div>
             </div>
 
             <div id='main'>

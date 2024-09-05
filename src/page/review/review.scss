@@ -1,8 +1,11 @@
 #review{
-
+    #head{
+        height: auto;
+        background-color: white;
+    }
     #main{
         background-color: white;
-        table{
+        >table{
             width: 100%;
             
             th{
