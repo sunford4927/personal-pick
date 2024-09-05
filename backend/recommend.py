@@ -85,10 +85,12 @@ class abc(Resource):
         reco_not_sub = reco_not_sub.to_dict(orient='records')
         reco_sub = reco_sub.to_dict(orient='records')
 
-        if sub:
+        if sub=='true':
             reco_final = reco_sub
+            print('sub_1_reco_final', reco_final)
         else:
             reco_final = reco_not_sub
+            print('sub_0_reco_final : ', reco_final)
 
         # JSON 형식의 Python 객체를 JSON 응답으로 반환
         return jsonify(reco_final)
