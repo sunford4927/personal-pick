@@ -40,23 +40,41 @@ class testLogin(Resource):
 # 로그인 한 유저의 유저 데이터 select
 class testUserData(Resource):
     def get(self):
-        user_name = request.args.get('user_name')
+        user_nm = request.args.get('user_nm')
 
-        result = setQuery(f'SELECT * FROM result_users WHERE user_name LIKE "%{user_name}%"')
+        sql = 'SELECT * FROM result_users WHERE user_nm = %s'
+        value = user_nm
+        result = setQuery(sql, value)
+
         return jsonify(result)
 
 # 로그인 한 유저의 주문/배송 데이터 select
 class testOrderData(Resource):
     def get(self):
-        user_name = request.args.get('user_name')
-        print('user_name : ',user_name)
-        
-        sql =f'''SELECT t.order_id, t.user_id, t.order_date, t.order_status
-                FROM test_orders t
-                INNER JOIN result_users u ON t.user_id = u.user_id
-                WHERE u.user_name = "{user_name}"'''
+        user_id = request.args.get('user_id')
+        print('user_id : ',user_id)
 
-        result = setQuery(sql)
+        sql = 'select * from result_order where user_id = %s'
+        value = user_id
+        result = setQuery(sql, value)
+        # sql =f'''SELECT t.order_id, t.user_id, t.order_date, t.order_status
+        #         FROM result_orders t
+        #         INNER JOIN result_users u ON t.user_id = u.user_id
+        #         WHERE u.user_name = "{user_name}"'''
+        # result = setQuery(sql)
+
+        return jsonify(result)
+
+# 로그인 한 유저의 리뷰 데이터 select
+class testReviewData(Resource):
+    def get(self):
+        user_id = request.args.get('user_id')
+        print('user_id : ',user_id)
+
+        sql = 'select * from result_review where user_idx = %s'
+        value = user_id
+        result = setQuery(sql, value)
+
         return jsonify(result)
     
 

@@ -8,6 +8,7 @@ import Detailinfo from './page/detailinfo/Detailinfo';
 import Login from './page/login/Login';
 import Join from './page/join/Join';
 import Order from './page/order/Order'
+import Review from './page/review/review'
 import Point from './page/backendtest/Point'
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,6 +59,7 @@ function App() {
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/mypage' element={<Mypage />}></Route>
                     <Route path='/order' element={<Order />}></Route>
+                    <Route path='/review' element={<Review />}></Route>
                     <Route path='/point' element={<Point />}></Route>
                     <Route path='/search/:value' element={<Search />}></Route>
                     <Route path='/search' element={<Search />}></Route>
