@@ -29,6 +29,7 @@ const Detailinfo = (item) => {
     const home = () => navigate('/');
 
 
+    // 리덕스로 가져온 유저 정보
     const state = useSelector(user => user.user)
 
     const user = useSelector((state) => state.user);

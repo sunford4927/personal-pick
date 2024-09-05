@@ -30,18 +30,19 @@ const ItemAll = ({ data , showReviewScore }) => {
               <span className='rank_cos_grade_cnt'> {"(" + item.grade_count + ")"}</span>
             </div>
 
-            {showReviewScore && (
-              <div className='rank_reviewscore'>
-                <span className='rank_positivetext'>리뷰 긍정 점수: </span>
-                <span className='rank_positivescore'>{item.review_score}</span>
-              </div>
-            )}
 
             <div className='rank_price'>
               <span className='rank_text'>정가&nbsp;</span>
               <span className='rank_cos_price'>{item.price + "원"}</span>
               <span className='rank_vol'>{"/" + item.vol }</span>
             </div>
+
+            {showReviewScore && (
+              <div className='rank_reviewscore'>
+                <span className='rank_positivetext'>리뷰 긍정 점수 </span>
+                <span className='rank_positivescore'>{item.review_score}</span>
+              </div>
+            )}
 
         </div>
 

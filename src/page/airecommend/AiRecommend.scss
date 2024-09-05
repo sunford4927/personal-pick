@@ -124,3 +124,9 @@
     pointer-events: none; /* 클릭 이벤트를 차단합니다 */
 }
 
+.aigoback{
+    display: flex;
+    position: absolute;
+    cursor: pointer;
+}
+

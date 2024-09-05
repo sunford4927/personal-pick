@@ -43,7 +43,7 @@ const DetailGraphBar = () => {
         </div>
       ))}
     </div>
-  );
-};
-
-export default DetailGraphBar;
+     );
+    };
+    
+    export default DetailGraphBar;

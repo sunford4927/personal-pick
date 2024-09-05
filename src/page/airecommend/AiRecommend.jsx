@@ -13,7 +13,7 @@ import { LogoutSession, getLoginSession } from '../../util/session'
 import axios from 'axios';
 import reducer from '../../redux/reducer/reducer'
 import { URL } from '../../util/util'
-
+import goback from '../../img/왼쪽.png'
 
 const AiRecommend = () => {
     const nav = useNavigate();
@@ -24,6 +24,7 @@ const AiRecommend = () => {
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
     const [data_non_sub, setDataNonSub] = useState();
+
 
 
     useEffect(() => {
@@ -122,9 +123,7 @@ const AiRecommend = () => {
 
 
     // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-    const gotoinfoHandleClick = (idx) => {
-        nav(`/detailinfo/${idx}`);
-    };
+    
 
     useEffect(() => {
         console.log(data_sub);
@@ -139,9 +138,14 @@ const AiRecommend = () => {
         nav('/subscription');
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0 });
+    };
+
     return (
         <div>
             {/* 회원 추천 쪽 */}
+            <img src={goback} className="aigoback" onClick={() => nav(-1)} width={20} height={20}></img>
             <div className='airecommenduser'>
                 <span className='recommendid'>{getLoginSession().username}</span>님의 맞춤형 추천 화장품
             </div>
@@ -158,7 +162,10 @@ const AiRecommend = () => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} /> :
+                            <Itemview data={data_non_sub} onClick={(idx) => {
+                                // gotoinfoHandleClick(idx);
+                                scrollToTop(); // 클릭 시 스크롤을 최상단으로 이동
+                            }}/> :
                             <Itemview data={homeCateMain.data} />}
                     </span>
                 </div>
