@@ -226,7 +226,7 @@ const Search = () => {
                                             <span className='grade'>{item.grade}</span>
                                             <span className='gray'>({item.grade_count})</span>
                                             <span className='jungga'>정가 </span>
-                                            <span className='won'>{item.price}원</span>
+                                            <span className='won'>{item.price}</span>
                                             <span className='gray'>/{item.vol}</span>
                                         </div>
                                         <div className='reviewpositive'>
