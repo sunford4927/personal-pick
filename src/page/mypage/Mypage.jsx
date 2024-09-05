@@ -22,7 +22,7 @@ const Join = () => {
     // const join = () => navigate('/join');
     // const login = () => navigate('/login');
     const order = () => navigate('/itemOrder');
-    const point = () => navigate('/point');
+    const review = () => navigate('/review');
 
     const user = useSelector(state => state.user)
     const nav = useNavigate();
@@ -31,6 +31,11 @@ const Join = () => {
     const [userData, setUserData] = useState();
     // 로그인 유저 주문/배송 데이터 저장
     const [orderData, setOrderData] = useState();
+    // 주문/배송 상태 저장
+    const [delState, setDelState] = useState({});
+    // 리뷰 데이터 저장
+    const [revieData, setReviewData] = useState({});
+    
 
     useEffect(() => {
         const LoadUsersData = async () => {
@@ -41,19 +46,69 @@ const Join = () => {
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_name: getLoginSession().username
+                        user_nm: getLoginSession().username
                     }
                 });
+                // console.log('res_user : ', responseUserData.data[0]);
+
+                const res_user = responseUserData.data[0]
 
                 // 2. 주문/배송 데이터
                 const responseOrderData = await axios.get(URL + '/TestOrderData', {
                     params: {
-                        user_name: getLoginSession().username
+                        user_id: res_user.user_id
                     }
                 });
+                console.log('order_data : ',responseOrderData.data[0]);
 
-                setUserData(responseUserData.data[0])
+                console.log(res_user.user_id);
+                // 3. 리뷰 데이터
+                const responseReviewData = await axios.get(URL + '/TestReviewData', {
+                    params: {
+                        user_id: res_user.user_id
+                    }
+                });
+                console.log('review_data : ', responseReviewData.data);
+                
+
+                let temp1 = 0
+                let temp2 = 0
+                let temp3 = 0
+                let temp4 = 0
+                let temp5 = 0
+                
+                for (let i=0; i<responseOrderData.data.length; i++){
+                    switch (responseOrderData.data[i].delivery_state) {
+                        case '주문접수':
+                            temp1 += 1;
+                            break;
+                        case '결제완료':
+                            temp2 += 1;
+                            break;
+                        case '배송 준비':
+                            temp3 += 1;
+                            break;
+                        case '배송중':
+                            temp4 += 1;
+                            break;
+                        case '배송완료':
+                            temp5 += 1;
+                            break;
+                    }
+                }
+                setDelState({
+                    'state1' : temp1,
+                    'state2' : temp2,
+                    'state3' : temp3,
+                    'state4' : temp4,
+                    'state5' : temp5
+                })
+                
+                console.log('order_data : ', responseOrderData.data);
+                setUserData(res_user)
                 setOrderData(responseOrderData.data)
+                setReviewData(responseReviewData.data)
+                
 
             }
         };
@@ -87,19 +142,18 @@ const Join = () => {
                 <div className='fst'>
                     <img src="https://cdn-icons-png.flaticon.com/512/6063/6063734.png" alt="" />
                     <span className='middle'>
-                        <h1>{userData ? userData.user_nm : '이름'}</h1>
-                        {/* <p>{userData ? (
-                            '연령대 : ' +
-                            (userData.user_age < 10 ? '10세 이하' :
-                                userData.user_age < 20 ? '10대' :
-                                    userData.user_age < 30 ? '20대' :
-                                        userData.user_age < 40 ? '30대' :
-                                            userData.user_age < 50 ? '40대' :
-                                                userData.user_age < 60 ? '50대' :
-                                                    userData.user_age < 70 ? '60대' : '70세 이상')
-                        ) : '-'}</p> */}
+                        <h1>{userData ? userData.user_nm : '방문고객'} 님</h1>
+                        <span className='bottom'>
+                            <p>{userData ? ((
+                                userData.user_age < 20 ? '미성년자' :
+                                userData.user_age < 30 ? '20대' :
+                                userData.user_age < 40 ? '30대' :
+                                userData.user_age < 50 ? '40대' :'50대 이상')) : '-'}</p>
+                            <p>{userData ? userData.skin_type : '-'}</p>
+                        </span>
                     </span>
-                    {/* <span className='right'>
+                    {/* 내 정보 수정
+                    <span className='right'>
                         <img src="https://cdn-icons-png.flaticon.com/512/54/54366.png" alt="" />
                     </span> */}
                 </div>
@@ -107,14 +161,24 @@ const Join = () => {
                 <div className='scd'>
                     <span className='left'>
                         <h2 onClick={order}>주문내역</h2>
-                        <p>10 건</p>
+                        <p>
+                            {orderData?
+                            orderData.length:
+                            '0'
+                            } 개
+                        </p>
                     </span>
                     <span className='middle'>
-                        <h2 onClick={point}>나의 리뷰</h2>
-                        <p>23 건</p>
+                        <h2 onClick={review}>나의 리뷰</h2>
+                        <p>
+                            {revieData?
+                            revieData.length:
+                            '0'
+                            } 건
+                        </p>
                     </span>
                     <span className='right'>
-                        <h1>포인트</h1>
+                        <h2>포인트</h2>
                         <p>240 P</p>
                     </span>
                 </div>
@@ -123,27 +187,42 @@ const Join = () => {
                     <p>주문/배송 조회</p>
                     <div className='flex_col'>
                         <div>
-                            <p className='myPage_count'>0</p>
+                            <p className='myPage_count'>
+                                {delState?
+                                delState.state1:'-'}
+                            </p>
                             <p>주문접수</p>
                         </div>
                         <img src={Right} alt="" />
                         <div>
-                            <p className='myPage_count'>0</p>
+                            <p className='myPage_count'>
+                                {delState?
+                                delState.state2:'-'}
+                            </p>
                             <p>결제완료</p>
                         </div>
                         <img src={Right} alt="" />
                         <div>
-                            <p className='myPage_count'>0</p>
+                            <p className='myPage_count'>
+                                {delState?
+                                delState.state3:'-'}
+                            </p>
                             <p>배송준비중</p>
                         </div>
                         <img src={Right} alt="" />
                         <div>
-                            <p className='myPage_count'>0</p>
+                            <p className='myPage_count'>
+                                {delState?
+                                delState.state4:'-'}
+                            </p>
                             <p>배송중</p>
                         </div>
                         <img src={Right} alt="" />
                         <div>
-                            <p className='myPage_count'>0</p>
+                            <p className='myPage_count'>
+                                {delState?
+                                delState.state5:'-'}
+                            </p>
                             <p>배송완료</p>
                         </div>
                     </div>
@@ -161,8 +240,8 @@ const Join = () => {
 
                 <div className='text'>
                     <p>쇼핑 활동</p>
-                    <h1>🚚 배송지 관리</h1>
-                    <h1>🔄 취소/반품/교환 내역</h1>
+                    <h1 onClick={() => nav("/addressListAll")} > 🚚 배송지 관리</h1>
+                    <h1 >🔄 취소/반품/교환 내역</h1>
                 </div>
 
 
