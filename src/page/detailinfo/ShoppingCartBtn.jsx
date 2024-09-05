@@ -51,6 +51,12 @@ const ShoppingCartBtn = ({ func}) => {
     console.log(data)
   }, []);
 
+  // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
+  // const gotoinfoHandleClick = (idx) => {
+  //   nav(`/detailinfo/${idx}`);
+
+  // }
+
   return (
     <>
       <div class="shoppingcart mt-8 px-20">장바구니 담기</div>
@@ -80,7 +86,7 @@ const ShoppingCartBtn = ({ func}) => {
 {/* 랜덤 추천 상품 */}
       {/* <div className='modalimgmain'> */}
         {/* 랜덤 이미지1 */}
-        <div className="modalimg">
+        <div className="modalimg" onClick={{}}>
           {data[randomIndex1] && (
             <>
               <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={185} height={185} />
@@ -99,7 +105,7 @@ const ShoppingCartBtn = ({ func}) => {
         {/* <div className='w-[1px] bg-gray-300 modalimgbar' /> */}
 
         {/*  랜덤 이미지2 */}
-         <div className="modalimg">
+         {/* <div className="modalimg">
           {data[randomIndex2] && (
             <>
               <img src={data[randomIndex2]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={200} height={200} />
@@ -108,7 +114,7 @@ const ShoppingCartBtn = ({ func}) => {
             </>
           )}
           {!data[randomIndex2] && <div>데이터가 없습니다.</div>}
-        </div>
+        </div> */}
     </>
   )
 }
