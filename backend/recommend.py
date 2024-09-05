@@ -26,7 +26,8 @@ df_ing_reco, df_ing_effect, df_ing, df_product, df_review, df_user, df_cos = dat
 class abc(Resource):
     # print(df_ing_effect)
     def get(self):
-        sub = 0
+        sub = request.args.get('sub')
+        print('sub : ', sub)
         # 나이 -> 연령대 변경
         def categorize_age(age):
             if age < 20:
@@ -84,7 +85,6 @@ class abc(Resource):
         reco_not_sub = reco_not_sub.to_dict(orient='records')
         reco_sub = reco_sub.to_dict(orient='records')
 
-        print('sub : ', sub)
         if sub:
             reco_final = reco_sub
         else:
