@@ -273,6 +273,7 @@
     font-size: 16px;
     font-weight: 700;
     margin: 255px 20px 10px 10px;
+    position: fixed;
 }
 
 
@@ -320,7 +321,7 @@
 }
 
 .recodataall2{
-    min-width: 150px;
+    min-width: 185px;
     overflow-x: auto;
     flex-wrap: wrap;
 }
@@ -328,16 +329,13 @@
 .modalimg {
     margin-left: 10px;
     margin-right: 10px;
-
-  
-    
+    margin-top: 300px;  
 }
 
 .modalimgmain {
     display: flex;
     justify-content: space-between;
 }
-
 
 
 .modalimgbar {
@@ -477,7 +475,7 @@
 .shoppingcart_box {
     padding: 50px 0 30px 0;
     margin-bottom: -10px;
-    margin-left: 50px;
+    margin-left: 45px;
 }
 
 // 쇼핑 계속하기 버튼

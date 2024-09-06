@@ -6,7 +6,7 @@ import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
 
 
-const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
+const ShoppingCartBtn = ({ func, func1 , navigate}) => {
   console.log('idx : ', func);
 
 
@@ -68,6 +68,8 @@ const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
   
   const handleClick = (idx) => {
     navigate(`/detailinfo/${idx}`);
+    console.log(handleClick);
+    
   };
   
 
@@ -76,19 +78,19 @@ const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
 
     <>
       <div className='shoppingcartfix'>
-        <div class="shoppingcart mt-8 px-20">장바구니 담기</div>
-        <hr class='shoppingcartbar' />
+        <div className="shoppingcart mt-8 px-20">장바구니 담기</div>
+        <hr className='shoppingcartbar' />
         <div className='shoppingcart_box'>
-          <span class="addshopping">장바구니에 추가되었습니다.</span>
+          <span className="addshopping">장바구니에 추가되었습니다.</span>
         </div>
-        <div class="shoppincartmainbox">
-          <div class='godetailmain'>
+        <div className="shoppincartmainbox">
+          <div className='godetailmain'>
             {/* <div class="godetailbutton">
             <a class="godetailbutton btn1 first flex" onClick={() => modalClose()}>쇼핑계속하기</a>
           </div> */}
-            <a class="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
+            <a className="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
           </div>
-          <div class='gotoshoppingmain'>
+          <div className='gotoshoppingmain'>
             {/* <div class="gotoshoppingbutton">
             <a className="gotoshoppingbutton btn1 first flex" onClick={() => func("/cartlist")}>장바구니 이동</a>
           </div> */}
