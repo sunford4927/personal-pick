@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import './Subscription.scss';
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import image1 from '../../img/화장품 이미지1.jpg'
 import image2 from '../../img/화장품 이미지2.jpg'
 import { useNavigate } from 'react-router-dom';
 import { useCountUp } from 'react-countup';
+import Back from '../../img/왼쪽.png';
 
 // 메뉴창에서 정기배송 클릭 시 나타나는 화면
 const Subscription = () => {
 
     const nav = useNavigate();
     // 사용자가 로그인했는지 여부(로그인되어있는지 안되어있는지 모르겠지만 일단 안되어있다고(false) 설정해놓겠다는 말)
-    const [ isLogin, setIsLogin ] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
 
     // 로그인 여부 관리(사용자가 로그인했는지를 확인)
     useEffect(() => {
         let Id = sessionStorage.getItem("username");
         if (Id) {  // 근데 만약 사용자가 로그인했다면
-            setIsLogin(true);            
+            setIsLogin(true);
         }
     }, []);
- 
+
 
     // "기초/색조 화장품 구독하러 가기" 버튼 클릭 시 "기초/색조 화장품"라는 글자를 beforepayment에 보내줄 거야~~
     // "기초 화장품 구독하러 가기" 버튼 클릭 시
@@ -32,7 +33,7 @@ const Subscription = () => {
             alert("로그인 후 이용해주세요!")
             nav('/login');
         }
-        
+
     };
 
     // // "색조 화장품 구독하러 가기" 버튼 클릭 시
@@ -46,7 +47,7 @@ const Subscription = () => {
 
     // "기초+색조 화장품 구독하러 가기" 버튼 클릭 시
     const basicpluscolorMakeup = () => {
-        if(isLogin) {
+        if (isLogin) {
             nav('/SubbasicvueIntroduce', { state: { productType: '기초+색조 화장품' } });
         } else {
             nav('/login');
@@ -59,207 +60,165 @@ const Subscription = () => {
     //   };
 
     const CountUp = () => {
-        useCountUp({ ref: 'counter', end: 3000});
+        useCountUp({ ref: 'counter', end: 3000 });
         return <span id="counter" />;
-      };
+    };
 
     const CountUp1 = () => {
-        useCountUp({ ref: 'counter1', end: 10000});
+        useCountUp({ ref: 'counter1', end: 10000 });
         return <span id="counter1" />;
     };
 
 
     return (
 
+
         <div>
+
+            <img className='subscription_back_btn' src={Back} alt="" onClick={() => nav('/')} />
             {/* 제목 */}
             <div className='subscriptiontitle'>
-                <span className='subscriptiontext'>
-                쓸모없는 고민은 그만!
-                </span>
-                <span className='subscriptiontext2'>
+                쓸모없는 고민은 그만! <br />
                 미루니를 위한 샘플 정기 배송
-                </span>
             </div>
 
             {/*  첫줄 정보 박스 */}
             <div className='maintextbox'>
-            <div className='firstbox'>
-            <span className='firstboxtext'>다양한 샘플들을 구독제로</span>
-             <span className='firstboxtext2'>
-                여러 상품을 다양하게 써보고 싶을 때,
-                </span>
-                <span className='firstboxtext2_1'>
-                피부에 잘 맞는 제품을 찾고 싶을 때!
-                </span>
-                <span className='firstboxtext2_2'>
-                부담없이 언제든 구독 해지 가능!
-                </span>
-            </div>
+                <div className='nemo_box'>
 
-            <div className='secondbox'>
-            <span className='secondboxtext'>
-                고민할 필요 없이 맞춤형
-                </span>
-            <span className='secondboxtext2'>
-                피부에 맞는 화장품을 고르는 건 이제 그만!
-                </span>
-                <span className='secondboxtext2_1'>
-                빅데이터 기반 맞춤형 샘플 화장품으로
-                </span>
-                <span className='secondboxtext2_2'>
-                개인에게 맞는 화장품 정기 배송
-                </span>
-            </div>
-            </div>
+                    <div className='bord_text'>다양한 샘플들을 구독제로</div>
+                    <hr className='line_none'></hr>
+                    <div className='nemo_text'>
+                        여러 상품을 다양하게 써보고 싶을 때, <br />
+                        피부에 잘 맞는 제품을 찾고 싶을 때! <br />
+                        부담없이 언제든 구독 해지 가능!
+                    </div>
 
-            {/*  둘째줄 정보 박스 */}
-            <div className='maintextbox2'>
-                <div className='thirdbox'>
-                <span className='thirdboxtext'>
-                    편리한 자동결제/무료배송
-                </span>
-                <span className='thirdboxtext2'>
-                    정해진 날에 자동으로 결제하고 알아서 집까지!
-                </span>
-                <span className='thirdboxtext2_1'>
-                    정기 배송 상품은 무료 배송!
-                </span>
+
                 </div>
 
-                <div className='fourthbox'>
-                <span className='fourthboxtext'>
-                    구독 후 설문 작성으로 포인트까지!
-                    </span>
-                    <span className='fourthboxtext2'>
-                        구독자들에게만 주는 혜택!
-                    </span>
-                    <span className='fourthboxtext2_1'>
-                        구독 후 달마다 오는 설문 타임!!
-                    </span>
-                    <span className='fourthboxtext2_2'>
-                        설문 작성 시 최대 200포인트 제공!
-                    </span>
-                </div>
+                <div className='nemo_box'>
+                    <div className='bord_text'>고민할 필요 없이 맞춤형</div>
+                    <hr className='line_none'></hr>
+                    <div className='nemo_text'>
+                        빅데이터 기반 맞춤형 샘플 화장품으로 <br />
+                        개인에게 맞는 화장품 정기 배송 <br />
+                        고민하며 화장품을 고르는 건 이제 그만!
+                    </div>
+
                 </div>
 
-                {/* 구독 설명 영역 */}
-                <div className='basicexplainmainbox'>
+                {/*  둘째줄 정보 박스 */}
+                {/* <div className='maintextbox2'> */}
+                <div className='nemo_box'>
+                    <div className='bord_text'>편리한 자동결제/무료배송</div>
+                    <hr className='line_none'></hr>
+                    <div className='nemo_text'>
+                        정해진 날에 결제하고 알아서 집까지! <br />
+                        맞춤형 추천 샘플 정기 배송 상품은 <br />
+                        항상 무료 배송!
+                    </div>
+                </div>
+
+                <div className='nemo_box'>
+                    <div className='bord_text'>구독 후 피부타입 진단까지</div>
+                    <hr className='line_none'></hr>
+                    <div className='nemo_text'>
+                        구독자들에게만 주는 혜택! <br />
+                        구독 후 내 피부타입을 알고 싶을 때, <br />
+                        언제든지 진단 가능!
+                    </div>
+
+                </div>
+                {/* </div> */}
+            </div>
+
+
+
+            {/* 구독 설명 영역 */}
+            <div className='gudog_titlebox'>
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: false }}
                     transition={{
-                    ease: 'easeInOut',
-                    duration: 2,
-                    x: { duration: 1 },
+                        ease: 'easeInOut',
+                        duration: 2,
+                        x: { duration: 1 },
                     }}
                 >
-                <div className='basictitlemainbox'>
-                    <img src ={image1} width={300} height={300} className='image1'/>
-                    <CountUp1/>
-                    <span className='basictitle'>
-                    개의 데이터 분석을 통한 추천 화장품을
-                    </span> 
-                    <span className='basictitle2'>
-                    고민 없이 사용해보고 싶다면?
-                    </span>
-                </div>
 
-                <div className='basictextbox'>
-                    <span className='basictext'>
-                    기초 샘플 구독 20,000/월 
-                    </span>
-                    <span className='basictext2'>
-                    월 정기결제, 기초 샘플 기준
-                    </span>
-                    <span className='basictext3'>
-                    빅데이터 알고리즘 반영 사용자 맞춤형 샘플 5가지 제공!
-                    </span>
-                </div>
+                    <div className='gudogbox_text'>
 
-                <div class="basicbutton">
-                    <a class="basicbutton btn-5" onClick={basicMakeup}>구독하러 가기</a>
-                </div>
+                        <img src={image1} className='gudog_img' />
+                        <div className='gudog_titletext'>
+                            <div className='gudogprice_title'>
+                                <CountUp1 />
+                                개의 데이터 분석을 통한  <br />
+                                추천 화장품을 고민 없이 사용해보고 싶다면?
+                            </div>
+                            <hr className='line_none'></hr>
+                            <div className='gudog_basictext'>
+                                빅데이터 알고리즘 반영! <br />
+                                사용자 맞춤형 샘플 5가지 제공!<br />
+                                {/* 월 정기결제, 기초 샘플 기준 <br /> */}
+                                기초 샘플 구독 월 20,000원!<br />
+                                배송비 무료!
+                            </div>
+                        </div>
+                        <hr className='line_none'></hr>
+                        <div className="gudog_go_btn btn-5">
+                            <a className="gudog_go_btn btn-5" onClick={basicMakeup}>구독하러 가기</a>
+                        </div>
+
+                    </div>
                 </motion.div>
-                </div>
 
-
-                {/* 색조 구독 설명 영역
+                {/* <div className='freeexplainmainbox'> */}
+                {/* 무료 설명 영역 */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: false }}
                     transition={{
-                    ease: 'easeInOut',
-                    duration: 1.5,
-                    x: { duration: 1 },
+                        ease: 'easeInOut',
+                        duration: 1,
+                        x: { duration: 1 },
                     }}
                 >
-                <div className='huetitlemainbox'>
-                    <img src ={image2} width={250} height={200} className='image2'/>
-                    <span className='huetitle'>
-                    나에게 맞는 색조 화장품
-                    </span> 
-                    <span className='huetitle2'>
-                    고민 없이 사용해보고 싶다면?
-                    </span>
-                </div>
 
-                <div className='huetextbox'>
-                    <span className='huetext'>
-                        피부 특성 분석 후 사용자 맞춤형 색조 샘플 4종을 보내드립니다.
-                    </span>
-                    <span className='huetext2'>
-                        배송비 무료!
-                    </span>
-                </div>
+                    <div className='gudogbox_text'>
+                        <div className='gudog_imgtitle'>
+                            <img src={image1} className='gudog_img' />
+                            <div className='gudog_titletext gudog_padding'>
+                                <div className='gudogprice_title'>
+                                {/* 비구독자를 위해 <br /> */}
+                                <CountUp end={3000}/>개의 데이터 분석을 통한   <br />
+                                비구독자용 무료 추천 화장품을 보고 싶다면?
+                                </div>
+                                <hr className='line_none'></hr>
+                                <div className='gudog_basictext'>
+                                    빅데이터 알고리즘 반영! <br />
+                                    피부 특성 분석 후 비구독자를 위해 <br />
+                                    무료로 사용자 맞춤형 샘플 추천!
+                                    
+                                </div>
+                            </div>
+                            <hr className='line_none'></hr>
+                        <div className="gudog_go_btn btn-5">
+                            <a className="gudog_go_btn btn-5" onClick={() => nav("/airecommend")}>확인하러 가기</a>
+                        </div>
 
-                <div class="huebutton">
-                    <a class="huebutton btn-5" onClick={colorMakeup}>색조 화장품 구독하러 가기</a>
-                </div>
-                </motion.div> */}
-
-
-                <div className='freeexplainmainbox'>
-                {/* 기초+색조 설명 영역 */}
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false }}
-                    transition={{
-                    ease: 'easeInOut',
-                    duration: 1,
-                    x: { duration: 1 },
-                    }}
-                >
-                <div className='basichuetitlemainbox'>
-                    <img src ={image1} width={300} height={300} className='image2'/>
-                    <span className='basichuetitle'>
-                    나에게 맞는 기초&색조 화장품
-                    </span> 
-                    <span className='basichuetitle2'>
-                    고민 없이 사용해보고 싶다면?
-                    </span>
-                </div>
-
-                <div className='basichuetextbox'>
-                    <span className='basichuetext'>
-                        피부 특성 분석 후 사용자 맞춤형 기초&색조 샘플 4종을 보내드립니다.
-                    </span>
-                    <span className='basichuetext2'>
-                        배송비 무료!
-                    </span>
-                </div>
-
-                <div class="basichuebutton">
-                    <a class="basichuebutton btn-5" onClick={basicpluscolorMakeup}>기초&색조 화장품 구독하러 가기</a>
-                </div>
+                        </div>
+                        {/* <div class="basichuebutton">
+                        <a class="basichuebutton btn-5" onClick={basicpluscolorMakeup}>기초&색조 화장품 구독하러 가기</a>
+                    </div> */}
+                    </div>
                 </motion.div>
-                </div>
+                {/* </div> */}
+            </div>
 
-    
-                </div>
+        </div>
     )
 }
 
