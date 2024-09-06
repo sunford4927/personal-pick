@@ -249,7 +249,8 @@ const Detailinfo = (item) => {
     const handleAddToCart = (e) => {
         if (user !== undefined) {
             // 장바구니 추가 로직
-            showModal(<ShoppingCartBtn func={func1} />);
+            showModal(<ShoppingCartBtn func={idx} />);
+            // {func1}
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
