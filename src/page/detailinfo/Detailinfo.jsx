@@ -212,7 +212,6 @@ const Detailinfo = (item) => {
         modalClose();
     }
 
-
     const test = (e) => {
         console.log(12)
     }
@@ -267,8 +266,7 @@ const Detailinfo = (item) => {
     const handleAddToCart = (e) => {
         if (user !== undefined) {
             // 장바구니 추가 로직
-            showModal(<ShoppingCartBtn func={idx} />);
-            // {func1}
+            showModal(<ShoppingCartBtn func={idx} func1={func1}/>);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
@@ -290,7 +288,7 @@ const Detailinfo = (item) => {
     };
 
 
-
+    
     return (
 
 
