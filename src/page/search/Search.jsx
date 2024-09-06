@@ -67,7 +67,7 @@ const Search = () => {
     // 굳이 sendDel을 만들지 않아도 sendPost로 내가 검색한 최근검새어 리스트(ex.5개)를 보낼 것이고
     // X 버튼을 onClick 했을 때에 남은 리스트(ex.4개)도 sendPost로 보내기때문에 sendDel를 만들 필요 없음
     useEffect(() => {
-        
+
         sendPost(URL + "/SearchList", null, searchHistory);
     }, [searchHistory]); // 빈배열 안에 searchHistory(최근 검색어)가 있는 경우는 최근검색어를 검색하고 화면에 나왔을 때 렌더링하겠다는 뜻
 
@@ -99,26 +99,26 @@ const Search = () => {
             setSearchHistory([...newHistory])
         }
         sendGet(URL + "/SearchPage?value=" + searchValue, showConsole);
-        
+
         // 검색어를 inputvalue에 설정하여 검색 실행
         //setInputvalue("");
-         setInputvalue(inputvalue);
+        setInputvalue(inputvalue);
 
-        
+
     };
 
 
 
     // 검색어를 삭제하는 함수
     const searchDelete = (indexToDelete, e) => {
-        e.stopPropagation() 
+        e.stopPropagation()
         const newHistory = [...searchHistory];
         // filter함수를 사용해 indexToDelete한 것이 아닌 index값들만 가져오는 것
         const newList = newHistory.filter((item, index) => index !== indexToDelete)
         // 스트레드로 newList에 리스트 형식으로 묶어서 SearchHistory에 담아주기
         setSearchHistory([...newList]);
         // console.log("i");
-        
+
     };
 
 
@@ -146,14 +146,14 @@ const Search = () => {
                 {/* InputBox 컴포넌트에 searchAdd 함수를 전달하여 검색어 입력 시 호출되게 함 */}
                 <div className='searchbtn'>
                     {/* <button className='' type="button" onClick={() => nav('/')}> */}
-                        {/* </button> */}
-                        
+                    {/* </button> */}
+
                     <div className='back'>
-                        <img   onClick={() => nav('/')} src={Back}></img>
+                        <img onClick={() => nav('/')} src={Back}></img>
                     </div>
-                        <InputBox className='width' func={searchAdd} inputvalue= {inputvalue} setvalue={setInputvalue}></InputBox>
-                        
-    
+                    <InputBox className='width' func={searchAdd} inputvalue={inputvalue} setvalue={setInputvalue}></InputBox>
+
+
                 </div>
                 {/* <div style={{ height: '120px' }}> */}
                 <div>
@@ -166,15 +166,21 @@ const Search = () => {
                         {/* 검색 기록을 화면에 표시 */}
                         {searchHistory.length > 0 && searchHistory.map((item, index) => (
                             // 각 검색어를 리스트 아이템으로 표시
-                            <button className='recentSearchName' key={index} onClick={() => searchClick(item)}>{item}<span className='deletebtn' onClick={(e) => searchDelete(index, e)}><strong className='xbtn'>X</strong></span></button>
+                            <button className='recentSearchName' key={index} onClick={() => searchClick(item)}>{item}
+                                <span className='deletebtn' onClick={(e) => searchDelete(index, e)}>
+                                    <strong className='xbtn'>X</strong>
+                                </span>
+                            </button>
                         ))}
                     </div>
                     <hr className='line' />
                 </div>
                 {/* 서버에서 가져온 제품 리스트를 화면에 표시 */}
-                <div className='h-24'/>
+                <div className='h-24' />
                 <div className='timeproduct'>
-                    <p className='searchtime'>{today.getMonth()+1 + "월 " + today.getDate() + "일 " + getDay(today.getDay()) + " " + today.getHours() + ":00" }</p>
+                    <p className='searchtime'>
+                        {today.getMonth() + 1 + "월 " + today.getDate() + "일 " + getDay(today.getDay()) + " " + today.getHours() + ":00"}
+                    </p>
                     <h2 className='product'>지금 가장 많이 구매하고 있어요:)</h2>
                     {/* <strong>검색한 제품 개수{idx}</strong> */}
                 </div>
@@ -184,7 +190,7 @@ const Search = () => {
                             <li className='product1' key={item.idx} onClick={() => handleProductClick(item.idx)}>
                                 <div className='searchflex'>
                                     <div className='idx'>{item.idx}</div>
-                                    <img src={item.cos_img_src} style={{ width: '80px', height: '80px'}} alt={item.cos_name} className='productimg'></img>
+                                    <img src={item.cos_img_src} style={{ width: '80px', height: '80px' }} alt={item.cos_name} className='productimg'></img>
                                     <div className='items'>
                                         <div className='searchfont'>
                                             <span className='searchbrand'>{item.brand_name}</span>
