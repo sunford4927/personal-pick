@@ -20,6 +20,7 @@ const AiRecommend = () => {
 
     // redux 임시 데이터로 이용
     const homeCateMain = useSelector(state => state.homeCategory)
+    const USER = useSelector(state=>state.user)
     // 데이터 저장
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
@@ -29,24 +30,21 @@ const AiRecommend = () => {
 
     useEffect(() => {
         const LoadUsersData = async () => {
-            const user_nm = getLoginSession().username
-            console.log('user_nm : ', user_nm);
-            console.log('url : ', URL);
+            const user_id = getLoginSession().userid
+            
+            console.log(USER)
             // 1. 유저 데이터
-            const user_response = await axios.get(URL + '/TestDY', {
-                params: {
-                    user_nm: user_nm
-                }
-            });
+            const user_response = await axios.get(URL + '/TestDY?user_id='+USER.user_id);
             const user_temp = user_response.data[0]
-            console.log('피부타입 : ', user_temp.skin_type);
+            console.log(user_temp)
+            console.log('피부타입 : ', USER.skin_type);
             console.log('연령 : ', user_temp.user_age);
             console.log('성별 : ', user_temp.user_sex);
             setUser({
-                user: user_response.data[0],
-                user_age: user_temp.user_age,
-                user_sex: user_temp.user_sex,
-                skin_type: user_temp.skin_type
+                user: USER,
+                user_age: USER.user_age,
+                user_sex: USER.user_sex,
+                skin_type: USER.skin_type
             })
 
             // const user_data = {
@@ -63,23 +61,22 @@ const AiRecommend = () => {
             const reco_non_sub = await axios.get(URL + '/Recommend' , {
                 params: {
                     sub: false,
-                    user_nm: user_nm,
-                    user_age: user_temp.user_age,
-                    user_sex: user_temp.user_sex,
-                    skin_type: user_temp.skin_type
+                    user_nm: USER.user_nm,
+                    user_age: USER.user_age,
+                    user_sex: USER.user_sex,
+                    skin_type: USER.skin_type
                 }
             });
-            console.log('data_non_sub : ', reco_non_sub.data);
             setDataNonSub(reco_non_sub.data)
 
             // 2. 구독자 추천 데이터
             const reco_sub = await axios.get(URL + '/Recommend', {
                 params: {
                     sub: true,
-                    user_nm: user_nm,
-                    user_age: user_temp.user_age,
-                    user_sex: user_temp.user_sex,
-                    skin_type: user_temp.skin_type
+                    user_nm: USER.user_nm,
+                    user_age: USER.user_age,
+                    user_sex: USER.user_sex,
+                    skin_type: USER.skin_type
                 }
             });
             console.log('data_sub : ', reco_sub.data);
@@ -102,7 +99,7 @@ const AiRecommend = () => {
         }
         // 화면이 첫 랜더링 될 때 함수 실행
         LoadUsersData();
-    }, []);
+    }, [USER]);
 
 
     // 숫자 올라가는 기능 함수

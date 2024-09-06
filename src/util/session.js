@@ -3,20 +3,20 @@ export function LoginSession(username) {
 // function LoginSession(username, token) {
     // token : 보안용
     // print('로그인 성공');
-    sessionStorage.setItem('username', username);
+    sessionStorage.setItem('userid', username);
     // sessionStorage.setItem('token', token);
 }
 
 // 로그인 정보 삭제
 export function LogoutSession() {
-    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('userid');
     // sessionStorage.removeItem('token');
 }
 
 // get
 export function getLoginSession() {
     return {
-        username: sessionStorage.getItem('username'),
+        username: sessionStorage.getItem('userid'),
         // token: sessionStorage.getItem('token')
     };
 }

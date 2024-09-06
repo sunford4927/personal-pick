@@ -16,12 +16,26 @@ class ppMainPage(Resource):
 class ppCategorySel(Resource):
 
     def get(self):
+
+        query1 = ""
+        query2 = ""
+        
         data = request.args.to_dict()
         cateValue = data['category']
         cateValue2 = data['category2']
-        # print("cateValue : ",cateValue)
+
+        if(cateValue == "카테고리 전체"):
+            pass
+        else:
+            query1 = "where category ='" + cateValue+"'"
+            if(cateValue2 == "전체"):
+                pass
+            else:
+                query2 = " and category_2='" + cateValue2 + "'"
+        
+        
         # data = setQuery('select * from result_product limit 6')
-        data = setQuery(f'select * from result_product where category = "{cateValue}" and category_2 = "{cateValue2}" ')
+        data = setQuery(f'select * from result_product {query1 + query2} ')
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)
     
