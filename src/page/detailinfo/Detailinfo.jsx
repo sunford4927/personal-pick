@@ -222,9 +222,6 @@ const Detailinfo = (item) => {
         console.log(e.target.innerText)
     }
 
-    const navigate1 = (idx) => {
-         navigate(`/detailinfo/${idx}`); // 상세 페이지로 이동
-    }
 
 
     let cntList = [
@@ -272,7 +269,7 @@ const Detailinfo = (item) => {
     const handleAddToCart = (e) => {
         if (user !== undefined) {
             // 장바구니 추가 로직
-            showModal(<ShoppingCartBtn func={idx} func1={func1}/>);
+            showModal(<ShoppingCartBtn func={idx} func1={func1} navigate={navigate}/>);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,

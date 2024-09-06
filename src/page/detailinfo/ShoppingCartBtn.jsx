@@ -4,10 +4,9 @@ import { modalClose } from '../../util/util'
 import { URL } from '../../util/util';
 import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
-import { Link, useNavigate } from 'react-router-dom';
 
 
-const ShoppingCartBtn = ({ func, func1 }) => {
+const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
   console.log('idx : ', func);
 
 
@@ -67,9 +66,8 @@ const ShoppingCartBtn = ({ func, func1 }) => {
   };
 
   
-  
-  const handleImageClick = (idx) => {
-    window.location.href = `/detailinfo/${idx}`;
+  const handleClick = (idx) => {
+    navigate(`/detailinfo/${idx}`);
   };
   
 
@@ -111,7 +109,7 @@ const ShoppingCartBtn = ({ func, func1 }) => {
         {recoData ? (
           <div className='recodataall'>
             {recoData.map((item) => (
-              <div key={item.idx} onClick={() => handleImageClick(item.idx)} className='recodataall2'>
+              <div key={item.idx} onClick={() => handleClick(item.idx)} className='recodataall2'>
                 <img
                   src={item.cos_img_src}
                   alt="코스메틱 이미지"

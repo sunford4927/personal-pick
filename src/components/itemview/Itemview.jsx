@@ -7,6 +7,12 @@ import { setIcon } from '../../util/util'
 const Itemveiw = ({ data }) => {
 
     const nav = useNavigate();
+
+    // 상세페이지 이동 시 스크롤 최상단으로 가게 하는 함수 + 상세페이지 이동
+    const handleClick= (idx) => {
+        window.scrollTo({ top: 0 });
+        nav(`detailinfo/${idx}`)
+      };
     
 
     return (
@@ -17,7 +23,7 @@ const Itemveiw = ({ data }) => {
                 }
                 return (
 
-                    <div className='itemBox flex_col cursor' key={item.idx} onClick={() => nav('detailinfo/' + (item.idx))}>
+                    <div className='itemBox flex_col cursor' key={item.idx} onClick={() => handleClick(item.idx)}>
                         <div key={item.id} onClick={() => nav(`/airecommend/detailinfo/${item.id}`)}/>
                             {/* 금메달, 은메달 등 rankingDic을 itemDic map 함수 돌린 거에 맞춰 꺼내옴 */}
                             <div className='rank_num' key={item.idx}>{setIcon(idx)}</div>
