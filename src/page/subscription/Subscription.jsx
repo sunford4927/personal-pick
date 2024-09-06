@@ -27,7 +27,7 @@ const Subscription = () => {
     const basicMakeup = () => {
         if (isLogin) {  // 로그인되어 있을 시
             // "productType"이라는 키에 "기초 화장품"이라는 값을 저장하여 BeforePayment 페이지로 전달
-            nav('/PayShipment', { state: { productType: '기초 화장품' } });
+            nav('/PayShipment', { state: { isSubscription: true } });
         } else {  // 로그인되어 있지 않을 시
             alert("로그인 후 이용해주세요!")
             nav('/login');

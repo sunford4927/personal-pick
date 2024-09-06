@@ -38,12 +38,12 @@ const DetailGraphBar = () => {
                 style={{ height: cnt.count * 0.6 + "%", backgroundColor: "#0099FC" }}
               />
             </div>
-            <div className='detailgraphbar_Title'>{cnt.rating}</div>
+            <div className='detailgraphbar_Title'>{cnt.rating}점</div>
           </div>
         </div>
       ))}
     </div>
-  );
-};
-
-export default DetailGraphBar;
+     );
+    };
+    
+    export default DetailGraphBar;
