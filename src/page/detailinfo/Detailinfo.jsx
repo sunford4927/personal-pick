@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 
 
@@ -157,6 +158,23 @@ const Detailinfo = (item) => {
         return originalElement;
     };
 
+    const { itemId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`/api/products/${itemId}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduct();
+  }, [itemId]);
+
+    
 
     // useEffect(() => {
     //     console.log(state)

@@ -8,7 +8,7 @@ import Itemview from "../../components/itemview/Itemview"
 import { useRef } from 'react';
 import Star from '../../img/별.png'
 import { setIcon } from '../../util/util'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LogoutSession, getLoginSession } from '../../util/session'
 import axios from 'axios';
 import reducer from '../../redux/reducer/reducer'
@@ -57,8 +57,10 @@ const AiRecommend = () => {
             // }
             // console.log('비구독자 : ', user_data);
 
+            
+
             // 2. 비구독자 추천 데이터
-            const reco_non_sub = await axios.get(URL + '/Recommend', {
+            const reco_non_sub = await axios.get(URL + '/Recommend' , {
                 params: {
                     sub: false,
                     user_nm: user_nm,
@@ -103,7 +105,6 @@ const AiRecommend = () => {
     }, []);
 
 
-
     // 숫자 올라가는 기능 함수
 
     const CountUp = ({ end }) => {
@@ -123,7 +124,10 @@ const AiRecommend = () => {
 
 
     // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-    
+// gotoinfoHandleClick 함수
+const gotoinfoHandleClick = (item) => {
+    nav(`/airecommend/detailinfo/${item.id}`);
+  };
 
     useEffect(() => {
         console.log(data_sub);
@@ -141,6 +145,15 @@ const AiRecommend = () => {
     const scrollToTop = () => {
         window.scrollTo({ top: 0 });
     };
+
+    useEffect(() => {
+        // ... (기존 코드)
+    
+        if (data_non_sub) {
+          // 데이터가 정상적으로 가져와진 경우에만 정렬
+          data_non_sub.sort((a, b) => a.idx - b.idx);
+        }
+      }, [data_non_sub]);
 
     return (
         <div>
@@ -163,8 +176,8 @@ const AiRecommend = () => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} onClick={(idx) => {
-                                // gotoinfoHandleClick(idx);
+                            <Itemview data={data_non_sub} onClick={(item) => {
+                                gotoinfoHandleClick(item);
                                 scrollToTop(); // 클릭 시 스크롤을 최상단으로 이동
                             }}/> :
                             <Itemview data={homeCateMain.data} />}

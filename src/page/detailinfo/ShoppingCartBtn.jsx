@@ -12,7 +12,7 @@ import { sampleSize } from 'lodash';
 
 
 
-const ShoppingCartBtn = ({ func}) => {
+const ShoppingCartBtn = ({ func }) => {
 
   const [data, setData] = useState([]);
 
@@ -23,7 +23,10 @@ const ShoppingCartBtn = ({ func}) => {
   const max = 120; // 최댓값
   const idx = Math.floor(Math.random() * (max - min + 1)) + min;
 
+  const test = () => {
 
+    console.log('idx : ', idx);
+  }
 
   useEffect(() => {
     sendGet(URL + "/DetailPage?idx=" + idx, setData); // 화장품 정보
@@ -45,7 +48,7 @@ const ShoppingCartBtn = ({ func}) => {
   //     setRandomIndex2(randomIndex2);
   //   }
   // }, [data.length, randomIndex1]);
-  
+
 
   useEffect(() => {
     console.log(data)
@@ -62,14 +65,14 @@ const ShoppingCartBtn = ({ func}) => {
       <div class="shoppingcart mt-8 px-20">장바구니 담기</div>
       <hr class='shoppingcartbar' />
       <div className='shoppingcart_box'>
-      <span class="addshopping">장바구니에 추가되었습니다.</span>
+        <span class="addshopping">장바구니에 추가되었습니다.</span>
       </div>
       <div class="shoppincartmainbox">
         <div class='godetailmain'>
           {/* <div class="godetailbutton">
             <a class="godetailbutton btn1 first flex" onClick={() => modalClose()}>쇼핑계속하기</a>
           </div> */}
-            <a class="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
+          <a class="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
         </div>
         <div class='gotoshoppingmain'>
           {/* <div class="gotoshoppingbutton">
@@ -83,29 +86,29 @@ const ShoppingCartBtn = ({ func}) => {
         비슷한 성분 추천 상품
       </div>
 
-{/* 랜덤 추천 상품 */}
+      {/* 랜덤 추천 상품 */}
       {/* <div className='modalimgmain'> */}
-        {/* 랜덤 이미지1 */}
-        <div className="modalimg" onClick={{}}>
-          {data[randomIndex1] && (
-            <>
-              <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={185} height={185} />
-              <div className='randomcosinfo'>
+      {/* 랜덤 이미지1 */}
+      <div className="modalimg" onClick={{}}>
+        {data[randomIndex1] && (
+          <>
+            <img src={data[randomIndex1]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={185} height={185} />
+            <div className='randomcosinfo'>
               <span className='randombrandname'>[{data[randomIndex1]?.brand_name}]</span>
               <span className='randomimgname'>{data[randomIndex1]?.cos_name || '데이터 없음'}</span>
               <span className='randomvolname'>({data[randomIndex1]?.vol})</span>
               <span className='randomrankingname'>{data[randomIndex1]?.ranking}</span>
-              </div>
-              <span className='randomimgprice'>{data[randomIndex1]?.price ? `${data[randomIndex1]?.price}원` : '가격 정보 없음'}</span>
-            </>
-          )}
-          {!data[randomIndex1] && <div>데이터가 없습니다.</div>}
-        </div>
+            </div>
+            <span className='randomimgprice'>{data[randomIndex1]?.price ? `${data[randomIndex1]?.price}원` : '가격 정보 없음'}</span>
+          </>
+        )}
+        {!data[randomIndex1] && <div>데이터가 없습니다.</div>}
+      </div>
 
-        {/* <div className='w-[1px] bg-gray-300 modalimgbar' /> */}
+      {/* <div className='w-[1px] bg-gray-300 modalimgbar' /> */}
 
-        {/*  랜덤 이미지2 */}
-         {/* <div className="modalimg">
+      {/*  랜덤 이미지2 */}
+      {/* <div className="modalimg">
           {data[randomIndex2] && (
             <>
               <img src={data[randomIndex2]?.cos_img_src || '/no_image.png'} alt="코스메틱 이미지" width={200} height={200} />
