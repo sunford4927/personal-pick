@@ -14,7 +14,7 @@ class ppSearch(Resource):
                 FROM result_product 
                 WHERE cos_name LIKE %s 
                 OR brand_name LIKE %s 
-                OR category LIKE %s
+                OR category LIKE %s limit 100
                 """
         text = f"%{data}%"
         
