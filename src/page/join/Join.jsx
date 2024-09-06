@@ -270,35 +270,35 @@ const Join = () => {
                                     <input
                                         type="checkbox"
                                         id="box1"
-                                        checked={skinType === 'dry'}
+                                        checked={skinType === '건성'}
                                         onChange={handleSTChange}
                                     />
                                     <label className='label_text' htmlFor="box1">건성</label>
                                     <input
                                         type="checkbox"
                                         id="box2"
-                                        checked={skinType === 'neut'}
+                                        checked={skinType === '중성'}
                                         onChange={handleSTChange}
                                     />
                                     <label className='label_text' htmlFor="box2">중성</label>
                                     <input
                                         type="checkbox"
                                         id="box3"
-                                        checked={skinType === 'oil'}
+                                        checked={skinType === '지성'}
                                         onChange={handleSTChange}
                                     />
                                     <label className='label_text' htmlFor="box3">지성</label>
                                     <input
                                         type="checkbox"
                                         id="box4"
-                                        checked={skinType === 'sens'}
+                                        checked={skinType === '민감성'}
                                         onChange={handleSTChange}
                                     />
                                     <label className='label_text' htmlFor="box4">민감성</label>
                                     <input
                                         type="checkbox"
                                         id="box5"
-                                        checked={skinType === 'comb'}
+                                        checked={skinType === '복합성'}
                                         onChange={handleSTChange}
                                     />
                                     <label className='label_text' htmlFor="box5">복합성</label>
