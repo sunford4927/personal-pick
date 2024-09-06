@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './Subscription.scss';
 import { motion } from "framer-motion"
-import image1 from '../../img/화장품 이미지1.jpg'
-import image2 from '../../img/화장품 이미지2.jpg'
+import Image2 from '../../img/광고배너8.png'
+import Image1 from '../../img/광고배너9.png'
 import { useNavigate } from 'react-router-dom';
 import { useCountUp } from 'react-countup';
 import Back from '../../img/왼쪽.png';
@@ -150,7 +150,7 @@ const Subscription = () => {
 
                     <div className='gudogbox_text'>
 
-                        <img src={image1} className='gudog_img' />
+                        <img src={Image1} className='gudog_img' />
                         <div className='gudog_titletext'>
                             <div className='gudogprice_title'>
                                 <CountUp1 />
@@ -167,11 +167,11 @@ const Subscription = () => {
                             </div>
                         </div>
                         <hr className='line_none'></hr>
-                        <div className="gudog_go_btn btn-5">
+                        
                             <a className="gudog_go_btn btn-5" onClick={basicMakeup}>구독하러 가기</a>
-                        </div>
-
+                        
                     </div>
+
                 </motion.div>
 
                 {/* <div className='freeexplainmainbox'> */}
@@ -189,8 +189,8 @@ const Subscription = () => {
 
                     <div className='gudogbox_text'>
                         <div className='gudog_imgtitle'>
-                            <img src={image1} className='gudog_img' />
-                            <div className='gudog_titletext gudog_padding'>
+                            <img src={Image2} className='gudog_img' />
+                            <div className='gudog_titletext'>
                                 <div className='gudogprice_title'>
                                 {/* 비구독자를 위해 <br /> */}
                                 <CountUp end={3000}/>개의 데이터 분석을 통한   <br />
@@ -201,13 +201,13 @@ const Subscription = () => {
                                     빅데이터 알고리즘 반영! <br />
                                     피부 특성 분석 후 비구독자를 위해 <br />
                                     무료로 사용자 맞춤형 샘플 추천!
-                                    
+                                    <br /><br />
                                 </div>
                             </div>
                             <hr className='line_none'></hr>
-                        <div className="gudog_go_btn btn-5">
+                        
                             <a className="gudog_go_btn btn-5" onClick={() => nav("/airecommend")}>확인하러 가기</a>
-                        </div>
+                        
 
                         </div>
                         {/* <div class="basichuebutton">

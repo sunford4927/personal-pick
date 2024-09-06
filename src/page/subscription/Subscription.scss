@@ -305,13 +305,13 @@
     margin-left: -6px;
 }
   
-.btn-5:hover {
-    background-position: right center; /* change the direction of the change here */
-}
+// .btn-5:hover {
+//     background-position: right center; /* change the direction of the change here */
+// }
 
-.btn-5 {
-    background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
-}
+// .btn-5 {
+//     background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
+// }
 
 
 // // 색조 구독 화면 쪽
@@ -439,12 +439,13 @@
 
 
 .nemo_box {
-    border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 8px;
     padding: 16px 25px 16px 25px;
-    margin: 20px;
+    margin: 25px 12px 25px 12px;
     width: 30%;
     align-content: center;
+    background-color: #00c1fc1a;
+    box-shadow: 0px 0px 20px #cdcdcd;
 }
 
 .bord_text {
@@ -459,7 +460,7 @@
 
 .nemo_text {
     font-size: 12px;
-    line-height: 16px;
+    line-height: 17px;
     color: gray;
 }
 
@@ -482,10 +483,10 @@
 .gudogbox_text {
     border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 8px;
-    padding: 16px 25px 16px 25px;
+    padding: 16px 20px 16px 20px;
     margin: 20px;
     width: 650px;
-    height: 210px;
+    height: 222px;
     align-content: center;
 }
 
@@ -500,18 +501,37 @@
     float: inline-end;
     width: 280px;
     height: 187px;
+    padding: 10px 0 10px 0;
 }
 
 .gudogprice_title{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
 }
 
 .gudog_titletext {
-    padding: 12px 310px 0 0;
+    padding-right: 310px;
     line-height: 25px;
+    padding-top: 10px;
 }
 
-.gudog_padding {
-    padding: 20px 0 26px 0;
+
+.btn-5:hover {
+    background-image: linear-gradient(to right, #0099FC 50%, rgb(56, 157, 243) 50%, #ffecd2 100%);
+}
+
+.gudog_go_btn{
+    background-color: #0099FC;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px 17px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.gudog_basictext{
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 14px;
 }
