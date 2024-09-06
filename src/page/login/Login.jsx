@@ -32,13 +32,11 @@ const Login = () => {
                 user_pw : pw
             });
             const responseData = response.data[0];
-            console.log(responseData);
             dispatch(setUser(responseData));
             
             if (responseData) {
-                LoginSession(responseData.user_nm);
+                LoginSession(responseData.user_id);
                 setIsLogin(true);
-                console.log('로그인 유저 : ',getLoginSession().user_nm);
                 setError('');
                 alert('로그인 성공!');
                 navigate('/'); // 로그인 성공 시 홈 화면으로 이동
@@ -58,7 +56,6 @@ const Login = () => {
     }
 
     useEffect(() => {
-        console.log('Login User : ',getLoginSession().user_nm);
     }, [isLogin]);
 
     return (
@@ -77,7 +74,7 @@ const Login = () => {
                 
                 <div id='main'>
                     <form className='mypage_form' onSubmit={handleLogin}>
-                        {getLoginSession().username ?
+                        {getLoginSession().userid ?
                         <>
                         <div className='mypage'>
                             <button className='mypage_btn' onClick={mypage}>마이 페이지</button>

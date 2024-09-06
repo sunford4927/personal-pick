@@ -37,6 +37,7 @@ const Join = () => {
     const [message, setMessage] = useState('');
 
     const handleSTChange = (event) => {
+        
         // 아래 체크박스에서 선택한 피부 타입으로 ageGroup을 변경하는 함수
         const { id } = event.target;
         const temp = id === 'box1' ? '건성' :
