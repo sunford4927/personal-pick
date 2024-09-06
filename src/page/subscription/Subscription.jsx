@@ -151,6 +151,7 @@ const Subscription = () => {
                     <div className='gudogbox_text'>
 
                         <img src={Image1} className='gudog_img' />
+                            <div className='premium_free'>[Premium]</div>
                         <div className='gudog_titletext'>
                             <div className='gudogprice_title'>
                                 <CountUp1 />
@@ -190,6 +191,7 @@ const Subscription = () => {
                     <div className='gudogbox_text'>
                         <div className='gudog_imgtitle'>
                             <img src={Image2} className='gudog_img' />
+                                <div className='premium_free'>[Free]</div>
                             <div className='gudog_titletext'>
                                 <div className='gudogprice_title'>
                                 {/* 비구독자를 위해 <br /> */}

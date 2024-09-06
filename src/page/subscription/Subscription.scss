@@ -486,7 +486,7 @@
     padding: 16px 20px 16px 20px;
     margin: 20px;
     width: 650px;
-    height: 222px;
+    height: 250px;
     align-content: center;
 }
 
@@ -501,7 +501,7 @@
     float: inline-end;
     width: 280px;
     height: 187px;
-    padding: 10px 0 10px 0;
+    padding: 30px 0 30px 0;
 }
 
 .gudogprice_title{
@@ -510,14 +510,13 @@
 }
 
 .gudog_titletext {
-    padding-right: 310px;
+    padding: 20px 310px 15px 0;
     line-height: 25px;
-    padding-top: 10px;
 }
 
 
 .btn-5:hover {
-    background-image: linear-gradient(to right, #0099FC 50%, rgb(56, 157, 243) 50%, #ffecd2 100%);
+    box-shadow: 0px 0px 10px #0099FC;
 }
 
 .gudog_go_btn{
@@ -533,5 +532,12 @@
 .gudog_basictext{
     font-size: 14px;
     line-height: 20px;
-    padding-bottom: 14px;
+    color:#6d6d6d;
+}
+
+.premium_free{
+    font-size: 18px;
+    font-weight: 800;
+    color: #ff3737;
+    padding-bottom: 7px;
 }
