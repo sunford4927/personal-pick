@@ -22,6 +22,14 @@ import Image9 from '../../img/광고배너9.png'
 const Typecheck = () => {
     // 페이지 이동 함수
     const nav = useNavigate();
+
+    // 사진 데이터 저장
+    const [pngData, setPngData] = useState();
+
+
+
+
+
     // const order = () => navigate('/itemOrder');
     const point = () => nav('/point');
 
@@ -122,6 +130,7 @@ const Typecheck = () => {
     const handleChange = (e) => {
         // 선택한 파일 정보를 콘솔에 출력
         console.log(e.target.files[0]);
+        setPngData(e.target.files[0]);
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -130,6 +139,33 @@ const Typecheck = () => {
             };
             reader.readAsDataURL(file);
         }
+    };
+
+    const checkButtonClick = async (e) => {
+        e.preventDefault();
+        if (!pngData) {
+            alert('No file selected');
+            return;
+          }
+      
+          const formData = new FormData();
+          formData.append('file', pngData);
+      
+        //   // FileList 객체의 각 파일을 FormData에 추가
+        //   for (let i = 0; i < selectedFiles.length; i++) {
+        //     formData.append('files', selectedFiles[i]);
+        //   }
+      
+        console.log('보낸 데이터 : ', pngData);
+        
+        const response = await axios.post(URL + "/SkinCheck", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        // console.log('response : ', response);
+        
+        
     };
 
     return (
@@ -176,7 +212,7 @@ const Typecheck = () => {
                         <br />*/}
                     </div>
                     <span className='bottom'>
-                        <button >진단 시작</button>
+                        <button onClick={checkButtonClick}>진단 시작</button>
                     </span>
                     </div>
                     </div>
