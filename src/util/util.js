@@ -10,6 +10,7 @@ import { loadTossPayments } from '@tosspayments/payment-sdk';
 
 
 export function sendGet(url, func = null) {
+    
     axios
         .get(url)
         .then(res => {

@@ -13,10 +13,14 @@ from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUp
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
 from recommend import abc
 
+
+
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 app.config['JSON_AS_ASCII'] = False
 api = Api(app)
+
+
 
 # api.add_resource(test, '/HelloTest')
 api.add_resource(ppMainPage, '/MainPage')
