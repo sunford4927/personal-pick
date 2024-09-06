@@ -12,11 +12,10 @@ df_ing_reco, df_ing_effect, df_ing, df_product, df_review, df_user, df_cos = dat
 class reco_simple(Resource):
     def get(age, sex, skin_type, top_n = 10):
         # 사용자 데이터에 맞는 추천 리스트 가져오기
-       
         reco_age = df_ing_reco.loc[age].tolist()
         reco_gender = df_ing_reco.loc[sex].tolist()
         reco_skin_type = df_ing_reco.loc[skin_type].tolist()
-    
+
         # 각 추천 리스트 합침
         # 중복 제거 및 필터링
         recommend = list(set(reco_age + reco_gender + reco_skin_type))
@@ -40,7 +39,7 @@ class reco_simple(Resource):
         ### 실제 화장품 매칭
         # 실제 화장품의 성분과 맞춤형 화장품 성분이 일치하는 화장품 가져오기
         df_result = pd.DataFrame()
-        for i in range(len(result_reco)): 
+        for i in range(len(result_reco)):
             df_result = pd.concat([df_result, df_ing[df_ing['kor_name']==df_ing_match[0][i]]])
             
         # 인덱스 리셋

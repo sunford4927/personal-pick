@@ -35,11 +35,7 @@ const AiRecommend = () => {
             console.log(USER)
             // 1. 유저 데이터
             const user_response = await axios.get(URL + '/TestDY?user_id='+USER.user_id);
-            const user_temp = user_response.data[0]
-            console.log(user_temp)
-            console.log('피부타입 : ', USER.skin_type);
-            console.log('연령 : ', user_temp.user_age);
-            console.log('성별 : ', user_temp.user_sex);
+
             setUser({
                 user: USER,
                 user_age: USER.user_age,

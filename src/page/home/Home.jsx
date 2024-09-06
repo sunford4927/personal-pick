@@ -52,16 +52,8 @@ const Home = () => {
         sendGet(URL + '/MainPage', setData);
     }, [])
 
-    function temp(data) {
-        setUserId(data)
-    }
     const [userId, setUserId] = useState({});
-    useEffect(() => {
-        let nick = sessionStorage.getItem("username");
-        if (nick !== "") {
-            sendGet(URL + '/TestSearch?user_nm=' + nick, temp)
-        }
-    }, [])
+
 
     useEffect(() => {
     }, [userId])

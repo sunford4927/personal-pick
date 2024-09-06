@@ -40,13 +40,12 @@ const Join = () => {
     useEffect(() => {
         const LoadUsersData = async () => {
             // session에 로그인 정보가 있으면 해당 유저의 데이터를 가져옴
-            if (getLoginSession().username) {
-                console.log('user_name : ', getLoginSession().username);
+            if (getLoginSession().userid) {
 
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_nm: getLoginSession().username
+                        user_id: getLoginSession().userid
                     }
                 });
                 // console.log('res_user : ', responseUserData.data[0]);
