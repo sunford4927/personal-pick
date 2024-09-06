@@ -30,6 +30,8 @@ const Detailinfo = (item) => {
     const home = () => navigate('/');
 
 
+
+
     // 리덕스로 가져온 유저 정보
     const state = useSelector(user => user.user)
 
@@ -218,6 +220,10 @@ const Detailinfo = (item) => {
 
     const test1 = (e) => {
         console.log(e.target.innerText)
+    }
+
+    const navigate1 = (idx) => {
+         navigate(`/detailinfo/${idx}`); // 상세 페이지로 이동
     }
 
 

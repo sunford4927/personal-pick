@@ -4,8 +4,7 @@ import { modalClose } from '../../util/util'
 import { URL } from '../../util/util';
 import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const ShoppingCartBtn = ({ func, func1 }) => {
@@ -17,7 +16,7 @@ const ShoppingCartBtn = ({ func, func1 }) => {
   // 추천받는 화장품
   const [recoData, setRecoData] = useState([]);
   // 추천 화장품 경로
-  const nav = useNavigate();
+  
 
   const [randomIndex1, setRandomIndex1] = useState(0);
   const [randomIndex2, setRandomIndex2] = useState(1); // 초기값을 다르게 설정
@@ -48,8 +47,6 @@ const ShoppingCartBtn = ({ func, func1 }) => {
 
 
 
-
-
   // // 성분 기반 추천
   // useEffect(() => {
   //   sendGet(URL + "/RecoIng?idx=" + idx, setRecoData); // 화장품 정보
@@ -69,11 +66,12 @@ const ShoppingCartBtn = ({ func, func1 }) => {
     console.log('recoData : ', recoData);
   };
 
-  // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-  const handleClick = (idx) => {
-    nav(`/detailinfo/${idx}`); // 상세 페이지로 이동
+  
+  
+  const handleImageClick = (idx) => {
+    window.location.href = `/detailinfo/${idx}`;
   };
-
+  
 
   return (
 
@@ -113,7 +111,7 @@ const ShoppingCartBtn = ({ func, func1 }) => {
         {recoData ? (
           <div className='recodataall'>
             {recoData.map((item) => (
-              <div key={item.idx} className='recodataall2' onClick={() => handleClick(item.idx)}>
+              <div key={item.idx} onClick={() => handleImageClick(item.idx)} className='recodataall2'>
                 <img
                   src={item.cos_img_src}
                   alt="코스메틱 이미지"
