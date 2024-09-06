@@ -18,9 +18,10 @@ class ppCategorySel(Resource):
     def get(self):
         data = request.args.to_dict()
         cateValue = data['category']
+        cateValue2 = data['category2']
         # print("cateValue : ",cateValue)
         # data = setQuery('select * from result_product limit 6')
-        data = setQuery(f'select * from result_product where category = "%{cateValue}%" limit 6')
+        data = setQuery(f'select * from result_product where category = "{cateValue}" and category_2 = "{cateValue2}" ')
         # data = setQuery("""select * from cos_data""")
         return jsonify(data)
     
