@@ -11,7 +11,7 @@ from Test import testJoin, testLogin, testUserData, testOrderData, testCategory,
 from payment import payment, Clearpayment
 from ppCartOrder import ppAddCart, ppOrderCart, ppOrder, ppDeleteCartItems, ppUpdateCartCnt, ppOrderHistoryOne, ppOrderHistory, ppSubscribeHistory
 from ppAddress import ppAddressList, ppEditAddress, ppInsertAdd
-from recommend import abc
+from recommend import abc, recoIng
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
@@ -58,6 +58,7 @@ api.add_resource(testSearch, '/TestSearch')
 
 api.add_resource(testDY, '/TestDY')
 api.add_resource(abc, '/Recommend')
+api.add_resource(recoIng, '/RecoIng')
 
 api.add_resource(payment , "/payment")
 api.add_resource(Clearpayment , "/clearpayment")
