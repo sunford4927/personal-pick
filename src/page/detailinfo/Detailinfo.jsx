@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux'
 import { Pagination } from 'antd'
 import Ingredient from './Ingredient'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 
 
@@ -27,6 +28,8 @@ const Detailinfo = (item) => {
     // 페이지 이동 함수
     const navigate = useNavigate();
     const home = () => navigate('/');
+
+
 
 
     // 리덕스로 가져온 유저 정보
@@ -157,6 +160,23 @@ const Detailinfo = (item) => {
         return originalElement;
     };
 
+    const { itemId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`/api/products/${itemId}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduct();
+  }, [itemId]);
+
+    
 
     // useEffect(() => {
     //     console.log(state)
@@ -194,7 +214,6 @@ const Detailinfo = (item) => {
         modalClose();
     }
 
-
     const test = (e) => {
         console.log(12)
     }
@@ -202,6 +221,7 @@ const Detailinfo = (item) => {
     const test1 = (e) => {
         console.log(e.target.innerText)
     }
+
 
 
     let cntList = [
@@ -249,8 +269,7 @@ const Detailinfo = (item) => {
     const handleAddToCart = (e) => {
         if (user !== undefined) {
             // 장바구니 추가 로직
-            showModal(<ShoppingCartBtn func={idx} />);
-            // {func1}
+            showModal(<ShoppingCartBtn func={idx} func1={func1} navigate={navigate}/>);
             sendPost(URL + '/AddCart', null, {
                 userid: state.user_id,
                 categorynumber: idx,
@@ -272,7 +291,7 @@ const Detailinfo = (item) => {
     };
 
 
-
+    
     return (
 
 

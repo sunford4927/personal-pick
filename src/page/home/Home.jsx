@@ -154,16 +154,18 @@ const Home = () => {
                 <img className="category_arrow" src={Right} alt="" />
             </div>
 
-
+{/* 
             <div>
                 <CustomSwiper list={data}  />
-            </div>
+            </div> */}
 
 
-            <div className="basic-text cursor" >
+            <div className="basic-text cursor personalpick_keyword" >
+            {/* <div className="week_keyword">{"< 9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 > " }</div> */}
                 {"9월 " + day + "일 " }
-                <span> 퍼스널픽 주요 키워드 </span> 
-                <img className="category_arrow" src={Right} alt="" />
+                <span>퍼스널픽 주요 키워드</span>
+                 {/* <span>{"9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 " }</span> */}
+                {/* <img className="category_arrow" src={Right} alt="" /> */}
             </div>
 
             <div>
@@ -181,7 +183,7 @@ const Home = () => {
                     x: { duration: 1 },
                 }}
             >
-                <div className="basic-text cursor" onClick={() => nextTotalPage(2)}>
+                <div className="cursor choies_rank" onClick={() => nextTotalPage(2)}>
                     퍼스널 픽 고객들이 직접
                     <span> 선택한 랭킹🎁 </span>
                     <img className="category_arrow" src={Right} alt="" />
