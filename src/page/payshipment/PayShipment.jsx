@@ -7,7 +7,7 @@ import { sendDel, sendGet, showIngredient, showModal, showPayMent, URL } from '.
 import { useSelector } from 'react-redux';
 import AddressList from '../addresslist/AddressList';
 import Right from "../../img/오른쪽.png"
-
+import defualtImg from "../../img/파비콘.png"
 const PayShipment = () => {
 
     const nav = useNavigate();
@@ -150,34 +150,34 @@ const PayShipment = () => {
                     // 구독 상품을 선택한 경우
                     <>
 
-<div>
-                                <div className='delivery_container'>
-                                    <div className='basic_name'>
-                                        <span className='basic'>[기본]</span>
-                                        <span className='delivery_name'>{defaultAddr.receive_name}</span>
-                                    </div>
-                                    <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
-                                    <div className='delivery_phone'>{defaultAddr.phone_num}</div>
-                                    <div className='delevery_msg'>{defaultAddr.msg}</div>
+                        <div>
+                            <div className='delivery_container'>
+                                <div className='basic_name'>
+                                    <span className='basic'>[기본]</span>
+                                    <span className='delivery_name'>{defaultAddr.receive_name}</span>
                                 </div>
-                                <hr className='thin_grayline' />
+                                <div className='delivery_address'>{formatAddress(defaultAddr.user_address)}</div>
+                                <div className='delivery_phone'>{defaultAddr.phone_num}</div>
+                                <div className='delevery_msg'>{defaultAddr.msg}</div>
                             </div>
-                        
+                            <hr className='thin_grayline' />
+                        </div>
+
 
                         <hr className='thick_grayline' />
 
-<div className='white_text_box'>주문상품</div>
-<hr className='thin_grayline' />
+                        <div className='white_text_box'>주문상품</div>
+                        <hr className='thin_grayline' />
                         <div className='order_product'>
-                            <img className='order_img' style={{ width: '80px', height: '80px' }} src='/img/subscription-product.png' alt="정기구독 이미지" />
+                            <img className='order_img' style={{ width: '80px', height: '80px' }} src={defualtImg} alt="정기구독 이미지" />
                             <div className='order_content_text'>
                                 <div className='first_line'>
-                                        <span className='gudog'>[정기구독]</span> 
-                                        <span className='sample5'>맞춤형 기초 화장품 샘플 5가지</span>
+                                    <span className='gudog'>[정기구독]</span>
+                                    <span className='sample5'>맞춤형 기초 화장품 샘플 5가지</span>
                                 </div>
-                                
-                                    <div className='gudog_period'>2024.09.12 ~ 2024.10.11</div>
-                                
+
+                                <div className='gudog_period'>2024.09.12 ~ 2024.10.11</div>
+
                                 <div className='third_line'>
                                     <span className='gudog_month'>월</span>
                                     <span className='gudog_price'>20,000원</span>
@@ -188,35 +188,39 @@ const PayShipment = () => {
                         <hr className='thin_grayline' />
                         <hr className='thick_grayline' />
 
-                <div>
-                    <div className='white_text_box'>결제정보</div>
-                    <hr className='thin_grayline' />
-                    <div className='gray_text'>
-                        <div className='gray_text_money'>
-                            <span>총 구독금액</span>
-                            <span>{totalPrice + "원"}</span>
+                        <div>
+                            <div className='white_text_box'>결제정보</div>
+                            <hr className='thin_grayline' />
+                            <div className='gray_text'>
+                                <div className='gray_text_money'>
+                                    <span>총 구독금액</span>
+                                    <span>{totalPrice + "원"}</span>
+                                </div>
+                                <div className='gray_text_money'>
+                                    <span>배송비</span>
+                                    <span className=''>0원</span>
+                                </div>
+                            </div>
+                            <hr className='thin_grayline' />
+                            <div className='pay_fix_box'>
+                                <span className='pay_fix_amount'>최종 결제 금액</span>
+                                <span className='pay_fix_num'>{totalPrice + "원"}</span>
+                            </div>
+                            <hr className='thin_grayline' />
                         </div>
-                        <div className='gray_text_money'>
-                            <span>배송비</span>
-                            <span className=''>0원</span>
+                        <div className='gudog_fix_btn cursor' onClick={() => {
+                            if (defaultAddr.user_address === "") {
+                                showModal(<p>기본 배송지 설정이 안되어있는 상태입니다!</p>)
+                            } else {
+                                showPayMent(state.user_id, totalPrice, {
+                                    itemIdList : 1,
+                                    itemCntList : 1,
+                                    orderName : "구독결제" 
+                                }, defaultAddr);
+                            }
+                        }}>
+                            {totalPrice + "원 결제하기"}
                         </div>
-                    </div>
-                    <hr className='thin_grayline' />
-                    <div className='pay_fix_box'>
-                        <span className='pay_fix_amount'>최종 결제 금액</span>
-                        <span className='pay_fix_num'>{totalPrice + "원"}</span>
-                    </div>
-                    <hr className='thin_grayline' />
-                </div>
-                <div className='gudog_fix_btn cursor' onClick={() => {
-                    if (defaultAddr.user_address === "") {
-                        showModal(<p>기본 배송지 설정이 안되어있는 상태입니다!</p>)
-                    } else {
-                        showPayMent(state.user_id, totalPrice, sendData, defaultAddr);
-                    }
-                }}>
-                    {totalPrice + "원 결제하기"}
-                </div>
 
                     </>
                 ) : (
@@ -266,38 +270,38 @@ const PayShipment = () => {
                         <hr className='thin_grayline' />
                         <hr className='thick_grayline' />
 
-                <div>
-                    <div className='white_text_box'>결제정보</div>
-                    <hr className='thin_grayline' />
-                    <div className='gray_text'>
-                        <div className='gray_text_money'>
-                            <span>총 상품금액</span>
-                            <span>{totalPrice + "원"}</span>
+                        <div>
+                            <div className='white_text_box'>결제정보</div>
+                            <hr className='thin_grayline' />
+                            <div className='gray_text'>
+                                <div className='gray_text_money'>
+                                    <span>총 상품금액</span>
+                                    <span>{totalPrice + "원"}</span>
+                                </div>
+                                <div className='gray_text_money'>
+                                    <span>배송비</span>
+                                    <span className=''>3000원</span>
+                                </div>
+                            </div>
+                            <hr className='thin_grayline' />
+                            <div className='pay_fix_box'>
+                                <span className='pay_fix_amount'>최종 결제 금액</span>
+                                <span className='pay_fix_num'>{totalPrice + 3000 + "원"}</span>
+                            </div>
+                            <hr className='thin_grayline' />
                         </div>
-                        <div className='gray_text_money'>
-                            <span>배송비</span>
-                            <span className=''>3000원</span>
+                        <div className='pay_fix_btn cursor' onClick={() => {
+                            if (defaultAddr.user_address === "") {
+                                showModal(<p>기본 배송지 설정이 안되어있는 상태입니다!</p>)
+                            } else {
+                                showPayMent(state.user_id, totalPrice, sendData, defaultAddr);
+                            }
+                        }}>
+                            {totalPrice + 3000 + "원 결제하기"}
                         </div>
-                    </div>
-                    <hr className='thin_grayline' />
-                    <div className='pay_fix_box'>
-                        <span className='pay_fix_amount'>최종 결제 금액</span>
-                        <span className='pay_fix_num'>{totalPrice + 3000 + "원"}</span>
-                    </div>
-                    <hr className='thin_grayline' />
-                </div>
-                <div className='pay_fix_btn cursor' onClick={() => {
-                    if (defaultAddr.user_address === "") {
-                        showModal(<p>기본 배송지 설정이 안되어있는 상태입니다!</p>)
-                    } else {
-                        showPayMent(state.user_id, totalPrice, sendData, defaultAddr);
-                    }
-                }}>
-                    {totalPrice + 3000 + "원 결제하기"}
-                </div>
                     </>
                 )}
-{/* 
+                {/* 
                 <hr className='thick_grayline' />
 
                 <div>

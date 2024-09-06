@@ -49,7 +49,7 @@ function App() {
 
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL} >
             <div className="App" id='wrapper' onClick={()=>funcList()}>
                 <ScrollToTop/>
                 <HeaderView/>
