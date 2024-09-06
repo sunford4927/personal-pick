@@ -257,6 +257,10 @@ const clientKey = "test_ck_5OWRapdA8dQPoyvBWWDP3o1zEqZK";
 const secretKey = "test_sk_ex6BJGQOVDJ2beaYow4Q8W4w2zNb";
 export function showPayMent(userId, price, ItemName, address) {
     let id = crypto.randomUUID();
+    console.log(userId)
+    console.log(price)
+    console.log(ItemName)
+    console.log(address)
     loadTossPayments(clientKey).then((tossPayments) => {
         // ------ 결제창 띄우기 ------
         // 필요한 데이터

@@ -40,6 +40,7 @@ const Menu = ({ isView }) => {
                     <hr className='thin_grayline' />
                     <div className='menu_box'>
                         <div className='menu_logout'>
+                            <p className='menu_skintype' onClick={() => nav("/typecheck")}>피부타입 진단</p>
                             <p className='menu_skintype' onClick={() => nav("/airecommend")}>화장품 추천</p>
                             
                             {/* <p className='menu_skintype'>피부타입별</p>
@@ -52,7 +53,7 @@ const Menu = ({ isView }) => {
                                 <div className='menu_login'>
                                     <p className='menu_mypage' onClick={() => nav("/mypage")}>마이페이지</p>
                                     <hr className='thin_grayline' />
-                                    <p className='menu_myreview' >나의 리뷰</p>
+                                    <p className='menu_myreview' onClick={() => nav("/review")}>나의 리뷰</p>
                                     <hr className='thin_grayline' />
                                     <p className='menu_addresslist' onClick={() => nav("/addressListAll")}>배송지</p>
                                     <hr className='thin_grayline' />

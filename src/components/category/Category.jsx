@@ -22,7 +22,7 @@ const Category = ({categoryData}) => {
     
     async function getData1(key){
         let data = await axios
-        .get(URL + '/CategorySel?category=' + key)
+        .get(URL + '/CategorySel?category='+homeCateMain.mainTitle +'&category2=' + key)
         .then(res=>{
             return res.data;
         })
@@ -61,28 +61,58 @@ const Category = ({categoryData}) => {
                 result = choicRankingCategory.skinCare
                 break;    
             case categoryData[2]:
-                result = choicRankingCategory.cleanSing
+                result = choicRankingCategory.facemakeup
                 break;
             case categoryData[3]:
-                result = choicRankingCategory.maskPack
+                result = choicRankingCategory.ribmakeup
                 break;
             case categoryData[4]:
-                result = choicRankingCategory.sunCare
+                result = choicRankingCategory.eyemakeup
                 break;
             case categoryData[5]:
-                result = choicRankingCategory.body
+                result = choicRankingCategory.contuaring
                 break;
             case categoryData[6]:
-                result = choicRankingCategory.hair
+                result = choicRankingCategory.beautitall
                 break;
             case categoryData[7]:
-                result = choicRankingCategory.nail
+                result = choicRankingCategory.cleanSing
                 break;
             case categoryData[8]:
-                result = choicRankingCategory.perfume
+                result = choicRankingCategory.maskPack
                 break;
             case categoryData[9]:
-                result = choicRankingCategory.other
+                result = choicRankingCategory.sunCare
+                break;
+            case categoryData[10]:
+                result = choicRankingCategory.body
+                break;
+            case categoryData[11]:
+                result = choicRankingCategory.hair
+                break;
+            case categoryData[12]:
+                result = choicRankingCategory.nail
+                break;
+            case categoryData[13]:
+                result = choicRankingCategory.lifeTax
+                break;
+            case categoryData[14]:
+                result = choicRankingCategory.smalleye
+                break;
+            case categoryData[15]:
+                result = choicRankingCategory.preigrens
+                break;
+            case categoryData[16]:
+                result = choicRankingCategory.device
+                break;
+            case categoryData[17]:
+                result = choicRankingCategory.innerbeauti
+                break;
+            case categoryData[18]:
+                result = choicRankingCategory.baby
+                break;
+            case categoryData[19]:
+                result = choicRankingCategory.man
                 break;
         }
         return result

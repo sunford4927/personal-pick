@@ -21,21 +21,25 @@
 
 // 텍스트 박스 1
 .maintextbox {
-    margin: auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-    margin-right: 40px;
-    margin-left: 40px;
+    text-align: center;
 }
+
 
 .firstbox {
     border: 1px solid rgba(205, 205, 205, 0.7019607843);
     border-radius: 8px;
     background-color: #ffffff;
-    margin: 4px;
-    padding: 33px;
-    width: 185px;
-    padding-bottom: 0px;
+    // margin: 4px;
+    // padding: 33px;
+    width: 250px;
+    // padding-bottom: 0px;
+}
+
+.first_text {
+
 }
 
 .firstboxtext {
@@ -227,10 +231,10 @@
 
 // 기초 구독 화면 쪽
 
-.basicexplainmainbox {
-    display: flex;
-    margin-top: 125px;
-}
+
+
+
+
 
 
 .image1 {
@@ -301,13 +305,13 @@
     margin-left: -6px;
 }
   
-.btn-5:hover {
-    background-position: right center; /* change the direction of the change here */
-}
+// .btn-5:hover {
+//     background-position: right center; /* change the direction of the change here */
+// }
 
-.btn-5 {
-    background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
-}
+// .btn-5 {
+//     background-image: linear-gradient(to right, #0099FC 50%, rgb(56 157 243) 50%, #ffecd2 100%);
+// }
 
 
 // // 색조 구독 화면 쪽
@@ -365,7 +369,11 @@
 // 기초+색조 화면
 .freeexplainmainbox{
     display: flex;
-    margin-top: 125px;
+    margin-top: 25px;
+    padding: 15px 10px;
+    border-radius: 10px;
+    background-color: #efefef;
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
 }
 
 .image2 {
@@ -430,3 +438,106 @@
 }
 
 
+.nemo_box {
+    border-radius: 8px;
+    padding: 16px 25px 16px 25px;
+    margin: 25px 12px 25px 12px;
+    width: 30%;
+    align-content: center;
+    background-color: #00c1fc1a;
+    box-shadow: 0px 0px 20px #cdcdcd;
+}
+
+.bord_text {
+    font-size: 16px;
+    font-weight: 700;
+
+}
+
+.line_none {
+    border: 0;
+}
+
+.nemo_text {
+    font-size: 12px;
+    line-height: 17px;
+    color: gray;
+}
+
+.subscriptiontitle {
+    margin: 43px 0 25px 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 21px;
+    line-height: 1.5;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+}
+
+.subscription_back_btn {
+    width: 24px;
+    height: 24px;
+}
+
+.gudogbox_text {
+    border: 1px solid rgba(205, 205, 205, 0.7019607843);
+    border-radius: 8px;
+    padding: 16px 20px 16px 20px;
+    margin: 20px;
+    width: 650px;
+    height: 250px;
+    align-content: center;
+}
+
+.gudog_titlebox {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.gudog_img {
+    float: inline-end;
+    width: 280px;
+    height: 187px;
+    padding: 30px 0 30px 0;
+}
+
+.gudogprice_title{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.gudog_titletext {
+    padding: 20px 310px 15px 0;
+    line-height: 25px;
+}
+
+
+.btn-5:hover {
+    box-shadow: 0px 0px 10px #0099FC;
+}
+
+.gudog_go_btn{
+    background-color: #0099FC;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px 17px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.gudog_basictext{
+    font-size: 14px;
+    line-height: 20px;
+    color:#6d6d6d;
+}
+
+.premium_free{
+    font-size: 18px;
+    font-weight: 800;
+    color: #ff3737;
+    padding-bottom: 7px;
+}
