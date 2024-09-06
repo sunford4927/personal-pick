@@ -8,7 +8,7 @@ import Itemview from "../../components/itemview/Itemview"
 import { useRef } from 'react';
 import Star from '../../img/별.png'
 import { setIcon } from '../../util/util'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LogoutSession, getLoginSession } from '../../util/session'
 import axios from 'axios';
 import reducer from '../../redux/reducer/reducer'
@@ -20,6 +20,7 @@ const AiRecommend = () => {
 
     // redux 임시 데이터로 이용
     const homeCateMain = useSelector(state => state.homeCategory)
+    const USER = useSelector(state=>state.user)
     // 데이터 저장
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
@@ -31,23 +32,19 @@ const AiRecommend = () => {
         const LoadUsersData = async () => {
             const user_id = getLoginSession().userid
             
-            console.log('url : ', URL);
+            console.log(USER)
             // 1. 유저 데이터
-            const user_response = await axios.get(URL + '/TestDY', {
-                params: {
-                    user_id: user_id
-                }
-            });
+            const user_response = await axios.get(URL + '/TestDY?user_id='+USER.user_id);
             const user_temp = user_response.data[0]
             console.log(user_temp)
-            console.log('피부타입 : ', user_temp.skin_type);
+            console.log('피부타입 : ', USER.skin_type);
             console.log('연령 : ', user_temp.user_age);
             console.log('성별 : ', user_temp.user_sex);
             setUser({
-                user: user_response.data[0],
-                user_age: user_temp.user_age,
-                user_sex: user_temp.user_sex,
-                skin_type: user_temp.skin_type
+                user: USER,
+                user_age: USER.user_age,
+                user_sex: USER.user_sex,
+                skin_type: USER.skin_type
             })
 
             // const user_data = {
@@ -58,14 +55,16 @@ const AiRecommend = () => {
             // }
             // console.log('비구독자 : ', user_data);
 
+            
+
             // 2. 비구독자 추천 데이터
-            const reco_non_sub = await axios.get(URL + '/Recommend', {
+            const reco_non_sub = await axios.get(URL + '/Recommend' , {
                 params: {
                     sub: false,
-                    user_nm: user_temp.user_nm,
-                    user_age: user_temp.user_age,
-                    user_sex: user_temp.user_sex,
-                    skin_type: user_temp.skin_type
+                    user_nm: USER.user_nm,
+                    user_age: USER.user_age,
+                    user_sex: USER.user_sex,
+                    skin_type: USER.skin_type
                 }
             });
             setDataNonSub(reco_non_sub.data)
@@ -74,10 +73,10 @@ const AiRecommend = () => {
             const reco_sub = await axios.get(URL + '/Recommend', {
                 params: {
                     sub: true,
-                    user_nm: user_temp.user_nm,
-                    user_age: user_temp.user_age,
-                    user_sex: user_temp.user_sex,
-                    skin_type: user_temp.skin_type
+                    user_nm: USER.user_nm,
+                    user_age: USER.user_age,
+                    user_sex: USER.user_sex,
+                    skin_type: USER.skin_type
                 }
             });
             console.log('data_sub : ', reco_sub.data);
@@ -100,8 +99,7 @@ const AiRecommend = () => {
         }
         // 화면이 첫 랜더링 될 때 함수 실행
         LoadUsersData();
-    }, []);
-
+    }, [USER]);
 
 
     // 숫자 올라가는 기능 함수
@@ -123,7 +121,10 @@ const AiRecommend = () => {
 
 
     // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-    
+// gotoinfoHandleClick 함수
+const gotoinfoHandleClick = (item) => {
+    nav(`/airecommend/detailinfo/${item.id}`);
+  };
 
     useEffect(() => {
         console.log(data_sub);
@@ -141,6 +142,15 @@ const AiRecommend = () => {
     const scrollToTop = () => {
         window.scrollTo({ top: 0 });
     };
+
+    useEffect(() => {
+        // ... (기존 코드)
+    
+        if (data_non_sub) {
+          // 데이터가 정상적으로 가져와진 경우에만 정렬
+          data_non_sub.sort((a, b) => a.idx - b.idx);
+        }
+      }, [data_non_sub]);
 
     return (
         <div>
@@ -163,8 +173,8 @@ const AiRecommend = () => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} onClick={(idx) => {
-                                // gotoinfoHandleClick(idx);
+                            <Itemview data={data_non_sub} onClick={(item) => {
+                                gotoinfoHandleClick(item);
                                 scrollToTop(); // 클릭 시 스크롤을 최상단으로 이동
                             }}/> :
                             <Itemview data={homeCateMain.data} />}

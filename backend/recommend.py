@@ -53,7 +53,6 @@ class abc(Resource):
         # sex = '여'
         # skin_type = '건성'
         # print('user : ', user, age, sex, skin_type)
-
         simple = reco_simple.get(age, sex, skin_type)
         cosine = reco_cosine.get(user)
         # print('sim : ', simple)

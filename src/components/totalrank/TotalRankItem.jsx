@@ -7,12 +7,23 @@ import { setIcon } from '../../util/util';
 const ItemAll = ({ data , showReviewScore }) => {
 
   const nav = useNavigate();
+
+      // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
+      const handleProductClick = (idx) => {
+        nav(`/detailinfo/${idx}`);
+    };
   
   return (
     <>
 
+
+{/* <div className='review_maxmin'>
+  <span className='review_scoretext'>{'< '}리뷰 긍정 점수: </span>
+  <span className='review_max'>최대 2</span>
+  <span className='review_min'>최소 -2{' >'}</span>
+  </div> */}
   {data.length > 0 && data.map((item, idx) => (
-        <div className='itemBox flex_col cursor' key={item.idx} onClick={() => nav('/detailinfo/' + (idx + 1))}>
+        <div className='itemBox flex_col cursor' key={item.idx} onClick={() => handleProductClick(item.idx)}>
         {window.location.pathname !== "/subscriptionmanagement" ? (<div className='rank_num' key={idx}> {setIcon(idx)} </div>) : ""}
           <img src={item.cos_img_src} alt="" style={{ width: 80, height: 80 }} className='rank_img'/>
 
