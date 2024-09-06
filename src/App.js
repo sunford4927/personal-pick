@@ -40,7 +40,6 @@ import AddressList from './page/addresslist/AddressList';
 import ItemOrderDetail from './page/itemorderdetail/ItemOrderDetail';
 import ItemReview from './page/itemreview/ItemReview';
 
-
 function App() {
     const dispatch = useDispatch();
     function funcList(){
@@ -66,7 +65,9 @@ function App() {
                     <Route path='/search/:value' element={<Search />}></Route>
                     <Route path='/search' element={<Search />}></Route>
                     <Route path='/totalitem/:category' element={<TotalRanking />}></Route>
+                    <Route path='/detailinfo' element={<Detailinfo />}></Route>
                     <Route path='/detailinfo/:idx' element={<Detailinfo />}></Route>
+                    <Route path='/airecommend/detailinfo/:idx' element={<Detailinfo />}></Route>
                     <Route path='/subscription' element={<Subscription />}></Route>
                     <Route path='/subscriptionmanagement' element={<SubscriptionManagement />}></Route>
                     <Route path='/cartlist' element={<ShoppingCart />}></Route>

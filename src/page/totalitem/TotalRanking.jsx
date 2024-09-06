@@ -8,7 +8,7 @@ import Category from "../../components/category/Category";
 import { choicRankingCategory, titleList, userAgeList, userTypeList } from "../../util/utilStr";
 import { useSelector } from "react-redux";
 
-const list = ["조회수 급상승", "카테고리별", "피부별", "연령대별"]
+const list = ["긍정 순", "카테고리별", "피부별", "연령대별"]
 
 const TotalItem = () => {
 
@@ -39,9 +39,16 @@ const TotalItem = () => {
         switch (parseInt(idx)) {
             case 1:
                 return (
+                    <>
+                    <div className='review_maxmin'>
+                            <span className='review_scoretext'>{'< '}리뷰 긍정 점수: </span>
+                            <span className='review_max'>최대 2</span>
+                            <span className='review_min'>최소 -2{' >'}</span>
+                        </div>
                     <div className="itemlist">
                         <ItemAll data={AllItem} showReviewScore={true} />
                     </div>
+                    </>
                 );
             case 2:
                 return (
