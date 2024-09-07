@@ -29,7 +29,7 @@ class abc(Resource):
     # print(df_ing_effect)
     def get(self):
         sub = request.args.get('sub')
-        # print('sub : ', sub)
+        print('sub : ', request.args)
         # 나이 -> 연령대 변경
         def categorize_age(age):
             if age < 20:
@@ -53,7 +53,6 @@ class abc(Resource):
         # sex = '여'
         # skin_type = '건성'
         # print('user : ', user, age, sex, skin_type)
-
         simple = reco_simple.get(age, sex, skin_type)
         cosine = reco_cosine.get(user)
         # print('sim : ', simple)

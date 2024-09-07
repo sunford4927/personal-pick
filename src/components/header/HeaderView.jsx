@@ -54,9 +54,9 @@ const HeaderView = () => {
         dispatch(setUser(data[0]))
     }
     useEffect(()=>{
-        let usernm = sessionStorage.getItem("username");
-
-        sendGet(URL+'/TestSearch?user_nm='+ usernm, consolea)
+        let userid = sessionStorage.getItem("userid");
+        console.log(userid)
+        sendGet(URL+'/TestSearch?user_id='+ userid, consolea)
     },[])
 
     useEffect(()=>{
