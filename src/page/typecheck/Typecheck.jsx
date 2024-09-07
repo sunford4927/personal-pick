@@ -25,6 +25,8 @@ const Typecheck = () => {
 
     // 사진 데이터 저장
     const [pngData, setPngData] = useState();
+    // 진단 타입 저장
+    const [skinData, setSkinData] = useState();
 
 
 
@@ -49,18 +51,18 @@ const Typecheck = () => {
         const LoadUsersData = async () => {
             // session에 로그인 정보가 있으면 해당 유저의 데이터를 가져옴
             if (getLoginSession().username) {
-                console.log('user_name : ', getLoginSession().username);
+                console.log('user_id : ', getLoginSession().username);
 
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_nm: getLoginSession().username
+                        user_id: getLoginSession().username
                     }
                 });
                 console.log('res_user : ', responseUserData.data[0]);
 
                 const res_user = responseUserData.data[0]
-
+                setUserData(res_user)
     //             // 2. 주문/배송 데이터
     //             const responseOrderData = await axios.get(URL + '/TestOrderData', {
     //                 params: {
@@ -68,19 +70,18 @@ const Typecheck = () => {
     //                 }
     //             });
 
-    //             console.log(res_user.user_id);
                 // 3. 리뷰 데이터
-                const responseReviewData = await axios.get(URL + '/TestReviewData', {
-                    params: {
-                        user_id: res_user.user_id
-                    }
-                });
-                console.log('review_data : ', responseReviewData.data);
+                // const responseReviewData = await axios.get(URL + '/TestReviewData', {
+                //     params: {
+                //         user_id: res_user.user_id
+                //     }
+                // });
+                // console.log('review_data : ', responseReviewData.data);
 
     //             console.log('order_data : ', responseOrderData.data);
-                setUserData(res_user)
+                
     //             setOrderData(responseOrderData.data)
-                setReviewData(responseReviewData.data)
+                // setReviewData(responseReviewData.data)
                 
 
             }
@@ -142,30 +143,35 @@ const Typecheck = () => {
     };
 
     const checkButtonClick = async (e) => {
-        e.preventDefault();
-        if (!pngData) {
-            alert('No file selected');
-            return;
-          }
-      
-          const formData = new FormData();
-          formData.append('file', pngData);
-      
-        //   // FileList 객체의 각 파일을 FormData에 추가
-        //   for (let i = 0; i < selectedFiles.length; i++) {
-        //     formData.append('files', selectedFiles[i]);
-        //   }
-      
-        console.log('보낸 데이터 : ', pngData);
-        
-        const response = await axios.post(URL + "/SkinCheck", formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+        if (skinData){
+            setSkinData(null)
+        }
+        else{
+            e.preventDefault();
+            if (!pngData) {
+                alert('No file selected');
+                return;
             }
-        });
-        // console.log('response : ', response);
         
+            const formData = new FormData();
+            formData.append('file', pngData);
         
+            //   // FileList 객체의 각 파일을 FormData에 추가
+            //   for (let i = 0; i < selectedFiles.length; i++) {
+            //     formData.append('files', selectedFiles[i]);
+            //   }
+        
+            console.log('보낸 데이터 : ', pngData);
+            
+            const response = await axios.post(URL + "/SkinCheck", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('진단 결과 : ', response);
+            setSkinData(response)
+            // console.log('response : ', response);
+        }
     };
 
     return (
@@ -181,6 +187,17 @@ const Typecheck = () => {
 
             <div id='main'>
             <div className='fst'>
+                    {skinData?
+                    <div className='top'>
+                        <div className='top1'>
+
+                        </div>
+                        <div className='top2'>
+                            <h1/>{userData?userData.user_nm:'방문고객'}님의 피부타입은
+                            <h1/>{skinData.data}!
+
+                        </div> 
+                    </div>:
                     <div className='top'>
                         <div className='top1'>
                             <input
@@ -198,21 +215,28 @@ const Typecheck = () => {
                             />
                         )}
                         </div>
+                        
                         <button
                             className='top2'
                             onClick={handleButtonClick}>사진 등록</button> 
-
-
-
-{/*                         
-                        <h2>Personal Pick 피부진단
-                        </h2>
-                        <br />
-                        <p>사진을 업로드하고 피부진단 받아보세요</p>
-                        <br />*/}
+                        
                     </div>
+                    }
+
+
+
+                    {/*        
+                    <h2>Personal Pick 피부진단
+                    </h2>
+                    <br />
+                    <p>사진을 업로드하고 피부진단 받아보세요</p>
+                    <br />*/}
+
                     <span className='bottom'>
+                    {skinData?
+                        <button onClick={checkButtonClick}>다시 하기</button>:
                         <button onClick={checkButtonClick}>진단 시작</button>
+                    }
                     </span>
                     </div>
                     </div>

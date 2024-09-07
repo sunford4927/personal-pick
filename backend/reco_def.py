@@ -86,6 +86,7 @@ class reco_cosine(Resource):
         reco_cos = sim_review.groupby('cos_name')['rating'].mean().sort_values(ascending=False)
         # print('reco_cos : ', reco_cos)
 
+
         # 상위 N개의 화장품 추천
         return reco_cos.head(top_n)
         

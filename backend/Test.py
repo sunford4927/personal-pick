@@ -40,10 +40,10 @@ class testLogin(Resource):
 # 로그인 한 유저의 유저 데이터 select
 class testUserData(Resource):
     def get(self):
-        user_nm = request.args.get('user_nm')
+        user_id = request.args.get('user_id')
 
-        sql = 'SELECT * FROM result_users WHERE user_nm = %s'
-        value = user_nm
+        sql = 'SELECT * FROM result_users WHERE user_id = %s'
+        value = user_id
         result = setQuery(sql, value)
 
         return jsonify(result)
