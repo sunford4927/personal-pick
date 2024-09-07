@@ -217,10 +217,10 @@ const Typecheck = () => {
                             />
                         )}
                         </div>
-                        
+                        <div className='top2'>
                         <button
-                            className='top2'
                             onClick={handleButtonClick}>사진 등록</button> 
+                        </div>
                         
                     </div>
                     }
