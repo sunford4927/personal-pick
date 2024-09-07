@@ -194,7 +194,9 @@ const Typecheck = () => {
                         </div>
                         <div className='top2'>
                             <h1/>{userData?userData.user_nm:'방문고객'}님의 피부타입은
-                            <h1/>{skinData.data}!
+                            <h1/>{skinData.data} 입니다!
+                            
+                            <button>화장품 추천받기</button> 
 
                         </div> 
                     </div>:
@@ -215,10 +217,10 @@ const Typecheck = () => {
                             />
                         )}
                         </div>
-                        
+                        <div className='top2'>
                         <button
-                            className='top2'
                             onClick={handleButtonClick}>사진 등록</button> 
+                        </div>
                         
                     </div>
                     }
