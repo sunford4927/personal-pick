@@ -16,7 +16,6 @@ const Menu = ({ isView }) => {
 
     const isMenuView = useSelector(state => state.isMenu)
     const name = useSelector(state => state.user);
-    console.log(name)
     const dispatch = useDispatch();
     function logout() {
         LogoutSession();
