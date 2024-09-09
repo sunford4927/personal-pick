@@ -185,7 +185,7 @@ const Typecheck = () => {
                 <div>
                 <img src={goback} className="aigoback" onClick={() => nav(-1)} width={20} height={20}></img>
                 <div className='airecommenduser'>
-                    <span className='recommendid'>{getLoginSession().username}</span>님의 피부타입 진단
+                    <span className='recommendid'>{getLoginSession().usernm}</span>님의 피부타입 진단
                 </div>
                 </div>
             </div>
@@ -200,10 +200,10 @@ const Typecheck = () => {
                             {skinData.data === '지성' && <img src={Skin3} alt="지성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
                         </div>
                         <div className='top2'>
-                            <h1/>{userData?userData.user_nm:'방문고객'}님의 피부타입은
-                            <h1/>{skinData.data} 입니다!
+                            <div className='top2_line'><span className='user_nm_border'>{userData?userData.user_name:'방문고객'}</span>님의 피부타입은</div>
+                            <div className='top2_line'><span className='skinData_border'>{skinData.data}</span> 입니다!</div>
                             
-                            <button onClick={()=>nav('/airecommend')}>화장품 추천받기</button> 
+                            <button className='typecheck_btn btn-5' onClick={()=>nav('/airecommend')}>화장품 추천받기</button> 
 
                         </div> 
                     </div>:
@@ -226,6 +226,7 @@ const Typecheck = () => {
                         </div>
                         <div className='top2'>
                         <button
+                            className='typecheck_btn btn-5'
                             onClick={handleButtonClick}>사진 등록</button> 
                         </div>
                         
@@ -243,8 +244,8 @@ const Typecheck = () => {
 
                     <span className='bottom'>
                     {skinData?
-                        <button onClick={checkButtonClick}>다시 하기</button>:
-                        <button onClick={checkButtonClick}>진단 시작</button>
+                        <button className='typecheck2_btn btn-5' onClick={checkButtonClick}>다시 하기</button>:
+                        <button className='typecheck2_btn btn-5' onClick={checkButtonClick}>진단 시작</button>
                     }
                     </span>
                     </div>
