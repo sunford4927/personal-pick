@@ -18,6 +18,9 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import Skin1 from '../../img/피부건성.jpg'
+import Skin2 from '../../img/피부중성.jpg'
+import Skin3 from '../../img/피부지성.jpg'
 import cos_img_4 from '../../img/화장품 이미지4.jpg'
 
 const Typecheck = () => {
@@ -150,7 +153,7 @@ const Typecheck = () => {
         else{
             e.preventDefault();
             if (!pngData) {
-                alert('No file selected');
+                alert('선택된 사진이 없습니다.');
                 return;
             }
         
@@ -191,13 +194,15 @@ const Typecheck = () => {
                     {skinData?
                     <div className='top'>
                         <div className='top1'>
-
+                            {skinData.data === '건성' && <img src={Skin1} alt="건성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
+                            {skinData.data === '중성' && <img src={Skin2} alt="중성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
+                            {skinData.data === '지성' && <img src={Skin3} alt="지성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
                         </div>
                         <div className='top2'>
                             <h1/>{userData?userData.user_nm:'방문고객'}님의 피부타입은
                             <h1/>{skinData.data} 입니다!
                             
-                            <button>화장품 추천받기</button> 
+                            <button onClick={()=>nav('/airecommend')}>화장품 추천받기</button> 
 
                         </div> 
                     </div>:
