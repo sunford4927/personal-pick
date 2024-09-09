@@ -31,7 +31,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
 
     function sendReview() {
         if (user.user_id === "") {
-            alert("로그인 해 주세요")
+            alert("로그인해 주세요")
             return
         }
         if(index === 10)
@@ -84,7 +84,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
                 <textarea
                     className="review_container"
                     type="text"
-                    placeholder={'상세한 리뷰를 작성해보세요! \n리뷰 작성하면 포인트도 받고, 내리뷰가 최상단에 떠요!'}
+                    placeholder={'상세한 리뷰를 작성해 보세요! \n리뷰 작성하면 포인트도 받고, 내 리뷰가 최상단에 떠요!'}
                     value={contents}
                     onChange={(e) => setContents(e.target.value)}
                     
