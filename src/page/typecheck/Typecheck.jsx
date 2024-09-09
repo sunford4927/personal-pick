@@ -153,7 +153,7 @@ const Typecheck = () => {
         else{
             e.preventDefault();
             if (!pngData) {
-                alert('No file selected');
+                alert('선택된 사진이 없습니다.');
                 return;
             }
         
@@ -194,18 +194,15 @@ const Typecheck = () => {
                     {skinData?
                     <div className='top'>
                         <div className='top1'>
-                        <img  
-                            src={Skin1}
-                            alt="미리보기" 
-                            style={{ marginTop: '10px', maxWidth: '100%' }} 
-                            />
-
+                            {skinData.data === '건성' && <img src={Skin1} alt="건성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
+                            {skinData.data === '중성' && <img src={Skin2} alt="중성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
+                            {skinData.data === '지성' && <img src={Skin3} alt="지성 피부" style={{ marginTop: '40px', maxWidth: '100%' }} />}
                         </div>
                         <div className='top2'>
                             <h1/>{userData?userData.user_nm:'방문고객'}님의 피부타입은
                             <h1/>{skinData.data} 입니다!
                             
-                            <button>화장품 추천받기</button> 
+                            <button onClick={()=>nav('/airecommend')}>화장품 추천받기</button> 
 
                         </div> 
                     </div>:
