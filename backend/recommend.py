@@ -79,13 +79,13 @@ class abc(Resource):
         # print('not_sub : ', reco_not_sub)
         reco_not_sub = pd.DataFrame(reco_not_sub)
         reco_not_sub['idx'] = reco_not_sub['idx'] + 1
-        print('reco_not_sub : ', reco_not_sub)
+        # print('reco_not_sub : ', reco_not_sub)
 
         # 구독자 전용
         reco_sub = df_product[df_product['cos_name'].isin(reco.index)]
         reco_sub = pd.DataFrame(reco_sub)
         reco_sub['idx'] = reco_sub['idx'] +1
-        print('reco_sub : ', reco_sub)
+        # print('reco_sub : ', reco_sub)
 
         # DataFrame을 JSON 형식의 Python 객체로 변환
         reco_not_sub = reco_not_sub.to_dict(orient='records')

@@ -25,6 +25,7 @@ const AiRecommend = () => {
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
     const [data_non_sub, setDataNonSub] = useState();
+    
 
 
     useEffect(() => {
@@ -148,7 +149,7 @@ const AiRecommend = () => {
             {/* 회원 추천 쪽 */}
             <img src={goback} className="aigoback" onClick={() => nav(-1)} width={20} height={20}></img>
             <div className='airecommenduser'>
-                <span className='recommendid'>{getLoginSession().username}</span>님의 맞춤형 추천 화장품
+                <span className='recommendid'>{getLoginSession().usernm}</span>님의 맞춤형 추천 화장품
             </div>
 
             {/* 비구독자 전용 화장품 구역 */}
