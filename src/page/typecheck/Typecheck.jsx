@@ -243,8 +243,8 @@ const Typecheck = () => {
 
                     <span className='bottom'>
                     {skinData?
-                        <button className='typecheck_btn btn-5' onClick={checkButtonClick}>다시 하기</button>:
-                        <button className='typecheck_btn btn-5' onClick={checkButtonClick}>진단 시작</button>
+                        <button className='typecheck2_btn btn-5' onClick={checkButtonClick}>다시 하기</button>:
+                        <button className='typecheck2_btn btn-5' onClick={checkButtonClick}>진단 시작</button>
                     }
                     </span>
                     </div>
