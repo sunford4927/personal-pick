@@ -248,13 +248,17 @@ const Join = () => {
                 <div className='text'>
                     <p>구독</p>
                     <h1 className='cursor' onClick={() => navigate("/subscriptionmanagement")}>🎁 정기배송 / 구독관리</h1>
-                    <p>문의</p>
-                    <h1>고객센터</h1>
-                    <h1>1:1 문의</h1>
-                    <h1>상품 Q&A</h1>
-                    <h1>로그아웃</h1>
-
                 </div>
+                <div className='text'>
+                    <p>문의</p>
+                    <h1>🎧 고객센터</h1>
+                    <h1>📞 1:1 문의</h1>
+                    <h1>📎 상품 Q&A</h1>
+                    </div>
+                    <div className='text'>
+                        <p>로그아웃</p>
+                        </div>
+                    
 
 
 
