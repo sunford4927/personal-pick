@@ -163,7 +163,7 @@ const AiRecommend = () => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} /> :
+                            <Itemview data={data_non_sub}/> :
                             <Itemview data={homeCateMain.data} />}
                     </span>
                 </div>

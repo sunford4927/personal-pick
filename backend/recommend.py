@@ -78,10 +78,15 @@ class abc(Resource):
         reco_not_sub = df_product[df_product['cos_name'].isin(simple.index)].head(10)
         # print('not_sub : ', reco_not_sub)
         reco_not_sub = pd.DataFrame(reco_not_sub)
+        reco_not_sub['idx'] = reco_not_sub['idx'] + 1
+        print('reco_not_sub : ', reco_not_sub)
 
         # 구독자 전용
         reco_sub = df_product[df_product['cos_name'].isin(reco.index)]
         reco_sub = pd.DataFrame(reco_sub)
+        reco_sub['idx'] = reco_sub['idx'] +1
+        print('reco_sub : ', reco_sub)
+
         # DataFrame을 JSON 형식의 Python 객체로 변환
         reco_not_sub = reco_not_sub.to_dict(orient='records')
         reco_sub = reco_sub.to_dict(orient='records')
@@ -91,7 +96,7 @@ class abc(Resource):
             # print('sub_1_reco_final', reco_final)
         else:
             reco_final = reco_not_sub
-            # print('sub_0_reco_final : ', reco_final)
+            # print('non_sub_reco_final : ', reco_final)
 
         # JSON 형식의 Python 객체를 JSON 응답으로 반환
         return jsonify(reco_final)
