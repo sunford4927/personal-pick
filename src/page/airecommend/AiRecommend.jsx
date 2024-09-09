@@ -26,14 +26,11 @@ const AiRecommend = () => {
     const [data_sub, setDataSub] = useState();
     const [data_non_sub, setDataNonSub] = useState();
 
-<<<<<<< HEAD
-=======
     const [sub, setSub] = useState();
 
     console.log('구독 여부 : ', sub);
     
     
->>>>>>> aba2d82e1d0a91ff27636017de1b3e6801e82747
     
     useEffect(() => {
         const LoadUsersData = async () => {

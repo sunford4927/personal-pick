@@ -177,27 +177,27 @@ const Typecheck = () => {
         }
     };
 
-    // 피부 타입에 따라 추천 페이지로 이동
-    const handleRecommendClick = () => {
-        if (skinData && skinData.data) {
-            switch (skinData.data) {
-                case '건성':
-                    nav('/totalitem/3' , userTypeList['건성']); // 건성 피부 페이지로 이동
-                    break;
-                case '중성':
-                    nav('/totalitem/3',  userTypeList['중성']); // 중성 피부 페이지로 이동
-                    break;
-                case '지성':
-                    nav('/totalitem/3' , userTypeList['지성']); // 지성 피부 페이지로 이동
-                    break;
-                default:
-                    nav('/airecommend'); // 기본 페이지로 이동
-                    break;
-            }
-        } else {
-            alert('피부 타입을 확인해주세요.');
-        }
-    };
+    // // 피부 타입에 따라 추천 페이지로 이동
+    // const handleRecommendClick = () => {
+    //     if (skinData && skinData.data) {
+    //         switch (skinData.data) {
+    //             case '건성':
+    //                 nav('/totalitem/3' , userTypeList['건성']); // 건성 피부 페이지로 이동
+    //                 break;
+    //             case '중성':
+    //                 nav('/totalitem/3',  userTypeList['중성']); // 중성 피부 페이지로 이동
+    //                 break;
+    //             case '지성':
+    //                 nav('/totalitem/3' , userTypeList['지성']); // 지성 피부 페이지로 이동
+    //                 break;
+    //             default:
+    //                 nav('/airecommend'); // 기본 페이지로 이동
+    //                 break;
+    //         }
+    //     } else {
+    //         alert('피부 타입을 확인해주세요.');
+    //     }
+    // };
 
     
 
@@ -226,7 +226,7 @@ const Typecheck = () => {
                             <div className='top2_line'><span className='user_nm_border'>{userData?userData.user_name:'방문고객'}</span>님의 피부타입은</div>
                             <div className='top2_line'><span className='skinData_border'>{skinData.data}</span> 입니다!</div>
                             
-                            <button className='typecheck_btn btn-5' onClick={handleRecommendClick}>화장품 추천받기</button> 
+                            <button className='typecheck_btn btn-5' onClick={()=>nav('/airecommend')}>화장품 추천받기</button> 
 
                         </div> 
                     </div>:
