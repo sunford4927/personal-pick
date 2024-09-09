@@ -1,17 +1,17 @@
 .date_title{
     align-items: center;
-    padding : 15px 0;
-    padding-left: 10px;
+    padding : 25px 0 25px 10px;
     p{
         width : 400px;
-        font-size :20px;
+        font-size :19px;
+        font-weight: 800;
     }
     div{
         
         img{
-            padding-left : 260px;    
-            width : 20px;
-            height : 20px;
+            padding-left : 250px;    
+            width : 18px;
+            height : 18px;
         }
 
     }
@@ -21,6 +21,9 @@
 
 .under_contents{
     height :70px;
-    padding-left : 10px;
-    border-bottom: 10px solid rgb(197, 197, 197);
+    padding-left : 15px;
+    border-bottom: 10px solid rgb(234, 234, 234);
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
 }

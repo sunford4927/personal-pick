@@ -21,10 +21,16 @@ const ItemOrderDetail = () => {
                 return (
                 <div className='detail_container'>                    
                     <div className='flex_col'>
-                        <img src={item.cos_img_src} alt="" />
+                        <img className='orderdetail_img' src={item.cos_img_src} alt="" />
                         <div className='detail_text'>
-                            <p>{item.brand_name} {item.cos_name} {item.vol}</p>
-                            <p>{item.price*getCnt(item.idx_cnt, i)}원 {getCnt(item.idx_cnt, i)}개</p> 
+                            <p className='orderdetail_brand'>{item.brand_name}</p> 
+                            <p className='orderdetail_name'>{item.cos_name}</p> 
+                            <p className='orderdetail_vol'>{item.vol}</p> </div>
+<br />
+                            <div className='detail_text2'>
+                            <p className='orderdetail_price'>{item.price*getCnt(item.idx_cnt, i)}원</p>  
+                            <p className='orderdetail_brand'>{getCnt(item.idx_cnt, i)}개</p> 
+                           
                         </div>
                     </div>
                     <div className='detail_btn' onClick={()=> nav('/itemOrderReview',{state : item})}>
