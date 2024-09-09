@@ -20,8 +20,8 @@
 
     h1{
         /* 두께 */
-        font-weight: 600;
-        font-size: 1.6vh;
+        font-weight: 500;
+        font-size: 14px;
         // color: rgba(128, 128, 128, 0.7);
         padding: 1vh 0;
         vertical-align: middle;
@@ -342,8 +342,8 @@
 }
 
 .myPage_gift{
-    border-top : 10px solid rgb(211, 209, 209);
-    border-bottom : 10px solid rgb(211, 209, 209);
+    border-top : 10px solid rgb(234, 234, 234);
+    border-bottom : 10px solid rgb(234, 234, 234);
     padding : 10px 0;
     margin : 20px 0;
     .flex_col{
@@ -370,6 +370,8 @@
         }
     }
 }
+
+
 
 // .App.division_line{
 //     margin-top: 0px;
