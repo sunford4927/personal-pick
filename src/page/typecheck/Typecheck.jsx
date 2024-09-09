@@ -18,6 +18,7 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import cos_img_4 from '../../img/화장품 이미지4.jpg'
 
 const Typecheck = () => {
     // 페이지 이동 함수
