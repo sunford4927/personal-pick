@@ -114,6 +114,37 @@
                 height: 15%;
                 margin: 0 50px 0 50px;
             }
+
+            .typecheck_btn {
+                border: 1px solid #0099FC;
+                cursor: pointer;
+                padding: 4px 23px 4px 23px;
+                border-radius: 5px;
+                font-size: 13px;
+                font-weight: 600;
+                color: #0099fc;
+                background-color: #fff;
+                margin: 8px 0;
+            }
+
+            .btn-5:hover {
+                box-shadow: 0px 0px 10px #abd7ff;
+            }
+
+            .top2_line {
+                font-size: 15px;
+            }
+
+          .user_nm_border {
+            font-weight: 700;
+            // color: #0099FC;
+
+          }
+
+          .skinData_border {
+            font-weight: 700;
+            color: red;
+          }
         }
     }
 }
