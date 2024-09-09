@@ -35,13 +35,15 @@ const AiRecommend = () => {
             // 1. 유저 데이터
             const user_response = await axios.get(URL + '/TestDY?user_id='+user_id);
             console.log('user_response : ', user_response);
+            setUser({user_nm: user_response.data[0].user_nm,
+                user_age: user_response.data[0].user_age,
+                user_sex: user_response.data[0].user_sex,
+                skin_type: user_response.data[0].skin_type})
+
             const user = {user_nm: user_response.data[0].user_nm,
                 user_age: user_response.data[0].user_age,
                 user_sex: user_response.data[0].user_sex,
                 skin_type: user_response.data[0].skin_type}
-
-            setUser(user)
-            console.log('user_data : ', user)
 
             // const user_data = {
             //     user_nm: USER.user_nm,
@@ -106,26 +108,59 @@ const AiRecommend = () => {
 
     // 숫자 올라가는 기능 함수
 
-    const CountUp = ({ end }) => {
+    // const CountUp = ({ end }) => {
+    //     const countUpRef = useRef(null);
+    //     const { start } = useCountUp({
+    //         ref: countUpRef,
+    //         end,
+    //         duration: 2 // duration을 적절히 설정
+    //     });
+
+    //     useEffect(() => {
+    //         start(); // 컴포넌트가 렌더링될 때 카운트업 시작
+    //     }, []);
+
+    //     return <span id = "counter" ref={countUpRef} />;
+    // };
+
+    const CountUp = ({ start, end }) => {
         const countUpRef = useRef(null);
-        const { start } = useCountUp({
+        const [countUpStart, setCountUpStart] = useState(start);
+    
+        const { start: countUpStartFunction, reset } = useCountUp({
             ref: countUpRef,
             end,
-            duration: 2 // duration을 적절히 설정
+            start: countUpStart,
+            duration: 2
         });
-
+    
         useEffect(() => {
-            start(); // 컴포넌트가 렌더링될 때 카운트업 시작
-        }, [start]);
-
-        return <span id = "counter" ref={countUpRef} />;
+            reset(); // 카운트업 상태를 리셋합니다.
+            setCountUpStart(start); // 새로운 시작 값을 설정합니다.
+            countUpStartFunction(); // 카운트업 애니메이션 시작합니다.
+        }, [start, end, countUpStartFunction, reset]);
+    
+        return <span id="counter" ref={countUpRef} />;
     };
 
+    // const CountUp = ({ end, user }) => {
+    //     const countUpRef = useRef(null);
+    //     const { start, reset } = useCountUp({
+    //         ref: countUpRef,
+    //         end,
+    //         duration: 2 // duration을 적절히 설정
+    //     });
+    
+    //     useEffect(() => {
+    //         // `user`가 변경될 때마다 카운트업을 재시작합니다.
+    //         reset(); // 이전 카운트업 상태를 리셋합니다.
+    //         start(); // 카운트업 시작합니다.
+    //     }, []); // `user`가 변경될 때마다 useEffect가 실행됩니다.
+    
+    //     return <span id="counter" ref={countUpRef} />;
+    // };
 
-    useEffect(() => {
-        console.log(data_sub);
 
-    })
 
     const handleClick1 = () => {
         // 페이지 상단으로 스크롤 이동
@@ -136,7 +171,8 @@ const AiRecommend = () => {
     };
 
 
-
+    const [startValue, setStartValue] = useState(3000); // 시작 값을 상태로 관리
+    const [endValue, setEndValue] = useState(3000); // 종료 값을 상태로 관리
     return (
         <div>
             {/* 회원 추천 쪽 */}
@@ -149,7 +185,9 @@ const AiRecommend = () => {
             <div className='notsubscribe'>
                 <span className='notsubscribetext'>비구독자 전용</span>
                 <div className='countup'>
-                    <CountUp end={3000} />
+                    {data_non_sub?
+                    <CountUp start={3000} end={3000} />:
+                    <CountUp end={3000} />}
                     <div className='notsubscribetext1'>
                         개의 회원들의 데이터 분석을 통해 추천해주는 화장품
                     </div>
@@ -168,7 +206,9 @@ const AiRecommend = () => {
             <div className='subscribe'>
                 <span className='subscribetext'>구독자 전용</span>
                 <div className='countup1'>
-                    <CountUp end={183027} />
+                {data_non_sub?
+                    <CountUp start={183027} end={183027} />:
+                    <CountUp end={183027} />}
                     <div className='subscribetext1'>
                         개의 회원들의 데이터 분석을 통해 추천해주는 화장품
                     </div>
