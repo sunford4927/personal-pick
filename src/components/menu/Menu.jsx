@@ -67,7 +67,9 @@ const Menu = ({ isView }) => {
                                 <div className='menu_login'>
                                     <p className='menu_mypage' onClick={() => nav("/mypage")}>마이페이지</p>
                                     <hr className='thin_grayline' />
-                                    <p className='menu_myreview' onClick={() => nav("/review")}>나의 리뷰</p>
+                                    {/* <p className='menu_myreview' onClick={() => nav("/review")}>나의 리뷰</p> */}
+                                    {/* <hr className='thin_grayline' /> */}
+                                    <p className='menu_myreview' onClick={() => nav("/cartlist")}>장바구니</p>
                                     <hr className='thin_grayline' />
                                     <p className='menu_addresslist' onClick={() => nav("/addressListAll")}>배송지</p>
                                     <hr className='thin_grayline' />
