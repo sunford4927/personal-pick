@@ -31,8 +31,6 @@ const Typecheck = () => {
 
 
 
-
-
     // const order = () => navigate('/itemOrder');
     const point = () => nav('/point');
 
@@ -174,6 +172,9 @@ const Typecheck = () => {
             // console.log('response : ', response);
         }
     };
+
+    
+
 
     return (
         <div id='Typecheck'>
