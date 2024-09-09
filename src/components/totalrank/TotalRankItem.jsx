@@ -11,6 +11,7 @@ const ItemAll = ({ data , showReviewScore }) => {
       // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
       const handleProductClick = (idx) => {
         nav(`/detailinfo/${idx}`);
+        window.scrollTo({ top: 0 });
     };
   
   return (

@@ -116,12 +116,6 @@ const AiRecommend = () => {
     };
 
 
-    // 제품 클릭 시 detailinfo 페이지로 이동하는 함수
-// gotoinfoHandleClick 함수
-const gotoinfoHandleClick = (item) => {
-    nav(`/airecommend/detailinfo/${item.id}`);
-  };
-
     useEffect(() => {
         console.log(data_sub);
 
@@ -133,10 +127,6 @@ const gotoinfoHandleClick = (item) => {
 
         // 네비게이션 이동
         nav('/subscription');
-    };
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0 });
     };
 
     useEffect(() => {
@@ -169,10 +159,7 @@ const gotoinfoHandleClick = (item) => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} onClick={(item) => {
-                                gotoinfoHandleClick(item);
-                                scrollToTop(); // 클릭 시 스크롤을 최상단으로 이동
-                            }}/> :
+                            <Itemview data={data_non_sub} /> :
                             <Itemview data={homeCateMain.data} />}
                     </span>
                 </div>

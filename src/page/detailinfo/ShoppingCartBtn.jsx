@@ -69,7 +69,7 @@ const ShoppingCartBtn = ({ func, func1 , navigate}) => {
   const handleClick = (idx) => {
     navigate(`/detailinfo/${idx}`);
     console.log(handleClick);
-    
+    window.scrollTo({ top: 0 });
   };
   
 
@@ -111,7 +111,7 @@ const ShoppingCartBtn = ({ func, func1 , navigate}) => {
         {recoData ? (
           <div className='recodataall'>
             {recoData.map((item) => (
-              <div key={item.idx} onClick={() => handleClick(item.idx)} className='recodataall2'>
+              <div key={item.idx} className='recodataall2' onClick={() => handleClick(item.idx)}>
                 <img
                   src={item.cos_img_src}
                   alt="코스메틱 이미지"
