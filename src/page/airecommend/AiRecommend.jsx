@@ -136,12 +136,6 @@ const AiRecommend = () => {
 
 
 
-
-      const handleClick = (idx) => {
-        nav(`/detailinfo/${idx+1}`);
-        window.scrollTo({ top: 0 });
-      };
-
     return (
         <div>
             {/* 회원 추천 쪽 */}
@@ -164,7 +158,7 @@ const AiRecommend = () => {
                     <span className='notsubcoslist'>
                         {data_non_sub ?
                             <Itemview data={data_non_sub}/> :
-                            <Itemview data={homeCateMain.data} />}
+                            <Itemview data={{}} />}
                     </span>
                 </div>
             </div>
@@ -186,7 +180,7 @@ const AiRecommend = () => {
                 <span className='subscribecos'>
                     {data_sub ?
                         <Itemview data={data_sub} /> :
-                        <Itemview data={homeCateMain.data} />}
+                        <Itemview data={{}} />}
                 </span>
             </div>
         </div>
