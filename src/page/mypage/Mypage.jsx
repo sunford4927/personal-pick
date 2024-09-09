@@ -39,18 +39,22 @@ const Join = () => {
 
     useEffect(() => {
         const LoadUsersData = async () => {
+            // console.log('user_id : ', getLoginSession().username);
+            
             // session에 로그인 정보가 있으면 해당 유저의 데이터를 가져옴
-            if (getLoginSession().userid) {
+            if (getLoginSession().username) {
 
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_id: getLoginSession().userid
+                        user_id: getLoginSession().username
                     }
                 });
                 // console.log('res_user : ', responseUserData.data[0]);
 
                 const res_user = responseUserData.data[0]
+                console.log('res_user : ', res_user);
+                
 
                 // 2. 주문/배송 데이터
                 const responseOrderData = await axios.get(URL + '/TestOrderData', {

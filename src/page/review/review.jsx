@@ -45,12 +45,13 @@ const Review = () => {
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_nm: getLoginSession().username
+                        user_id: getLoginSession().username
                     }
                 });
                 console.log('res_user : ', responseUserData.data[0]);
 
                 const res_user = responseUserData.data[0]
+                console.log('res_user : ', res_user)
 
     //             // 2. 주문/배송 데이터
     //             const responseOrderData = await axios.get(URL + '/TestOrderData', {
