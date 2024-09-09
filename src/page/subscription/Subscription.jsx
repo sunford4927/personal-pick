@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCountUp } from 'react-countup';
 import Back from '../../img/왼쪽.png';
 import { useSelector } from 'react-redux';
+import { LoginSession, LogoutSession, getLoginSession } from '../../util/session'
+
 
 // 메뉴창에서 정기배송 클릭 시 나타나는 화면
 const Subscription = () => {
@@ -21,7 +23,9 @@ const Subscription = () => {
 
     // 로그인 여부 관리(사용자가 로그인했는지를 확인)
     useEffect(() => {
-        let Id = sessionStorage.getItem("username");
+        let Id = getLoginSession().username;
+        console.log('123 : ', getLoginSession().username);
+        
         if (Id) {  // 근데 만약 사용자가 로그인했다면
             setIsLogin(true);
         }

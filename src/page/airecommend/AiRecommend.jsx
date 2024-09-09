@@ -25,9 +25,13 @@ const AiRecommend = () => {
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
     const [data_non_sub, setDataNonSub] = useState();
+
+    const [sub, setSub] = useState();
+
+    console.log('구독 여부 : ', sub);
     
-
-
+    
+    
     useEffect(() => {
         const LoadUsersData = async () => {
             const user_id = getLoginSession().username
@@ -39,89 +43,45 @@ const AiRecommend = () => {
                 user_age: user_response.data[0].user_age,
                 user_sex: user_response.data[0].user_sex,
                 skin_type: user_response.data[0].skin_type})
-
+                
             const user = {user_nm: user_response.data[0].user_nm,
                 user_age: user_response.data[0].user_age,
                 user_sex: user_response.data[0].user_sex,
                 skin_type: user_response.data[0].skin_type}
+                
+                
+                // 2. 비구독자 추천 데이터
+                const reco_non_sub = await axios.get(URL + '/Recommend' , {
+                    params: {
+                        sub: false,
+                        user_nm: user.user_nm,
+                        user_age: user.user_age,
+                        user_sex: user.user_sex,
+                        skin_type: user.skin_type
+                    }
+                });
+                console.log('비구독자 data : ', reco_non_sub.data);
+                setDataNonSub(reco_non_sub.data)
+                
+                
+                // 2. 구독자 추천 데이터
+                const reco_sub = await axios.get(URL + '/Recommend', {
+                    params: {
+                        sub: true,
+                        user_nm: user.user_nm,
+                        user_age: user.user_age,
+                        user_sex: user.user_sex,
+                        skin_type: user.skin_type
+                    }
+                });
+                console.log('구독자 data : ', reco_sub.data);
+                setDataSub(reco_sub.data)
+            }
+            // 화면이 첫 랜더링 될 때 함수 실행
+            LoadUsersData();
+            setSub(getLoginSession().sub)
+        }, []);
 
-            // const user_data = {
-            //     user_nm: USER.user_nm,
-            //     user_age: USER.user_age,
-            //     user_sex: USER.user_sex,
-            //     skin_type: USER.skin_type
-            // }
-            // console.log('비구독자 : ', user_data);
-            // console.log('user_nm : ', USER.user_nm,
-            //     '\nuser_age : ', USER.user_age,
-            //     '\nuser_sex : ', USER.user_sex,
-            //     '\nskin_type : ', USER.skin_type)
-
-            
-
-            // 2. 비구독자 추천 데이터
-            const reco_non_sub = await axios.get(URL + '/Recommend' , {
-                params: {
-                    sub: false,
-                    user_nm: user.user_nm,
-                    user_age: user.user_age,
-                    user_sex: user.user_sex,
-                    skin_type: user.skin_type
-                }
-            });
-            console.log('비구독자 data : ', reco_non_sub.data);
-            setDataNonSub(reco_non_sub.data)
-            
-
-            // 2. 구독자 추천 데이터
-            const reco_sub = await axios.get(URL + '/Recommend', {
-                params: {
-                    sub: true,
-                    user_nm: user.user_nm,
-                    user_age: user.user_age,
-                    user_sex: user.user_sex,
-                    skin_type: user.skin_type
-                }
-            });
-            console.log('구독자 data : ', reco_sub.data);
-            setDataSub(reco_sub.data)
-
-            // // 2. 구독자 추천 데이터
-            // const reco_response = await axios.get(URL + '/Recommend', {
-            //     params: {
-            //         user_nm : user_nm,
-            //         user_age : user_temp.user_age,
-            //         user_sex : user_temp.user_sex,
-            //         skin_type : user_temp.skin_type
-            //     }
-            // });
-            // const data = reco_response.data
-            // console.log('data : ', reco_response.data);
-            // setData(reco_response.data)
-
-
-        }
-        // 화면이 첫 랜더링 될 때 함수 실행
-        LoadUsersData();
-    }, []);
-
-
-    // 숫자 올라가는 기능 함수
-
-    // const CountUp = ({ end }) => {
-    //     const countUpRef = useRef(null);
-    //     const { start } = useCountUp({
-    //         ref: countUpRef,
-    //         end,
-    //         duration: 2 // duration을 적절히 설정
-    //     });
-
-    //     useEffect(() => {
-    //         start(); // 컴포넌트가 렌더링될 때 카운트업 시작
-    //     }, []);
-
-    //     return <span id = "counter" ref={countUpRef} />;
-    // };
 
     const CountUp = ({ start, end }) => {
         const countUpRef = useRef(null);
@@ -170,6 +130,46 @@ const AiRecommend = () => {
         nav('/subscription');
     };
 
+    const style = {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '15px',
+        marginRight: '15px',
+        marginLeft: '-4px',
+        ...(sub=='1' ? {
+            // sub이 true일 때 추가 스타일
+            // 예를 들면 추가적인 스타일이 필요한 경우
+            filter: 'blur(0px)', WebkitFilter: 'blur(0px)', pointerEvents: 'auto',
+            
+        } : {
+            // sub이 false일 때 추가 스타일
+            // 예를 들면 다른 스타일이 필요한 경우
+            filter: 'blur(18px)', WebkitFilter: 'blur(18px)', pointerEvents: 'none',
+        })
+    };
+
+    // const style = {
+    //     if (sub){
+    //         filter: 'blur(18px)', 
+    //         WebkitFilter: 'blur(18px)', // -webkit-filter의 camelCase 표기
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         marginTop: '15px',
+    //         pointerEvents: 'none', // 클릭 이벤트를 차단합니다
+    //         marginRight: '15px',
+    //         marginLeft: '-4px',
+    //     }else{
+    //         filter: 'blur(18px)', 
+    //         WebkitFilter: 'blur(18px)', // -webkit-filter의 camelCase 표기
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         marginTop: '15px',
+    //         pointerEvents: 'none', // 클릭 이벤트를 차단합니다
+    //         marginRight: '15px',
+    //         marginLeft: '-4px',
+    //     }
+    // };
+
 
     const [startValue, setStartValue] = useState(3000); // 시작 값을 상태로 관리
     const [endValue, setEndValue] = useState(3000); // 종료 값을 상태로 관리
@@ -214,14 +214,17 @@ const AiRecommend = () => {
                     </div>
                 </div>
                 <hr className='thin_grayline' />
-                <div className='maketosub'>
-                    <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
-                    <button className='maketosubbtn' onClick={handleClick1}>구독하러 가기</button>
-                </div>
-                <span className='subscribecos'>
+                    {sub=='1'?'':
+                        <div className='maketosub'>
+                                <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
+                                <button className='maketosubbtn' onClick={handleClick1}>구독하러 가기</button>
+                        </div>
+                    }
+
+                <span className='subscribecos' style={style}>
                     {data_sub ?
-                        <Itemview data={data_sub} /> :
-                        <Itemview data={{}} />}
+                        <Itemview data={data_sub}/>
+                        :<Itemview data={{}} />}
                 </span>
             </div>
         </div>
