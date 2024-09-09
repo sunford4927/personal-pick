@@ -21,7 +21,7 @@ const Menu = ({ isView }) => {
         LogoutSession();
         dispatch(setUser(undefined));
     }
-    
+
     return (
         <>
             {
@@ -31,7 +31,7 @@ const Menu = ({ isView }) => {
                         <img className='menu_userimg float_l' src={UserImg} alt="" />
                         <p className='menu_title' onClick={() => nav("/login")}>{name === undefined ? "로그인/회원가입" :
                             <>
-                                <span style={{ fontWeight: 800,color:'#555555',marginRight:'3px' }}>{name.user_nm}</span>
+                                <span style={{ fontWeight: 800, color: '#555555', marginRight: '3px' }}>{name.user_nm}</span>
                                 님 환영합니다
                             </>
                         }</p>
@@ -39,9 +39,24 @@ const Menu = ({ isView }) => {
                     <hr className='thin_grayline' />
                     <div className='menu_box'>
                         <div className='menu_logout'>
-                            <p className='menu_skintype' onClick={() => nav("/typecheck")}>피부타입 진단</p>
-                            <p className='menu_skintype' onClick={() => nav("/airecommend")}>화장품 추천</p>
-                            
+                            <p className='menu_skintype' onClick={() => {
+                                nav("/typecheck")
+                                
+                            }
+                            }>피부타입 진단</p>
+                            <p className='menu_skintype' onClick={() => {
+                                if(name !== undefined)
+                                {
+                                    nav("/airecommend")
+                                }
+                                else{
+                                    alert("로그인후 이용해 주세요!")
+                                    nav("login");
+                                }
+                                // console.log(name)
+                            }
+                            }>화장품 추천</p>
+
                             {/* <p className='menu_skintype'>피부타입별</p>
                             <p className='menu_age'>나이대별</p> */}
                             <p className='menu_subscribe' onClick={() => nav("/subscription")}>정기배송/구독</p>
