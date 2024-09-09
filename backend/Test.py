@@ -116,5 +116,4 @@ class testDY(Resource):
         sql ='SELECT * FROM result_users WHERE user_id = %s'
         value = user_id
         result = setQuery(sql, value)
-        # print('result : ', result)
         return jsonify(result)

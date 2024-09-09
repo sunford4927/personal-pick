@@ -27,29 +27,32 @@ const AiRecommend = () => {
     const [data_non_sub, setDataNonSub] = useState();
 
 
-
     useEffect(() => {
         const LoadUsersData = async () => {
-            const user_id = getLoginSession().userid
+            const user_id = getLoginSession().username
             
-            console.log(USER)
             // 1. 유저 데이터
-            const user_response = await axios.get(URL + '/TestDY?user_id='+USER.user_id);
+            const user_response = await axios.get(URL + '/TestDY?user_id='+user_id);
+            console.log('user_response : ', user_response);
+            const user = {user_nm: user_response.data[0].user_nm,
+                user_age: user_response.data[0].user_age,
+                user_sex: user_response.data[0].user_sex,
+                skin_type: user_response.data[0].skin_type}
 
-            setUser({
-                user: USER,
-                user_age: USER.user_age,
-                user_sex: USER.user_sex,
-                skin_type: USER.skin_type
-            })
+            setUser(user)
+            console.log('user_data : ', user)
 
             // const user_data = {
-            //     user_nm : user_nm,
-            //     user_age : user_temp.user_age,
-            //     user_sex : user_temp.user_sex,
-            //     skin_type : user_temp.skin_type
+            //     user_nm: USER.user_nm,
+            //     user_age: USER.user_age,
+            //     user_sex: USER.user_sex,
+            //     skin_type: USER.skin_type
             // }
             // console.log('비구독자 : ', user_data);
+            // console.log('user_nm : ', USER.user_nm,
+            //     '\nuser_age : ', USER.user_age,
+            //     '\nuser_sex : ', USER.user_sex,
+            //     '\nskin_type : ', USER.skin_type)
 
             
 
@@ -57,25 +60,27 @@ const AiRecommend = () => {
             const reco_non_sub = await axios.get(URL + '/Recommend' , {
                 params: {
                     sub: false,
-                    user_nm: USER.user_nm,
-                    user_age: USER.user_age,
-                    user_sex: USER.user_sex,
-                    skin_type: USER.skin_type
+                    user_nm: user.user_nm,
+                    user_age: user.user_age,
+                    user_sex: user.user_sex,
+                    skin_type: user.skin_type
                 }
             });
+            console.log('비구독자 data : ', reco_non_sub.data);
             setDataNonSub(reco_non_sub.data)
+            
 
             // 2. 구독자 추천 데이터
             const reco_sub = await axios.get(URL + '/Recommend', {
                 params: {
                     sub: true,
-                    user_nm: USER.user_nm,
-                    user_age: USER.user_age,
-                    user_sex: USER.user_sex,
-                    skin_type: USER.skin_type
+                    user_nm: user.user_nm,
+                    user_age: user.user_age,
+                    user_sex: user.user_sex,
+                    skin_type: user.skin_type
                 }
             });
-            console.log('data_sub : ', reco_sub.data);
+            console.log('구독자 data : ', reco_sub.data);
             setDataSub(reco_sub.data)
 
             // // 2. 구독자 추천 데이터
@@ -95,7 +100,7 @@ const AiRecommend = () => {
         }
         // 화면이 첫 랜더링 될 때 함수 실행
         LoadUsersData();
-    }, [USER]);
+    }, []);
 
 
     // 숫자 올라가는 기능 함수
