@@ -88,6 +88,7 @@ const TotalItem = () => {
         window.scrollTo({ top: 0 });
         setCateIdx(idx)
     }
+    
 
 
     return (
