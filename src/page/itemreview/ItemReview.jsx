@@ -16,7 +16,9 @@ const ItemReview = () => {
                     <p className='grayText'>{state.vol}</p>
                 </div>
             </div>
+            <div className='order_review_btn'>
             <InputReview item={state}/>
+            </div>
         </div>
     );
 };
