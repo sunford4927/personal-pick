@@ -18,6 +18,9 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import Skin1 from '../../img/피부건성.jpg'
+import Skin2 from '../../img/피부중성.jpg'
+import Skin3 from '../../img/피부지성.jpg'
 import cos_img_4 from '../../img/화장품 이미지4.jpg'
 
 const Typecheck = () => {
@@ -191,6 +194,11 @@ const Typecheck = () => {
                     {skinData?
                     <div className='top'>
                         <div className='top1'>
+                        <img  
+                            src={Skin1}
+                            alt="미리보기" 
+                            style={{ marginTop: '10px', maxWidth: '100%' }} 
+                            />
 
                         </div>
                         <div className='top2'>
