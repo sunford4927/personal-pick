@@ -314,6 +314,7 @@
 
 .shoppingcartfix{
     position: fixed;
+    width: 470px;
 }
 
 .recodataall{
@@ -469,13 +470,12 @@
     border-width: 0;
     margin: 12px 0 0 0;
     margin-left: 0px;
-    margin-right: -35px;
+    margin-right: 10px;
 }
 
 .shoppingcart_box {
     padding: 50px 0 30px 0;
     margin-bottom: -10px;
-    margin-left: 45px;
 }
 
 // 쇼핑 계속하기 버튼
@@ -622,9 +622,19 @@
     justify-content: center;
     margin: 20px;
     padding: 10px 0;
-    margin-left: 55px;
 }
 
+.closebtn {
+    display: flex;
+    cursor: pointer;
+
+}
+
+.closebtn1{
+    display: flex;
+    cursor: pointer;
+    margin-left: 460px;
+}
 
 
 // AI가 분석하는 리뷰
@@ -1491,4 +1501,5 @@ video {
     margin-left: -15px;
     margin-top: 0px;
     color: #000000;
+    justify-content: space-between;
 }

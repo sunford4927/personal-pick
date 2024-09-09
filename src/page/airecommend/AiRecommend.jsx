@@ -25,6 +25,7 @@ const AiRecommend = () => {
     const [user, setUser] = useState();
     const [data_sub, setDataSub] = useState();
     const [data_non_sub, setDataNonSub] = useState();
+
     
 
 

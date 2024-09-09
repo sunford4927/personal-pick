@@ -4,6 +4,7 @@ import { modalClose } from '../../util/util'
 import { URL } from '../../util/util';
 import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
+import close from '../../img/회색엑스.png'
 
 
 const ShoppingCartBtn = ({ func, func1 , navigate}) => {
@@ -70,6 +71,10 @@ const ShoppingCartBtn = ({ func, func1 , navigate}) => {
     window.location.replace(`/detailinfo/${idx+1}`);
     window.scrollTo({ top: 0 });
   };
+
+  const closeClick = () => {
+    modalClose();
+  }
   
 
   return (
@@ -77,7 +82,7 @@ const ShoppingCartBtn = ({ func, func1 , navigate}) => {
 
     <>
       <div className='shoppingcartfix'>
-        <div className="shoppingcart mt-8 px-20">장바구니 담기</div>
+        <div className="shoppingcart mt-8 px-20">장바구니 담기<img src = {close} width={20} className='closebtn' onClick={closeClick}/></div>
         <hr className='shoppingcartbar' />
         <div className='shoppingcart_box'>
           <span className="addshopping">장바구니에 추가되었습니다.</span>
