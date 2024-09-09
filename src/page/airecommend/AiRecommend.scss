@@ -49,7 +49,8 @@
 .notsubcoslist{
     display: flex;
     margin-top: 15px;
-    margin-left: 34px;
+    margin-left: 13px;
+
 }
 
 // 구독자 쪽
@@ -57,7 +58,6 @@
 .subscribe{
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.116);
-    // margin-top: 70px;
 }
 
 .subscribetext{
@@ -138,6 +138,8 @@
     justify-content: center;
     margin-top: 15px;
     pointer-events: none; /* 클릭 이벤트를 차단합니다 */
+    margin-right: 15px;
+    margin-left: -4px;
 }
 
 .aigoback{

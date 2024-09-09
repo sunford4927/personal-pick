@@ -127,7 +127,7 @@ const AiRecommend = () => {
 
     })
 
-    const handleClick = () => {
+    const handleClick1 = () => {
         // 페이지 상단으로 스크롤 이동
         window.scrollTo({ top: 0 });
 
@@ -135,14 +135,7 @@ const AiRecommend = () => {
         nav('/subscription');
     };
 
-    useEffect(() => {
-        // ... (기존 코드)
-    
-        if (data_non_sub) {
-          // 데이터가 정상적으로 가져와진 경우에만 정렬
-          data_non_sub.sort((a, b) => a.idx - b.idx);
-        }
-      }, [data_non_sub]);
+
 
     return (
         <div>
@@ -165,8 +158,8 @@ const AiRecommend = () => {
                 <div>
                     <span className='notsubcoslist'>
                         {data_non_sub ?
-                            <Itemview data={data_non_sub} /> :
-                            <Itemview data={homeCateMain.data} />}
+                            <Itemview data={data_non_sub}/> :
+                            <Itemview data={{}} />}
                     </span>
                 </div>
             </div>
@@ -183,12 +176,12 @@ const AiRecommend = () => {
                 <hr className='thin_grayline' />
                 <div className='maketosub'>
                     <span className='maketosubtext'>구독자 전용 추천 화장품이 보고 싶다면?</span>
-                    <button className='maketosubbtn' onClick={handleClick}>구독하러 가기</button>
+                    <button className='maketosubbtn' onClick={handleClick1}>구독하러 가기</button>
                 </div>
                 <span className='subscribecos'>
                     {data_sub ?
                         <Itemview data={data_sub} /> :
-                        <Itemview data={homeCateMain.data} />}
+                        <Itemview data={{}} />}
                 </span>
             </div>
         </div>

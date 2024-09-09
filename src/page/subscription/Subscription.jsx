@@ -6,9 +6,14 @@ import Image1 from '../../img/광고배너9.png'
 import { useNavigate } from 'react-router-dom';
 import { useCountUp } from 'react-countup';
 import Back from '../../img/왼쪽.png';
+import { useSelector } from 'react-redux';
 
 // 메뉴창에서 정기배송 클릭 시 나타나는 화면
 const Subscription = () => {
+
+
+
+    const user = useSelector((state) => state.user);
 
     const nav = useNavigate();
     // 사용자가 로그인했는지 여부(로그인되어있는지 안되어있는지 모르겠지만 일단 안되어있다고(false) 설정해놓겠다는 말)
@@ -45,12 +50,13 @@ const Subscription = () => {
     //     }
     // };
 
-    // "기초+색조 화장품 구독하러 가기" 버튼 클릭 시
-    const basicpluscolorMakeup = () => {
-        if (isLogin) {
-            nav('/SubbasicvueIntroduce', { state: { productType: '기초+색조 화장품' } });
+       // 로그인 안하고 버튼 클릭시 로그인 페이지로 이동
+       const recosub = (e) => {
+        if (user !== undefined) {
+            nav('/airecommend/'); // 로그인된 경우 추천 페이지로 이동
         } else {
-            nav('/login');
+            alert("로그인 후 이용해주세요!")
+            nav('/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
         }
     };
 
@@ -208,7 +214,7 @@ const Subscription = () => {
                             </div>
                             <hr className='line_none'></hr>
                         
-                            <a className="gudog_go_btn btn-5" onClick={() => nav("/airecommend")}>확인하러 가기</a>
+                            <a className="gudog_go_btn btn-5" onClick={() => recosub()}>확인하러 가기</a>
                         
 
                         </div>

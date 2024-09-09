@@ -67,8 +67,7 @@ const ShoppingCartBtn = ({ func, func1 , navigate}) => {
 
   
   const handleClick = (idx) => {
-    navigate(`/detailinfo/${idx}`);
-    console.log(handleClick);
+    window.location.replace(`/detailinfo/${idx+1}`);
     window.scrollTo({ top: 0 });
   };
   
