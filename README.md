@@ -1,5 +1,5 @@
 # 🐶🐱애니팅 (팀명 : DEVS)
-![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Animal%20Matching%20Service&fontSize=40)
+![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=aa%20Matching%20Service&fontSize=40)
 
 ## 👀프로젝트 개요 
 주제 : 반려동물 교배 매칭 서비스
