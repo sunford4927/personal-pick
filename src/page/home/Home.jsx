@@ -144,7 +144,7 @@ const Home = () => {
             <div className="basic-text cursor personalpick_keyword" >
                 {/* <div className="week_keyword">{"< 9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 > " }</div> */}
                 {"9월 " + day + "일 "}
-                <span>퍼스널픽 주요 키워드</span>
+                <span>퍼스널픽 주요 키워드 </span><span style={{fontSize : "14px", color : "orange"}}># 글씨가 클수록 검색을 많이했다는 뜻이에요!</span>
                 {/* <span>{"9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 " }</span> */}
                 {/* <img className="category_arrow" src={Right} alt="" /> */}
             </div>
