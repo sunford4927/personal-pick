@@ -3,6 +3,7 @@ import './InputReview.scss'
 import { sendGet, sendPost, showComplete, URL } from '../../util/util';
 import { setStarMenu } from '../../util/util';
 import { useNavigate } from 'react-router-dom';
+import { getLoginSession } from '../../util/session'
 
 
 const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
@@ -46,15 +47,19 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
             return
         }
 
+        console.log('user : ', user);
+        console.log('user_nm : ', getLoginSession().usernm)
+        console.log('user_id : ', getLoginSession().username)
+
 
         sendPost(URL + '/InsertReview',  threeget ,
             {
-                user_nm: user.user_nm,
+                user_nm: getLoginSession().usernm,
                 cos_name: item.cos_name,
                 rating: index,
                 review: contents,
                 cos_idx: item.idx,
-                user_id: user.user_id
+                user_id: getLoginSession().username
                 // cos_idx, user_idx
             })
     }
