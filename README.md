@@ -205,36 +205,36 @@
 
 
 
-  <table>
-    <tr>
+  <table width="1000px" display="table">
+    <tr >
       <td><img src="https://github.com/user-attachments/assets/0145b28a-24ab-4a18-b1cf-166161ae1247" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/c679a169-df8d-494c-a2be-b40af4f02661" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/06395d1d-a548-4ced-8137-89de9fc8f98d" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/2e83ded0-7463-4d06-97a4-379a122a237e" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/d7156068-7f49-4417-84e1-02852b087511" width="200px" height="200px"></td>
     </tr>
-    <tr>
+    <tr >
       <td ><center>최지원</center></td>
       <td>김도연</td>
       <td>이상현</td>
       <td>정승진</td>
       <td>오세원</td>
     </tr>
-    <tr>
+    <tr >
       <td>Main</td>
       <td>Main</td>
       <td>Main</td>
       <td>Main</td>
       <td>Main</td>
     </tr>
-    <tr>
+    <tr >
       <td>팀장, Back-End</td>
       <td>Back-End</td>
       <td>Front-End</td>
       <td>Front-End</td>
       <td>Front-End</td>
     </tr>
-    <tr>
+    <tr >
       <td>
         - 전체 일정 관리 및 기획<br>
         - 산출문서 제작<br>
@@ -273,7 +273,14 @@
         - 서버 통신 시간 개선 (10m -> 1s)<br>
         - redux 구현<br>
         - 워드 클라우드 추출<br>
-        - 화면 구현 : 메인화면, 2중 카테고리, 제품 전체보기, 장바구니, 주문내역, 주문/결제, 정기 구독관리, 리뷰작성<br>
+        - 메인화면 구현<br>
+        - 2중 카테고리 구현<br>
+        - 제품 전체보기 구현<br>
+        - 장바구니 구현<br>
+        - 주문내역 구현<br>
+        - 주문/결제 구현<br>
+        - 정기 구독관리 구현<br>
+        - 리뷰작성
       </td>
       <td>
         - 프론트엔드<br>
@@ -297,7 +304,7 @@
   </table>
 
 ***
-
+<!--
 ## 🚨트러블슈팅
 <h4>1번 문제</h4>
 
@@ -314,3 +321,4 @@
 ![image](https://github.com/2024-SMHRD-SW-DataDesign-1/AnimalLove/assets/109319988/7e4713c1-33a8-41fb-97ab-3f8a19d33445)
 <p>• 오류 : 채팅이 들어왔을 때 알림이 실시간으로 갱신이 되지 않는 오류 </p>
 <p>• 해결방안 : 채팅 리스트가 생성될 때 소켓을 한번 더 열어줌 으로써 오류 해결</p>
+-->
