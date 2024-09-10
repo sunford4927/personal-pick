@@ -9,15 +9,10 @@
             width: 100%;
             
             th{
-                background: gray;
+                background: #d7d7d7;
                 height: 30px;
-                // width:20%;
-                // 가운데 정렬
-                // justify-content: center;
-                // 수직
                 vertical-align: middle;
-                // 수평
-                align-items: center;
+                font-weight: 600;
             }
             td{
                 height: 30px;
@@ -89,4 +84,11 @@
             }
         }
     }
+}
+
+.reviewbtn{
+    border: 1px solid white;
+    background: #0099FC;
+    color: white;
+    cursor: pointer;
 }

@@ -552,7 +552,10 @@ const Detailinfo = (item) => {
                                 onShowSizeChange={onShowSizeChange}
                                 itemRender={itemRender}
                             />
-
+                            <br />
+                            <button onClick={()=>navigate('/itemOrder')} className='tempbutton'>
+                                리뷰 작성
+                            </button>
                             {/* <nav>
                             <ul className='pagination'>
                                 <li className='page-item'>

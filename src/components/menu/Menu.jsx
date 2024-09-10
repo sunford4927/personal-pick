@@ -16,13 +16,12 @@ const Menu = ({ isView }) => {
 
     const isMenuView = useSelector(state => state.isMenu)
     const name = useSelector(state => state.user);
-    console.log(name)
     const dispatch = useDispatch();
     function logout() {
         LogoutSession();
         dispatch(setUser(undefined));
     }
-    
+
     return (
         <>
             {
@@ -32,7 +31,7 @@ const Menu = ({ isView }) => {
                         <img className='menu_userimg float_l' src={UserImg} alt="" />
                         <p className='menu_title' onClick={() => nav("/login")}>{name === undefined ? "로그인/회원가입" :
                             <>
-                                <span style={{ fontWeight: 800,color:'#555555',marginRight:'3px' }}>{name.user_nm}</span>
+                                <span style={{ fontWeight: 800, color: '#555555', marginRight: '3px' }}>{name.user_nm}</span>
                                 님 환영합니다
                             </>
                         }</p>
@@ -40,9 +39,24 @@ const Menu = ({ isView }) => {
                     <hr className='thin_grayline' />
                     <div className='menu_box'>
                         <div className='menu_logout'>
-                            <p className='menu_skintype' onClick={() => nav("/typecheck")}>피부타입 진단</p>
-                            <p className='menu_skintype' onClick={() => nav("/airecommend")}>화장품 추천</p>
-                            
+                            <p className='menu_skintype' onClick={() => {
+                                nav("/typecheck")
+                                
+                            }
+                            }>피부타입 진단</p>
+                            <p className='menu_skintype' onClick={() => {
+                                if(name !== undefined)
+                                {
+                                    nav("/airecommend")
+                                }
+                                else{
+                                    alert("로그인후 이용해 주세요!")
+                                    nav("login");
+                                }
+                                // console.log(name)
+                            }
+                            }>화장품 추천</p>
+
                             {/* <p className='menu_skintype'>피부타입별</p>
                             <p className='menu_age'>나이대별</p> */}
                             <p className='menu_subscribe' onClick={() => nav("/subscription")}>정기배송/구독</p>
@@ -53,7 +67,9 @@ const Menu = ({ isView }) => {
                                 <div className='menu_login'>
                                     <p className='menu_mypage' onClick={() => nav("/mypage")}>마이페이지</p>
                                     <hr className='thin_grayline' />
-                                    <p className='menu_myreview' onClick={() => nav("/review")}>나의 리뷰</p>
+                                    {/* <p className='menu_myreview' onClick={() => nav("/review")}>나의 리뷰</p> */}
+                                    {/* <hr className='thin_grayline' /> */}
+                                    <p className='menu_myreview' onClick={() => nav("/cartlist")}>장바구니</p>
                                     <hr className='thin_grayline' />
                                     <p className='menu_addresslist' onClick={() => nav("/addressListAll")}>배송지</p>
                                     <hr className='thin_grayline' />

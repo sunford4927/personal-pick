@@ -49,22 +49,10 @@ const Home = () => {
     // [] -> 첫 렌더링에만 실행
 
     useEffect(() => {
-        sendGet(URL + '/MainPage', setData);
+        // sendGet(URL + '/MainPage', setData);
+        sendGet(URL + '/PositiveScore', setData);
     }, [])
 
-    function temp(data) {
-        setUserId(data)
-    }
-    const [userId, setUserId] = useState({});
-    useEffect(() => {
-        let nick = sessionStorage.getItem("username");
-        if (nick !== "") {
-            sendGet(URL + '/TestSearch?user_nm=' + nick, temp)
-        }
-    }, [])
-
-    useEffect(() => {
-    }, [userId])
 
     // 오늘날짜
     let today = new Date()
@@ -90,7 +78,7 @@ const Home = () => {
 
 
     // 광고배너 이미지 목록
-    const images = [Image1, Image2, Image3,Image4,Image5,Image6,Image7,Image8,Image9];
+    const images = [Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     // 이미지가 일정 시간마다 변경되도록 설정
@@ -103,27 +91,25 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [images.length]);
 
-    const [day, setDay]= useState(5);
-    function changeday(idx)
-    {
+    const [day, setDay] = useState(5);
+    function changeday(idx) {
         console.log(idx)
-        if(idx === 0)
-        {
+        if (idx === 0) {
             setDay(5);
         }
-        else{
+        else {
             setDay(5 + idx);
         }
     }
     const WordList = [
-        {cos_img_src : Word1 },
-        {cos_img_src : Word2 },
-        {cos_img_src : Word3},
-        {cos_img_src : Word4},
-        {cos_img_src : Word5},
-        {cos_img_src : Word6},
-        {cos_img_src : Word7},
-    
+        { cos_img_src: Word1 },
+        { cos_img_src: Word2 },
+        { cos_img_src: Word3 },
+        { cos_img_src: Word4 },
+        { cos_img_src: Word5 },
+        { cos_img_src: Word6 },
+        { cos_img_src: Word7 },
+
     ]
     return (
         <div className="inner"  >
@@ -138,41 +124,35 @@ const Home = () => {
 
             {/* 추천 화장품 광고 배너 */}
             <div className="adbannermain" onClick={handleClick}>
-            <div className="adbannercontainer">
-                <img src={images[currentImageIndex]} alt="배너 이미지" />
-                <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
-                <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
-            </div>
-        </div>
-
-
-
-
-            <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
-                {(today.getMonth() + 1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
-                <span> AI가 분석한 리뷰 긍정 점수 높은 순 🎁 </span> 
-                <img className="category_arrow" src={Right} alt="" />
+                <div className="adbannercontainer">
+                    <img src={images[currentImageIndex]} alt="배너 이미지" />
+                    <span className="adbannertext">회원 맞춤 추천 화장품 보러가기</span>
+                    <a className="adbannerbutton">내 맞춤 추천이 궁금하다면?</a>
+                </div>
             </div>
 
-{/* 
+
+
+
+
+            {/* 
             <div>
                 <CustomSwiper list={data}  />
             </div> */}
 
 
             <div className="basic-text cursor personalpick_keyword" >
-            {/* <div className="week_keyword">{"< 9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 > " }</div> */}
-                {"9월 " + day + "일 " }
-                <span>퍼스널픽 주요 키워드</span>
-                 {/* <span>{"9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 " }</span> */}
+                {/* <div className="week_keyword">{"< 9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 > " }</div> */}
+                {"9월 " + day + "일 "}
+                <span>퍼스널픽 주요 키워드 </span><span style={{fontSize : "14px", color : "orange"}}># 글씨가 클수록 검색을 많이했다는 뜻이에요!</span>
+                {/* <span>{"9월 " + (today.getDate() -1)+ "일 " }~{" 9월 " + (today.getDate() +5)+ "일 " }</span> */}
                 {/* <img className="category_arrow" src={Right} alt="" /> */}
             </div>
 
             <div>
-                <CustomSwiper list={WordList} type={"word"} func = {changeday}/>
+                <CustomSwiper list={WordList} type={"word"} func={changeday} />
             </div>
 
-            {/* 스크롤 내릴시 생기는 애니메이션 div */}
             <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -183,7 +163,31 @@ const Home = () => {
                     x: { duration: 1 },
                 }}
             >
-                <div className="cursor choies_rank" onClick={() => nextTotalPage(2)}>
+                <div className="basic-text cursor" onClick={() => nextTotalPage(1)}>
+                    {(today.getMonth() + 1) + "월 " + today.getDate() + "일 " + getDay(today.getDay())}
+                    <span> AI가 분석한 리뷰 긍정 점수 높은 순 🎁 </span>
+                    <img className="category_arrow" src={Right} alt="" />
+                </div> 
+                    <Itemview data={data} />
+                <div className="home_page_btn cursor" onClick={() => nextTotalPage(1)} >
+                    {'긍정 점수' + ' 전체보기'}
+                    <img className="homeright" src={Right} alt="" />
+                </div>
+            </motion.div>
+            {/* 스크롤 내릴시 생기는 애니메이션 div*/}
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                    ease: 'easeInOut',
+                    duration: 0.5,
+                    x: { duration: 1 },
+                }}
+            >
+
+
+                <div className="cursor basic-text" onClick={() => nextTotalPage(2)}>
                     퍼스널 픽 고객들이 직접
                     <span> 선택한 랭킹🎁 </span>
                     <img className="category_arrow" src={Right} alt="" />

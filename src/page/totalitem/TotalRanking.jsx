@@ -31,6 +31,10 @@ const TotalItem = () => {
     const { category } = useParams();
     useEffect(() => {
         sendGet(URL + '/PositiveScore', setAllItem);
+        
+        window.scroll({
+            top: 0,
+        })
     }, [])
     const [cateIdx, setCateIdx] = useState(category)
 
@@ -81,8 +85,10 @@ const TotalItem = () => {
     }
 
     function changeClass(idx) {
+        window.scrollTo({ top: 0 });
         setCateIdx(idx)
     }
+    
 
 
     return (

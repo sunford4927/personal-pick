@@ -4,9 +4,10 @@ import { modalClose } from '../../util/util'
 import { URL } from '../../util/util';
 import { sendGet } from '../../util/util';
 import { sampleSize } from 'lodash';
+import close from '../../img/회색엑스.png'
 
 
-const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
+const ShoppingCartBtn = ({ func, func1 , navigate}) => {
   console.log('idx : ', func);
 
 
@@ -67,8 +68,13 @@ const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
 
   
   const handleClick = (idx) => {
-    navigate(`/detailinfo/${idx}`);
+    window.location.replace(`/detailinfo/${idx+1}`);
+    window.scrollTo({ top: 0 });
   };
+
+  const closeClick = () => {
+    modalClose();
+  }
   
 
   return (
@@ -76,19 +82,19 @@ const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
 
     <>
       <div className='shoppingcartfix'>
-        <div class="shoppingcart mt-8 px-20">장바구니 담기</div>
-        <hr class='shoppingcartbar' />
+        <div className="shoppingcart mt-8 px-20">장바구니 담기<img src = {close} width={20} className='closebtn' onClick={closeClick}/></div>
+        <hr className='shoppingcartbar' />
         <div className='shoppingcart_box'>
-          <span class="addshopping">장바구니에 추가되었습니다.</span>
+          <span className="addshopping">장바구니에 추가되었습니다.</span>
         </div>
-        <div class="shoppincartmainbox">
-          <div class='godetailmain'>
+        <div className="shoppincartmainbox">
+          <div className='godetailmain'>
             {/* <div class="godetailbutton">
             <a class="godetailbutton btn1 first flex" onClick={() => modalClose()}>쇼핑계속하기</a>
           </div> */}
-            <a class="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
+            <a className="godetailbutton" onClick={() => modalClose()}>쇼핑계속하기</a>
           </div>
-          <div class='gotoshoppingmain'>
+          <div className='gotoshoppingmain'>
             {/* <div class="gotoshoppingbutton">
             <a className="gotoshoppingbutton btn1 first flex" onClick={() => func("/cartlist")}>장바구니 이동</a>
           </div> */}
@@ -109,7 +115,7 @@ const ShoppingCartBtn = ({ func, func1 ,navigate}) => {
         {recoData ? (
           <div className='recodataall'>
             {recoData.map((item) => (
-              <div key={item.idx} onClick={() => handleClick(item.idx)} className='recodataall2'>
+              <div key={item.idx} className='recodataall2' onClick={() => handleClick(item.idx)}>
                 <img
                   src={item.cos_img_src}
                   alt="코스메틱 이미지"

@@ -65,6 +65,7 @@ class reco_data:
         self.df_review = self.df_review.drop(columns = ['review_idx', 'user_age','review'])
         # print('5 :',self.df_review)
 
+
         # users 파일 읽어오기
         self.df_user = pd.read_csv(f'{path}/data/result_users.csv', encoding='utf-8')
         # df_user = df_user.drop(columns = ['user_id', 'user_pw', 'user_name', 'user_email', 'user_address'])

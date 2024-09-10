@@ -14,7 +14,7 @@ function checkPath(path)
     let check = false;
     switch(path){
         case "/": // 홈
-        case /^\/detailinfo\/\d+$/.test(path): // 상세페이지
+        //case /^\/detailinfo\/\d+$/.test(path): // 상세페이지
         case "/login":
         case "join":
         case /^\/search\/\s+$/.test(path):
@@ -27,7 +27,14 @@ function checkPath(path)
             check = true;
             break;
         default:
-            check =false;
+            if(/^\/detailinfo\/\d+$/.test(path))
+            {
+                check = true;
+            }
+            else{
+
+                check =false;
+            }
     }
     console.log(check)
     return check;
@@ -55,7 +62,7 @@ const HeaderView = () => {
     }
     useEffect(()=>{
         let userid = sessionStorage.getItem("userid");
-
+        console.log(userid)
         sendGet(URL+'/TestSearch?user_id='+ userid, consolea)
     },[])
 

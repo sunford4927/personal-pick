@@ -4,7 +4,8 @@ import { URL } from '../../util/util';
 import { sendGet } from '../../util/util';
 import { useParams } from 'react-router-dom';
 import './Ingredient.scss'
-
+import close from '../../img/회색엑스.png'
+import { modalClose } from '../../util/util';
 
 
 const Ingredient = (props) => {
@@ -93,7 +94,10 @@ const [colorCounts, setColorCounts] = useState({
     setTotalIngredients(cosingredient.length);
   }, [cosingredient]);
   
-
+  // 모달 닫는 버튼
+  const closeClick = () => {
+    modalClose();
+  }
 
 
   return (
@@ -102,7 +106,7 @@ const [colorCounts, setColorCounts] = useState({
       <div className="ingredientcomposition mt-8 px-20">
         <span className="compositiontext">성분 구성</span>
         <span className='totaling'>{totalIngredients}</span>
-        개
+        개<img src = {close} width={25} className='closebtn1' onClick={closeClick}/>
       </div>
   
       {/* 성분 구성 위험 단계 */}
