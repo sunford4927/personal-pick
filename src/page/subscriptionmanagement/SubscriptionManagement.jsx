@@ -87,11 +87,11 @@ const SubscriptionManagement = () => {
         <>
             <PageHeader title={"구독관리"}/>
             <div className='flex_col management_subtitle'>
-                <p className='cursor management_subtitle_contents none' onClick={(e)=> {
+                <p className='cursor management_subtitle_contents active' onClick={(e)=> {
                     changeclass(e)
                     setMainTitle("구독상품 내역")}
                 }>구독상품 내역</p>
-                <p className='cursor management_subtitle_contents active' onClick={(e)=> {
+                <p className='cursor management_subtitle_contents none' onClick={(e)=> {
                     changeclass(e)
                     setMainTitle("구독 해지")}
                 }>구독 해지</p>

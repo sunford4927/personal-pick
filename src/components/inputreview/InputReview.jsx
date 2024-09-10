@@ -3,6 +3,7 @@ import './InputReview.scss'
 import { sendGet, sendPost, showComplete, URL } from '../../util/util';
 import { setStarMenu } from '../../util/util';
 import { useNavigate } from 'react-router-dom';
+import { getLoginSession } from '../../util/session'
 
 
 const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
@@ -31,7 +32,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
 
     function sendReview() {
         if (user.user_id === "") {
-            alert("로그인 해 주세요")
+            alert("로그인해 주세요")
             return
         }
         if(index === 10)
@@ -46,15 +47,19 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
             return
         }
 
+        console.log('user : ', user);
+        console.log('user_nm : ', getLoginSession().usernm)
+        console.log('user_id : ', getLoginSession().username)
+
 
         sendPost(URL + '/InsertReview',  threeget ,
             {
-                user_nm: user.user_nm,
+                user_nm: getLoginSession().usernm,
                 cos_name: item.cos_name,
                 rating: index,
                 review: contents,
                 cos_idx: item.idx,
-                user_id: user.user_id
+                user_id: getLoginSession().username
                 // cos_idx, user_idx
             })
     }
@@ -84,7 +89,7 @@ const InputReview = ({item , setReview , setReviewCnt , setScoreCnt}) => {
                 <textarea
                     className="review_container"
                     type="text"
-                    placeholder={'상세한 리뷰를 작성해보세요! \n리뷰 작성하면 포인트도 받고, 내리뷰가 최상단에 떠요!'}
+                    placeholder={'상세한 리뷰를 작성해 보세요! \n리뷰 작성하면 포인트도 받고, 내 리뷰가 최상단에 떠요!'}
                     value={contents}
                     onChange={(e) => setContents(e.target.value)}
                     

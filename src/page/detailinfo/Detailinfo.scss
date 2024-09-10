@@ -1,4 +1,19 @@
 // 상단 고정
+.tempbutton{
+    margin-left: 600px;
+    // height: 30px;
+    // width: 80px;
+    background-color: #0099FC;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px 17px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 10px;
+    border-radius: 10px;
+
+}
+
 
 .itemname {
     /* 기존 스타일 유지 */
@@ -273,6 +288,7 @@
     font-size: 16px;
     font-weight: 700;
     margin: 255px 20px 10px 10px;
+    position: fixed;
 }
 
 
@@ -313,6 +329,7 @@
 
 .shoppingcartfix{
     position: fixed;
+    width: 470px;
 }
 
 .recodataall{
@@ -320,7 +337,7 @@
 }
 
 .recodataall2{
-    min-width: 150px;
+    min-width: 185px;
     overflow-x: auto;
     flex-wrap: wrap;
 }
@@ -328,16 +345,13 @@
 .modalimg {
     margin-left: 10px;
     margin-right: 10px;
-
-  
-    
+    margin-top: 300px;  
 }
 
 .modalimgmain {
     display: flex;
     justify-content: space-between;
 }
-
 
 
 .modalimgbar {
@@ -471,13 +485,12 @@
     border-width: 0;
     margin: 12px 0 0 0;
     margin-left: 0px;
-    margin-right: -35px;
+    margin-right: 10px;
 }
 
 .shoppingcart_box {
     padding: 50px 0 30px 0;
     margin-bottom: -10px;
-    margin-left: 50px;
 }
 
 // 쇼핑 계속하기 버튼
@@ -624,9 +637,19 @@
     justify-content: center;
     margin: 20px;
     padding: 10px 0;
-    margin-left: 55px;
 }
 
+.closebtn {
+    display: flex;
+    cursor: pointer;
+
+}
+
+.closebtn1{
+    display: flex;
+    cursor: pointer;
+    margin-left: 460px;
+}
 
 
 // AI가 분석하는 리뷰
@@ -1493,4 +1516,5 @@ video {
     margin-left: -15px;
     margin-top: 0px;
     color: #000000;
+    justify-content: space-between;
 }

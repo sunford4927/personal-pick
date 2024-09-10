@@ -98,10 +98,10 @@ const ShoppingCart = () => {
                 <p className='cartbox_text'>장바구니</p>
             </div>
 
-            <p className='sampleroad_text'>샘플로드 배송상품</p>
+            <p className='sampleroad_text'>퍼스널픽 배송상품</p>
 
             <div className='flex_col ' style={{alignItems:"center"}}>
-                <input type="checkbox" className='total_check'  onChange={(e)=> totalCheck(e)}/>
+                <input type="checkbox" className='total_check' defaultChecked  onChange={(e)=> totalCheck(e)}/>
                 <div className='totalcheck_text' >전체선택</div>
                 <div className='deletebtn_text' style={{marginRight : "30px", marginLeft : "auto"}}>품절삭제</div>
                 <div className='deletebtn_text' onClick={()=>choiceDelete()}>선택삭제</div>

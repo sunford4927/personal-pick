@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../components/pageheader/PageHeader';
-import { URL } from '../../util/util'
+import { showReview, URL } from '../../util/util'
 import axios from 'axios';
 // import '../itemorderview/ItemOrderView.scss'
 import './review.scss'
@@ -17,6 +17,7 @@ import Image6 from '../../img/광고배너6.png'
 import Image7 from '../../img/광고배너7.png'
 import Image8 from '../../img/광고배너8.png'
 import Image9 from '../../img/광고배너9.png'
+import ShowReview from './ShowReview';
 
 const Review = () => {
     // 페이지 이동 함수
@@ -34,6 +35,12 @@ const Review = () => {
     const [delState, setDelState] = useState({});
     // 리뷰 데이터 저장 -> map함수 돌리고싶으면 [] 이용
     const [reviewData, setReviewData] = useState([]);
+
+    
+    // 리뷰 데이터 띄워주는 모달창 함수
+    const ReviewModalClick = (e) => {
+        showReview(<ShowReview/>)
+    }
     
 
     useEffect(() => {
@@ -45,12 +52,13 @@ const Review = () => {
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_nm: getLoginSession().username
+                        user_id: getLoginSession().username
                     }
                 });
                 console.log('res_user : ', responseUserData.data[0]);
 
                 const res_user = responseUserData.data[0]
+                console.log('res_user : ', res_user)
 
     //             // 2. 주문/배송 데이터
     //             const responseOrderData = await axios.get(URL + '/TestOrderData', {
@@ -125,22 +133,17 @@ const Review = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th style={{ width: '60%' }}>Cos Name</th>
-                            <th style={{ width: '10%' }}>Rating</th>
-                            <th style={{ width: '20%' }}>Review Date</th>
-                            <th style={{ width: '10%' }}>Review</th>
+                            <th style={{ width: '60%' }}>화장품 이름</th>
+                            <th style={{ width: '10%' }}>별점</th>
+                            <th style={{ width: '20%' }}>작성 날짜</th>
+                            <th style={{ width: '10%' }}>리뷰</th>
                             
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style={{}}>
                         {reviewData?<>
                             {reviewData.map((item) => (
-                                <tr>
-                                    <td style={{ textAlign: 'left'}}>{item.cos_name}</td>
-                                    <td>{item.rating}</td>
-                                    <td>{formatDate(item.review_reg_dt)}</td>
-                                    <td><button>review</button></td>
-                                </tr>
+                               <ShowReview item={item}/>
                             ))}
                             </>:<></>
                         }

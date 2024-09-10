@@ -78,10 +78,15 @@ class abc(Resource):
         reco_not_sub = df_product[df_product['cos_name'].isin(simple.index)].head(10)
         # print('not_sub : ', reco_not_sub)
         reco_not_sub = pd.DataFrame(reco_not_sub)
+        reco_not_sub['idx'] = reco_not_sub['idx'] + 1
+        # print('reco_not_sub : ', reco_not_sub)
 
         # 구독자 전용
         reco_sub = df_product[df_product['cos_name'].isin(reco.index)]
         reco_sub = pd.DataFrame(reco_sub)
+        reco_sub['idx'] = reco_sub['idx'] +1
+        # print('reco_sub : ', reco_sub)
+
         # DataFrame을 JSON 형식의 Python 객체로 변환
         reco_not_sub = reco_not_sub.to_dict(orient='records')
         reco_sub = reco_sub.to_dict(orient='records')
@@ -91,7 +96,7 @@ class abc(Resource):
             # print('sub_1_reco_final', reco_final)
         else:
             reco_final = reco_not_sub
-            # print('sub_0_reco_final : ', reco_final)
+            # print('non_sub_reco_final : ', reco_final)
 
         # JSON 형식의 Python 객체를 JSON 응답으로 반환
         return jsonify(reco_final)
@@ -134,18 +139,80 @@ class recoIng(Resource):
         return jsonify(reco)
     
 # 피부타입 진단
+import io
+import os
+import torch
+import torch.nn as nn
+from PIL import Image
+from torchvision import transforms
+from torchvision.models import resnet50, ResNet50_Weights
 class skinCheck(Resource):
     def post(self):
         print('요청받음')
-        value = request.files['file']
-        print(value.name)
+        file = request.files['file']
+        value = file.read()
+        print('받은 데이터 : ', file)
+        # print('읽기 : ', value)
+        # from PIL import Image
 
+        # 읽어서 RGB 모드로 변환
+        img = Image.open(io.BytesIO(value)).convert('RGB')
+        print('img : ', img)
 
+        # 모델 정의
+        IMG_SIZE = 224
+        OUT_CLASSES = 3
+        index_label = {0: "dry", 1: "normal", 2: "oily"}
 
-        return 0
+        transform = transforms.Compose([
+            transforms.Resize(IMG_SIZE),
+            transforms.ToTensor(),
+        ])
+
         
+        # 현재 파일의 디렉토리 경로
+        path = os.path.dirname(os.path.abspath(__file__))
 
+        # 모델 로드
+        model = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+        num_ftrs = model.fc.in_features
+        model.fc = nn.Linear(num_ftrs, OUT_CLASSES)
 
+        # 학습된 모델 가중치 로드
+        model_path = (f'{path}/data/best_model.pth')
+        print('path : ', model_path)
+        checkpoint = torch.load(model_path)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        model.eval()
+
+        # 이미지 변환 정의
+        transform = transforms.Compose([
+            transforms.Resize(IMG_SIZE),
+            transforms.ToTensor(),
+        ])
+
+        def predict_image(image):
+            # 이미지 로드 및 변환
+            # image = Image.open(image_path).convert('RGB')
+            image = transform(image)
+            image = image.unsqueeze(0)  # 배치 차원 추가
+
+            # 예측 수행
+            with torch.no_grad():
+                outputs = model(image)
+                _, predicted = torch.max(outputs, 1)
+                predicted_class = index_label[predicted.item()]
+            return predicted_class
+        result = predict_image(img)
+        if result == 'dry':
+            result = '건성'
+        elif result == 'normal':
+            result = '중성'
+        elif result == 'oily':
+            result = '지성'
+        print('결과 : ', result)
+        return result
+        
 
 # print(1)
 # recoIng.get('1')

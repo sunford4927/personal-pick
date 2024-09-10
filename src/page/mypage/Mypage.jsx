@@ -39,19 +39,22 @@ const Join = () => {
 
     useEffect(() => {
         const LoadUsersData = async () => {
+            // console.log('user_id : ', getLoginSession().username);
+            
             // session에 로그인 정보가 있으면 해당 유저의 데이터를 가져옴
             if (getLoginSession().username) {
-                console.log('user_name : ', getLoginSession().username);
 
                 // 1. 유저 데이터
                 const responseUserData = await axios.get(URL + '/TestUserData', {
                     params: {
-                        user_nm: getLoginSession().username
+                        user_id: getLoginSession().username
                     }
                 });
                 // console.log('res_user : ', responseUserData.data[0]);
 
                 const res_user = responseUserData.data[0]
+                console.log('res_user : ', res_user);
+                
 
                 // 2. 주문/배송 데이터
                 const responseOrderData = await axios.get(URL + '/TestOrderData', {
@@ -189,7 +192,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state1:'-'}
+                                '2':''}
+                                {/* delState.state1:'-'} */}
                             </p>
                             <p>주문접수</p>
                         </div>
@@ -205,7 +209,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state3:'-'}
+                                '3':''}
+                                {/* delState.state3:'-'} */}
                             </p>
                             <p>배송준비중</p>
                         </div>
@@ -213,7 +218,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state4:'-'}
+                                '1':''}
+                                {/* delState.state4:'-'} */}
                             </p>
                             <p>배송중</p>
                         </div>
@@ -221,7 +227,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state5:'-'}
+                                '5':''}
+                                {/* delState.state5:'-'} */}
                             </p>
                             <p>배송완료</p>
                         </div>
@@ -249,13 +256,17 @@ const Join = () => {
                 <div className='text'>
                     <p>구독</p>
                     <h1 className='cursor' onClick={() => navigate("/subscriptionmanagement")}>🎁 정기배송 / 구독관리</h1>
-                    <p>문의</p>
-                    <h1>고객센터</h1>
-                    <h1>1:1 문의</h1>
-                    <h1>상품 Q&A</h1>
-                    <h1>로그아웃</h1>
-
                 </div>
+                <div className='text'>
+                    <p>문의</p>
+                    <h1>🎧 고객센터</h1>
+                    <h1>📞 1:1 문의</h1>
+                    <h1>📎 상품 Q&A</h1>
+                    </div>
+                    <div className='text'>
+                        <p>로그아웃</p>
+                        </div>
+                    
 
 
 

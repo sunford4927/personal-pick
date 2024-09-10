@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+    import React, { useEffect, useState } from 'react'
 import './PayShipment.scss';
 import Back from '../../img/왼쪽.png';
 import Triangle from '../../img/역삼각형.png';
@@ -8,12 +8,15 @@ import { useSelector } from 'react-redux';
 import AddressList from '../addresslist/AddressList';
 import Right from "../../img/오른쪽.png"
 import defualtImg from "../../img/파비콘.png"
+import { LoginSession, LogoutSession, getLoginSession } from '../../util/session'
+
 const PayShipment = () => {
 
     const nav = useNavigate();
     const { cos_id, cos_count } = useParams();
     const location = useLocation(); // location 객체를 통해 전달된 state 사용
     const isSubscription = location.state?.isSubscription || false; // 구독 여부 확인
+    // const [sub , setSub] = useState(false)
 
     const [sendData, setSendData] = useState();
     const [dropdownOpenClose, setDropdownOpenClose] = useState(false);
@@ -127,6 +130,10 @@ const PayShipment = () => {
         }
     };
 
+
+    const handleSub = () =>{
+        LoginSession(getLoginSession().username, getLoginSession().usernm, 1);
+    }
     return (
         <div>
             <div className='backORtext'>
@@ -217,6 +224,7 @@ const PayShipment = () => {
                                     itemCntList : 1,
                                     orderName : "구독결제" 
                                 }, defaultAddr);
+                                handleSub()
                             }
                         }}>
                             {totalPrice + "원 결제하기"}
