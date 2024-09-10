@@ -185,7 +185,6 @@ export function showComplete(strTag, func) {
     withReactContent(Swal).fire({
         html: strTag,
         confirmButtonText : "확인",
-        background :'#0099FC',
         width : "60%",
         didOpen: () => {
 
