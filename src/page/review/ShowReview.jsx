@@ -1,10 +1,6 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import { getLoginSession } from '../../util/session';
-import axios from 'axios';
-import account from '../../img/사용자프로필.png'
-import { setScore } from '../../util/util'
-import { URL } from '../../util/util';
+import { useState} from 'react';
+
 
 
 const ShowReview = ({ item }) => {
@@ -29,17 +25,18 @@ const ShowReview = ({ item }) => {
                 <td style={{ textAlign: 'left' }}>{item.cos_name}</td>
                 <td>{item.rating}</td>
                 <td>{formatDate(item.review_reg_dt)}</td>
-                <td><button className='reviewbtn' onClick={() => setShowReview(!showreview)}>review</button></td>
+                <td><button className='reviewbtn' onClick={() => setShowReview(!showreview)}>보기</button></td>
             </tr>
             {showreview &&
                 <tr style={{border:'1px solid black'}}>
                     <td colspan='3'>
-                        <div className='reviewcommentmain flex items-start gap-x-8 mt-24' style={{marginTop:'0' , textAlign:'left' , fontSize:'14px' , marginBottom:'12px' , marginTop:'12px'}}>
+                        <div className='reviewcommentmain flex items-start gap-x-8 mt-24' 
+                        style={{marginTop:'0' , textAlign:'left' , fontSize:'14px' , marginBottom:'12px' , marginTop:'12px' , fontWeight:'600'}}>
                             <span className='reviewcomment'>{item.review}</span>
                         </div>
                     </td>
                     <td>
-                        <button className='reviewbtn' style={{background:'gray'}}>삭제</button>
+                        <button className='reviewbtn' style={{background:'#0099FC'}}>삭제</button>
                     </td>
                 </tr>
 

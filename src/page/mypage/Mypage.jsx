@@ -192,7 +192,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state1:'-'}
+                                '2':''}
+                                {/* delState.state1:'-'} */}
                             </p>
                             <p>주문접수</p>
                         </div>
@@ -208,7 +209,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state3:'-'}
+                                '3':''}
+                                {/* delState.state3:'-'} */}
                             </p>
                             <p>배송준비중</p>
                         </div>
@@ -216,7 +218,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state4:'-'}
+                                '1':''}
+                                {/* delState.state4:'-'} */}
                             </p>
                             <p>배송중</p>
                         </div>
@@ -224,7 +227,8 @@ const Join = () => {
                         <div>
                             <p className='myPage_count'>
                                 {delState?
-                                delState.state5:'-'}
+                                '5':''}
+                                {/* delState.state5:'-'} */}
                             </p>
                             <p>배송완료</p>
                         </div>

@@ -133,14 +133,14 @@ const Review = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th style={{ width: '60%' }}>Cos Name</th>
-                            <th style={{ width: '10%' }}>Rating</th>
-                            <th style={{ width: '20%' }}>Review Date</th>
-                            <th style={{ width: '10%' }}>Review</th>
+                            <th style={{ width: '60%' }}>화장품 이름</th>
+                            <th style={{ width: '10%' }}>별점</th>
+                            <th style={{ width: '20%' }}>작성 날짜</th>
+                            <th style={{ width: '10%' }}>리뷰</th>
                             
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style={{}}>
                         {reviewData?<>
                             {reviewData.map((item) => (
                                <ShowReview item={item}/>
