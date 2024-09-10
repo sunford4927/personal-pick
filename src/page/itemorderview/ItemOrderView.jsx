@@ -32,6 +32,10 @@ const ItemOrderView = () => {
         console.log(data)
     }, [data])
 
+    const style = {
+        cursor:'pointer'
+    }
+
     return (
         <>
             <PageHeader title={"주문내역"} />
@@ -41,7 +45,7 @@ const ItemOrderView = () => {
                     <div className='itemordercontainer'>
                         <div className='date_title flex_col'>
                             <p>{name.order_date}</p>
-                            <div><img src={Right} alt="" onClick={() =>{
+                            <div><img src={Right} alt="" style={style} onClick={() =>{
                                 let list = data.filter(box => {
                                     if(name.order_date === box.order_date && name.order_name === box.order_name)
                                     {

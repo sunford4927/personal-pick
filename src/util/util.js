@@ -168,6 +168,18 @@ export function showMap(strTag, func) {
     });
 }
 
+// 리뷰 쪽
+export function showReview(strTag, func) {
+    withReactContent(Swal).fire({
+        html: strTag,
+        showConfirmButton: false,
+        width : "100%",
+        didOpen: () => {
+
+        },
+    });
+}
+
 
 export function showComplete(strTag, func) {
     withReactContent(Swal).fire({
