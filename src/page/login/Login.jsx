@@ -35,7 +35,7 @@ const Login = () => {
             dispatch(setUser(responseData));
             
             if (responseData) {
-                LoginSession(responseData.user_id, responseData.user_nm, 1);
+                LoginSession(responseData.user_id, responseData.user_nm, 0);
                 setIsLogin(true);
                 setError('');
                 alert('로그인 성공!');
