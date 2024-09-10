@@ -205,13 +205,14 @@
 
 
 
-  <table width="1000px" display="table">
+
+  <table style="width=1000px;" >
     <tr >
       <td><img src="https://github.com/user-attachments/assets/0145b28a-24ab-4a18-b1cf-166161ae1247" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/c679a169-df8d-494c-a2be-b40af4f02661" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/06395d1d-a548-4ced-8137-89de9fc8f98d" width="200px" height="200px"></td>
       <td><img src="https://github.com/user-attachments/assets/2e83ded0-7463-4d06-97a4-379a122a237e" width="200px" height="200px"></td>
-      <td><img src="https://github.com/user-attachments/assets/d7156068-7f49-4417-84e1-02852b087511" width="200px" height="200px"></td>
+      <td><img src="https://github.com/user-attachments/assets/b6664676-38a4-4c9f-a0ae-707a1dea192a" width="200px" height="200px"></td>
     </tr>
     <tr >
       <td ><center>최지원</center></td>
@@ -234,8 +235,8 @@
       <td>Front-End</td>
       <td>Front-End</td>
     </tr>
-    <tr >
-      <td>
+    <tr  >
+      <td >
         - 전체 일정 관리 및 기획<br>
         - 산출문서 제작<br>
         - Back-end 서버 구축<br>
@@ -253,7 +254,7 @@
         - 인공지능<br>
           - 텍스트 마이닝 (리뷰 긍정 점수 랭킹) 
       </td>
-      <td>
+      <td >
         - BackEnd 서버 구축<br>
         - Selenium, BeautifulSoup 크롤링 데이터 23만개 수집 / 가공<br>
         - 피부타입 진단 기능<br>
@@ -265,7 +266,7 @@
         - 마이페이지/로그인 관련 페이지 구현<br>
           - session, redux에 로그인 정보 유지
       </td>
-      <td>
+      <td >
         - 프론트엔드 총괄<br>
         - sweet-alert2 라이브러리 사용<br>
         - 다음 주소 api 연동<br>
