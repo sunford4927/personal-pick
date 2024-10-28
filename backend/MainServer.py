@@ -57,10 +57,10 @@ api.add_resource(testUserData, '/TestUserData')
 api.add_resource(testOrderData, '/TestOrderData')
 api.add_resource(testReviewData, '/TestReviewData')
 
-# api.add_resource(testCategory, '/TestCategory')
-# api.add_resource(testSearch, '/TestSearch')
+api.add_resource(testCategory, '/TestCategory')
+api.add_resource(testSearch, '/TestSearch')
 
-# api.add_resource(testDY, '/TestDY')
+api.add_resource(testDY, '/TestDY')
 # api.add_resource(abc, '/Recommend')
 # api.add_resource(recoIng, '/RecoIng')
 # api.add_resource(skinCheck, '/SkinCheck')
